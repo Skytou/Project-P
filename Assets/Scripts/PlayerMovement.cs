@@ -106,7 +106,7 @@ public class PlayerMovement : MonoBehaviour
 
 		characterAnimator.SetInteger("moveDirection",moveDirection);
 
-		//transform.position = Vector3.MoveTowards(transform.position, target, speed * Time.deltaTime);
+		transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 	}
 
 	 
