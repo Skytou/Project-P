@@ -24,6 +24,8 @@ public class PlayerMovement : MonoBehaviour
 	string layerName;
 
 	bool isInMove;
+	float distance;
+	bool isRun;
 
 	void Awake()
 	{
@@ -134,10 +136,7 @@ public class PlayerMovement : MonoBehaviour
 
 		return moveDirection;
  
-		//transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-
-
-
+	 
 	}
 
 	 
@@ -172,6 +171,8 @@ public class PlayerMovement : MonoBehaviour
 	//	if(moveDirection==-1)
 		if(isInMove)
 		CalculateAngle(angle);
+		distance = Vector2.Distance(transform.position, target);
+		 
 		if(transform.position ==  target)
 		{
 			isInMove = false;
@@ -181,11 +182,31 @@ public class PlayerMovement : MonoBehaviour
 
 			
 		}
+
+		if(distance<=10)
+		{
+			isRun = false;
+			speed = 5;
+		}
+		else
+		{
+			isRun = true;
+			speed =10;
+		}
+
+		characterAnimator.SetBool("isRun",isRun);
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-
+		if(Input.GetKeyDown(KeyCode.A))
+		{
+			characterAnimator.SetFloat("idleDirection",idleDirection);
+			characterAnimator.SetFloat("moveDirection",moveDirection);
+			int r = Random.Range(1,5);
+			characterAnimator.SetInteger("AttackRandom",r);
+			characterAnimator.SetTrigger("Attack");
+		}
 	
 		//CallAnimation();
 	}    
