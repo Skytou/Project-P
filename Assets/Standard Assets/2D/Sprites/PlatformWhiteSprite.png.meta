@@ -1,5 +1,7 @@
 fileFormatVersion: 2
 guid: d90a8faf6fb9540b084ef2825cc3a5dc
+timeCreated: 1438844602
+licenseType: Pro
 TextureImporter:
   fileIDToRecycleName:
     21300000: PrototypeWhite04x01
@@ -39,10 +41,10 @@ TextureImporter:
   spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
-  alignment: 6
-  spritePivot: {x: .5, y: .5}
-  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spritePixelsToUnits: 204.800003
+  alignment: 9
+  spritePivot: {x: 0, y: .5}
+  spriteBorder: {x: 0, y: 1, z: 0, w: 0}
+  spritePixelsToUnits: 100
   alphaIsTransparency: 1
   textureType: 8
   buildTargetSettings:
@@ -67,3 +69,4 @@ TextureImporter:
   spritePackingTag: 
   userData: 
   assetBundleName: 
+  assetBundleVariant: 

@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
 {
 
 	public float speed =1.5f;
+	public Vector2 velocity;
 	private Vector3 target;
 	private Animator characterAnimator;
 	 
@@ -32,14 +33,14 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
-		prevMoveDirection =5;
+		/*prevMoveDirection =5;
 		moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);*/
 	}
  
 
-	void CalculateAngle(float angle, Vector3 traget)
+	float CalculateAngle(float angle)
 	{
 		if(angle>0)
 		{
@@ -49,7 +50,7 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =1;
 				prevMoveDirection =1;
 				idleDirection =-1;
-
+				 
 			}
 			else if(angle > 15 && angle <= 75)
 			{
@@ -130,19 +131,12 @@ public class PlayerMovement : MonoBehaviour
 			}
 
 		}
+
+		return moveDirection;
  
 		//transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-		if(transform.position ==  target)
-		{
-			  
-			idleDirection =prevMoveDirection;
-			moveDirection=-1;
 
-
-		}
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
 
 	}
 
@@ -175,9 +169,22 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 
-		//if(isInMove)
-		CalculateAngle(angle , target);
+	//	if(moveDirection==-1)
+		if(isInMove)
+		CalculateAngle(angle);
+		if(transform.position ==  target)
+		{
+			isInMove = false;
+			moveDirection=-1;
+			idleDirection =prevMoveDirection;
+
+
+			
+		}
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
 		transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+
 
 	
 		//CallAnimation();
@@ -185,7 +192,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void FixedUpdate()
 	{
-
+		//this.GetComponent<Rigidbody2D>().MovePosition(target + velocity * Time.fixedDeltaTime);
 	}
 
 	void LateUpdate()

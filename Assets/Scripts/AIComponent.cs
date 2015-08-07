@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 
@@ -22,16 +23,20 @@ public class AIComponent : MonoBehaviour
 	public float aiMoveSpeed;
 	public int aiLevel;
 	public float aiHealth;
+	public float aiMaxHitTaken;
 	public int aiAttackTime;
 	public float aiHealthDegrageRate;
 
 	public GameObject playerRef;
+	public GameObject healthBar;
 	public float distanceToAttack;
 	public bool isInPlayerRadius;
 	private Animator aiAnimator;
 	private AnimatorStateInfo aiAnimatorState;
 
 
+	bool isAiInRange;
+	RectTransform healthBarRectTransform; 
 	float distanceToPlayer;
 	string layerName;
 	float a_timer;
@@ -41,14 +46,18 @@ public class AIComponent : MonoBehaviour
 	float xComponent;
 	float yComponent;
 	float angle;
+	float hitsTaken;
 
-	 
+	float healthBarScaleFactor;
+	Vector3 healthBarRectT;
 
 	void Awake()
 	{
 		playerRef = GameObject.FindGameObjectWithTag("Player");
 		aiAnimator = GetComponent<Animator>();
-
+		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
+		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
+		Debug.Log(healthBarScaleFactor);
 	}
 
 	// Use this for initialization
@@ -68,8 +77,9 @@ public class AIComponent : MonoBehaviour
 	{
 
 	}
+	//Calculate the angle and return the movedirection
 
-	void CalculateAngle(float angle, Vector3 target)
+	float CalculateAngle(float angle)
 	{
 		if(angle>0)
 		{
@@ -161,18 +171,7 @@ public class AIComponent : MonoBehaviour
 			
 		}
 	 
-		if(transform.position ==  playerRef.transform.position)
-		{
-			//isInMove = false;
-			//idleDirection = moveDirection;
-			idleDirection =prevMoveDirection;
-			moveDirection=-1;
-			
-			
-		}
-		aiAnimator.SetFloat("idleDirection",idleDirection);
-		aiAnimator.SetFloat("moveDirection",moveDirection);
-		
+		return moveDirection;
 	}
 
 	void MoveTowardsPlayer()
@@ -196,11 +195,22 @@ public class AIComponent : MonoBehaviour
 		 	xComponent = -transform.position.x + playerRef.transform.position.x;
 			yComponent = -transform.position.y + playerRef.transform.position.y;
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			CalculateAngle(angle, playerRef.transform.position);
+			moveDirection =  CalculateAngle(angle);
 				
 		}
 
-		 
+		if(transform.position ==  playerRef.transform.position)
+		{
+			//isInMove = false;
+			//idleDirection = moveDirection;
+			idleDirection =prevMoveDirection;
+			moveDirection=-1;
+			
+			
+		}
+		aiAnimator.SetFloat("idleDirection",idleDirection);
+		aiAnimator.SetFloat("moveDirection",moveDirection);
+
 	}
 
 
@@ -228,6 +238,28 @@ public class AIComponent : MonoBehaviour
 	}
 
 
+	void React()
+	{
+		if (hitsTaken >= aiMaxHitTaken-1)
+		{ 	
+			Debug.Log("Calling Dead state");
+			healthBar.SetActive(false);
+			hitsTaken++;
+ 
+		}
+		else
+		{
+			hitsTaken++;
+
+			healthBarRectT = healthBarRectTransform.localScale;
+			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
+			healthBarRectTransform.localScale =healthBarRectT;
+			//healthBarRectT =  healthBarRectT.localScale.x -healthBarScaleFactor;
+			//healthBarRectTransform = healthBarRectT;
+			Debug.Log(hitsTaken);
+		}
+	}
+
 	void OnTriggerEnter2D(Collider2D other)
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
@@ -236,6 +268,14 @@ public class AIComponent : MonoBehaviour
 		{
 		case "Player":
 			isInPlayerRadius = true;
+			break;
+
+		case "AI":
+
+			Debug.Log("Ai In AI range");
+			break;
+		default:
+			 
 			break;
 		}
 		Debug.Log(layerName);
@@ -259,6 +299,11 @@ public class AIComponent : MonoBehaviour
 			case AIBehaviour.ATTACK:
 				MoveTowardsPlayer();
 			break;
+		}
+
+		if(Input.GetMouseButtonDown(1))
+		{
+			React();
 		}
 	}
 }
