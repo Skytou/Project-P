@@ -29,6 +29,12 @@ public class PlayerMovement : MonoBehaviour
 
 	Collider2D collider2D;
 
+	bool isEnemySpotted;
+
+//	GameObject selected
+
+	Vector2 enemyOffset;
+
 	void Awake()
 	{
 		target = transform.position;
@@ -168,26 +174,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
-		//Movement();
-		/*if (Input.GetMouseButtonDown(0)) 
-		{
-			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-			touchPos = new Vector2(target.x, target.y);
-			//target.z = transform.position.z;
-			 
 		 
-			xComponent = -transform.position.x + touchPos.x;
-			yComponent = -transform.position.y + touchPos.y;
-
-			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-
-			//Debug.Log("Angle " + angle);
-			isInMove = true;
-
-			  
-		}
-*/
 		if (Input.GetMouseButtonDown(0))
 		{
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -196,14 +183,15 @@ public class PlayerMovement : MonoBehaviour
 			
 			if(hit.collider != null ) // set layer for player to check 
 			{
-				//touchPos = hit.collider.transform.position;
+				target = hit.collider.gameObject.transform.position ;
 				//touchPos = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y,0);
 				//Debug.Log(hit.collider.transform.position);
 				Debug.Log("object clicked: "+hit.collider.name);
 			}
 			else
 			{
-				touchPos = new Vector3(target.x, target.y,0);
+				//touchPos = new Vector3(target.x, target.y,0);
+				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			} 
 
 			touchPos = new Vector3(target.x, target.y,0);
@@ -214,9 +202,6 @@ public class PlayerMovement : MonoBehaviour
 
 			isInMove = true;
 		}
-
-
-	//	if(moveDirection==-1)
 
 		if(isInMove)
 			CalculateAngle(angle);
