@@ -13,19 +13,21 @@ public class PlayerMovement : MonoBehaviour
 	private AnimatorStateInfo animatorStateInfo;
  
  
-	private Vector3 mouseClickPos;
-
+	 
 	float idleDirection,moveDirection , prevMoveDirection;
 	
 	float xComponent;
 	float yComponent;
 	float angle;
 
+	Vector3 touchPos;
 	string layerName;
 
 	bool isInMove;
 	float distance;
 	bool isRun;
+
+	Collider2D collider2D;
 
 	void Awake()
 	{
@@ -142,7 +144,23 @@ public class PlayerMovement : MonoBehaviour
 	 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		Debug.Log(other.gameObject.name);
+		layerName =  LayerMask.LayerToName(other.gameObject.layer);
+		
+		switch(layerName)
+		{
+		case "Player":
+
+			break;
+			
+		case "AI":
+			
+			Debug.Log("Ai In AI range");
+			break;
+		default:
+			
+			break;
+		}
+		Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
 
@@ -151,37 +169,70 @@ public class PlayerMovement : MonoBehaviour
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
 		//Movement();
-		if (Input.GetMouseButtonDown(0)) 
+		/*if (Input.GetMouseButtonDown(0)) 
 		{
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			target.z = transform.position.z;
-			mouseClickPos = Input.mousePosition;
+
+			touchPos = new Vector2(target.x, target.y);
+			//target.z = transform.position.z;
+			 
 		 
-			xComponent = -transform.position.x + target.x;
-			yComponent = -transform.position.y + target.y;
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
 
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
 
 			//Debug.Log("Angle " + angle);
 			isInMove = true;
-	  		 
+
+			  
+		}
+*/
+		if (Input.GetMouseButtonDown(0))
+		{
+			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+ 
+			RaycastHit2D hit   = Physics2D.Raycast(target, Vector2.zero);
+			
+			if(hit.collider != null ) // set layer for player to check 
+			{
+				//touchPos = hit.collider.transform.position;
+				//touchPos = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y,0);
+				//Debug.Log(hit.collider.transform.position);
+				Debug.Log("object clicked: "+hit.collider.name);
+			}
+			else
+			{
+				touchPos = new Vector3(target.x, target.y,0);
+			} 
+
+			touchPos = new Vector3(target.x, target.y,0);
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
+			
+			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+
+			isInMove = true;
 		}
 
 
 	//	if(moveDirection==-1)
+
 		if(isInMove)
-		CalculateAngle(angle);
-		distance = Vector2.Distance(transform.position, target);
+			CalculateAngle(angle);
+
+		distance = Vector2.Distance(transform.position, touchPos);
 		 
-		if(transform.position ==  target)
+		//Debug.Log(distance);
+		if(transform.position ==  touchPos)
 		{
 			isInMove = false;
-			moveDirection=-1;
+			isRun = false;
 			idleDirection =prevMoveDirection;
-
-
-			
+		
 		}
+
+
 
 		if(distance<=10)
 		{
@@ -194,6 +245,7 @@ public class PlayerMovement : MonoBehaviour
 			speed =10;
 		}
 
+		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
