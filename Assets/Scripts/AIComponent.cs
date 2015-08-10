@@ -25,7 +25,7 @@ public class AIComponent : MonoBehaviour
 	public float aiHealth;
 	public float aiMaxHitTaken;
 	public int aiAttackTime;
-	public float aiHealthDegrageRate;
+	//public float aiHealthDegrageRate;
 
 	public GameObject playerRef;
 	public GameObject healthBar;
@@ -34,6 +34,7 @@ public class AIComponent : MonoBehaviour
 	private Animator aiAnimator;
 	private AnimatorStateInfo aiAnimatorState;
 
+	Vector3 playerPos;
 
 	bool isAiInRange;
 	RectTransform healthBarRectTransform; 
@@ -47,6 +48,7 @@ public class AIComponent : MonoBehaviour
 	float yComponent;
 	float angle;
 	float hitsTaken;
+	bool isInMove;
 
 	float healthBarScaleFactor;
 	Vector3 healthBarRectT;
@@ -79,7 +81,7 @@ public class AIComponent : MonoBehaviour
 	}
 	//Calculate the angle and return the movedirection
 
-	float CalculateAngle(float angle)
+	void CalculateAngle(float angle)
 	{
 		if(angle>0)
 		{
@@ -171,13 +173,14 @@ public class AIComponent : MonoBehaviour
 			
 		}
 	 
-		return moveDirection;
+		//return moveDirection;
 	}
 
 	void MoveTowardsPlayer()
 	{
 		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
 		 
+		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
 		if(distanceToPlayer<distanceToAttack)
 		{
@@ -191,13 +194,15 @@ public class AIComponent : MonoBehaviour
 		}
 		else
 		{
-			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
-		 	xComponent = -transform.position.x + playerRef.transform.position.x;
-			yComponent = -transform.position.y + playerRef.transform.position.y;
+
+			xComponent = -transform.position.x + playerPos.x;
+			yComponent = -transform.position.y + playerPos.y;
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			moveDirection =  CalculateAngle(angle);
-				
+			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
+			CalculateAngle(angle);
+			isInMove = true;
 		}
+
 
 		if(transform.position ==  playerRef.transform.position)
 		{
@@ -206,8 +211,9 @@ public class AIComponent : MonoBehaviour
 			idleDirection =prevMoveDirection;
 			moveDirection=-1;
 			
-			
 		}
+
+		aiAnimator.SetBool("isInMove",isInMove);
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
@@ -218,10 +224,8 @@ public class AIComponent : MonoBehaviour
 	{
 		// call idle animation
 		// call stop animation
-		moveDirection =-1;
-		idleDirection = prevMoveDirection;
-		aiAnimator.SetFloat("idleDirection",idleDirection);
-		aiAnimator.SetFloat("moveDirection",moveDirection);
+		Idle ();
+	 
 
 		if(a_timer <=0f)
 		{
@@ -232,13 +236,33 @@ public class AIComponent : MonoBehaviour
 		a_timer -= Time.deltaTime;
 	}
 
+
+	void Idle()
+	{
+		Debug.Log("Calling IDle");
+		isInMove = false;
+		//isRun = false;
+		idleDirection =prevMoveDirection;
+		
+		aiAnimator.SetBool("isInMove",isInMove);
+		//aiAnimator.SetBool("isRun",isRun);
+		aiAnimator.SetFloat("idleDirection",idleDirection);
+		aiAnimator.SetFloat("moveDirection",moveDirection);
+	}
+
 	void Attack()
 	{
 		Debug.Log("Calling AttackAnimation");
+		aiAnimator.SetFloat("idleDirection",idleDirection);
+		aiAnimator.SetFloat("moveDirection",moveDirection);
+		int r = Random.Range(1,5);
+		//Debug.Log("Random value "+ 4);
+		aiAnimator.SetInteger("AttackRandom",r);
+		aiAnimator.SetTrigger("Attack");
 	}
 
 
-	void React()
+	public void React()
 	{
 		if (hitsTaken >= aiMaxHitTaken-1)
 		{ 	
@@ -254,8 +278,6 @@ public class AIComponent : MonoBehaviour
 			healthBarRectT = healthBarRectTransform.localScale;
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
-			//healthBarRectT =  healthBarRectT.localScale.x -healthBarScaleFactor;
-			//healthBarRectTransform = healthBarRectT;
 			Debug.Log(hitsTaken);
 		}
 	}
@@ -272,13 +294,13 @@ public class AIComponent : MonoBehaviour
 
 		case "AI":
 
-			Debug.Log("Ai In AI range");
+			//Debug.Log("Ai In AI range");
 			break;
 		default:
 			 
 			break;
 		}
-		Debug.Log(layerName);
+		//Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
 	void CallAnimation()

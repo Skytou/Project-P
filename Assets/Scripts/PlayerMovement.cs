@@ -17,17 +17,15 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerBehaviour playerBehaviour;
 
 
-	public float speed =1.5f;
+	public float speed ;
 	public Vector2 velocity;
 	private Vector3 target;
 	private Animator characterAnimator;
 	 
 	private AnimatorStateInfo animatorStateInfo;
- 
- 
-	 
-	float idleDirection,moveDirection , prevMoveDirection;
-	
+  	float idleDirection,moveDirection , prevMoveDirection;
+
+	float initialSpeed, intialDistanceToAttack;
 	float xComponent;
 	float yComponent;
 	float angle;
@@ -36,18 +34,19 @@ public class PlayerMovement : MonoBehaviour
 	string layerName;
 
 	bool isInMove;
-	float distance;
-	bool isRun;
+ 	bool isRun;
 
 	Collider2D collider2D;
 
 	bool isEnemySpotted;
 
-//	GameObject selected
+	GameObject selectedEnemy;
 
-	Vector2 enemyOffset;
+ 	public float distanceToPoint , distanceToAttack;
 
-	public float distanceToPoint , distanceToAttack;
+	public float attackTime;
+	RaycastHit2D hit ;
+	float a_timer;
 
 	void Awake()
 	{
@@ -57,6 +56,8 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
+		initialSpeed =speed;
+		intialDistanceToAttack = distanceToAttack;
 		/*prevMoveDirection =5;
 		moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
@@ -174,16 +175,16 @@ public class PlayerMovement : MonoBehaviour
 			
 		case "AI":
 			
-			Debug.Log("Ai In AI range");
+			//Debug.Log("Ai In AI range");
 
 			isEnemySpotted = true;
-			Debug.Log("IsEnemySpotted" + isEnemySpotted);
+		//	Debug.Log("IsEnemySpotted" + isEnemySpotted);
 			break;
 		default:
 			
 			break;
 		}
-		Debug.Log(layerName);
+		//Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
 	
@@ -191,100 +192,38 @@ public class PlayerMovement : MonoBehaviour
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
-
-		/*Debug.Log("IsEnemySpotted" + isEnemySpotted);
-		if (Input.GetMouseButtonDown(0))
-		{
 		 
-			isEnemySpotted = false;
-			 
-			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
- 
-			RaycastHit2D hit   = Physics2D.Raycast(target, Vector2.zero);
-			
-			if(hit.collider != null ) // set layer for player to check 
-			{
-				target = hit.collider.gameObject.transform.position ;
- 				Debug.Log("object clicked: "+hit.collider.name);
-			}
-			else
-			{  
-				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			} 
-
-			touchPos = new Vector3(target.x, target.y,0);
-			xComponent = -transform.position.x + touchPos.x;
-			yComponent = -transform.position.y + touchPos.y;
-			
-			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-
-			isInMove = true;
-		}
-
-		if(isInMove)
-			CalculateAngle(angle);
-
-		distance = Vector2.Distance(transform.position, touchPos);
-
-
-		//if(!isEnemySpotted)
-		{
-			if(transform.position ==  touchPos )
-			{
-				isInMove = false;
-				isRun = false;
-				idleDirection =prevMoveDirection;
-				
-			}
-		}
-		 
-
- 
-		if(distance<=10)
-		{
-			isRun = false;
-			speed = 5;
-		}
-		else
-		{
-			isRun = true;
-			speed =10;
-		}
-
-		characterAnimator.SetBool("isInMove",isInMove);
-		characterAnimator.SetBool("isRun",isRun);
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
-
-		//if(transform.position !=  touchPos && !isEnemySpotted)
-		{
-			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-		}
-
-		/*else
-		{
-			Debug.Log("Call Idle State");
-			Idle();
-			return;
-		}*/
-
 		if (Input.GetMouseButtonDown(0))
 		{ 
+			 
+			selectedEnemy = null;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			RaycastHit2D hit   = Physics2D.Raycast(target, Vector2.zero);
+			hit   = Physics2D.Raycast(target, Vector2.zero);
+
 			if(hit.collider != null ) // set layer for player to check 
-			{
+			{ 
 				target = hit.collider.gameObject.transform.position ;
+				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
+				if(layerName=="AI")
+				selectedEnemy = hit.collider.gameObject;
 				Debug.Log("object clicked: "+hit.collider.name);
+				Debug.Log("Selected Enemy " + selectedEnemy);
+			 
 			}
 			else
 			{  
 				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			} 
+
+
 
 			playerBehaviour = PlayerBehaviour.MOVE;
 		}
-
+		if(hit.collider!=null)
+		{
+			target = hit.collider.gameObject.transform.position ;
+		}
+		touchPos = new Vector3(target.x, target.y,0);
 		switch(playerBehaviour)
 		{
 		case PlayerBehaviour.IDLE:
@@ -306,14 +245,14 @@ public class PlayerMovement : MonoBehaviour
 	 
 	}
 
-	void Stop()
-	{
-		Idle();
-	}
 
 	void MoveTowardsPoint()
 	{ 
-		distanceToPoint = Vector2.Distance(transform.position, target);
+		distanceToPoint = Vector2.Distance(transform.position, touchPos);
+
+		// if(animatorStateInf)
+
+		// pause current attack animation
 
  		if(distanceToPoint<distanceToAttack)
 		{
@@ -322,24 +261,34 @@ public class PlayerMovement : MonoBehaviour
 
 		else
 		{
-			touchPos = new Vector3(target.x, target.y,0);
-			xComponent = -transform.position.x + touchPos.x;
+ 			xComponent = -transform.position.x + touchPos.x;
 			yComponent = -transform.position.y + touchPos.y;
 			
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
 			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-			distance = Vector2.Distance(transform.position, touchPos);
-			CalculateAngle(angle);
-			if(distance<=10)
+		 	CalculateAngle(angle);
+
+			if(selectedEnemy==null)
 			{
-				isRun = false;
-				speed = 5;
+				isRun = true;
+				distanceToAttack =1;
+				speed = initialSpeed;
 			}
 			else
 			{
-				isRun = true;
-				speed =10;
+				distanceToAttack= initialSpeed;
+				if(distanceToPoint<=distanceToAttack *2)
+				{
+					isRun = false;
+					speed = initialSpeed/2;
+				}
+				else
+				{
+					isRun = true;
+					speed =initialSpeed;
+				}
 			}
+
 			isInMove = true;
  		}
 
@@ -350,6 +299,7 @@ public class PlayerMovement : MonoBehaviour
 			idleDirection =prevMoveDirection;
 			
 		}
+		 
 
 		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
@@ -358,12 +308,48 @@ public class PlayerMovement : MonoBehaviour
 
  	 
 	}
+
+	void Stop()
+	{
+
+	 	Idle();
+
+		if(selectedEnemy!=null )
+		{
+			if(!animatorStateInfo.IsTag("AttackTag"))
+			{
+				characterAnimator.StopPlayback();
+
+		 
+			if(a_timer <=0f)
+			{
+				// call Attack()
+				Attack();
+				a_timer = attackTime;
+			}
+			a_timer -= Time.deltaTime;
+
+			}
+		}
+		else
+			return;
+ 		 
+	}
+
  
 	void Idle()
 	{
+		xComponent = -transform.position.x + touchPos.x;
+		yComponent = -transform.position.y + touchPos.y;
+		
+		angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+		//transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+		CalculateAngle(angle);
+
 		isInMove = false;
 		isRun = false;
 		idleDirection =prevMoveDirection;
+
 
 		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
@@ -373,16 +359,31 @@ public class PlayerMovement : MonoBehaviour
 
 	void Attack()
 	{
-		/*if(Input.GetKeyDown(KeyCode.A))
+		//if(Input.GetKeyDown(KeyCode.A))
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
 			int r = Random.Range(1,5);
+			//Debug.Log("Random value "+ 4);
 			characterAnimator.SetInteger("AttackRandom",r);
 			characterAnimator.SetTrigger("Attack");
-		}*/
+			//Debug.Log( "Event "+ characterAnimator.fireEvents );
+		}
 	}
 
+	void React()
+	{
+
+	}
+
+	public void AttackEnemy()
+	{
+		if(selectedEnemy!=null)
+		{
+			selectedEnemy.GetComponent<AIComponent>().React();
+			// call reaction animation for the selected enemy and reduce his health
+		}
+	}
 	void FixedUpdate()
 	{
 		//this.GetComponent<Rigidbody2D>().MovePosition(target + velocity * Time.fixedDeltaTime);
