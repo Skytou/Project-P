@@ -24,7 +24,7 @@ public class AIComponent : MonoBehaviour
 	public int aiLevel;
 	public float aiHealth;
 	public float aiMaxHitTaken;
-	public int aiAttackTime;
+	public float aiAttackTime;
 	//public float aiHealthDegrageRate;
 
 	public GameObject playerRef;
@@ -49,6 +49,8 @@ public class AIComponent : MonoBehaviour
 	float angle;
 	float hitsTaken;
 	bool isInMove;
+
+	public bool isAIOverLapped;
 
 	float healthBarScaleFactor;
 	Vector3 healthBarRectT;
@@ -179,10 +181,10 @@ public class AIComponent : MonoBehaviour
 	void MoveTowardsPlayer()
 	{
 		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
-		 
+		
 		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
-		if(distanceToPlayer<distanceToAttack)
+		if( (distanceToPlayer<distanceToAttack) || isAIOverLapped )
 		{
 			Stop();
 
@@ -192,17 +194,19 @@ public class AIComponent : MonoBehaviour
 			// call hit animation for an interval
 
 		}
-		else
+		else  
 		{
 
 			xComponent = -transform.position.x + playerPos.x;
 			yComponent = -transform.position.y + playerPos.y;
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
 			CalculateAngle(angle);
+			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
+
 			isInMove = true;
 		}
 
+		 
 
 		if(transform.position ==  playerRef.transform.position)
 		{
@@ -225,15 +229,9 @@ public class AIComponent : MonoBehaviour
 		// call idle animation
 		// call stop animation
 		Idle ();
-	 
+		//aiBehaviour = AIBehaviour.IDLE;
 
-		if(a_timer <=0f)
-		{
-			// call Attack()
-			Attack();
-			a_timer = aiAttackTime;
-		}
-		a_timer -= Time.deltaTime;
+
 	}
 
 
@@ -242,12 +240,25 @@ public class AIComponent : MonoBehaviour
 		Debug.Log("Calling IDle");
 		isInMove = false;
 		//isRun = false;
+		//aiBehaviour = AIBehaviour.IDLE;
 		idleDirection =prevMoveDirection;
 		
 		aiAnimator.SetBool("isInMove",isInMove);
 		//aiAnimator.SetBool("isRun",isRun);
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
+
+		if(!isAIOverLapped)
+		{
+			if(a_timer <=0f)
+			{
+				// call Attack()
+				Attack();
+				a_timer = aiAttackTime;
+			}
+			a_timer -= Time.deltaTime;
+		}
+
 	}
 
 	void Attack()
@@ -278,7 +289,7 @@ public class AIComponent : MonoBehaviour
 			healthBarRectT = healthBarRectTransform.localScale;
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
-			Debug.Log(hitsTaken);
+			//Debug.Log(hitsTaken);
 		}
 	}
 
@@ -294,6 +305,7 @@ public class AIComponent : MonoBehaviour
 
 		case "AI":
 
+			//Idle();
 			//Debug.Log("Ai In AI range");
 			break;
 		default:
@@ -303,6 +315,43 @@ public class AIComponent : MonoBehaviour
 		//Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
+
+	void OnTriggerStay2D(Collider2D other) 
+	{
+		layerName =  LayerMask.LayerToName(other.gameObject.layer);
+		
+		switch(layerName)
+		{ 	
+			case "AI":
+			isAIOverLapped = true;
+			
+			 
+			//Debug.Log("Ai In AI range");
+				break;
+			default:
+				
+				break;
+		}
+	}
+
+	void OnTriggerExit2D(Collider2D other) 
+	{
+		layerName =  LayerMask.LayerToName(other.gameObject.layer);
+		
+		switch(layerName)
+		{ 	
+		case "AI":
+			isAIOverLapped = false;
+			
+			
+			//Debug.Log("Ai In AI range");
+			break;
+		default:
+			
+			break;
+		}
+	}
+
 	void CallAnimation()
 	{
 		
@@ -312,14 +361,25 @@ public class AIComponent : MonoBehaviour
 	{
 
 	}
+
+	void CastRay()
+	{
+
+	}
 	
 	// Update is called once per frame
 	void Update () 
 	{
+
+
 		switch(aiBehaviour)
 		{
 			case AIBehaviour.ATTACK:
 				MoveTowardsPlayer();
+			break;
+
+		case AIBehaviour.IDLE:
+			Idle();
 			break;
 		}
 

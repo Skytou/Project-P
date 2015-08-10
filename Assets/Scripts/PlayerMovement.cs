@@ -206,8 +206,8 @@ public class PlayerMovement : MonoBehaviour
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 				if(layerName=="AI")
 				selectedEnemy = hit.collider.gameObject;
-				Debug.Log("object clicked: "+hit.collider.name);
-				Debug.Log("Selected Enemy " + selectedEnemy);
+				//Debug.Log("object clicked: "+hit.collider.name);
+			//	Debug.Log("Selected Enemy " + selectedEnemy);
 			 
 			}
 			else
@@ -249,7 +249,7 @@ public class PlayerMovement : MonoBehaviour
 	void MoveTowardsPoint()
 	{ 
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-
+		//characterAnimator.ResetTrigger("Attack");
 		// if(animatorStateInf)
 
 		// pause current attack animation
@@ -365,8 +365,9 @@ public class PlayerMovement : MonoBehaviour
 			characterAnimator.SetFloat("moveDirection",moveDirection);
 			int r = Random.Range(1,5);
 			//Debug.Log("Random value "+ 4);
-			characterAnimator.SetInteger("AttackRandom",r);
+			characterAnimator.SetInteger("AttackRandom",2);
 			characterAnimator.SetTrigger("Attack");
+
 			//Debug.Log( "Event "+ characterAnimator.fireEvents );
 		}
 	}
