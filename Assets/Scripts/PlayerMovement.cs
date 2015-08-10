@@ -2,8 +2,20 @@
 using System.Collections;
 //using Prime31;
 
+
+public enum PlayerBehaviour
+{
+	IDLE, 
+	MOVE,
+	ATTACK,
+	REACT
+}
+
 public class PlayerMovement : MonoBehaviour
 {
+
+	public PlayerBehaviour playerBehaviour;
+
 
 	public float speed =1.5f;
 	public Vector2 velocity;
@@ -34,6 +46,8 @@ public class PlayerMovement : MonoBehaviour
 //	GameObject selected
 
 	Vector2 enemyOffset;
+
+	public float distanceToPoint , distanceToAttack;
 
 	void Awake()
 	{
@@ -161,6 +175,9 @@ public class PlayerMovement : MonoBehaviour
 		case "AI":
 			
 			Debug.Log("Ai In AI range");
+
+			isEnemySpotted = true;
+			Debug.Log("IsEnemySpotted" + isEnemySpotted);
 			break;
 		default:
 			
@@ -169,14 +186,18 @@ public class PlayerMovement : MonoBehaviour
 		Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
+	
 
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
-		 
+		/*Debug.Log("IsEnemySpotted" + isEnemySpotted);
 		if (Input.GetMouseButtonDown(0))
 		{
+		 
+			isEnemySpotted = false;
+			 
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
  
 			RaycastHit2D hit   = Physics2D.Raycast(target, Vector2.zero);
@@ -184,13 +205,10 @@ public class PlayerMovement : MonoBehaviour
 			if(hit.collider != null ) // set layer for player to check 
 			{
 				target = hit.collider.gameObject.transform.position ;
-				//touchPos = new Vector3(hit.collider.transform.position.x, hit.collider.transform.position.y,0);
-				//Debug.Log(hit.collider.transform.position);
-				Debug.Log("object clicked: "+hit.collider.name);
+ 				Debug.Log("object clicked: "+hit.collider.name);
 			}
 			else
-			{
-				//touchPos = new Vector3(target.x, target.y,0);
+			{  
 				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			} 
 
@@ -207,18 +225,21 @@ public class PlayerMovement : MonoBehaviour
 			CalculateAngle(angle);
 
 		distance = Vector2.Distance(transform.position, touchPos);
-		 
-		//Debug.Log(distance);
-		if(transform.position ==  touchPos)
+
+
+		//if(!isEnemySpotted)
 		{
-			isInMove = false;
-			isRun = false;
-			idleDirection =prevMoveDirection;
-		
+			if(transform.position ==  touchPos )
+			{
+				isInMove = false;
+				isRun = false;
+				idleDirection =prevMoveDirection;
+				
+			}
 		}
+		 
 
-
-
+ 
 		if(distance<=10)
 		{
 			isRun = false;
@@ -234,19 +255,133 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetBool("isRun",isRun);
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
-		transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
 
-		if(Input.GetKeyDown(KeyCode.A))
+		//if(transform.position !=  touchPos && !isEnemySpotted)
+		{
+			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+		}
+
+		/*else
+		{
+			Debug.Log("Call Idle State");
+			Idle();
+			return;
+		}*/
+
+		if (Input.GetMouseButtonDown(0))
+		{ 
+			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			RaycastHit2D hit   = Physics2D.Raycast(target, Vector2.zero);
+			if(hit.collider != null ) // set layer for player to check 
+			{
+				target = hit.collider.gameObject.transform.position ;
+				Debug.Log("object clicked: "+hit.collider.name);
+			}
+			else
+			{  
+				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+			} 
+
+			playerBehaviour = PlayerBehaviour.MOVE;
+		}
+
+		switch(playerBehaviour)
+		{
+		case PlayerBehaviour.IDLE:
+
+			break;
+		case PlayerBehaviour.MOVE:
+			MoveTowardsPoint();
+
+			break;
+
+		case PlayerBehaviour.ATTACK:
+
+			break;
+
+		case PlayerBehaviour.REACT:
+
+			break;
+		}
+	 
+	}
+
+	void Stop()
+	{
+		Idle();
+	}
+
+	void MoveTowardsPoint()
+	{ 
+		distanceToPoint = Vector2.Distance(transform.position, target);
+
+ 		if(distanceToPoint<distanceToAttack)
+		{
+			Stop ();
+		}
+
+		else
+		{
+			touchPos = new Vector3(target.x, target.y,0);
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
+			
+			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+			distance = Vector2.Distance(transform.position, touchPos);
+			CalculateAngle(angle);
+			if(distance<=10)
+			{
+				isRun = false;
+				speed = 5;
+			}
+			else
+			{
+				isRun = true;
+				speed =10;
+			}
+			isInMove = true;
+ 		}
+
+		if(transform.position ==  touchPos )
+		{
+			isInMove = false;
+			isRun = false;
+			idleDirection =prevMoveDirection;
+			
+		}
+
+		characterAnimator.SetBool("isInMove",isInMove);
+		characterAnimator.SetBool("isRun",isRun);
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+
+ 	 
+	}
+ 
+	void Idle()
+	{
+		isInMove = false;
+		isRun = false;
+		idleDirection =prevMoveDirection;
+
+		characterAnimator.SetBool("isInMove",isInMove);
+		characterAnimator.SetBool("isRun",isRun);
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+	}
+
+	void Attack()
+	{
+		/*if(Input.GetKeyDown(KeyCode.A))
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
 			int r = Random.Range(1,5);
 			characterAnimator.SetInteger("AttackRandom",r);
 			characterAnimator.SetTrigger("Attack");
-		}
-	
-		//CallAnimation();
-	}    
+		}*/
+	}
 
 	void FixedUpdate()
 	{
