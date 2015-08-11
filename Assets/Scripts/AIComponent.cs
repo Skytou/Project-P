@@ -9,6 +9,8 @@ public class AIProperties
 	 
 }
 
+ 
+
 public enum AIBehaviour
 {
 	IDLE,
@@ -19,7 +21,7 @@ public enum AIBehaviour
 public class AIComponent : MonoBehaviour 
 {
 	public AIBehaviour aiBehaviour;
-
+	 
 	public float aiMoveSpeed;
 	public int aiLevel;
 	public float aiHealth;
@@ -249,7 +251,7 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
-		if(isInPlayerRadius && !isAIOverLapped)
+		//if(isInPlayerRadius && !isAIOverLapped)
 		{
 			if(a_timer <=0f)
 			{
@@ -260,7 +262,7 @@ public class AIComponent : MonoBehaviour
 			}
 			a_timer -= Time.deltaTime;
 		}
-		else if(isAIOverLapped &&!isInPlayerRadius)
+		/*else if(isAIOverLapped &&!isInPlayerRadius)
 		{
 			Debug.Log("Calling IDle");
 			isInMove = false;
@@ -273,7 +275,7 @@ public class AIComponent : MonoBehaviour
 			aiAnimator.SetFloat("idleDirection",idleDirection);
 			aiAnimator.SetFloat("moveDirection",moveDirection);
 
-		}
+		}*/
 	}
 
 	void Attack()
@@ -295,6 +297,7 @@ public class AIComponent : MonoBehaviour
 			Debug.Log("Calling Dead state");
 			healthBar.SetActive(false);
 			hitsTaken++;
+			Destroy (this.gameObject);
  
 		}
 		else
@@ -308,7 +311,7 @@ public class AIComponent : MonoBehaviour
 		}
 	}
 
-	void OnTriggerEnter2D(Collider2D other)
+/*	void OnTriggerEnter2D(Collider2D other)
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
 
@@ -363,11 +366,11 @@ public class AIComponent : MonoBehaviour
 			//Debug.Log("Ai In AI range");
 			break;
 		default:
-			
+			isAIOverLapped = false;
 			break;
 		}
 	}
-
+*/
 	void CallAnimation()
 	{
 		
@@ -380,7 +383,8 @@ public class AIComponent : MonoBehaviour
 
 	void CastRay()
 	{
-
+		Collider2D c = Physics2D.OverlapCircle (this.transform.position, 8);
+		Debug.Log (c.gameObject.name);
 	}
 
 	void RevokeOverLap()
@@ -397,7 +401,7 @@ public class AIComponent : MonoBehaviour
 			Debug.Log ("Invokeing");
 			Invoke ("RevokeOverLap", 3);
 		}*/
-
+		CastRay ();
 		switch(aiBehaviour)
 		{
 			case AIBehaviour.ATTACK:
