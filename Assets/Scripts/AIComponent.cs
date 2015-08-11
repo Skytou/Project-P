@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -55,26 +55,27 @@ public class AIComponent : MonoBehaviour
 	float healthBarScaleFactor;
 	Vector3 healthBarRectT;
 
+ 
 	void Awake()
 	{
 		playerRef = GameObject.FindGameObjectWithTag("Player");
 		aiAnimator = GetComponent<Animator>();
 		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
 		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
-		Debug.Log(healthBarScaleFactor);
+		//Debug.Log(healthBarScaleFactor);
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
-	
+		 
 	}
 
 	 
 
 	void AttackPlayer(int id)
 	{
-
+		
 	}
 
 	void AIReact()
@@ -184,7 +185,7 @@ public class AIComponent : MonoBehaviour
 		
 		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
-		if( (distanceToPlayer<distanceToAttack) || isAIOverLapped )
+		if( (distanceToPlayer<distanceToAttack))// || isAIOverLapped )
 		{
 			Stop();
 
@@ -206,7 +207,7 @@ public class AIComponent : MonoBehaviour
 			isInMove = true;
 		}
 
-		 
+		// Physics2D.
 
 		if(transform.position ==  playerRef.transform.position)
 		{
@@ -248,17 +249,31 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
-		if(!isAIOverLapped)
+		if(isInPlayerRadius && !isAIOverLapped)
 		{
 			if(a_timer <=0f)
 			{
 				// call Attack()
+
 				Attack();
 				a_timer = aiAttackTime;
 			}
 			a_timer -= Time.deltaTime;
 		}
+		else if(isAIOverLapped &&!isInPlayerRadius)
+		{
+			Debug.Log("Calling IDle");
+			isInMove = false;
+			//isRun = false;
+			//aiBehaviour = AIBehaviour.IDLE;
+			idleDirection =prevMoveDirection;
 
+			aiAnimator.SetBool("isInMove",isInMove);
+			//aiAnimator.SetBool("isRun",isRun);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+
+		}
 	}
 
 	void Attack()
@@ -301,6 +316,7 @@ public class AIComponent : MonoBehaviour
 		{
 		case "Player":
 			isInPlayerRadius = true;
+			Debug.Log ("Player in Radius");
 			break;
 
 		case "AI":
@@ -366,11 +382,21 @@ public class AIComponent : MonoBehaviour
 	{
 
 	}
-	
+
+	void RevokeOverLap()
+	{
+		isAIOverLapped = false;
+		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("AI"), LayerMask.NameToLayer ("AI"));
+
+	}
 	// Update is called once per frame
 	void Update () 
 	{
-
+		/*if(!isAIOverLapped)
+		{
+			Debug.Log ("Invokeing");
+			Invoke ("RevokeOverLap", 3);
+		}*/
 
 		switch(aiBehaviour)
 		{
