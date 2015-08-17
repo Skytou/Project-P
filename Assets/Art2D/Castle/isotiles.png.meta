@@ -1,0 +1,253 @@
+fileFormatVersion: 2
+guid: f164dae0d3c8d402aa13b1241f34594a
+timeCreated: 1439815741
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: isotiles_0
+    21300002: isotiles_1
+    21300004: isotiles_2
+    21300006: isotiles_3
+    21300008: isotiles_4
+    21300010: isotiles_5
+    21300012: isotiles_6
+    21300014: isotiles_7
+    21300016: isotiles_8
+    21300018: isotiles_9
+    21300020: isotiles_10
+    21300022: isotiles_11
+    21300024: isotiles_12
+    21300026: isotiles_13
+    21300028: isotiles_14
+    21300030: isotiles_15
+    21300032: isotiles_16
+    21300034: isotiles_17
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -2
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: isotiles_0
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 409
+        width: 134
+        height: 84
+      alignment: 6
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_1
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 411
+        width: 131
+        height: 82
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_2
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 411
+        width: 133
+        height: 52
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_3
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 411
+        width: 70
+        height: 83
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_4
+      rect:
+        serializedVersion: 2
+        x: 799
+        y: 439
+        width: 132
+        height: 54
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_5
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 411
+        width: 69
+        height: 82
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_6
+      rect:
+        serializedVersion: 2
+        x: 30
+        y: 233
+        width: 134
+        height: 134
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_7
+      rect:
+        serializedVersion: 2
+        x: 264
+        y: 254
+        width: 50
+        height: 89
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_8
+      rect:
+        serializedVersion: 2
+        x: 414
+        y: 235
+        width: 134
+        height: 101
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_9
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 233
+        width: 71
+        height: 132
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_10
+      rect:
+        serializedVersion: 2
+        x: 797
+        y: 264
+        width: 135
+        height: 102
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_11
+      rect:
+        serializedVersion: 2
+        x: 1053
+        y: 234
+        width: 72
+        height: 131
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_12
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 55
+        width: 85
+        height: 107
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_13
+      rect:
+        serializedVersion: 2
+        x: 245
+        y: 54
+        width: 87
+        height: 108
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_14
+      rect:
+        serializedVersion: 2
+        x: 448
+        y: 82
+        width: 76
+        height: 83
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_15
+      rect:
+        serializedVersion: 2
+        x: 631
+        y: 55
+        width: 28
+        height: 78
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_16
+      rect:
+        serializedVersion: 2
+        x: 821
+        y: 81
+        width: 77
+        height: 85
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: isotiles_17
+      rect:
+        serializedVersion: 2
+        x: 1069
+        y: 54
+        width: 31
+        height: 79
+      alignment: 7
+      pivot: {x: .5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
