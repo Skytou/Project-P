@@ -57,6 +57,7 @@ public class AIComponent : MonoBehaviour
 	float healthBarScaleFactor;
 	Vector3 healthBarRectT;
 
+	 
  
 	void Awake()
 	{
@@ -183,20 +184,13 @@ public class AIComponent : MonoBehaviour
 
 	void MoveTowardsPlayer()
 	{
-		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
 		
 		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
-		if( (distanceToPlayer<distanceToAttack))// || isAIOverLapped )
+		if( (distanceToPlayer<distanceToAttack) || isAIOverLapped ||isInPlayerRadius)
 		{
 			Stop();
-
-
-		//	Debug.Log("Calling stop");
-			// stop
-			// call hit animation for an interval
-
-		}
+ 		}
 		else  
 		{
 
@@ -207,22 +201,20 @@ public class AIComponent : MonoBehaviour
 			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
 
 			isInMove = true;
+			aiAnimator.SetBool("isInMove",isInMove);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
 		}
-
-		// Physics2D.
+		  
 
 		if(transform.position ==  playerRef.transform.position)
-		{
-			//isInMove = false;
-			//idleDirection = moveDirection;
+		{ 
 			idleDirection =prevMoveDirection;
 			moveDirection=-1;
 			
 		}
 
-		aiAnimator.SetBool("isInMove",isInMove);
-		aiAnimator.SetFloat("idleDirection",idleDirection);
-		aiAnimator.SetFloat("moveDirection",moveDirection);
+
 
 	}
 
@@ -233,6 +225,7 @@ public class AIComponent : MonoBehaviour
 		// call stop animation
 		Idle ();
 		//aiBehaviour = AIBehaviour.IDLE;
+		//aiBehaviour = AIBehaviour.IDLE;
 
 
 	}
@@ -240,47 +233,35 @@ public class AIComponent : MonoBehaviour
 
 	void Idle()
 	{
-		Debug.Log("Calling IDle");
+		//Debug.Log("Calling IDle");
 		isInMove = false;
-		//isRun = false;
-		//aiBehaviour = AIBehaviour.IDLE;
+		 
 		idleDirection =prevMoveDirection;
 		
 		aiAnimator.SetBool("isInMove",isInMove);
-		//aiAnimator.SetBool("isRun",isRun);
+		 
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
-		//if(isInPlayerRadius && !isAIOverLapped)
+		if (isInPlayerRadius)
 		{
-			if(a_timer <=0f)
+			if (a_timer <= 0f) 
 			{
 				// call Attack()
 
-				Attack();
+				Attack ();
 				a_timer = aiAttackTime;
 			}
 			a_timer -= Time.deltaTime;
-		}
-		/*else if(isAIOverLapped &&!isInPlayerRadius)
-		{
-			Debug.Log("Calling IDle");
-			isInMove = false;
-			//isRun = false;
-			//aiBehaviour = AIBehaviour.IDLE;
-			idleDirection =prevMoveDirection;
+		} 
 
-			aiAnimator.SetBool("isInMove",isInMove);
-			//aiAnimator.SetBool("isRun",isRun);
-			aiAnimator.SetFloat("idleDirection",idleDirection);
-			aiAnimator.SetFloat("moveDirection",moveDirection);
-
-		}*/
+		 
+	  
 	}
 
 	void Attack()
 	{
-		Debug.Log("Calling AttackAnimation");
+		//Debug.Log("Calling AttackAnimation");
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);
@@ -288,7 +269,14 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetInteger("AttackRandom",r);
 		aiAnimator.SetTrigger("Attack");
 	}
+	//playerRef.transform.position + Random.insideUnitCircle
 
+	void OnCollisionMove()
+	{
+		Debug.Log ("On collision move");
+
+		this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2( playerRef.transform.position.x + Random.insideUnitCircle.x *5, playerRef.transform.position.y *5 + Random.insideUnitCircle.y) ,aiMoveSpeed * Time.deltaTime);
+	}
 
 	public void React()
 	{
@@ -307,11 +295,11 @@ public class AIComponent : MonoBehaviour
 			healthBarRectT = healthBarRectTransform.localScale;
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
-			//Debug.Log(hitsTaken);
+		 	//Debug.Log(hitsTaken);
 		}
 	}
 
-/*	void OnTriggerEnter2D(Collider2D other)
+ 	void OnTriggerEnter2D(Collider2D other)
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
 
@@ -319,58 +307,79 @@ public class AIComponent : MonoBehaviour
 		{
 		case "Player":
 			isInPlayerRadius = true;
-			Debug.Log ("Player in Radius");
+			//Debug.Log ("Player in Radius");
 			break;
 
 		case "AI":
+			//if (other.GetComponent<AIComponent> ().isInPlayerRadius == true )
+			{
+				isAIOverLapped = true;
+				 
+			}
 
-			//Idle();
-			//Debug.Log("Ai In AI range");
+		/*else
+			{
+				isAIOverLapped = false;
+			}*/
 			break;
-		default:
-			 
-			break;
+		 
 		}
-		//Debug.Log(layerName);
+	//	Debug.Log(layerName);
 		//characterInQuicksand = true;
 	}
 
-	void OnTriggerStay2D(Collider2D other) 
+	/*void OnTriggerStay2D(Collider2D other) 
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
-		
+
+		Debug.Log (layerName);
 		switch(layerName)
 		{ 	
-			case "AI":
-			isAIOverLapped = true;
-			
+
+		case "Player":
+			isInPlayerRadius = true;
+
 			 
-			//Debug.Log("Ai In AI range");
-				break;
-			default:
+			break;
+			case "AI":
+		 	if (other.GetComponent<AIComponent> ().isInPlayerRadius == true )
+			{
+				isAIOverLapped = true;
+			}
 				
+		 
+		 	 
+		 
 				break;
+		 
 		}
 	}
-
+*/
 	void OnTriggerExit2D(Collider2D other) 
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
 		
 		switch(layerName)
 		{ 	
+
+		case "Player":
+			isInPlayerRadius = false;
+			isAIOverLapped = false;
+		//	Debug.Log ("resetting player in radius");
+
+			break;
 		case "AI":
+			 
 			isAIOverLapped = false;
-			
-			
-			//Debug.Log("Ai In AI range");
+			 
+
 			break;
-		default:
-			isAIOverLapped = false;
-			break;
+	 
+
+			Debug.Log (layerName);
 		}
 	}
-*/
+ 
 	void CallAnimation()
 	{
 		
@@ -383,26 +392,49 @@ public class AIComponent : MonoBehaviour
 
 	void CastRay()
 	{
-		Collider2D c = Physics2D.OverlapCircle (this.transform.position, 8);
-		Debug.Log (c.gameObject.name);
+		Collider2D[] c = Physics2D.OverlapCircleAll (this.transform.position, 1,1<<LayerMask.NameToLayer("AI"));
+		//Debug.d
+
+		//if(c!=null)
+		if(c.Length > 0)
+		{
+			for(int i =0;i<c.Length;i++)
+				Debug.Log (c[i].gameObject.name);
+			// enemies within 1m of the player
+		}
+
+	//	Debug.Log ("Current player "+ this.gameObject.name + "Collided radius ai " + c.gameObject.name);
+		 
 	}
 
-	void RevokeOverLap()
-	{
-		isAIOverLapped = false;
-		Physics.IgnoreLayerCollision (LayerMask.NameToLayer ("AI"), LayerMask.NameToLayer ("AI"));
-
-	}
+	 
 	// Update is called once per frame
 	void Update () 
 	{
-		/*if(!isAIOverLapped)
+		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
+
+		//Debug.Log ("Distance to player " + distanceToPlayer);
+		/*if(  (distanceToPlayer>distanceToAttack)  && !isInPlayerRadius)
+			{
+				MoveTowardsPlayer();
+			Debug.Log ("Update");
+			aiAnimator.SetBool("isInMove",isInMove);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+			}*/
+		 
+		//CastRay ();
+		 
+
+		if((distanceToPlayer>distanceToAttack)  )
 		{
-			Debug.Log ("Invokeing");
-			Invoke ("RevokeOverLap", 3);
-		}*/
-		CastRay ();
-		switch(aiBehaviour)
+			MoveTowardsPlayer ();
+		}
+		else
+		{
+			Idle ();
+		}
+		/*switch(aiBehaviour)
 		{
 			case AIBehaviour.ATTACK:
 				MoveTowardsPlayer();
@@ -411,7 +443,7 @@ public class AIComponent : MonoBehaviour
 		case AIBehaviour.IDLE:
 			Idle();
 			break;
-		}
+		}*/
 
 		if(Input.GetMouseButtonDown(1))
 		{

@@ -318,7 +318,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(!animatorStateInfo.IsTag("AttackTag"))
 			{
-				characterAnimator.StopPlayback();
+				//characterAnimator.StopPlayback();
 
 		 
 			if(a_timer <=0f)
