@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 //using Prime31;
-
+using UnityEngine.EventSystems;
 
 public enum PlayerBehaviour
 {
@@ -65,7 +65,7 @@ public class PlayerMovement : MonoBehaviour
 	}
  
 
-	float CalculateAngle(float angle)
+	void CalculateAngle(float angle)
 	{
 		if(angle>0)
 		{
@@ -157,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
 
 		}
 
-		return moveDirection;
+		//return moveDirection;
  
 	 
 	}
@@ -188,41 +188,51 @@ public class PlayerMovement : MonoBehaviour
 		//characterInQuicksand = true;
 	}
 	
+	void OnMouseDown()
+	{
+		Debug.Log ("On mouse down");
+	}
 
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		if (Input.GetMouseButtonDown(0))
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
 		{ 
+			 
 			 
 			selectedEnemy = null;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
+			//Debug.Log ( (  hit..transform.name));
 			if(hit.collider != null ) // set layer for player to check 
 			{ 
 				target = hit.collider.gameObject.transform.position ;
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
+				Debug.Log (layerName);
 				if(layerName=="AI")
 				selectedEnemy = hit.collider.gameObject;
-				//Debug.Log("object clicked: "+hit.collider.name);
-			//	Debug.Log("Selected Enemy " + selectedEnemy);
 			 
 			}
 			else
 			{  
+				 
 				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+				 
 			} 
 
 
-
+			 
 			playerBehaviour = PlayerBehaviour.MOVE;
 		}
-		if(hit.collider!=null)
+
+		 
+		/*if(hit.collider!=null)
 		{
 			target = hit.collider.gameObject.transform.position ;
-		}
+		}*/
 		touchPos = new Vector3(target.x, target.y,0);
 		switch(playerBehaviour)
 		{
@@ -318,7 +328,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(!animatorStateInfo.IsTag("AttackTag"))
 			{
-				//characterAnimator.StopPlayback();
+				characterAnimator.StopPlayback();
 
 		 
 			if(a_timer <=0f)
