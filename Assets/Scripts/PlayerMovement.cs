@@ -46,6 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public float attackTime;
 	RaycastHit2D hit ;
+	RaycastHit hit3D;
 	float a_timer;
 
 	void Awake()
@@ -205,6 +206,8 @@ public class PlayerMovement : MonoBehaviour
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
+			//hit3D = Physics.Raycast (target, Vector3.zero);
+			Debug.Log (hit3D);
 			//Debug.Log ( (  hit..transform.name));
 			if(hit.collider != null ) // set layer for player to check 
 			{ 
