@@ -45,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
  	public float distanceToPoint , distanceToAttack;
 
 	public float attackTime;
+
+	public GameObject knife;
+
 	RaycastHit2D hit ;
 	RaycastHit hit3D;
 	float a_timer;
@@ -256,8 +259,23 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		}
 	 
+		ThrowKnives ();
 	}
 
+	void ThrowKnives()
+	{
+		if(Input.GetMouseButtonDown(1))
+		{
+			Vector3 sp = Camera.main.WorldToScreenPoint(transform.position);
+			Vector3 dir = (Input.mousePosition - sp).normalized;
+
+			GameObject k =  Instantiate (knife, this.transform.position, Quaternion.identity) as GameObject;
+		
+			k.transform.position = Vector2.MoveTowards(k.transform.position, sp, speed * Time.deltaTime);
+
+			//rigidbody2D.AddForce (dir * amount);
+		}
+	}
 
 	void MoveTowardsPoint()
 	{ 

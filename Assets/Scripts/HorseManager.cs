@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using Prime31;
 using System.Collections;
+using System.Collections.Generic;
 
 public class HorseManager : MonoBehaviour 
 {
@@ -9,6 +10,7 @@ public class HorseManager : MonoBehaviour
 	public GameObject horseRef;
 	private Animator horseAnimator;
 	public float speed;
+
 
 
 	Rigidbody2D rBody;
@@ -30,6 +32,7 @@ public class HorseManager : MonoBehaviour
 
 	void Awake()
 	{
+		
 		rBody =  GetComponent<Rigidbody2D> ();
 		_animator = horseRef.GetComponent<Animator>();
 		_controller = GetComponent<CharacterController2D>();
