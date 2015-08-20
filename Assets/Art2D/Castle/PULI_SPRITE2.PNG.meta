@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 8dfdbb2fcf78541a590d37b8596626d4
-timeCreated: 1440068896
+guid: 05a634347896637439a795427b0fa6d1
+timeCreated: 1440072411
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: PULI_SPRITE1_0
-    21300002: PULI_SPRITE1_1
-    21300004: PULI_SPRITE1_2
-    21300006: PULI_SPRITE1_3
-    21300008: PULI_SPRITE1_4
-    21300010: PULI_SPRITE1_5
-    21300012: PULI_SPRITE1_6
-    21300014: PULI_SPRITE1_7
-    21300016: PULI_SPRITE1_8
-    21300018: PULI_SPRITE1_9
+    21300000: PULI_SPRITE2_0
+    21300002: PULI_SPRITE2_1
+    21300004: PULI_SPRITE2_2
+    21300006: PULI_SPRITE2_3
+    21300008: PULI_SPRITE2_4
+    21300010: PULI_SPRITE2_5
+    21300012: PULI_SPRITE2_6
+    21300014: PULI_SPRITE2_7
+    21300016: PULI_SPRITE2_8
+    21300018: PULI_SPRITE2_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -36,8 +36,8 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
-  maxTextureSize: 1024
+  textureFormat: -1
+  maxTextureSize: 2048
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -59,103 +59,103 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: PULI_SPRITE1_0
+    - name: PULI_SPRITE2_0
       rect:
         serializedVersion: 2
-        x: 46
-        y: 471
-        width: 138
-        height: 136
+        x: 61
+        y: 458
+        width: 137
+        height: 158
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_1
+    - name: PULI_SPRITE2_1
       rect:
         serializedVersion: 2
-        x: 266
-        y: 469
-        width: 133
-        height: 103
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_2
-      rect:
-        serializedVersion: 2
-        x: 535
-        y: 474
-        width: 71
-        height: 134
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_3
-      rect:
-        serializedVersion: 2
-        x: 733
-        y: 469
-        width: 69
-        height: 134
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_4
-      rect:
-        serializedVersion: 2
-        x: 966
-        y: 488
-        width: 135
-        height: 99
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_5
-      rect:
-        serializedVersion: 2
-        x: 18
-        y: 155
-        width: 192
+        x: 267
+        y: 465
+        width: 131
         height: 113
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_6
+    - name: PULI_SPRITE2_2
       rect:
         serializedVersion: 2
-        x: 247
-        y: 155
-        width: 195
-        height: 112
+        x: 537
+        y: 442
+        width: 70
+        height: 158
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_7
+    - name: PULI_SPRITE2_3
       rect:
         serializedVersion: 2
-        x: 512
+        x: 755
+        y: 443
+        width: 68
+        height: 158
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PULI_SPRITE2_4
+      rect:
+        serializedVersion: 2
+        x: 951
+        y: 465
+        width: 130
+        height: 114
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PULI_SPRITE2_5
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 153
+        width: 190
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PULI_SPRITE2_6
+      rect:
+        serializedVersion: 2
+        x: 250
+        y: 157
+        width: 189
+        height: 111
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: PULI_SPRITE2_7
+      rect:
+        serializedVersion: 2
+        x: 513
         y: 53
-        width: 96
-        height: 269
+        width: 94
+        height: 267
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_8
+    - name: PULI_SPRITE2_8
       rect:
         serializedVersion: 2
         x: 697
-        y: 155
-        width: 140
-        height: 120
+        y: 153
+        width: 138
+        height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE1_9
+    - name: PULI_SPRITE2_9
       rect:
         serializedVersion: 2
-        x: 962
-        y: 155
-        width: 140
-        height: 120
+        x: 963
+        y: 153
+        width: 138
+        height: 118
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
