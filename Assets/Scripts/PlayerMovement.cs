@@ -45,14 +45,27 @@ public class PlayerMovement : MonoBehaviour
  	public float distanceToPoint , distanceToAttack;
 
 	public float attackTime;
+
+	public GameObject knife;
+
 	RaycastHit2D hit ;
 	RaycastHit hit3D;
 	float a_timer;
+
+	public bool throwKnifeSelected;
+	public bool isKnifeThrow;
+	public GameObject knifePrefab ;
+	private Vector3 knifeThrowPoint;
+
+	public float interpolationScale;
+	BezierCurve bezierCurve;
+	 
 
 	void Awake()
 	{
 		target = transform.position;
 		characterAnimator = GetComponent<Animator>();
+		bezierCurve = new BezierCurve ();
 	}
 
 	void Start()
@@ -207,7 +220,7 @@ public class PlayerMovement : MonoBehaviour
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
 			//hit3D = Physics.Raycast (target, Vector3.zero);
-			Debug.Log (hit3D);
+			//Debug.Log (hit3D);
 			//Debug.Log ( (  hit..transform.name));
 			if(hit.collider != null ) // set layer for player to check 
 			{ 
@@ -231,6 +244,11 @@ public class PlayerMovement : MonoBehaviour
 			playerBehaviour = PlayerBehaviour.MOVE;
 		}
 
+		if(isKnifeThrow)
+		{
+			knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
+			//bezierCurve.Interpolate (knifePrefab.transform.position, 1f);
+		}
 		 
 		/*if(hit.collider!=null)
 		{
@@ -256,8 +274,28 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		}
 	 
+		if( throwKnifeSelected)
+		ThrowKnives ();
 	}
 
+	void ThrowKnives()
+	{
+		if(Input.GetMouseButtonDown(1))
+
+		{
+			Vector3 sp = Camera.main.ScreenToWorldPoint(transform.position);
+			Vector3 dir = (Input.mousePosition - sp).normalized;
+
+			knifePrefab =  Instantiate (knife, this.transform.position, Quaternion.identity) as GameObject;
+		
+			knifeThrowPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+			//knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
+			isKnifeThrow = true;
+
+			//rigidbody2D.AddForce (dir * amount);
+		}
+	}
 
 	void MoveTowardsPoint()
 	{ 
