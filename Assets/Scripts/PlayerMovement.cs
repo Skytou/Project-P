@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 //using Prime31;
 using UnityEngine.EventSystems;
 
@@ -57,9 +58,12 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject knifePrefab ;
 	private Vector3 knifeThrowPoint;
 
+	public iTween.EaseType easeType;
 	public float interpolationScale;
 	BezierCurve bezierCurve;
 	 
+	public List<Vector3> movementPath;
+
 
 	void Awake()
 	{
@@ -248,6 +252,15 @@ public class PlayerMovement : MonoBehaviour
 		{
 			knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
 			//bezierCurve.Interpolate (knifePrefab.transform.position, 1f);
+			foreach(var kp in movementPath)
+			{
+				if (kp == knifeThrowPoint)
+					Debug.Log ("reached");
+			}
+			//if(knifePrefab.transform.position == knifeThrowPoint)
+			movementPath.Add(knifePrefab.transform.position);
+			bezierCurve.Interpolate (movementPath, 1f);
+
 		}
 		 
 		/*if(hit.collider!=null)
@@ -291,7 +304,8 @@ public class PlayerMovement : MonoBehaviour
 			knifeThrowPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
 			//knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
-			isKnifeThrow = true;
+			//isKnifeThrow = true;
+			iTween.MoveTo (knifePrefab, iTween.Hash ("position", knifeThrowPoint ,"easeType",easeType));
 
 			//rigidbody2D.AddForce (dir * amount);
 		}
@@ -317,8 +331,10 @@ public class PlayerMovement : MonoBehaviour
 			
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
 			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-		 	CalculateAngle(angle);
 
+			isInMove = true;
+			/*if(isInMove)
+				CalculateAngle(angle);*/
 			if(selectedEnemy==null)
 			{
 				isRun = true;
@@ -342,6 +358,9 @@ public class PlayerMovement : MonoBehaviour
 
 			isInMove = true;
  		}
+
+		if(isInMove)
+			CalculateAngle(angle);
 
 		if(transform.position ==  touchPos )
 		{
