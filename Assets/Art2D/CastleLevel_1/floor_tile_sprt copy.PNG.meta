@@ -1,23 +1,23 @@
 fileFormatVersion: 2
-guid: 05a634347896637439a795427b0fa6d1
-timeCreated: 1440501194
+guid: 55b3918d93b4f6c46987a6d5979a208a
+timeCreated: 1440501176
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: PULI_SPRITE2_0
-    21300002: PULI_SPRITE2_1
-    21300004: PULI_SPRITE2_2
-    21300006: PULI_SPRITE2_3
-    21300008: PULI_SPRITE2_4
-    21300010: PULI_SPRITE2_5
-    21300012: PULI_SPRITE2_6
-    21300014: PULI_SPRITE2_7
-    21300016: PULI_SPRITE2_8
-    21300018: PULI_SPRITE2_9
+    21300000: floor_tile_sprt copy_0
+    21300002: floor_tile_sprt copy_1
+    21300004: floor_tile_sprt copy_2
+    21300006: floor_tile_sprt copy_3
+    21300008: floor_tile_sprt copy_4
+    21300010: floor_tile_sprt copy_5
+    21300012: floor_tile_sprt copy_6
+    21300014: floor_tile_sprt copy_7
+    21300016: floor_tile_sprt copy_8
+    21300018: floor_tile_sprt copy_9
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -36,7 +36,7 @@ TextureImporter:
   cubemapConvolutionSteps: 8
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
-  textureFormat: -3
+  textureFormat: -1
   maxTextureSize: 2048
   textureSettings:
     filterMode: -1
@@ -59,103 +59,103 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: PULI_SPRITE2_0
+    - name: floor_tile_sprt copy_0
       rect:
         serializedVersion: 2
-        x: 61
-        y: 458
-        width: 137
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_1
-      rect:
-        serializedVersion: 2
-        x: 267
-        y: 465
-        width: 131
-        height: 113
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_2
-      rect:
-        serializedVersion: 2
-        x: 537
-        y: 442
-        width: 70
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_3
-      rect:
-        serializedVersion: 2
-        x: 755
-        y: 443
-        width: 68
-        height: 158
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_4
-      rect:
-        serializedVersion: 2
-        x: 951
-        y: 465
-        width: 130
-        height: 114
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_5
-      rect:
-        serializedVersion: 2
-        x: 48
-        y: 154
-        width: 134
-        height: 79
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_6
-      rect:
-        serializedVersion: 2
-        x: 277
-        y: 157
+        x: 62
+        y: 439
         width: 136
         height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_7
+    - name: floor_tile_sprt copy_1
       rect:
         serializedVersion: 2
-        x: 513
-        y: 53
-        width: 94
-        height: 267
+        x: 314
+        y: 457
+        width: 136
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_8
+    - name: floor_tile_sprt copy_2
       rect:
         serializedVersion: 2
-        x: 697
-        y: 153
-        width: 138
-        height: 118
+        x: 593
+        y: 448
+        width: 68
+        height: 80
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: PULI_SPRITE2_9
+    - name: floor_tile_sprt copy_3
       rect:
         serializedVersion: 2
-        x: 963
-        y: 153
-        width: 138
-        height: 118
+        x: 744
+        y: 447
+        width: 68
+        height: 80
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_4
+      rect:
+        serializedVersion: 2
+        x: 937
+        y: 493
+        width: 136
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_5
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 170
+        width: 134
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_6
+      rect:
+        serializedVersion: 2
+        x: 595
+        y: 188
+        width: 66
+        height: 78
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_7
+      rect:
+        serializedVersion: 2
+        x: 747
+        y: 186
+        width: 68
+        height: 79
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_8
+      rect:
+        serializedVersion: 2
+        x: 939
+        y: 226
+        width: 134
+        height: 40
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: floor_tile_sprt copy_9
+      rect:
+        serializedVersion: 2
+        x: 316
+        y: 170
+        width: 134
+        height: 40
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
