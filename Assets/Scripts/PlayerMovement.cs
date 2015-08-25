@@ -223,18 +223,36 @@ public class PlayerMovement : MonoBehaviour
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
+			Debug.Log ("hit " + hit.collider.name);
 			//hit3D = Physics.Raycast (target, Vector3.zero);
 			//Debug.Log (hit3D);
-			//Debug.Log ( (  hit..transform.name));
-			if(hit.collider != null ) // set layer for player to check 
+			if(hit.collider != null)
+			{
+				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
+
+				switch(layerName)
+				{
+				case "Ground":
+					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					playerBehaviour = PlayerBehaviour.MOVE;
+					break;
+				}
+				/*touchPos = hit.collider.gameObject.transform.position;
+				playerBehaviour = PlayerBehaviour.MOVE;*/
+			}
+
+
+			/*if(hit.collider != null ) // set layer for player to check 
 			{ 
+				//Debug.Log ( (  hit.transform.name));
 				target = hit.collider.gameObject.transform.position ;
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
-				Debug.Log (layerName);
-				if(layerName=="AI")
-				selectedEnemy = hit.collider.gameObject;
-			 
+			//	Debug.Log (layerName);
+
+		 
 			}
+			 
+			 
 			else
 			{  
 				 
@@ -242,10 +260,10 @@ public class PlayerMovement : MonoBehaviour
 
 				 
 			} 
-
+*/
 
 			 
-			playerBehaviour = PlayerBehaviour.MOVE;
+			//playerBehaviour = PlayerBehaviour.MOVE;
 		}
 
 		if(isKnifeThrow)
@@ -267,7 +285,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			target = hit.collider.gameObject.transform.position ;
 		}*/
-		touchPos = new Vector3(target.x, target.y,0);
+		//touchPos = new Vector3(target.x, target.y,0);
 		switch(playerBehaviour)
 		{
 		case PlayerBehaviour.IDLE:
@@ -330,7 +348,7 @@ public class PlayerMovement : MonoBehaviour
 			yComponent = -transform.position.y + touchPos.y;
 			
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
+			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
 
 			isInMove = true;
 			/*if(isInMove)
