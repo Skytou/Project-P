@@ -83,6 +83,7 @@ public class PlayerMovement : MonoBehaviour
 	}
  
 
+
 	void CalculateAngle(float angle)
 	{
 		if(angle>0)
@@ -236,34 +237,23 @@ public class PlayerMovement : MonoBehaviour
 					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
+
+				case "AI":
+					selectedEnemy = hit.collider.gameObject;
+					touchPos = hit.collider.gameObject.transform.position;
+					playerBehaviour = PlayerBehaviour.MOVE;
+
+					break;
+
+				case "Objects":
+					selectedEnemy = hit.collider.gameObject;
+					touchPos = hit.collider.gameObject.transform.position;
+					break;
 				}
-				/*touchPos = hit.collider.gameObject.transform.position;
-				playerBehaviour = PlayerBehaviour.MOVE;*/
+			 
 			}
 
-
-			/*if(hit.collider != null ) // set layer for player to check 
-			{ 
-				//Debug.Log ( (  hit.transform.name));
-				target = hit.collider.gameObject.transform.position ;
-				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
-			//	Debug.Log (layerName);
-
-		 
-			}
-			 
-			 
-			else
-			{  
-				 
-				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-				 
-			} 
-*/
-
-			 
-			//playerBehaviour = PlayerBehaviour.MOVE;
+ 
 		}
 
 		if(isKnifeThrow)
@@ -305,8 +295,8 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		}
 	 
-		if( throwKnifeSelected)
-		ThrowKnives ();
+		/*if( throwKnifeSelected)
+		ThrowKnives ();*/
 	}
 
 	void ThrowKnives()
@@ -459,6 +449,8 @@ public class PlayerMovement : MonoBehaviour
 			//Debug.Log( "Event "+ characterAnimator.fireEvents );
 		}
 	}
+
+	 
 
 	void React()
 	{
