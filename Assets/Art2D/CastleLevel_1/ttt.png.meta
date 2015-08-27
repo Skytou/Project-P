@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 67b5fecb35b30e24f8bb1db69aab1903
-timeCreated: 1440674482
+guid: d1f5f7df7135d5343911549693a14fc0
+timeCreated: 1440674541
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Sculpt_0
-    21300002: Sculpt_1
-    21300004: Sculpt_2
-    21300006: Sculpt_3
-    21300008: Sculpt_4
-    21300010: Sculpt_5
+    21300000: ttt_0
+    21300002: ttt_1
+    21300004: ttt_2
+    21300006: ttt_3
+    21300008: ttt_4
+    21300010: ttt_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,63 +55,63 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Sculpt_0
+    - name: ttt_0
       rect:
         serializedVersion: 2
-        x: 72
-        y: 432
-        width: 213
-        height: 189
+        x: 47
+        y: 475
+        width: 136
+        height: 171
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_1
+    - name: ttt_1
       rect:
         serializedVersion: 2
-        x: 519
-        y: 441
-        width: 132
-        height: 185
+        x: 507
+        y: 463
+        width: 247
+        height: 183
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_2
+    - name: ttt_2
       rect:
         serializedVersion: 2
-        x: 1045
-        y: 429
-        width: 204
-        height: 193
+        x: 1020
+        y: 497
+        width: 135
+        height: 172
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_3
+    - name: ttt_3
       rect:
         serializedVersion: 2
-        x: 132
-        y: 72
-        width: 170
-        height: 136
+        x: 0
+        y: 27
+        width: 315
+        height: 448
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_4
+    - name: ttt_4
       rect:
         serializedVersion: 2
-        x: 491
-        y: 77
-        width: 207
-        height: 137
+        x: 365
+        y: 27
+        width: 432
+        height: 433
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_5
+    - name: ttt_5
       rect:
         serializedVersion: 2
-        x: 978
-        y: 72
-        width: 209
-        height: 136
+        x: 881
+        y: 19
+        width: 399
+        height: 448
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

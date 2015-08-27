@@ -1,21 +1,21 @@
 fileFormatVersion: 2
-guid: 295445d3c67b52f4d81cbf8153c7e116
-timeCreated: 1440672874
+guid: 69220860db8ea4046906f461053772f6
+timeCreated: 1440672909
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: total_0
-    21300002: total_1
-    21300004: total_2
-    21300006: total_3
-    21300008: total_4
-    21300010: total_5
-    21300012: total_6
-    21300014: total_7
-    21300016: total_8
-    21300018: total_9
-    21300020: total_10
-    21300022: total_11
+    21300000: wooddoor_0
+    21300002: wooddoor_1
+    21300004: wooddoor_2
+    21300006: wooddoor_3
+    21300008: wooddoor_4
+    21300010: wooddoor_5
+    21300012: wooddoor_6
+    21300014: wooddoor_7
+    21300016: wooddoor_8
+    21300018: wooddoor_9
+    21300020: wooddoor_10
+    21300022: wooddoor_11
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -61,123 +61,123 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: total_0
+    - name: wooddoor_0
       rect:
         serializedVersion: 2
-        x: 39
-        y: 471
-        width: 99
-        height: 216
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_1
-      rect:
-        serializedVersion: 2
-        x: 203
-        y: 368
-        width: 122
-        height: 211
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_2
-      rect:
-        serializedVersion: 2
-        x: 475
-        y: 488
-        width: 117
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_3
-      rect:
-        serializedVersion: 2
-        x: 685
-        y: 488
-        width: 124
-        height: 163
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_4
-      rect:
-        serializedVersion: 2
-        x: 949
-        y: 418
-        width: 122
-        height: 211
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_5
-      rect:
-        serializedVersion: 2
-        x: 1108
-        y: 496
-        width: 100
-        height: 216
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_6
-      rect:
-        serializedVersion: 2
-        x: 39
-        y: 110
-        width: 107
-        height: 194
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_7
-      rect:
-        serializedVersion: 2
-        x: 199
-        y: 18
+        x: 96
+        y: 483
         width: 74
-        height: 210
+        height: 224
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_8
+    - name: wooddoor_1
       rect:
         serializedVersion: 2
-        x: 513
-        y: 88
-        width: 52
-        height: 181
+        x: 201
+        y: 436
+        width: 71
+        height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_9
+    - name: wooddoor_2
       rect:
         serializedVersion: 2
-        x: 697
-        y: 88
-        width: 53
-        height: 182
+        x: 472
+        y: 458
+        width: 108
+        height: 211
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_10
+    - name: wooddoor_3
       rect:
         serializedVersion: 2
-        x: 998
-        y: 41
-        width: 67
-        height: 189
+        x: 615
+        y: 458
+        width: 107
+        height: 211
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: total_11
+    - name: wooddoor_4
       rect:
         serializedVersion: 2
-        x: 1112
-        y: 124
-        width: 96
-        height: 174
+        x: 938
+        y: 436
+        width: 71
+        height: 228
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_5
+      rect:
+        serializedVersion: 2
+        x: 1040
+        y: 483
+        width: 74
+        height: 224
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_6
+      rect:
+        serializedVersion: 2
+        x: 77
+        y: 141
+        width: 74
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_7
+      rect:
+        serializedVersion: 2
+        x: 195
+        y: 74
+        width: 68
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_8
+      rect:
+        serializedVersion: 2
+        x: 472
+        y: 74
+        width: 17
+        height: 274
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_9
+      rect:
+        serializedVersion: 2
+        x: 658
+        y: 74
+        width: 29
+        height: 272
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_10
+      rect:
+        serializedVersion: 2
+        x: 947
+        y: 74
+        width: 68
+        height: 227
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: wooddoor_11
+      rect:
+        serializedVersion: 2
+        x: 1059
+        y: 141
+        width: 74
+        height: 227
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

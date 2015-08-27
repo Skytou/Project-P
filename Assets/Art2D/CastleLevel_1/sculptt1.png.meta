@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 67b5fecb35b30e24f8bb1db69aab1903
-timeCreated: 1440674482
+guid: 3da8b5d1855badb49b9245aa67ea5dd4
+timeCreated: 1440677987
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Sculpt_0
-    21300002: Sculpt_1
-    21300004: Sculpt_2
-    21300006: Sculpt_3
-    21300008: Sculpt_4
-    21300010: Sculpt_5
+    21300000: sculptt1_0
+    21300002: sculptt1_1
+    21300004: sculptt1_2
+    21300006: sculptt1_3
+    21300008: sculptt1_4
+    21300010: sculptt1_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,63 +55,63 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Sculpt_0
+    - name: sculptt1_0
       rect:
         serializedVersion: 2
-        x: 72
-        y: 432
-        width: 213
-        height: 189
+        x: 92
+        y: 413
+        width: 183
+        height: 263
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_1
+    - name: sculptt1_1
       rect:
         serializedVersion: 2
-        x: 519
-        y: 441
-        width: 132
-        height: 185
+        x: 572
+        y: 419
+        width: 124
+        height: 259
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_2
+    - name: sculptt1_2
       rect:
         serializedVersion: 2
-        x: 1045
-        y: 429
-        width: 204
-        height: 193
+        x: 982
+        y: 394
+        width: 183
+        height: 263
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_3
+    - name: sculptt1_3
       rect:
         serializedVersion: 2
-        x: 132
-        y: 72
-        width: 170
-        height: 136
+        x: 92
+        y: 102
+        width: 212
+        height: 278
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_4
+    - name: sculptt1_4
       rect:
         serializedVersion: 2
-        x: 491
-        y: 77
-        width: 207
-        height: 137
+        x: 527
+        y: 89
+        width: 214
+        height: 232
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_5
+    - name: sculptt1_5
       rect:
         serializedVersion: 2
-        x: 978
-        y: 72
-        width: 209
-        height: 136
+        x: 951
+        y: 89
+        width: 214
+        height: 278
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

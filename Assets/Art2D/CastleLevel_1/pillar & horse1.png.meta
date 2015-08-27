@@ -1,15 +1,15 @@
 fileFormatVersion: 2
-guid: 67b5fecb35b30e24f8bb1db69aab1903
-timeCreated: 1440674482
+guid: ef998095aeeb3b448a09878af2c9bc35
+timeCreated: 1440674461
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Sculpt_0
-    21300002: Sculpt_1
-    21300004: Sculpt_2
-    21300006: Sculpt_3
-    21300008: Sculpt_4
-    21300010: Sculpt_5
+    21300000: pillar & horse1_0
+    21300002: pillar & horse1_1
+    21300004: pillar & horse1_2
+    21300006: pillar & horse1_3
+    21300008: pillar & horse1_4
+    21300010: pillar & horse1_5
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,63 +55,63 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Sculpt_0
+    - name: pillar & horse1_0
       rect:
         serializedVersion: 2
-        x: 72
-        y: 432
-        width: 213
-        height: 189
+        x: 37
+        y: 300
+        width: 87
+        height: 213
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_1
+    - name: pillar & horse1_1
       rect:
         serializedVersion: 2
-        x: 519
-        y: 441
-        width: 132
-        height: 185
+        x: 298
+        y: 300
+        width: 67
+        height: 200
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_2
+    - name: pillar & horse1_2
       rect:
         serializedVersion: 2
-        x: 1045
-        y: 429
-        width: 204
-        height: 193
+        x: 527
+        y: 270
+        width: 93
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_3
+    - name: pillar & horse1_3
       rect:
         serializedVersion: 2
-        x: 132
-        y: 72
-        width: 170
-        height: 136
+        x: 28
+        y: 40
+        width: 130
+        height: 157
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_4
+    - name: pillar & horse1_4
       rect:
         serializedVersion: 2
-        x: 491
-        y: 77
-        width: 207
-        height: 137
+        x: 278
+        y: 40
+        width: 100
+        height: 188
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: Sculpt_5
+    - name: pillar & horse1_5
       rect:
         serializedVersion: 2
-        x: 978
-        y: 72
-        width: 209
-        height: 136
+        x: 525
+        y: 40
+        width: 95
+        height: 210
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
