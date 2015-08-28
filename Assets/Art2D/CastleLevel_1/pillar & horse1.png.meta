@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: ef998095aeeb3b448a09878af2c9bc35
-timeCreated: 1440674461
+timeCreated: 1440748436
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -58,10 +58,10 @@ TextureImporter:
     - name: pillar & horse1_0
       rect:
         serializedVersion: 2
-        x: 37
-        y: 300
-        width: 87
-        height: 213
+        x: 28
+        y: 278
+        width: 96
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -69,19 +69,19 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 298
-        y: 300
-        width: 67
-        height: 200
+        y: 299
+        width: 70
+        height: 215
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: pillar & horse1_2
       rect:
         serializedVersion: 2
-        x: 527
-        y: 270
-        width: 93
-        height: 230
+        x: 524
+        y: 277
+        width: 96
+        height: 236
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
