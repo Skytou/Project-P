@@ -243,7 +243,7 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
-		if (isInPlayerRadius)
+		//if (isInPlayerRadius)
 		{
 			if (a_timer <= 0f) 
 			{
@@ -313,15 +313,21 @@ public class AIComponent : MonoBehaviour
 		case "AI":
 			//if (other.GetComponent<AIComponent> ().isInPlayerRadius == true )
 			{
-				isAIOverLapped = true;
+				//isAIOverLapped = true;
 				 
 			}
+			break;
+		case "Ground":
+
+			other.gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+
+			break;
 
 		/*else
 			{
 				isAIOverLapped = false;
 			}*/
-			break;
+
 		 
 		}
 	//	Debug.Log(layerName);

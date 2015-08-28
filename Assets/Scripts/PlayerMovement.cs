@@ -41,7 +41,8 @@ public class PlayerMovement : MonoBehaviour
 
 	bool isEnemySpotted;
 
-	GameObject selectedEnemy;
+	//string selectedObject;
+	GameObject selectedEnemy, selectedObject;
 
  	public float distanceToPoint , distanceToAttack;
 
@@ -220,72 +221,80 @@ public class PlayerMovement : MonoBehaviour
 			 
 			 
 			selectedEnemy = null;
+			selectedObject = null;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
-			Debug.Log ("hit " + hit.collider.name);
-			//hit3D = Physics.Raycast (target, Vector3.zero);
-			//Debug.Log (hit3D);
+			//Debug.Log ("hit " + hit.collider.name);
+			 
 			if(hit.collider != null)
 			{
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 
+				Debug.Log (layerName);
+				/*if(layerName!="Wall")
+				{
+					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					playerBehaviour = PlayerBehaviour.MOVE;
+
+					//break;
+				}*/
+				/*else if(layerName =="AI")
+				{
+					selectedEnemy = hit.collider.gameObject;
+					playerBehaviour = PlayerBehaviour.MOVE;
+					//break;
+				}*/
 				switch(layerName)
 				{
 				case "Ground":
 					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
+
+				case "AI":
+
+					selectedObject = hit.collider.gameObject;
+					touchPos = selectedObject.transform.position;
+					Debug.Log ("touch pos is generated");
+					playerBehaviour = PlayerBehaviour.MOVE;
+					break;
+
+				case "Objects":
+					selectedObject = hit.collider.gameObject;
+					touchPos = selectedObject.transform.position;
+					Debug.Log ("touch pos is generated");
+					playerBehaviour = PlayerBehaviour.MOVE;
+					break;
 				}
-				/*touchPos = hit.collider.gameObject.transform.position;
-				playerBehaviour = PlayerBehaviour.MOVE;*/
+				 
 			}
 
-
-			/*if(hit.collider != null ) // set layer for player to check 
-			{ 
-				//Debug.Log ( (  hit.transform.name));
-				target = hit.collider.gameObject.transform.position ;
-				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
-			//	Debug.Log (layerName);
-
-		 
-			}
-			 
-			 
 			else
-			{  
-				 
-				target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-
-				 
-			} 
-*/
+			{
+				touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				playerBehaviour = PlayerBehaviour.MOVE;
+			}
 
 			 
-			//playerBehaviour = PlayerBehaviour.MOVE;
+
+			 
+			 
 		}
 
 		if(isKnifeThrow)
 		{
 			knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
-			//bezierCurve.Interpolate (knifePrefab.transform.position, 1f);
 			foreach(var kp in movementPath)
 			{
 				if (kp == knifeThrowPoint)
 					Debug.Log ("reached");
 			}
-			//if(knifePrefab.transform.position == knifeThrowPoint)
 			movementPath.Add(knifePrefab.transform.position);
 			bezierCurve.Interpolate (movementPath, 1f);
 
 		}
 		 
-		/*if(hit.collider!=null)
-		{
-			target = hit.collider.gameObject.transform.position ;
-		}*/
-		//touchPos = new Vector3(target.x, target.y,0);
 		switch(playerBehaviour)
 		{
 		case PlayerBehaviour.IDLE:
@@ -336,10 +345,25 @@ public class PlayerMovement : MonoBehaviour
 		// if(animatorStateInf)
 
 		// pause current attack animation
+		//Debug.Log(distanceToPoint);
+
+		/*	switch(LayerMask.LayerToName(  selectedObject.layer))
+		{
+		case "AI":
+
+			break;
+
+
+		case "Objects":
+
+			break;
+		}*/
+		 
 
  		if(distanceToPoint<distanceToAttack)
 		{
 			Stop ();
+			Debug.Log ("Stopping");
 		}
 
 		else
@@ -353,7 +377,7 @@ public class PlayerMovement : MonoBehaviour
 			isInMove = true;
 			/*if(isInMove)
 				CalculateAngle(angle);*/
-			if(selectedEnemy==null)
+			if(selectedObject==null)
 			{
 				isRun = true;
 				distanceToAttack =1;
@@ -402,7 +426,7 @@ public class PlayerMovement : MonoBehaviour
 
 	 	Idle();
 
-		if(selectedEnemy!=null )
+		if(selectedObject!=null )
 		{
 			if(!animatorStateInfo.IsTag("AttackTag"))
 			{
@@ -467,11 +491,29 @@ public class PlayerMovement : MonoBehaviour
 
 	public void AttackEnemy()
 	{
-		if(selectedEnemy!=null)
+		if(selectedObject!=null)
 		{
-			selectedEnemy.GetComponent<AIComponent>().React();
-			// call reaction animation for the selected enemy and reduce his health
+			switch(LayerMask.LayerToName (selectedObject.layer) )
+			{
+
+			case "AI":
+				selectedObject.GetComponent<AIComponent>().React();
+				break;
+
+
+			case "Objects":
+				Destroy (selectedObject.gameObject);
+				break;
+			}
+			/*if(LayerMask.LayerToName (selectedObject.layer) == "AI" )
+ 			{
+				selectedObject.GetComponent<AIComponent>().React();
+				// call reaction animation for the selected enemy and reduce his health
+			}
+*/
+
 		}
+
 	}
 	void FixedUpdate()
 	{
