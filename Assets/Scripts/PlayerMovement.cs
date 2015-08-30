@@ -66,6 +66,8 @@ public class PlayerMovement : MonoBehaviour
 	public List<Vector3> movementPath;
 
 
+	//float tempDistanceToAttack;
+
 	void Awake()
 	{
 		target = transform.position;
@@ -222,6 +224,7 @@ public class PlayerMovement : MonoBehaviour
 			 
 			selectedEnemy = null;
 			selectedObject = null;
+			distanceToAttack = intialDistanceToAttack;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
@@ -409,6 +412,7 @@ public class PlayerMovement : MonoBehaviour
 			isInMove = false;
 			isRun = false;
 			idleDirection =prevMoveDirection;
+			distanceToAttack = 0;
 			
 		}
 		 
@@ -423,14 +427,15 @@ public class PlayerMovement : MonoBehaviour
 
 	void Stop()
 	{
-
+		
 	 	Idle();
 
 		if(selectedObject!=null )
 		{
-			if(!animatorStateInfo.IsTag("AttackTag"))
+			//if(!animatorStateInfo.IsTag("AttackTag"))
 			{
-				characterAnimator.StopPlayback();
+				//characterAnimator.StopPlayback();
+
 
 		 
 			if(a_timer <=0f)
