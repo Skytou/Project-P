@@ -25,7 +25,7 @@ public class SmoothFollow : MonoBehaviour
 	
 	void LateUpdate()
 	{
-		if( !useFixedUpdate )
+		if( !useFixedUpdate && !GameGlobalVariablesManager.isCameraLocked)
 			updateCameraPosition();
 	}
 

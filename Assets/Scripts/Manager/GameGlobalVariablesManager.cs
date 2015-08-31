@@ -8,7 +8,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static int[] castleLocked = new int[4];// leve2Locked , level3Locked, level4Locked;
 
-
+	public static bool isCameraLocked = false;
 
 	void Awake()
 	{
