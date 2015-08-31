@@ -250,10 +250,10 @@ public class PlayerMovement : MonoBehaviour
 				}*/
 				switch(layerName)
 				{
-				case "Ground":
+				/*	case "Ground":
 					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 					playerBehaviour = PlayerBehaviour.MOVE;
-					break;
+					break;*/
 
 				case "AI":
 
@@ -268,6 +268,11 @@ public class PlayerMovement : MonoBehaviour
 					touchPos = selectedObject.transform.position;
 					Debug.Log ("touch pos is generated");
 					playerBehaviour = PlayerBehaviour.MOVE;
+					break;
+
+				case "WallLightLayer":
+					touchPos = this.transform.position;
+
 					break;
 				}
 				 
