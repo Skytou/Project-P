@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 //using Prime31;
 using UnityEngine.EventSystems;
+using UnityStandardAssets.CrossPlatformInput;
+
 
 public enum PlayerBehaviour
 {
@@ -49,6 +51,7 @@ public class PlayerMovement : MonoBehaviour
 	public float attackTime;
 
 	public GameObject knife;
+
 
 	RaycastHit2D hit ;
 	RaycastHit hit3D;
@@ -214,19 +217,31 @@ public class PlayerMovement : MonoBehaviour
 		Debug.Log ("On mouse down");
 	}
 
+	private bool IsPointerOverUIObject() {
+		// Referencing this code for GraphicRaycaster https://gist.github.com/stramit/ead7ca1f432f3c0f181f
+		// the ray cast appears to require only eventData.position.
+		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+		eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+
+		List<RaycastResult> results = new List<RaycastResult>();
+		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+		return results.Count > 0;
+	}
+
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
+		//CrossPlatformInputManager
+		if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject() )// && !EventSystem.current.IsPointerOverGameObject() )
 		{ 
-			 
 			 
 			selectedEnemy = null;
 			selectedObject = null;
 			distanceToAttack = intialDistanceToAttack;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
+
 
 			//Debug.Log ("hit " + hit.collider.name);
 			 
@@ -235,25 +250,10 @@ public class PlayerMovement : MonoBehaviour
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 
 				Debug.Log (layerName);
-				/*if(layerName!="Wall")
-				{
-					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					playerBehaviour = PlayerBehaviour.MOVE;
-
-					//break;
-				}*/
-				/*else if(layerName =="AI")
-				{
-					selectedEnemy = hit.collider.gameObject;
-					playerBehaviour = PlayerBehaviour.MOVE;
-					//break;
-				}*/
+			 
 				switch(layerName)
 				{
-				/*	case "Ground":
-					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					playerBehaviour = PlayerBehaviour.MOVE;
-					break;*/
+			 
 
 				case "AI":
 
@@ -274,6 +274,7 @@ public class PlayerMovement : MonoBehaviour
 					touchPos = this.transform.position;
 
 					break;
+				 
 				}
 				 
 			}
@@ -349,23 +350,7 @@ public class PlayerMovement : MonoBehaviour
 	void MoveTowardsPoint()
 	{ 
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-		//characterAnimator.ResetTrigger("Attack");
-		// if(animatorStateInf)
-
-		// pause current attack animation
-		//Debug.Log(distanceToPoint);
-
-		/*	switch(LayerMask.LayerToName(  selectedObject.layer))
-		{
-		case "AI":
-
-			break;
-
-
-		case "Objects":
-
-			break;
-		}*/
+		 
 		 
 
  		if(distanceToPoint<distanceToAttack)
