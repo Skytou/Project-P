@@ -489,7 +489,7 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);
 		//Debug.Log("Random value "+ 4);
-		characterAnimator.SetInteger("ReactRandom",1);
+		characterAnimator.SetInteger("ReactRandom",2);
 		characterAnimator.SetTrigger("React");
 	}
 
