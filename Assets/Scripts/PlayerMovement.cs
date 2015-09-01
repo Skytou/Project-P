@@ -79,10 +79,10 @@ public class PlayerMovement : MonoBehaviour
 	{
 		initialSpeed =speed;
 		intialDistanceToAttack = distanceToAttack;
-		/*prevMoveDirection =5;
-		moveDirection=-1;
+		idleDirection =5;
+		//moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);*/
+		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
  
 
@@ -349,23 +349,6 @@ public class PlayerMovement : MonoBehaviour
 	void MoveTowardsPoint()
 	{ 
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-		//characterAnimator.ResetTrigger("Attack");
-		// if(animatorStateInf)
-
-		// pause current attack animation
-		//Debug.Log(distanceToPoint);
-
-		/*	switch(LayerMask.LayerToName(  selectedObject.layer))
-		{
-		case "AI":
-
-			break;
-
-
-		case "Objects":
-
-			break;
-		}*/
 		 
 
  		if(distanceToPoint<distanceToAttack)
@@ -383,8 +366,7 @@ public class PlayerMovement : MonoBehaviour
 			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
 
 			isInMove = true;
-			/*if(isInMove)
-				CalculateAngle(angle);*/
+			 
 			if(selectedObject==null)
 			{
 				isRun = true;
@@ -461,22 +443,28 @@ public class PlayerMovement : MonoBehaviour
  
 	void Idle()
 	{
-		xComponent = -transform.position.x + touchPos.x;
-		yComponent = -transform.position.y + touchPos.y;
+
+		if (!animatorStateInfo.IsTag ("ReactTag")) 
+		{
+			
+		 
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
 		
-		angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-		//transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-		CalculateAngle(angle);
+			angle = Mathf.Atan2 (yComponent, xComponent) * Mathf.Rad2Deg;
+			 
+			CalculateAngle (angle);
 
-		isInMove = false;
-		isRun = false;
-		idleDirection =prevMoveDirection;
+			isInMove = false;
+			isRun = false;
+			idleDirection = prevMoveDirection;
 
 
-		characterAnimator.SetBool("isInMove",isInMove);
-		characterAnimator.SetBool("isRun",isRun);
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
+			characterAnimator.SetBool ("isInMove", isInMove);
+			characterAnimator.SetBool ("isRun", isRun);
+			characterAnimator.SetFloat ("idleDirection", idleDirection);
+			characterAnimator.SetFloat ("moveDirection", moveDirection);
+		}
 	}
 
 	void Attack()
@@ -494,9 +482,15 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	void React()
+	public void React()
 	{
-
+		Debug.Log ("Play react anim");
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+		int r = Random.Range(1,5);
+		//Debug.Log("Random value "+ 4);
+		characterAnimator.SetInteger("ReactRandom",1);
+		characterAnimator.SetTrigger("React");
 	}
 
 	public void AttackEnemy()
@@ -515,12 +509,7 @@ public class PlayerMovement : MonoBehaviour
 				Destroy (selectedObject.gameObject);
 				break;
 			}
-			/*if(LayerMask.LayerToName (selectedObject.layer) == "AI" )
- 			{
-				selectedObject.GetComponent<AIComponent>().React();
-				// call reaction animation for the selected enemy and reduce his health
-			}
-*/
+		 
 
 		}
 
