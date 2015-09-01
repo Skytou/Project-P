@@ -3,8 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 //using Prime31;
 using UnityEngine.EventSystems;
-using UnityStandardAssets.CrossPlatformInput;
-
 
 public enum PlayerBehaviour
 {
@@ -52,7 +50,6 @@ public class PlayerMovement : MonoBehaviour
 
 	public GameObject knife;
 
-
 	RaycastHit2D hit ;
 	RaycastHit hit3D;
 	float a_timer;
@@ -82,10 +79,10 @@ public class PlayerMovement : MonoBehaviour
 	{
 		initialSpeed =speed;
 		intialDistanceToAttack = distanceToAttack;
-		/*prevMoveDirection =5;
-		moveDirection=-1;
+		idleDirection =5;
+		//moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);*/
+		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
  
 
@@ -217,31 +214,19 @@ public class PlayerMovement : MonoBehaviour
 		Debug.Log ("On mouse down");
 	}
 
-	private bool IsPointerOverUIObject() {
-		// Referencing this code for GraphicRaycaster https://gist.github.com/stramit/ead7ca1f432f3c0f181f
-		// the ray cast appears to require only eventData.position.
-		PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
-		eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
-
-		List<RaycastResult> results = new List<RaycastResult>();
-		EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
-		return results.Count > 0;
-	}
-
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		//CrossPlatformInputManager
-		if (Input.GetMouseButtonDown(0) && !IsPointerOverUIObject() )// && !EventSystem.current.IsPointerOverGameObject() )
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
 		{ 
+			 
 			 
 			selectedEnemy = null;
 			selectedObject = null;
 			distanceToAttack = intialDistanceToAttack;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
-
 
 			//Debug.Log ("hit " + hit.collider.name);
 			 
@@ -250,10 +235,25 @@ public class PlayerMovement : MonoBehaviour
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 
 				Debug.Log (layerName);
-			 
+				/*if(layerName!="Wall")
+				{
+					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					playerBehaviour = PlayerBehaviour.MOVE;
+
+					//break;
+				}*/
+				/*else if(layerName =="AI")
+				{
+					selectedEnemy = hit.collider.gameObject;
+					playerBehaviour = PlayerBehaviour.MOVE;
+					//break;
+				}*/
 				switch(layerName)
 				{
-			 
+				/*	case "Ground":
+					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					playerBehaviour = PlayerBehaviour.MOVE;
+					break;*/
 
 				case "AI":
 
@@ -274,7 +274,6 @@ public class PlayerMovement : MonoBehaviour
 					touchPos = this.transform.position;
 
 					break;
-				 
 				}
 				 
 			}
@@ -351,7 +350,6 @@ public class PlayerMovement : MonoBehaviour
 	{ 
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
 		 
-		 
 
  		if(distanceToPoint<distanceToAttack)
 		{
@@ -368,8 +366,7 @@ public class PlayerMovement : MonoBehaviour
 			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
 
 			isInMove = true;
-			/*if(isInMove)
-				CalculateAngle(angle);*/
+			 
 			if(selectedObject==null)
 			{
 				isRun = true;
@@ -446,22 +443,28 @@ public class PlayerMovement : MonoBehaviour
  
 	void Idle()
 	{
-		xComponent = -transform.position.x + touchPos.x;
-		yComponent = -transform.position.y + touchPos.y;
+
+		if (!animatorStateInfo.IsTag ("ReactTag")) 
+		{
+			
+		 
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
 		
-		angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-		//transform.position = Vector2.MoveTowards(transform.position, target, speed * Time.deltaTime);
-		CalculateAngle(angle);
+			angle = Mathf.Atan2 (yComponent, xComponent) * Mathf.Rad2Deg;
+			 
+			CalculateAngle (angle);
 
-		isInMove = false;
-		isRun = false;
-		idleDirection =prevMoveDirection;
+			isInMove = false;
+			isRun = false;
+			idleDirection = prevMoveDirection;
 
 
-		characterAnimator.SetBool("isInMove",isInMove);
-		characterAnimator.SetBool("isRun",isRun);
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
+			characterAnimator.SetBool ("isInMove", isInMove);
+			characterAnimator.SetBool ("isRun", isRun);
+			characterAnimator.SetFloat ("idleDirection", idleDirection);
+			characterAnimator.SetFloat ("moveDirection", moveDirection);
+		}
 	}
 
 	void Attack()
@@ -479,9 +482,15 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
-	void React()
+	public void React()
 	{
-
+		Debug.Log ("Play react anim");
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+		int r = Random.Range(1,5);
+		//Debug.Log("Random value "+ 4);
+		characterAnimator.SetInteger("ReactRandom",2);
+		characterAnimator.SetTrigger("React");
 	}
 
 	public void AttackEnemy()
@@ -500,12 +509,7 @@ public class PlayerMovement : MonoBehaviour
 				Destroy (selectedObject.gameObject);
 				break;
 			}
-			/*if(LayerMask.LayerToName (selectedObject.layer) == "AI" )
- 			{
-				selectedObject.GetComponent<AIComponent>().React();
-				// call reaction animation for the selected enemy and reduce his health
-			}
-*/
+		 
 
 		}
 

@@ -40,7 +40,7 @@ public class AIComponent : MonoBehaviour
 
 	bool isAiInRange;
 	RectTransform healthBarRectTransform; 
-	float distanceToPlayer;
+	public float distanceToPlayer;
 	string layerName;
 	float a_timer;
 
@@ -61,7 +61,8 @@ public class AIComponent : MonoBehaviour
  
 	void Awake()
 	{
-		playerRef = GameObject.FindGameObjectWithTag("Player");
+		//playerRef = GameObject.FindGameObjectWithTag("Player");
+		Debug.Log (playerRef);
 		aiAnimator = GetComponent<Animator>();
 		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
 		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
@@ -85,6 +86,7 @@ public class AIComponent : MonoBehaviour
 	{
 
 	}
+
 	//Calculate the angle and return the movedirection
 
 	void CalculateAngle(float angle)
@@ -187,7 +189,8 @@ public class AIComponent : MonoBehaviour
 		
 		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
-		if( (distanceToPlayer<distanceToAttack) || isAIOverLapped ||isInPlayerRadius)
+		Debug.Log (playerPos);
+		if( (distanceToPlayer<distanceToAttack) )
 		{
 			Stop();
  		}
@@ -221,11 +224,9 @@ public class AIComponent : MonoBehaviour
 
 	void Stop()
 	{
-		// call idle animation
-		// call stop animation
+		 
 		Idle ();
-		//aiBehaviour = AIBehaviour.IDLE;
-		//aiBehaviour = AIBehaviour.IDLE;
+		 
 
 
 	}
@@ -266,9 +267,19 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);
 		//Debug.Log("Random value "+ 4);
-		aiAnimator.SetInteger("AttackRandom",r);
+		aiAnimator.SetInteger("AttackRandom",1);
 		aiAnimator.SetTrigger("Attack");
 	}
+
+
+	void HitPlayer()
+	{
+		Debug.Log ("Triggering player react");
+
+		playerRef.GetComponent<PlayerMovement>().React ();
+	}
+	 
+
 	//playerRef.transform.position + Random.insideUnitCircle
 
 	void OnCollisionMove()
@@ -306,7 +317,7 @@ public class AIComponent : MonoBehaviour
 		switch(layerName)
 		{
 		case "Player":
-			isInPlayerRadius = true;
+			//isInPlayerRadius = true;
 			//Debug.Log ("Player in Radius");
 			break;
 
@@ -319,7 +330,7 @@ public class AIComponent : MonoBehaviour
 			break;
 		case "Ground":
 
-			other.gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
+			//other.gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
 
 			break;
 
@@ -365,7 +376,7 @@ public class AIComponent : MonoBehaviour
 	{
 		layerName =  LayerMask.LayerToName(other.gameObject.layer);
 		
-		switch(layerName)
+		/*switch(layerName)
 		{ 	
 
 		case "Player":
@@ -383,7 +394,7 @@ public class AIComponent : MonoBehaviour
 	 
 
 			Debug.Log (layerName);
-		}
+		}*/
 	}
  
 	void CallAnimation()
@@ -396,23 +407,7 @@ public class AIComponent : MonoBehaviour
 
 	}
 
-	void CastRay()
-	{
-		Collider2D[] c = Physics2D.OverlapCircleAll (this.transform.position, 1,1<<LayerMask.NameToLayer("AI"));
-		//Debug.d
-
-		//if(c!=null)
-		if(c.Length > 0)
-		{
-			for(int i =0;i<c.Length;i++)
-				Debug.Log (c[i].gameObject.name);
-			// enemies within 1m of the player
-		}
-
-	//	Debug.Log ("Current player "+ this.gameObject.name + "Collided radius ai " + c.gameObject.name);
-		 
-	}
-
+	 
 	 
 	// Update is called once per frame
 	void Update () 
@@ -432,14 +427,14 @@ public class AIComponent : MonoBehaviour
 		//CastRay ();
 		 
 
-		if((distanceToPlayer>distanceToAttack)  )
+		//if((distanceToPlayer>distanceToAttack)  )
 		{
 			MoveTowardsPlayer ();
 		}
-		else
+		/*else
 		{
 			Idle ();
-		}
+		}*/
 		/*switch(aiBehaviour)
 		{
 			case AIBehaviour.ATTACK:
