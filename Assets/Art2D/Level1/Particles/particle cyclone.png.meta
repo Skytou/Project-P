@@ -1,0 +1,304 @@
+fileFormatVersion: 2
+guid: 56b884f105249447791fdffb8b9fac40
+timeCreated: 1441189164
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: particle cyclone_0
+    21300002: particle cyclone_1
+    21300004: particle cyclone_2
+    21300006: particle cyclone_3
+    21300008: particle cyclone_4
+    21300010: particle cyclone_5
+    21300012: particle cyclone_6
+    21300014: particle cyclone_7
+    21300016: particle cyclone_8
+    21300018: particle cyclone_9
+    21300020: particle cyclone_10
+    21300022: particle cyclone_11
+    21300024: particle cyclone_12
+    21300026: particle cyclone_13
+    21300028: particle cyclone_14
+    21300030: particle cyclone_15
+    21300032: particle cyclone_16
+    21300034: particle cyclone_17
+    21300036: particle cyclone_18
+    21300038: particle cyclone_19
+    21300040: particle cyclone_20
+    21300042: particle cyclone_21
+    21300044: particle cyclone_22
+    21300046: particle cyclone_23
+    21300048: particle cyclone_24
+    21300050: particle cyclone_25
+    21300052: particle cyclone_26
+    21300054: particle cyclone_27
+    21300056: particle cyclone_28
+    21300058: particle cyclone_29
+    21300060: particle cyclone_30
+    21300062: particle cyclone_31
+    21300064: particle cyclone_32
+    21300066: particle cyclone_33
+    21300068: particle cyclone_34
+    21300070: particle cyclone_35
+    21300072: particle cyclone_36
+    21300074: particle cyclone_37
+    21300076: particle cyclone_38
+    21300078: particle cyclone_39
+    21300080: particle cyclone_40
+    21300082: particle cyclone_41
+    21300084: particle cyclone_42
+    21300086: particle cyclone_43
+    21300088: particle cyclone_44
+    21300090: particle cyclone_45
+    21300092: particle cyclone_46
+    21300094: particle cyclone_47
+    21300096: particle cyclone_48
+    21300098: particle cyclone_49
+    21300100: particle cyclone_50
+    21300102: particle cyclone_51
+    21300104: particle cyclone_52
+    21300106: particle cyclone_53
+    21300108: particle cyclone_54
+    21300110: particle cyclone_55
+    21300112: particle cyclone_56
+    21300114: particle cyclone_57
+    21300116: particle cyclone_58
+    21300118: particle cyclone_59
+    21300120: particle cyclone_60
+    21300122: particle cyclone_61
+    21300124: particle cyclone_62
+    21300126: particle cyclone_63
+    21300128: particle cyclone_64
+    21300130: particle cyclone_65
+    21300132: particle cyclone_66
+    21300134: particle cyclone_67
+    21300136: particle cyclone_68
+    21300138: particle cyclone_69
+    21300140: particle cyclone_70
+    21300142: particle cyclone_71
+    21300144: particle cyclone_72
+    21300146: particle cyclone_73
+    21300148: particle cyclone_74
+    21300150: particle cyclone_75
+    21300152: particle cyclone_76
+    21300154: particle cyclone_77
+    21300156: particle cyclone_78
+    21300158: particle cyclone_79
+    21300160: particle cyclone_80
+    21300162: particle cyclone_81
+    21300164: particle cyclone_82
+    21300166: particle cyclone_83
+    21300168: particle cyclone_84
+    21300170: particle cyclone_85
+    21300172: particle cyclone_86
+    21300174: particle cyclone_87
+    21300176: particle cyclone_88
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -5
+  maxTextureSize: 512
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: particle cyclone_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 810
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_1
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 810
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_2
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 810
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_3
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 810
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 540
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_5
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 540
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_6
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 540
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_7
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 540
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_8
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 270
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_9
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 270
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_10
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 270
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_11
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 270
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_12
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_13
+      rect:
+        serializedVersion: 2
+        x: 480
+        y: 0
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_14
+      rect:
+        serializedVersion: 2
+        x: 960
+        y: 0
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: particle cyclone_15
+      rect:
+        serializedVersion: 2
+        x: 1440
+        y: 0
+        width: 480
+        height: 270
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -6,6 +6,7 @@ public class InGameHUD : MonoBehaviour
 
 	public GameObject pauseScreen,gameHUD;
 
+	 
 
 	// Use this for initialization
 	void Start ()
@@ -32,13 +33,16 @@ public class InGameHUD : MonoBehaviour
 
 	public void Pause()
 	{
+
+		//LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransition.RipplesToSameScene);
 		pauseScreen.SetActive (true);
 		gameHUD.SetActive (false);
-		Time.timeScale = 0.1f;
+		Time.timeScale = 0f;
 	}
 
 	public void Resume()
 	{
+		LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransition.RipplesToSameScene);
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		Time.timeScale = 1.0f;

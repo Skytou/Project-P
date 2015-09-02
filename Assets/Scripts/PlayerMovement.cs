@@ -201,6 +201,65 @@ public class PlayerMovement : MonoBehaviour
 			isEnemySpotted = true;
 		//	Debug.Log("IsEnemySpotted" + isEnemySpotted);
 			break;
+
+		case "EnemyTrigger0":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [0] = true;
+			other.gameObject.SetActive (false);
+			break;
+		case "EnemyTrigger1":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [1] = true;
+			other.gameObject.SetActive (false);
+			break;
+		case "EnemyTrigger2":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [2] = true;
+			other.gameObject.SetActive (false);
+			break;
+		case "EnemyTrigger3":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [3] = true;
+			other.gameObject.SetActive (false);
+			break;
+		case "EnemyTrigger4":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [4] = true;
+			other.gameObject.SetActive (false);
+			break;
+
+		case "Door0":
+
+			if(LevelManager.instance.stageCompleted[0])
+			{
+				LevelManager.instance.doorsToBeOpened [0].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
+		case "Door1":
+
+			if(LevelManager.instance.stageCompleted[1])
+			{
+				LevelManager.instance.doorsToBeOpened [1].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
+		case "Door2":
+
+			if(LevelManager.instance.stageCompleted[2])
+			{
+				LevelManager.instance.doorsToBeOpened [2].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
+		case "Door3":
+
+			if(LevelManager.instance.stageCompleted[3])
+			{
+				LevelManager.instance.doorsToBeOpened [3].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
 		default:
 			
 			break;
@@ -235,31 +294,15 @@ public class PlayerMovement : MonoBehaviour
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 
 				Debug.Log (layerName);
-				/*if(layerName!="Wall")
-				{
-					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					playerBehaviour = PlayerBehaviour.MOVE;
-
-					//break;
-				}*/
-				/*else if(layerName =="AI")
-				{
-					selectedEnemy = hit.collider.gameObject;
-					playerBehaviour = PlayerBehaviour.MOVE;
-					//break;
-				}*/
+				 
 				switch(layerName)
 				{
-				/*	case "Ground":
-					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					playerBehaviour = PlayerBehaviour.MOVE;
-					break;*/
-
+				 
 				case "AI":
 
 					selectedObject = hit.collider.gameObject;
 					touchPos = selectedObject.transform.position;
-					Debug.Log ("touch pos is generated");
+					//Debug.Log ("touch pos is generated");
 					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
 
@@ -273,6 +316,12 @@ public class PlayerMovement : MonoBehaviour
 				case "WallLightLayer":
 					touchPos = this.transform.position;
 
+					break;
+					 
+				default:
+
+					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
 				}
 				 
@@ -354,7 +403,7 @@ public class PlayerMovement : MonoBehaviour
  		if(distanceToPoint<distanceToAttack)
 		{
 			Stop ();
-			Debug.Log ("Stopping");
+			//Debug.Log ("Stopping");
 		}
 
 		else
@@ -392,7 +441,11 @@ public class PlayerMovement : MonoBehaviour
  		}
 
 		if(isInMove)
+		{
+			characterAnimator.StopPlayback();
 			CalculateAngle(angle);
+		}
+			
 
 		if(transform.position ==  touchPos )
 		{
@@ -419,7 +472,7 @@ public class PlayerMovement : MonoBehaviour
 
 		if(selectedObject!=null )
 		{
-			//if(!animatorStateInfo.IsTag("AttackTag"))
+			if(!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
 			{
 				//characterAnimator.StopPlayback();
 
@@ -470,12 +523,13 @@ public class PlayerMovement : MonoBehaviour
 	void Attack()
 	{
 		//if(Input.GetKeyDown(KeyCode.A))
+
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
-			int r = Random.Range(1,5);
+			int r = Random.Range(1,3);
 			//Debug.Log("Random value "+ 4);
-			characterAnimator.SetInteger("AttackRandom",2);
+			characterAnimator.SetInteger("AttackRandom",r);
 			characterAnimator.SetTrigger("Attack");
 
 			//Debug.Log( "Event "+ characterAnimator.fireEvents );
@@ -489,7 +543,7 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);
 		//Debug.Log("Random value "+ 4);
-		characterAnimator.SetInteger("ReactRandom",2);
+		characterAnimator.SetInteger("ReactRandom",1);
 		characterAnimator.SetTrigger("React");
 	}
 

@@ -189,7 +189,7 @@ public class AIComponent : MonoBehaviour
 		
 		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
 
-		Debug.Log (playerPos);
+		//Debug.Log (playerPos);
 		if( (distanceToPlayer<distanceToAttack) )
 		{
 			Stop();
@@ -293,7 +293,7 @@ public class AIComponent : MonoBehaviour
 	{
 		if (hitsTaken >= aiMaxHitTaken-1)
 		{ 	
-			Debug.Log("Calling Dead state");
+			//Debug.Log("Calling Dead state");
 			healthBar.SetActive(false);
 			hitsTaken++;
 			Destroy (this.gameObject);

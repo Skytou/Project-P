@@ -14,10 +14,13 @@ public class SmoothFollow : MonoBehaviour
 	
 	private CharacterController2D _playerController;
 	private Vector3 _smoothDampVelocity;
-	
+
+	public static SmoothFollow instance = null;
 	
 	void Awake()
 	{
+
+		instance = this;
 		transform = gameObject.transform;
 		_playerController = target.GetComponent<CharacterController2D>();
 	}
