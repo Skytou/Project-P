@@ -296,7 +296,7 @@ public class AIComponent : MonoBehaviour
 			//Debug.Log("Calling Dead state");
 			healthBar.SetActive(false);
 			hitsTaken++;
-			Destroy (this.gameObject);
+			Death ();
  
 		}
 		else
@@ -306,95 +306,32 @@ public class AIComponent : MonoBehaviour
 			healthBarRectT = healthBarRectTransform.localScale;
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
+
+			int r = Random.Range(1,5);
+			//Debug.Log("Random value "+ 4);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+			aiAnimator.SetInteger("ReactRandom",1);
+			aiAnimator.SetTrigger("React");
 		 	//Debug.Log(hitsTaken);
 		}
+
 	}
 
- 	void OnTriggerEnter2D(Collider2D other)
+
+	public void Death()
 	{
-		layerName =  LayerMask.LayerToName(other.gameObject.layer);
-
-		switch(layerName)
-		{
-		case "Player":
-			//isInPlayerRadius = true;
-			//Debug.Log ("Player in Radius");
-			break;
-
-		case "AI":
-			//if (other.GetComponent<AIComponent> ().isInPlayerRadius == true )
-			{
-				//isAIOverLapped = true;
-				 
-			}
-			break;
-		case "Ground":
-
-			//other.gameObject.GetComponent<PolygonCollider2D> ().enabled = false;
-
-			break;
-
-		/*else
-			{
-				isAIOverLapped = false;
-			}*/
-
-		 
-		}
-	//	Debug.Log(layerName);
-		//characterInQuicksand = true;
+		aiAnimator.SetFloat("idleDirection",idleDirection);
+		aiAnimator.SetFloat("moveDirection",moveDirection);
+		int r = Random.Range(1,3);
+		aiAnimator.SetTrigger("Death");
+		aiAnimator.SetInteger("DeathRandom",r);
+		//Destroy (this.gameObject,2f);
 	}
-
-	/*void OnTriggerStay2D(Collider2D other) 
+ 	 
+	public void DestroyEnemy()
 	{
-		layerName =  LayerMask.LayerToName(other.gameObject.layer);
-
-		Debug.Log (layerName);
-		switch(layerName)
-		{ 	
-
-		case "Player":
-			isInPlayerRadius = true;
-
-			 
-			break;
-			case "AI":
-		 	if (other.GetComponent<AIComponent> ().isInPlayerRadius == true )
-			{
-				isAIOverLapped = true;
-			}
-				
-		 
-		 	 
-		 
-				break;
-		 
-		}
-	}
-*/
-	void OnTriggerExit2D(Collider2D other) 
-	{
-		layerName =  LayerMask.LayerToName(other.gameObject.layer);
-		
-		/*switch(layerName)
-		{ 	
-
-		case "Player":
-			isInPlayerRadius = false;
-			isAIOverLapped = false;
-		//	Debug.Log ("resetting player in radius");
-
-			break;
-		case "AI":
-			 
-			isAIOverLapped = false;
-			 
-
-			break;
-	 
-
-			Debug.Log (layerName);
-		}*/
+		Destroy (this.gameObject);
 	}
  
 	void CallAnimation()
@@ -413,20 +350,7 @@ public class AIComponent : MonoBehaviour
 	void Update () 
 	{
 		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
-
-		//Debug.Log ("Distance to player " + distanceToPlayer);
-		/*if(  (distanceToPlayer>distanceToAttack)  && !isInPlayerRadius)
-			{
-				MoveTowardsPlayer();
-			Debug.Log ("Update");
-			aiAnimator.SetBool("isInMove",isInMove);
-			aiAnimator.SetFloat("idleDirection",idleDirection);
-			aiAnimator.SetFloat("moveDirection",moveDirection);
-			}*/
 		 
-		//CastRay ();
-		 
-
 		//if((distanceToPlayer>distanceToAttack)  )
 		{
 			MoveTowardsPlayer ();
@@ -435,20 +359,11 @@ public class AIComponent : MonoBehaviour
 		{
 			Idle ();
 		}*/
-		/*switch(aiBehaviour)
-		{
-			case AIBehaviour.ATTACK:
-				MoveTowardsPlayer();
-			break;
-
-		case AIBehaviour.IDLE:
-			Idle();
-			break;
-		}*/
-
+		 
+/*
 		if(Input.GetMouseButtonDown(1))
 		{
 			React();
-		}
+		}*/
 	}
 }

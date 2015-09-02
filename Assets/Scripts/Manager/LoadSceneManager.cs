@@ -9,13 +9,18 @@ public enum SceneTransition
 	RipplesToScene,
 	FishEyeToScene,
 	FishEyeToSceneVariant,
+
+
+	
+}
+
+public enum SceneTransistionSelf
+{
 	MaskToSameScene,
 	FadeToSameScene,
 	RipplesToSameScene,
 	FishEyeToSameScene,
 	FishEyeToSameSceneVariant
-
-	
 }
 
 public class LoadSceneManager : MonoBehaviour 
@@ -26,6 +31,8 @@ public class LoadSceneManager : MonoBehaviour
 	private bool _isUiVisible = true;
 	
 	public SceneTransition sceneTransition;
+
+	public SceneTransistionSelf sceneTrasitionSelf;
 	public Color sceneTransitionColor;
 	public float fadeDelay;
 	
@@ -108,14 +115,14 @@ public class LoadSceneManager : MonoBehaviour
 		}
 	}
 
-	public void LoadSameSceneWithTransistion( SceneTransition _st)
+	public void LoadSameSceneWithTransistion( SceneTransistionSelf _st)
 	{
 		if( !_isUiVisible )
 			return;
 		
 		switch(_st)
 		{
-		case SceneTransition.MaskToSameScene:
+		case  SceneTransistionSelf.MaskToSameScene:
 			var mask = new ImageMaskTransition()
 			{
 				maskTexture = maskTexture,
@@ -126,7 +133,7 @@ public class LoadSceneManager : MonoBehaviour
 			Debug.Log("Changing");
 			break; 
 			
-		case SceneTransition.FadeToSameScene:
+		case SceneTransistionSelf.FadeToSameScene:
 			var fader = new FadeTransition()
 			{
 
@@ -137,7 +144,7 @@ public class LoadSceneManager : MonoBehaviour
 			
 			break;
 			
-		case SceneTransition.RipplesToSameScene:
+		case SceneTransistionSelf.RipplesToSameScene:
 			
 			var ripple = new RippleTransition()
 			{
@@ -149,7 +156,7 @@ public class LoadSceneManager : MonoBehaviour
 			TransitionKit.instance.transitionWithDelegate( ripple );
 			break;
 			
-		case SceneTransition.FishEyeToSameScene :
+		case SceneTransistionSelf.FishEyeToSameScene :
 			
 			var fishEye = new FishEyeTransition()
 			{
@@ -162,7 +169,7 @@ public class LoadSceneManager : MonoBehaviour
 			TransitionKit.instance.transitionWithDelegate( fishEye );
 			break;
 			
-		case SceneTransition.FishEyeToSameSceneVariant :
+		case SceneTransistionSelf.FishEyeToSameSceneVariant :
 			
 			var fishEye2 = new FishEyeTransition()
 			{

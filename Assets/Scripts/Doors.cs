@@ -14,7 +14,9 @@ public class Doors : MonoBehaviour
 
 	public void OpenDoor()
 	{
-		iTween.MoveBy (gameObject, iTween.Hash ("y", yValue, "oncomplete", "OnDoorOpenFunction", "delay", 0.5));
+		//iTween.MoveBy (gameObject, iTween.Hash ("y", yValue, "oncomplete", "OnDoorOpenFunction", "delay", 0.5));
+		// TODO: play particle effect
+		Destroy (this.gameObject);
 	}
 
 

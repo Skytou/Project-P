@@ -260,6 +260,30 @@ public class PlayerMovement : MonoBehaviour
 			}
 
 			break;
+		case "Door4":
+
+			if(LevelManager.instance.stageCompleted[4])
+			{
+				LevelManager.instance.doorsToBeOpened [4].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
+		case "Door5":
+
+			if(LevelManager.instance.stageCompleted[5])
+			{
+				LevelManager.instance.doorsToBeOpened [5].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
+		case "Door6":
+
+			if(LevelManager.instance.stageCompleted[6])
+			{
+				LevelManager.instance.doorsToBeOpened [6].GetComponent<Doors> ().OpenDoor ();
+			}
+
+			break;
 		default:
 			
 			break;

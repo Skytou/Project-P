@@ -1,10 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System; 
 
 public class InGameHUD : MonoBehaviour
 {
 
 	public GameObject pauseScreen,gameHUD;
+
+
 
 	 
 
@@ -42,7 +45,10 @@ public class InGameHUD : MonoBehaviour
 
 	public void Resume()
 	{
-		LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransition.RipplesToSameScene);
+		var values = Enum.GetValues (typeof(SceneTransistionSelf));
+	
+		//SceneTransistionSelf s = (SceneTransistionSelf)values ( Random.Range (0, values.Length));
+		LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransistionSelf.RipplesToSameScene );//  SceneTransistionSelf.RipplesToSameScene);
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		Time.timeScale = 1.0f;
