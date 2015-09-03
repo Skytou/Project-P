@@ -18,6 +18,7 @@ public class LevelManager : MonoBehaviour
 	public static LevelManager instance = null;
 	//public GameObject[] aiPrefab;
 	//public GameObject[] spawnPoiints;
+	public int levelNumber;
 
 	public List<AIGameObjectInSections> aiGameObjectsInSections;
 

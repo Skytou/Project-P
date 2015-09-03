@@ -341,6 +341,10 @@ public class PlayerMovement : MonoBehaviour
 					touchPos = this.transform.position;
 
 					break;
+
+				case "AreaLock":
+					touchPos = this.transform.position;
+					break;
 					 
 				default:
 

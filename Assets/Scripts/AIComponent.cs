@@ -267,7 +267,7 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);
 		//Debug.Log("Random value "+ 4);
-		aiAnimator.SetInteger("AttackRandom",1);
+		aiAnimator.SetInteger("AttackRandom",r);
 		aiAnimator.SetTrigger("Attack");
 	}
 
