@@ -58,7 +58,7 @@ public class SplashScreenManager : MonoBehaviour
 		}
 		LoadSceneManager.instance.LoadSceneWithTransistion(1,SceneTransition.RipplesToScene);
 		Debug.Log("level loaded");
-		//Application.LoadLevel(2);
+		Application.LoadLevel(1);
 	}
 
 

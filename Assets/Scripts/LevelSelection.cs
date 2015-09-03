@@ -29,6 +29,30 @@ public class LevelSelection : MonoBehaviour
 		}
 	
 	}
+
+
+	public void Level1()
+	{
+		Application.LoadLevel (3);
+	}
+
+	public void Level2()
+	{
+		Application.LoadLevel (4);
+	}
+
+	public void Level3()
+	{
+		
+	}
+
+	public void Level4()
+	{
+		
+	}
+
+
+
 	
 	// Update is called once per frame
 	void Update ()

@@ -14,7 +14,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 	{
 		for(int i =0;i<castleLocked.Length;i++)
 		{
-			castleLocked[i] = 0;
+			castleLocked[i] = 1;
 		}
 	}
 }

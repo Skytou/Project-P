@@ -62,7 +62,7 @@ public class InGameHUD : MonoBehaviour
 
 	public void Menu()
 	{
-		
+		Application.LoadLevel ("LevelSelection");
 	}
 
 	// Update is called once per frame
