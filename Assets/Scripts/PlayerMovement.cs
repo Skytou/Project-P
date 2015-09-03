@@ -551,7 +551,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
-			int r = Random.Range(1,3);
+			int r = Random.Range(1,5);
 			//Debug.Log("Random value "+ 4);
 			characterAnimator.SetInteger("AttackRandom",r);
 			characterAnimator.SetTrigger("Attack");
