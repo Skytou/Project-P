@@ -305,8 +305,8 @@ public class PlayerMovement : MonoBehaviour
 		{ 
 			 
 			 
-			selectedEnemy = null;
-			selectedObject = null;
+			/*selectedEnemy = null;
+			selectedObject = null;*/
 			distanceToAttack = intialDistanceToAttack;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
@@ -325,6 +325,10 @@ public class PlayerMovement : MonoBehaviour
 				case "AI":
 
 					selectedObject = hit.collider.gameObject;
+					if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
+					{
+						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+					}
 					touchPos = selectedObject.transform.position;
 					//Debug.Log ("touch pos is generated");
 					playerBehaviour = PlayerBehaviour.MOVE;
@@ -348,7 +352,12 @@ public class PlayerMovement : MonoBehaviour
 					 
 				default:
 
+
 					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+					//if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
+					{
+						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+					}
 					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
 				}
@@ -358,6 +367,12 @@ public class PlayerMovement : MonoBehaviour
 			else
 			{
 				touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+				if(selectedObject!=null)
+				//if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
+				{
+					selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+					selectedObject = null;
+				}
 				playerBehaviour = PlayerBehaviour.MOVE;
 			}
 

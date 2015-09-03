@@ -36,6 +36,13 @@ public class AIComponent : MonoBehaviour
 	private Animator aiAnimator;
 	private AnimatorStateInfo aiAnimatorState;
 
+	public SpriteRenderer aiSpriteRenderer;
+	public GameObject enemyDeathParticleEffect;
+	private Animator enemyDeathParticleAnimator;
+
+	public GameObject selectionMarker;
+
+
 	Vector3 playerPos;
 
 	bool isAiInRange;
@@ -66,12 +73,17 @@ public class AIComponent : MonoBehaviour
 		aiAnimator = GetComponent<Animator>();
 		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
 		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
+
+		enemyDeathParticleAnimator = enemyDeathParticleEffect.GetComponent<Animator> ();
 		//Debug.Log(healthBarScaleFactor);
 	}
 
 	// Use this for initialization
 	void Start () 
 	{
+		aiSpriteRenderer.enabled = true;
+		enemyDeathParticleEffect.SetActive (false);
+		selectionMarker.SetActive (false);
 		 
 	}
 
@@ -321,17 +333,23 @@ public class AIComponent : MonoBehaviour
 
 	public void Death()
 	{
+		selectionMarker.SetActive (false);
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,3);
 		aiAnimator.SetTrigger("Death");
 		aiAnimator.SetInteger("DeathRandom",r);
+
 		//Destroy (this.gameObject,2f);
 	}
  	 
 	public void DestroyEnemy()
 	{
-		Destroy (this.gameObject);
+		
+
+		enemyDeathParticleEffect.SetActive (true);
+		aiSpriteRenderer.enabled = false;
+		Destroy (this.gameObject,1.0f);
 	}
  
 	void CallAnimation()
