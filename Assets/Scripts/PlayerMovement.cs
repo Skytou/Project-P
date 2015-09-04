@@ -354,7 +354,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					//if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
+					if(selectedObject!=null)
 					{
 						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 					}
