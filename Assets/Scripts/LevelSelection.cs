@@ -33,17 +33,20 @@ public class LevelSelection : MonoBehaviour
 
 	public void Level1()
 	{
-		Application.LoadLevel (3);
+		LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
+		//Application.LoadLevel (3);
 	}
 
 	public void Level2()
 	{
-		Application.LoadLevel (4);
+		LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
+		//Application.LoadLevel (4);
 	}
 
 	public void Level3()
 	{
-		
+		LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
+		//Application.LoadLevel (5);
 	}
 
 	public void Level4()

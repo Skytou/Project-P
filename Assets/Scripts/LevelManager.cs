@@ -35,6 +35,7 @@ public class LevelManager : MonoBehaviour
 
 	void Awake()
 	{
+		Time.timeScale = 1.0f;
 		instance = this;
 		activateAISpawn = new bool[10];
 		stageCompleted = new bool[10];
