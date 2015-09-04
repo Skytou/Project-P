@@ -301,7 +301,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
+		if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()  )
 		{ 
 			 
 			 
