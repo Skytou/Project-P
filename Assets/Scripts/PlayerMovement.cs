@@ -611,14 +611,6 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 	}
-	void FixedUpdate()
-	{
-		//this.GetComponent<Rigidbody2D>().MovePosition(target + velocity * Time.fixedDeltaTime);
-	}
-
-	void LateUpdate()
-	{
-
-	}
+	 
 	
 }

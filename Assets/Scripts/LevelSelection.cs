@@ -51,7 +51,7 @@ public class LevelSelection : MonoBehaviour
 
 	public void Level4()
 	{
-		
+		LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
 	}
 
 

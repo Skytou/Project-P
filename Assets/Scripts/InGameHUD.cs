@@ -65,9 +65,5 @@ public class InGameHUD : MonoBehaviour
 		Application.LoadLevel ("LevelSelection");
 	}
 
-	// Update is called once per frame
-	void Update () 
-	{
-		//Debug.Log (GameGlobalVariablesManager.isHUDClicked);
-	}
+	 
 }
