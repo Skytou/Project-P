@@ -286,7 +286,7 @@ public class AIComponent : MonoBehaviour
 
 	void HitPlayer()
 	{
-		Debug.Log ("Triggering player react");
+		//Debug.Log ("Triggering player react");
 
 		playerRef.GetComponent<PlayerMovement>().React ();
 	}

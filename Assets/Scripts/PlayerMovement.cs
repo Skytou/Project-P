@@ -311,7 +311,7 @@ public class PlayerMovement : MonoBehaviour
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
-			//Debug.Log ("hit " + hit.collider.name);
+		//	Debug.Log ("hit " + hit.collider.name);
 			 
 			if(hit.collider != null)
 			{
@@ -581,7 +581,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void React()
 	{
-		Debug.Log ("Play react anim");
+		//Debug.Log ("Play react anim");
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		int r = Random.Range(1,5);

@@ -71,7 +71,7 @@ public class LevelManager : MonoBehaviour
 				else
 				{
 					aiGameObjectsInSections [limit].ai.RemoveAll (item => item == null);
-					Debug.Log ("removing ai form index");
+					//Debug.Log ("removing ai form index");
 				}
 			}
 			else
