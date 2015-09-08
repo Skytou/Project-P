@@ -6,11 +6,14 @@ using System.Collections.Generic;
 public class HorseManager : MonoBehaviour 
 {
 
+	public static HorseManager instance = null;
 
 	public GameObject horseRef;
 	private Animator horseAnimator;
-	public float speed;
+	 
+	public float distanceTravelled;
 
+	private Vector3 lastPosition;
 
 
 	Rigidbody2D rBody;
@@ -32,7 +35,7 @@ public class HorseManager : MonoBehaviour
 
 	void Awake()
 	{
-		
+		instance = this;
 		rBody =  GetComponent<Rigidbody2D> ();
 		_animator = horseRef.GetComponent<Animator>();
 		_controller = GetComponent<CharacterController2D>();
@@ -45,7 +48,7 @@ public class HorseManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-	
+		lastPosition = this.transform.position;
 	}
 
 	#region Event Listeners
@@ -124,6 +127,14 @@ public class HorseManager : MonoBehaviour
 	{
 
 		HorseMovement();
-	
+		distanceTravelled += Vector3.Distance(transform.position, lastPosition);
+		lastPosition = transform.position;
+
+		//Debug.Log (this.transform.position);
+		//Debug.Log ("Distance Travelled " + distanceTravelled);
+		/*if((int)distanceTravelled==10f)
+		{
+			Debug.Log ("reset");
+		}*/
 	}
 }
