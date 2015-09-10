@@ -41,8 +41,7 @@ public class HorseLevelManager : MonoBehaviour
 
 	void SpawnBridge()
 	{
-		//Debug.Log (HorseManager.instance.distanceTravelled);
-
+		
 
 		{
 			 
@@ -69,7 +68,9 @@ public class HorseLevelManager : MonoBehaviour
 	void Update ()
     {
  
-		/*switch((int)HorseManager.instance.distanceTravelled%40)
+		Debug.Log (HorseManager.instance.distanceTravelled);
+
+		switch((int)HorseManager.instance.distanceTravelled%40)
 		{
 
 		case 0:
@@ -78,7 +79,7 @@ public class HorseLevelManager : MonoBehaviour
 
 			break;
 
-		}*/
+		}
 		 
 
 		if(Input.GetMouseButtonDown(0))

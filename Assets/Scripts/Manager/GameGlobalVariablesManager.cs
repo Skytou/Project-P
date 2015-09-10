@@ -10,6 +10,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isCameraLocked = false;
 
+
+	public static bool isPlayerSpin = false;
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)

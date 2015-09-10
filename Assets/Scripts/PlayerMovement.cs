@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 //using Prime31;
 using UnityEngine.EventSystems;
 
@@ -39,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
 	Collider2D collider2D;
 
-	bool isEnemySpotted;
+	 
 
 	//string selectedObject;
 	GameObject selectedEnemy, selectedObject;
@@ -48,6 +49,8 @@ public class PlayerMovement : MonoBehaviour
 
 	public float attackTime;
 
+	public float spinTime;
+	public  float sTime;
 	public GameObject knife;
 
 	RaycastHit2D hit ;
@@ -65,7 +68,11 @@ public class PlayerMovement : MonoBehaviour
 	 
 	public List<Vector3> movementPath;
 
+	bool canSpin;
 
+	public float spinAttackDistance;
+
+	private CircleCollider2D playerSpinCircleCollider;
 	//float tempDistanceToAttack;
 
 	void Awake()
@@ -73,6 +80,7 @@ public class PlayerMovement : MonoBehaviour
 		target = transform.position;
 		characterAnimator = GetComponent<Animator>();
 		bezierCurve = new BezierCurve ();
+		playerSpinCircleCollider = this.GetComponent<CircleCollider2D> ();
 	}
 
 	void Start()
@@ -82,6 +90,9 @@ public class PlayerMovement : MonoBehaviour
 		idleDirection =5;
 		//moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
+		sTime = spinTime;
+
+		GameGlobalVariablesManager.isPlayerSpin = false;
 		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
  
@@ -186,20 +197,21 @@ public class PlayerMovement : MonoBehaviour
 	 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-		layerName =  LayerMask.LayerToName(other.gameObject.layer);
+		layerName = LayerMask.LayerToName (other.gameObject.layer);
 		
-		switch(layerName)
+		switch (layerName)
 		{
 		case "Player":
 
 			break;
 			
 		case "AI":
-			
-			//Debug.Log("Ai In AI range");
-
-			isEnemySpotted = true;
-		//	Debug.Log("IsEnemySpotted" + isEnemySpotted);
+			if(canSpin)
+			{
+				other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+				other.gameObject.GetComponent<AIComponent> ().Death ();
+			}
+			 
 			break;
 
 		case "EnemyTrigger0":
@@ -230,56 +242,49 @@ public class PlayerMovement : MonoBehaviour
 
 		case "Door0":
 
-			if(LevelManager.instance.stageCompleted[0])
-			{
+			if (LevelManager.instance.stageCompleted [0]) {
 				LevelManager.instance.doorsToBeOpened [0].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door1":
 
-			if(LevelManager.instance.stageCompleted[1])
-			{
+			if (LevelManager.instance.stageCompleted [1]) {
 				LevelManager.instance.doorsToBeOpened [1].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door2":
 
-			if(LevelManager.instance.stageCompleted[2])
-			{
+			if (LevelManager.instance.stageCompleted [2]) {
 				LevelManager.instance.doorsToBeOpened [2].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door3":
 
-			if(LevelManager.instance.stageCompleted[3])
-			{
+			if (LevelManager.instance.stageCompleted [3]) {
 				LevelManager.instance.doorsToBeOpened [3].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door4":
 
-			if(LevelManager.instance.stageCompleted[4])
-			{
+			if (LevelManager.instance.stageCompleted [4]) {
 				LevelManager.instance.doorsToBeOpened [4].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door5":
 
-			if(LevelManager.instance.stageCompleted[5])
-			{
+			if (LevelManager.instance.stageCompleted [5]) {
 				LevelManager.instance.doorsToBeOpened [5].GetComponent<Doors> ().OpenDoor ();
 			}
 
 			break;
 		case "Door6":
 
-			if(LevelManager.instance.stageCompleted[6])
-			{
+			if (LevelManager.instance.stageCompleted [6]) {
 				LevelManager.instance.doorsToBeOpened [6].GetComponent<Doors> ().OpenDoor ();
 			}
 
@@ -288,36 +293,48 @@ public class PlayerMovement : MonoBehaviour
 			
 			break;
 		}
-		//Debug.Log(layerName);
-		//characterInQuicksand = true;
 	}
-	
-	void OnMouseDown()
+	 
+
+	/*void OnTriggerStay2D(Collider2D other)
 	{
-		Debug.Log ("On mouse down");
-	}
+		layerName = LayerMask.LayerToName (other.gameObject.layer);
+
+		switch (layerName)
+		{
+
+		case "AI":
+			if (canSpin)
+			{
+				other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+				other.gameObject.GetComponent<AIComponent> ().Death ();
+			}
+
+			break;
+		}
+	}*/
+	 
 
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		if (Input.GetMouseButton(0) && !EventSystem.current.IsPointerOverGameObject()  )
+		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
 		{ 
 			 
 			 
-			/*selectedEnemy = null;
-			selectedObject = null;*/
+			 
 			distanceToAttack = intialDistanceToAttack;
 			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 			hit   = Physics2D.Raycast(target, Vector2.zero);
 
-		//	Debug.Log ("hit " + hit.collider.name);
+	 
 			 
 			if(hit.collider != null)
 			{
 				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
 
-				Debug.Log (layerName);
+			//	Debug.Log (layerName);
 				 
 				switch(layerName)
 				{
@@ -330,7 +347,7 @@ public class PlayerMovement : MonoBehaviour
 						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
 					}
 					touchPos = selectedObject.transform.position;
-					//Debug.Log ("touch pos is generated");
+				 
 					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
 
@@ -368,7 +385,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 				if(selectedObject!=null)
-				//if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
+			 
 				{
 					selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 					selectedObject = null;
@@ -414,11 +431,84 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		}
 	 
-		if( throwKnifeSelected)
-		ThrowKnives ();
+		/*	if( throwKnifeSelected)
+		ThrowKnives ();*/
+
+
+		if(GameGlobalVariablesManager.isPlayerSpin)
+		{
+			canSpin = true;
+			sTime -= Time.deltaTime;
+			Spin ();
+			//SpinAttack ();
+		}
+
+	 
 	}
 
-	void ThrowKnives()
+
+
+	void Spin()
+	{
+		if (sTime >= 0f) 
+		{  
+			if (!animatorStateInfo.IsName ("VijaySpin"))
+			{
+				characterAnimator.SetBool ("isSpin", canSpin);
+				playerSpinCircleCollider.radius = 8f;
+			}
+				
+			
+		}
+ 
+		else
+		{
+			Debug.Log ("time over");
+			GameGlobalVariablesManager.isPlayerSpin = false;
+			canSpin = false;
+			sTime = spinTime;
+			playerSpinCircleCollider.radius = 3.5f;
+			characterAnimator.SetBool ("isSpin", canSpin);
+
+		}
+	}
+
+
+	public void SpinAttack()
+	{
+
+		GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
+
+		foreach( var e in enemyList)
+		{
+			Debug.Log (this.transform.position.x - e.transform.position.x);
+		}
+		var newSpawn = from enemy in enemyList
+				where (((this.transform.position.x - enemy.transform.position.x) <  spinAttackDistance ) )
+			
+					//&&(Vector3.Dot (this.transform.TransformDirection (Vector3.forward), (enemy.transform.position - this.transform.position)) > 0))
+			select enemy;
+		//Debug.Log((this.transform.position - enemy.transform.position).sqrMagnitude <  spinAttackDistance );
+
+
+		Debug.Log (newSpawn);
+
+		List<GameObject> tempList = new List<GameObject> ();
+		if (newSpawn != null && newSpawn.Count () > 0) 
+		{
+			tempList = newSpawn.ToList ();
+
+				foreach (GameObject go in tempList) 
+				{  
+
+				if (!go.GetComponent<AIComponent> ().aiAnimatorState.IsTag ("DeathTag")) 
+					go.GetComponent<AIComponent> ().Death ();//  React (id);
+				}
+				 
+			}
+		}
+	 
+	/*void ThrowKnives()
 	{
 		if(Input.GetMouseButtonDown(1))
 
@@ -436,7 +526,7 @@ public class PlayerMovement : MonoBehaviour
 
 			//rigidbody2D.AddForce (dir * amount);
 		}
-	}
+	}*/
 
 	void MoveTowardsPoint()
 	{ 
@@ -517,17 +607,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
 			{
-				//characterAnimator.StopPlayback();
-
-
-		 
-			if(a_timer <=0f)
-			{
-				// call Attack()
-				Attack();
-				a_timer = attackTime;
-			}
-			a_timer -= Time.deltaTime;
+				 
+				if(a_timer <=0f)
+				{
+					// call Attack()
+					Attack();
+					a_timer = attackTime;
+				}
+				a_timer -= Time.deltaTime;
 
 			}
 		}

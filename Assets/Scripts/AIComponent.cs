@@ -34,7 +34,7 @@ public class AIComponent : MonoBehaviour
 	public float distanceToAttack;
 	public bool isInPlayerRadius;
 	private Animator aiAnimator;
-	private AnimatorStateInfo aiAnimatorState;
+	public AnimatorStateInfo aiAnimatorState;
 
 	public SpriteRenderer aiSpriteRenderer;
 	public GameObject enemyDeathParticleEffect;

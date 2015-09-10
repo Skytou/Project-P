@@ -127,7 +127,7 @@ public class HorseManager : MonoBehaviour
 	{
 
 		HorseMovement();
-		distanceTravelled += Vector3.Distance(transform.position, lastPosition);
+		distanceTravelled +=Vector3.Distance(transform.position, lastPosition);
 		lastPosition = transform.position;
 
 		//Debug.Log (this.transform.position);

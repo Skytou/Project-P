@@ -31,7 +31,13 @@ public class InGameHUD : MonoBehaviour
 
 	public void Cyclone()
 	{
-		 
+		
+		if (!GameGlobalVariablesManager.isPlayerSpin)
+		{
+			Debug.Log ("cyclone");
+			GameGlobalVariablesManager.isPlayerSpin = true;
+		}
+			
 	}
 
 	public void Pause()
