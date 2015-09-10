@@ -33,6 +33,7 @@ public class HorseLevelManager : MonoBehaviour
 		initialPos = new Vector3 (0, 0, 20);
 		nextPos = new Vector3 (42.3f, -24.6f, 20);
 		newBridge = TrashMan.spawn (bridge, initialPos, Quaternion.identity);
+		Debug.Log ("spawning first bridge");
 
 		spawnObject.Add (newBridge);
 		 
@@ -49,6 +50,7 @@ public class HorseLevelManager : MonoBehaviour
 
 			Debug.Log ("Spawning");
 			newObj = TrashMan.spawn (bridge, initialPos+ nextPos, Quaternion.identity);
+			if(spawnObject.Capacity<=5)
 			spawnObject.Add (newObj);
 
 				
@@ -69,24 +71,27 @@ public class HorseLevelManager : MonoBehaviour
     {
  
 		Debug.Log (HorseManager.instance.distanceTravelled);
-
-		switch((int)HorseManager.instance.distanceTravelled%40)
+		if((int) HorseManager.instance.distanceTravelled>0)
 		{
+			switch((int)HorseManager.instance.distanceTravelled%3)
+			{
 
-		case 0:
-			
-			SpawnBridge ();
+			case 0:
 
-			break;
+				SpawnBridge ();
 
+				break;
+
+			}
 		}
+
 		 
 
-		if(Input.GetMouseButtonDown(0))
+		/*if(Input.GetMouseButtonDown(0))
 		{
 			SpawnBridge ();
 		}
-
+*/
 		//DeSpawnBridge ();
 		 
 		 

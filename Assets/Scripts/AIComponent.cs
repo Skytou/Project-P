@@ -26,12 +26,12 @@ public class AIComponent : MonoBehaviour
 	public int aiLevel;
 	public float aiHealth;
 	public float aiMaxHitTaken;
-	public float aiAttackTime;
+	public float aiAttackTime ,aiThrowTime;
 	//public float aiHealthDegrageRate;
 
 	public GameObject playerRef;
 	public GameObject healthBar;
-	public float distanceToAttack;
+	public float distanceToAttack , distanceToThrow;
 	public bool isInPlayerRadius;
 	private Animator aiAnimator;
 	public AnimatorStateInfo aiAnimatorState;
@@ -42,6 +42,8 @@ public class AIComponent : MonoBehaviour
 
 	public GameObject selectionMarker;
 
+	public GameObject throwStartPoint;
+	public GameObject throwPrefab;
 
 	Vector3 playerPos;
 
@@ -63,7 +65,7 @@ public class AIComponent : MonoBehaviour
 
 	float healthBarScaleFactor;
 	Vector3 healthBarRectT;
-
+	GameObject spear;
 	 
  
 	void Awake()
@@ -236,12 +238,8 @@ public class AIComponent : MonoBehaviour
 
 	void Stop()
 	{
-		 
-		Idle ();
-		 
-
-
-	}
+	 	Idle ();
+  	}
 
 
 	void Idle()
@@ -286,13 +284,12 @@ public class AIComponent : MonoBehaviour
 
 	void HitPlayer()
 	{
-		//Debug.Log ("Triggering player react");
-
+		 
 		playerRef.GetComponent<PlayerMovement>().React ();
 	}
 	 
 
-	//playerRef.transform.position + Random.insideUnitCircle
+	 
 
 	void OnCollisionMove()
 	{
@@ -344,39 +341,110 @@ public class AIComponent : MonoBehaviour
 	}
  	 
 	public void DestroyEnemy()
-	{
-		
-
+	{ 
 		enemyDeathParticleEffect.SetActive (true);
 		aiSpriteRenderer.enabled = false;
 		Destroy (this.gameObject,1.0f);
 	}
  
-	void CallAnimation()
+ 
+
+	void ThrowSpears()
 	{
-		
+		aiAnimator.SetTrigger("Throw");
+		//if(aiAnimator.)
+		//LaunchSpear ();
+		spear = Instantiate (throwPrefab, throwStartPoint.transform.position, Quaternion.identity) as GameObject;
+		spear.SetActive (false);
 	}
 
-	void AIDead()
+	public void LaunchSpear()
 	{
+		Debug.Log ("throwing spear");
+
+		spear.SetActive (true);
+		spear.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
 
 	}
 
+	void MoveTowardsPlayerToThrow()
+	{
+		playerPos = new Vector3(playerRef.transform.position.x, playerRef.transform.position.y,0);
+
+		//Debug.Log (playerPos);
+		if( (distanceToPlayer<distanceToThrow) )
+		{
+			StopAndThrow();
+		}
+		else  
+		{
+
+			xComponent = -transform.position.x + playerPos.x;
+			yComponent = -transform.position.y + playerPos.y;
+			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+			CalculateAngle(angle);
+			this.transform.position = Vector2.MoveTowards(this.transform.position,playerRef.transform.position,aiMoveSpeed * Time.deltaTime);
+
+			isInMove = true;
+			aiAnimator.SetBool("isInMove",isInMove);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+		}
+
+
+		if(transform.position ==  playerRef.transform.position)
+		{ 
+			idleDirection =prevMoveDirection;
+			moveDirection=-1;
+
+		}
+
+	}
+
+	void StopAndThrow()
+	{
+		//Debug.Log("Calling IDle");
+		isInMove = false;
+
+		idleDirection =prevMoveDirection;
+
+		aiAnimator.SetBool("isInMove",isInMove);
+
+		aiAnimator.SetFloat("idleDirection",idleDirection);
+		aiAnimator.SetFloat("moveDirection",moveDirection);
+
+		//if (isInPlayerRadius)
+		{
+			if (a_timer <= 0f) 
+			{
+				// call Attack()
+
+				ThrowSpears ();
+				a_timer = aiThrowTime;
+			}
+			a_timer -= Time.deltaTime;
+		} 
+	}
 	 
-	 
+
 	// Update is called once per frame
 	void Update () 
 	{
 		distanceToPlayer = Vector2.Distance(this.transform.position, playerRef.transform.position);
 		 
+		aiAnimatorState =  aiAnimator.GetCurrentAnimatorStateInfo (0);
 		//if((distanceToPlayer>distanceToAttack)  )
+		switch(aiBehaviour)
 		{
+		case AIBehaviour.ATTACK:
 			MoveTowardsPlayer ();
+			break;
+
+		case AIBehaviour.RANGED:
+
+			MoveTowardsPlayerToThrow ();
+			break;
 		}
-		/*else
-		{
-			Idle ();
-		}*/
 		 
 /*
 		if(Input.GetMouseButtonDown(1))
