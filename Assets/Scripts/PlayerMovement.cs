@@ -679,6 +679,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void AttackEnemy()
 	{
+		Debug.Log ("executing attack in player script");
 		if(selectedObject!=null)
 		{
 			switch(LayerMask.LayerToName (selectedObject.layer) )
@@ -686,6 +687,7 @@ public class PlayerMovement : MonoBehaviour
 
 			case "AI":
 				selectedObject.GetComponent<AIComponent>().React();
+				//selectedObject.GetComponent<AIComponent>().aiAnimatorState
 				break;
 
 

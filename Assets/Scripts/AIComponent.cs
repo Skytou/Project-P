@@ -51,14 +51,14 @@ public class AIComponent : MonoBehaviour
 	RectTransform healthBarRectTransform; 
 	public float distanceToPlayer;
 	string layerName;
-	float a_timer;
+	float a_timer,t_timer;
 
 	float idleDirection,moveDirection , prevMoveDirection;
 	
 	float xComponent;
 	float yComponent;
 	float angle;
-	float hitsTaken;
+	public float hitsTaken;
 	bool isInMove;
 
 	public bool isAIOverLapped;
@@ -118,8 +118,8 @@ public class AIComponent : MonoBehaviour
 			else if(angle > 15 && angle <= 75)
 			{
 				// up right
-				moveDirection =2;
-				prevMoveDirection=2;
+				moveDirection =1;
+				prevMoveDirection=1;
 				idleDirection =-1;
 				
 			}
@@ -133,8 +133,8 @@ public class AIComponent : MonoBehaviour
 			else if(angle > 105 && angle <= 165)
 			{
 				// up left
-				moveDirection =8;
-				prevMoveDirection=8;
+				moveDirection =1;
+				prevMoveDirection=1;
 				idleDirection =-1;
 				
 			}
@@ -163,8 +163,8 @@ public class AIComponent : MonoBehaviour
 			else if(angle < -15 && angle >= -75)
 			{
 				//down right
-				moveDirection =4;
-				prevMoveDirection=4;
+				moveDirection =5;
+				prevMoveDirection=5;
 				idleDirection =-1;
 				
 			}
@@ -179,8 +179,8 @@ public class AIComponent : MonoBehaviour
 			else if(angle < -105 && angle >= -165)
 			{
 				//down left
-				moveDirection =6;
-				prevMoveDirection=6;
+				moveDirection =5;
+				prevMoveDirection=5;
 				idleDirection =-1;
 				
 			}
@@ -300,13 +300,14 @@ public class AIComponent : MonoBehaviour
 
 	public void React()
 	{
+		Debug.Log ("Calling");
 		if (hitsTaken >= aiMaxHitTaken-1)
 		{ 	
 			//Debug.Log("Calling Dead state");
 			healthBar.SetActive(false);
 			hitsTaken++;
 			Death ();
- 
+			return;
 		}
 		else
 		{
@@ -322,6 +323,7 @@ public class AIComponent : MonoBehaviour
 			aiAnimator.SetFloat("moveDirection",moveDirection);
 			aiAnimator.SetInteger("ReactRandom",1);
 			aiAnimator.SetTrigger("React");
+			return;
 		 	//Debug.Log(hitsTaken);
 		}
 
@@ -415,14 +417,14 @@ public class AIComponent : MonoBehaviour
 
 		//if (isInPlayerRadius)
 		{
-			if (a_timer <= 0f) 
+			if (t_timer <= 0f) 
 			{
 				// call Attack()
 
 				ThrowSpears ();
-				a_timer = aiThrowTime;
+				t_timer = aiThrowTime;
 			}
-			a_timer -= Time.deltaTime;
+			t_timer -= Time.deltaTime;
 		} 
 	}
 	 
@@ -439,6 +441,7 @@ public class AIComponent : MonoBehaviour
 		case AIBehaviour.ATTACK:
 			MoveTowardsPlayer ();
 			break;
+
 
 		case AIBehaviour.RANGED:
 
