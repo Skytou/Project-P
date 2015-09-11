@@ -36,7 +36,7 @@ public class SpawnTrigger : MonoBehaviour
             randNo = 1;// Random.Range(1, 2);
 
             instance = Pooler.InstRef.GetPooledObject(randNo);
-            instance.transform.position = transform.position + distBtnPlatforms[1];
+            instance.transform.position = transform.parent.transform.parent.transform.position + distBtnPlatforms[1];
             instance.SetActive(true);
 
             // Update spawn history
@@ -50,7 +50,7 @@ public class SpawnTrigger : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player" /*&& DogRunner.instRef.runStart*/)//check - is game running if needed 
         {
-            Pooler.InstRef.Sleep((gameObject.transform.parent.gameObject));
+            Pooler.InstRef.Sleep((gameObject.transform.parent.transform.parent.gameObject));
         }
     }
 
