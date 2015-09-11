@@ -29,10 +29,10 @@ public class SpawnTrigger : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if (collision.gameObject.tag == "Player")
         {
-            Debug.Log("Trigger");
+            //Debug.Log("Trigger");
             randNo = 1;// Random.Range(1, 2);
 
             instance = Pooler.InstRef.GetPooledObject(randNo);
