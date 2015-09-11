@@ -1,17 +1,25 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.Advertisements;
 
-public class MainMenuManger : MonoBehaviour {
+public class MainMenuManger : MonoBehaviour 
+{
 	
 
 	// Use this for initialization
-	void Start () {
-	
+	void Start () 
+	{
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 	}
 
 
 	public void Play()
 	{
+		
 		Application.LoadLevel (2);
 	}
 	

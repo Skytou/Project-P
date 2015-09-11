@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 using System.Collections;
 
@@ -33,24 +34,44 @@ public class LevelSelection : MonoBehaviour
 
 	public void Level1()
 	{
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 		LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (3);
 	}
 
 	public void Level2()
 	{
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 		LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (4);
 	}
 
 	public void Level3()
 	{
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 		LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (5);
 	}
 
 	public void Level4()
 	{
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 		LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
 	}
 
