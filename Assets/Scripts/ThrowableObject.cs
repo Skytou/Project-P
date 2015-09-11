@@ -11,6 +11,7 @@ public enum ThrowObjectType
 public class ThrowableObject : MonoBehaviour 
 {
 
+	public ThrowableObject throwableObject;
 	public float moveSpeed;
 	private Vector2 tempPos;
 	private bool canThrow;
