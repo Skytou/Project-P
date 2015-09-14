@@ -1,0 +1,342 @@
+fileFormatVersion: 2
+guid: a698f8551445b174881adab83b1c4514
+timeCreated: 1442078098
+licenseType: Free
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: blue light_0
+    21300002: blue light_1
+    21300004: blue light_2
+    21300006: blue light_3
+    21300008: blue light_4
+    21300010: blue light_5
+    21300012: blue light_6
+    21300014: blue light_7
+    21300016: blue light_8
+    21300018: blue light_9
+    21300020: blue light_10
+    21300022: blue light_11
+    21300024: blue light_12
+    21300026: blue light_13
+    21300028: blue light_14
+    21300030: blue light_15
+    21300032: blue light_16
+    21300034: blue light_17
+    21300036: blue light_18
+    21300038: blue light_19
+    21300040: blue light_20
+    21300042: blue light_21
+    21300044: blue light_22
+    21300046: blue light_23
+    21300048: blue light_24
+    21300050: blue light_25
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 1
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -1
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: blue light_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_1
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_2
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_3
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_4
+      rect:
+        serializedVersion: 2
+        x: 2104
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_5
+      rect:
+        serializedVersion: 2
+        x: 2630
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_6
+      rect:
+        serializedVersion: 2
+        x: 3156
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_7
+      rect:
+        serializedVersion: 2
+        x: 3682
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_8
+      rect:
+        serializedVersion: 2
+        x: 4208
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_9
+      rect:
+        serializedVersion: 2
+        x: 4734
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_10
+      rect:
+        serializedVersion: 2
+        x: 5260
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_11
+      rect:
+        serializedVersion: 2
+        x: 5786
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_12
+      rect:
+        serializedVersion: 2
+        x: 6312
+        y: 600
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_13
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_14
+      rect:
+        serializedVersion: 2
+        x: 526
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_15
+      rect:
+        serializedVersion: 2
+        x: 1052
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_16
+      rect:
+        serializedVersion: 2
+        x: 1578
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_17
+      rect:
+        serializedVersion: 2
+        x: 2104
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_18
+      rect:
+        serializedVersion: 2
+        x: 2630
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_19
+      rect:
+        serializedVersion: 2
+        x: 3156
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_20
+      rect:
+        serializedVersion: 2
+        x: 3682
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_21
+      rect:
+        serializedVersion: 2
+        x: 4208
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_22
+      rect:
+        serializedVersion: 2
+        x: 4734
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_23
+      rect:
+        serializedVersion: 2
+        x: 5260
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_24
+      rect:
+        serializedVersion: 2
+        x: 5786
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: blue light_25
+      rect:
+        serializedVersion: 2
+        x: 6312
+        y: 0
+        width: 526.692322
+        height: 600
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
