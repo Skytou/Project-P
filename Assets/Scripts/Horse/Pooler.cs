@@ -81,7 +81,7 @@ public class Pooler : MonoBehaviour
     {
         for (int i = 0; i < data.cloneLimit; i++)
         {
-            instance=(GameObject)Instantiate(data.prefab, Vector3.zero, data.prefab.transform.rotation);
+            instance=(GameObject)Instantiate(data.prefab, Vector3.zero, Quaternion.identity);
             instance.transform.parent = transform;
             data.pool.Add(instance);
             instance.SetActive(false);
@@ -116,7 +116,7 @@ public class Pooler : MonoBehaviour
         }
         if (pooler.canGrow)
         {
-            instance=(GameObject)Instantiate(pooler.prefab, Vector3.zero, pooler.prefab.transform.rotation);
+            instance=(GameObject)Instantiate(pooler.prefab, Vector3.zero, Quaternion.identity);
             instance.transform.parent = this.gameObject.transform;
             pooler.pool.Add(instance);
             //instance.SetActive(true);
@@ -128,8 +128,8 @@ public class Pooler : MonoBehaviour
     // Pseudo Destroy Code
     public void Sleep(GameObject Obj)
     {
-        //Obj.transform.position = Vector3.zero;
-        //Obj.transform.rotation = Quaternion.identity;
+        Obj.transform.position = Vector3.zero;
+        Obj.transform.rotation = Quaternion.identity;
         Obj.SetActive(false);
     }
 
