@@ -8,6 +8,7 @@ public class AIGameObjectInSections
 {
 	public GameObject[] areaLockCollider;
 	public List<GameObject> ai;
+	public string textToBeDisplayed;
 	public int totalNumberOfAIVisible;
 }
 
@@ -27,6 +28,7 @@ public class LevelManager : MonoBehaviour
 
 	public bool[] activateAISpawn;
 
+	public Text helpText;
 
 
 	GameObject[] temp;
@@ -45,7 +47,9 @@ public class LevelManager : MonoBehaviour
 
 	void Start()
 	{
+		helpText = GameObject.FindGameObjectWithTag ("HelpText").GetComponent<Text>();
 		temp = new GameObject[10];
+		helpText.text = "Game On!";
 	}
 
 	public void SpawnAI(int index)
@@ -84,6 +88,7 @@ public class LevelManager : MonoBehaviour
 				activateAISpawn [index] = false;
 				stageCompleted [index] = true;
 				//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
+				helpText.text = "Crack the pot!";
 				GameGlobalVariablesManager.isCameraLocked = false;
 			}
 		}
@@ -95,36 +100,43 @@ public class LevelManager : MonoBehaviour
 		if(activateAISpawn[0])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [0].textToBeDisplayed;
 			SpawnAI (0);
 		}
 		if(activateAISpawn[1])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [1].textToBeDisplayed;
 			SpawnAI (1);
 		}
 		if(activateAISpawn[2])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [2].textToBeDisplayed;
 			SpawnAI (2);
 		}
 		if(activateAISpawn[3])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [3].textToBeDisplayed;
 			SpawnAI (3);
 		}
 		if(activateAISpawn[4])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [4].textToBeDisplayed;
 			SpawnAI (4);
 		}
 		if(activateAISpawn[5])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [5].textToBeDisplayed;
 			SpawnAI (5);
 		}
 		if(activateAISpawn[6])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
+			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
 			SpawnAI (6);
 		}
 	}

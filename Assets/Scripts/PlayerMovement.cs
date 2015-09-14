@@ -763,7 +763,7 @@ public class PlayerMovement : MonoBehaviour
 	void Attack()
 	{
 		//if(Input.GetKeyDown(KeyCode.A))
-
+		if(selectedObject!=null)
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
@@ -778,14 +778,18 @@ public class PlayerMovement : MonoBehaviour
 
 	public void React()
 	{
-		playerHealth--;
-		//Debug.Log ("Play react anim");
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
-		int r = Random.Range(1,5);
-		//Debug.Log("Random value "+ 4);
-		characterAnimator.SetInteger("ReactRandom",1);
-		characterAnimator.SetTrigger("React");
+		if(!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag") )
+		{
+			playerHealth--;
+			//Debug.Log ("Play react anim");
+			characterAnimator.SetFloat("idleDirection",idleDirection);
+			characterAnimator.SetFloat("moveDirection",moveDirection);
+			int r = Random.Range(1,5);
+			//Debug.Log("Random value "+ 4);
+			characterAnimator.SetInteger("ReactRandom",1);
+			characterAnimator.SetTrigger("React");
+		}
+
 	}
 
 	public void PlayerDead()
