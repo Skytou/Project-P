@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public PlayerBehaviour playerBehaviour;
 
-
+	public float playerHealth;
 	public float speed ;
 	public Vector2 velocity;
 	private Vector3 target;
@@ -668,6 +668,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public void React()
 	{
+		playerHealth--;
 		//Debug.Log ("Play react anim");
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
@@ -675,6 +676,11 @@ public class PlayerMovement : MonoBehaviour
 		//Debug.Log("Random value "+ 4);
 		characterAnimator.SetInteger("ReactRandom",1);
 		characterAnimator.SetTrigger("React");
+	}
+
+	public void PlayerDead()
+	{
+		
 	}
 
 	public void AttackEnemy()
