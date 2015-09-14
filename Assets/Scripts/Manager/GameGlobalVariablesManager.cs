@@ -13,6 +13,8 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isPlayerSpin = false;
 
+	public static bool isKnifeThrow = false;
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)

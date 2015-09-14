@@ -86,7 +86,7 @@ public class AIComponent : MonoBehaviour
 		aiSpriteRenderer.enabled = true;
 		enemyDeathParticleEffect.SetActive (false);
 		selectionMarker.SetActive (false);
-		 
+		//aiMaxHitTaken = 2;
 	}
 
 	 

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerBehaviour playerBehaviour;
 
 	public float playerHealth;
-	public float speed ;
+	public float speed ,knifeThrowSpeed ;
 	public Vector2 velocity;
 	private Vector3 target;
 	private Animator characterAnimator;
@@ -45,7 +45,7 @@ public class PlayerMovement : MonoBehaviour
 	//string selectedObject;
 	GameObject selectedEnemy, selectedObject;
 
- 	public float distanceToPoint , distanceToAttack;
+ 	public float distanceToPoint , distanceToAttack , distanceToThrow;
 
 	public float attackTime;
 
@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 	public bool throwKnifeSelected;
 	public bool isKnifeThrow;
 	public GameObject knifePrefab ;
-	private Vector3 knifeThrowPoint;
+	public  GameObject knifeThrowPoint;
 
 	public iTween.EaseType easeType;
 	public float interpolationScale;
@@ -73,6 +73,8 @@ public class PlayerMovement : MonoBehaviour
 	public float spinAttackDistance;
 
 	private CircleCollider2D playerSpinCircleCollider;
+
+	 
 	//float tempDistanceToAttack;
 
 	void Awake()
@@ -239,6 +241,16 @@ public class PlayerMovement : MonoBehaviour
 			LevelManager.instance.activateAISpawn [4] = true;
 			other.gameObject.SetActive (false);
 			break;
+		case "EnemyTrigger5":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [5] = true;
+			other.gameObject.SetActive (false);
+			break;
+		case "EnemyTrigger6":
+			Debug.Log ("touched trigger " + other.gameObject.name);
+			LevelManager.instance.activateAISpawn [6] = true;
+			other.gameObject.SetActive (false);
+			break;
 
 		case "Door0":
 
@@ -296,157 +308,248 @@ public class PlayerMovement : MonoBehaviour
 	}
 	 
 
-	/*void OnTriggerStay2D(Collider2D other)
-	{
-		layerName = LayerMask.LayerToName (other.gameObject.layer);
-
-		switch (layerName)
-		{
-
-		case "AI":
-			if (canSpin)
-			{
-				other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
-				other.gameObject.GetComponent<AIComponent> ().Death ();
-			}
-
-			break;
-		}
-	}*/
+	 
 	 
 
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 		 
-		if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject()  )
-		{ 
+		//if (!isKnifeThrow) 
+		{
 			 
-			 
-			 
-			distanceToAttack = intialDistanceToAttack;
-			target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-			hit   = Physics2D.Raycast(target, Vector2.zero);
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
+		 	 
+				distanceToAttack = intialDistanceToAttack;
+				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				hit = Physics2D.Raycast (target, Vector2.zero);
 
 	 
 			 
-			if(hit.collider != null)
-			{
-				layerName =  LayerMask.LayerToName(hit.collider.gameObject.layer);
+				if (hit.collider != null) {
+					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
 
-			//	Debug.Log (layerName);
+					//	Debug.Log (layerName);
 				 
-				switch(layerName)
+					switch (layerName) {
+				 
+					case "AI":
+
+						selectedObject = hit.collider.gameObject;
+						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
+							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+						}
+						touchPos = selectedObject.transform.position;
+						 
+						playerBehaviour = PlayerBehaviour.MOVE;
+						break;
+
+					case "Objects":
+						selectedObject = hit.collider.gameObject;
+						touchPos = selectedObject.transform.position;
+						 
+						Debug.Log ("touch pos is generated");
+						playerBehaviour = PlayerBehaviour.MOVE;
+						break;
+
+					case "WallLightLayer":
+						touchPos = this.transform.position;
+
+						break;
+
+					case "AreaLock":
+						touchPos = this.transform.position;
+						break;
+					 
+					default:
+
+						 
+						{
+							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+							if (selectedObject != null) {
+								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+							}
+							playerBehaviour = PlayerBehaviour.MOVE;
+						}
+					
+						break;
+					}
+				 
+				} else {
+					 
+					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+					if (selectedObject != null) {
+						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+						selectedObject = null;
+					}
+					playerBehaviour = PlayerBehaviour.MOVE;
+				}
+
+			 
+
+			 
+			 
+			} 
+			switch (playerBehaviour) {
+			case PlayerBehaviour.IDLE:
+
+				break;
+			case PlayerBehaviour.MOVE:
+				if (!isKnifeThrow)
+					MoveTowardsPoint ();
+				else
+					MoveTowardsAndThrow ();
+
+				break;
+
+			case PlayerBehaviour.ATTACK:
+
+				break;
+
+			case PlayerBehaviour.REACT:
+
+				break;
+			}
+	 
+		 
+
+			if (GameGlobalVariablesManager.isPlayerSpin) {
+				canSpin = true;
+				sTime -= Time.deltaTime;
+				Spin ();
+				//SpinAttack ();
+			}
+		}
+
+		/*else
+		{
+			MoveTowardsAndThrow ();
+		}*/
+	 
+	}
+
+
+	void MoveTowardsAndThrow()
+	{
+		/*if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) 
+		{ 
+
+		 
+			target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+			hit = Physics2D.Raycast (target, Vector2.zero);
+
+
+
+			if (hit.collider != null) 
+			{
+				layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
+
+					Debug.Log (layerName);
+
+				switch (layerName) 
 				{
-				 
+
 				case "AI":
 
 					selectedObject = hit.collider.gameObject;
-					if(selectedObject.GetComponent<AIComponent>().selectionMarker!=null)
-					{
+					if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
 						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
 					}
 					touchPos = selectedObject.transform.position;
-				 
-					playerBehaviour = PlayerBehaviour.MOVE;
+					knifeThrowPoint.transform.position = selectedObject.transform.position;
+					 
 					break;
 
 				case "Objects":
 					selectedObject = hit.collider.gameObject;
 					touchPos = selectedObject.transform.position;
-					Debug.Log ("touch pos is generated");
-					playerBehaviour = PlayerBehaviour.MOVE;
-					break;
-
-				case "WallLightLayer":
-					touchPos = this.transform.position;
-
-					break;
-
-				case "AreaLock":
-					touchPos = this.transform.position;
-					break;
+					knifeThrowPoint.transform.position = selectedObject.transform.position;
 					 
-				default:
-
-
-					touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-					if(selectedObject!=null)
-					{
-						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
-					}
-					playerBehaviour = PlayerBehaviour.MOVE;
 					break;
+			 
 				}
-				 
+			}
+
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
+
+			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+			CalculateAngle (angle);
+			 
+			//characterAnimator.SetFloat("idleDirection",idleDirection);
+			characterAnimator.SetFloat("moveDirection",moveDirection);
+
+			characterAnimator.SetTrigger ("Throw");*/
+
+
+			distanceToPoint = Vector2.Distance(transform.position, touchPos);
+
+
+		if(distanceToPoint<distanceToThrow)
+			{
+			ThrowKnife ();
+				//Debug.Log ("Stopping");
 			}
 
 			else
 			{
-				touchPos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-				if(selectedObject!=null)
-			 
+				xComponent = -transform.position.x + touchPos.x;
+				yComponent = -transform.position.y + touchPos.y;
+
+				angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+				transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
+
+				isInMove = true;
+
+				if(selectedObject==null)
 				{
-					selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
-					selectedObject = null;
+					isRun = true;
+					distanceToAttack =1;
+					speed = initialSpeed;
 				}
-				playerBehaviour = PlayerBehaviour.MOVE;
+				else
+				{
+					distanceToAttack= initialSpeed;
+					if(distanceToPoint<=distanceToAttack *2)
+					{
+						isRun = false;
+						speed = initialSpeed/2;
+					}
+					else
+					{
+						isRun = true;
+						speed =initialSpeed;
+					}
+				}
+				speed =initialSpeed;
+				isInMove = true;
 			}
 
-			 
-
-			 
-			 
-		}
-
-		if(isKnifeThrow)
-		{
-			knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
-			foreach(var kp in movementPath)
+			if(isInMove)
 			{
-				if (kp == knifeThrowPoint)
-					Debug.Log ("reached");
+				characterAnimator.StopPlayback();
+				CalculateAngle(angle);
 			}
-			movementPath.Add(knifePrefab.transform.position);
-			bezierCurve.Interpolate (movementPath, 1f);
 
-		}
+
+			if(transform.position ==  touchPos )
+			{
+				isInMove = false;
+				isRun = false;
+				idleDirection =prevMoveDirection;
+				distanceToAttack = 0;
+
+			}
+
+
+			characterAnimator.SetBool("isInMove",isInMove);
+			characterAnimator.SetBool("isRun",isRun);
+			characterAnimator.SetFloat("idleDirection",idleDirection);
+			characterAnimator.SetFloat("moveDirection",moveDirection);
 		 
-		switch(playerBehaviour)
-		{
-		case PlayerBehaviour.IDLE:
 
-			break;
-		case PlayerBehaviour.MOVE:
-			MoveTowardsPoint();
-
-			break;
-
-		case PlayerBehaviour.ATTACK:
-
-			break;
-
-		case PlayerBehaviour.REACT:
-
-			break;
 		}
 	 
-		/*	if( throwKnifeSelected)
-		ThrowKnives ();*/
-
-
-		if(GameGlobalVariablesManager.isPlayerSpin)
-		{
-			canSpin = true;
-			sTime -= Time.deltaTime;
-			Spin ();
-			//SpinAttack ();
-		}
-
-	 
-	}
-
-
 
 	void Spin()
 	{
@@ -508,25 +611,32 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 	 
-	/*void ThrowKnives()
+
+	void ThrowKnife()
 	{
-		if(Input.GetMouseButtonDown(1))
+		Idle ();
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+		characterAnimator.SetTrigger ("throw");
+		 
 
-		{
-			Vector3 sp = Camera.main.ScreenToWorldPoint(transform.position);
-			Vector3 dir = (Input.mousePosition - sp).normalized;
+		//knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+		//knife.SetActive (false);
 
-			knifePrefab =  Instantiate (knife, this.transform.position, Quaternion.identity) as GameObject;
-		
-			knifeThrowPoint = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+	}
 
-			//knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint , speed * Time.deltaTime);
-			//isKnifeThrow = true;
-			iTween.MoveTo (knifePrefab, iTween.Hash ("position", knifeThrowPoint ,"easeType",easeType));
 
-			//rigidbody2D.AddForce (dir * amount);
-		}
-	}*/
+	public void LaunchKnife()
+	{
+		Debug.Log ("throwing Knife");
+
+		knife.SetActive (true);
+		knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint.transform.position, knifeThrowSpeed * Time.deltaTime);
+		//knife.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
+
+	}
+
+	 
 
 	void MoveTowardsPoint()
 	{ 
