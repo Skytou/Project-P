@@ -33,7 +33,7 @@ public class SpawnTrigger : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("Trigger");
-            randNo = 1;// Random.Range(1, 2);
+            randNo = Random.Range(1, 4);
 
             instance = Pooler.InstRef.GetPooledObject(randNo);
             instance.transform.position = transform.parent.transform.parent.transform.position + distBtnPlatforms[1];
