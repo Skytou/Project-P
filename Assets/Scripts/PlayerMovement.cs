@@ -18,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public PlayerBehaviour playerBehaviour;
 
+	public GameObject normalSelectionCircle;
 	public float playerHealth;
 	public float speed ,knifeThrowSpeed ;
 	public Vector2 velocity;
@@ -49,8 +50,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public float attackTime;
 
+	public GameObject spinSelectionCircle;
+	public float spinRange;
 	public float spinTime;
 	public  float sTime;
+
 	public GameObject knife;
 
 	RaycastHit2D hit ;
@@ -83,6 +87,7 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator = GetComponent<Animator>();
 		bezierCurve = new BezierCurve ();
 		playerSpinCircleCollider = this.GetComponent<CircleCollider2D> ();
+
 	}
 
 	void Start()
@@ -93,7 +98,8 @@ public class PlayerMovement : MonoBehaviour
 		//moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		sTime = spinTime;
-
+		spinSelectionCircle.SetActive ((false));
+		normalSelectionCircle.SetActive (true);
 		GameGlobalVariablesManager.isPlayerSpin = false;
 		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
@@ -210,8 +216,8 @@ public class PlayerMovement : MonoBehaviour
 		case "AI":
 			if(canSpin)
 			{
-				other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
-				other.gameObject.GetComponent<AIComponent> ().Death ();
+				//other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+				//other.gameObject.GetComponent<AIComponent> ().Death ();
 			}
 			 
 			break;
@@ -311,245 +317,10 @@ public class PlayerMovement : MonoBehaviour
 	 
 	 
 
-	void Update()
-	{
-		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
-		 
-		//if (!isKnifeThrow) 
-		{
-			 
-			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
-		 	 
-				distanceToAttack = intialDistanceToAttack;
-				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-				hit = Physics2D.Raycast (target, Vector2.zero);
-
-	 
-			 
-				if (hit.collider != null) {
-					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
-
-					//	Debug.Log (layerName);
-				 
-					switch (layerName) {
-				 
-					case "AI":
-
-						selectedObject = hit.collider.gameObject;
-						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
-							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
-						}
-						touchPos = selectedObject.transform.position;
-						 
-						playerBehaviour = PlayerBehaviour.MOVE;
-						break;
-
-					case "Objects":
-						selectedObject = hit.collider.gameObject;
-						touchPos = selectedObject.transform.position;
-						 
-						Debug.Log ("touch pos is generated");
-						playerBehaviour = PlayerBehaviour.MOVE;
-						break;
-
-					case "WallLightLayer":
-						touchPos = this.transform.position;
-
-						break;
-
-					case "AreaLock":
-						touchPos = this.transform.position;
-						break;
-					 
-					default:
-
-						 
-						{
-							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-							if (selectedObject != null) {
-								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
-							}
-							playerBehaviour = PlayerBehaviour.MOVE;
-						}
-					
-						break;
-					}
-				 
-				} else {
-					 
-					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-					if (selectedObject != null) {
-						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
-						selectedObject = null;
-					}
-					playerBehaviour = PlayerBehaviour.MOVE;
-				}
-
-			 
-
-			 
-			 
-			} 
-			switch (playerBehaviour) {
-			case PlayerBehaviour.IDLE:
-
-				break;
-			case PlayerBehaviour.MOVE:
-				if (!isKnifeThrow)
-					MoveTowardsPoint ();
-				else
-					MoveTowardsAndThrow ();
-
-				break;
-
-			case PlayerBehaviour.ATTACK:
-
-				break;
-
-			case PlayerBehaviour.REACT:
-
-				break;
-			}
-	 
-		 
-
-			if (GameGlobalVariablesManager.isPlayerSpin) {
-				canSpin = true;
-				sTime -= Time.deltaTime;
-				Spin ();
-				//SpinAttack ();
-			}
-		}
-
-		/*else
-		{
-			MoveTowardsAndThrow ();
-		}*/
-	 
-	}
-
-
-	void MoveTowardsAndThrow()
-	{
-		/*if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) 
-		{ 
-
-		 
-			target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-			hit = Physics2D.Raycast (target, Vector2.zero);
 
 
 
-			if (hit.collider != null) 
-			{
-				layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
 
-					Debug.Log (layerName);
-
-				switch (layerName) 
-				{
-
-				case "AI":
-
-					selectedObject = hit.collider.gameObject;
-					if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
-						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
-					}
-					touchPos = selectedObject.transform.position;
-					knifeThrowPoint.transform.position = selectedObject.transform.position;
-					 
-					break;
-
-				case "Objects":
-					selectedObject = hit.collider.gameObject;
-					touchPos = selectedObject.transform.position;
-					knifeThrowPoint.transform.position = selectedObject.transform.position;
-					 
-					break;
-			 
-				}
-			}
-
-			xComponent = -transform.position.x + touchPos.x;
-			yComponent = -transform.position.y + touchPos.y;
-
-			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			CalculateAngle (angle);
-			 
-			//characterAnimator.SetFloat("idleDirection",idleDirection);
-			characterAnimator.SetFloat("moveDirection",moveDirection);
-
-			characterAnimator.SetTrigger ("Throw");*/
-
-
-			distanceToPoint = Vector2.Distance(transform.position, touchPos);
-
-
-		if(distanceToPoint<distanceToThrow)
-			{
-			ThrowKnife ();
-				//Debug.Log ("Stopping");
-			}
-
-			else
-			{
-				xComponent = -transform.position.x + touchPos.x;
-				yComponent = -transform.position.y + touchPos.y;
-
-				angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-				transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
-
-				isInMove = true;
-
-				if(selectedObject==null)
-				{
-					isRun = true;
-					distanceToAttack =1;
-					speed = initialSpeed;
-				}
-				else
-				{
-					distanceToAttack= initialSpeed;
-					if(distanceToPoint<=distanceToAttack *2)
-					{
-						isRun = false;
-						speed = initialSpeed/2;
-					}
-					else
-					{
-						isRun = true;
-						speed =initialSpeed;
-					}
-				}
-				speed =initialSpeed;
-				isInMove = true;
-			}
-
-			if(isInMove)
-			{
-				characterAnimator.StopPlayback();
-				CalculateAngle(angle);
-			}
-
-
-			if(transform.position ==  touchPos )
-			{
-				isInMove = false;
-				isRun = false;
-				idleDirection =prevMoveDirection;
-				distanceToAttack = 0;
-
-			}
-
-
-			characterAnimator.SetBool("isInMove",isInMove);
-			characterAnimator.SetBool("isRun",isRun);
-			characterAnimator.SetFloat("idleDirection",idleDirection);
-			characterAnimator.SetFloat("moveDirection",moveDirection);
-		 
-
-		}
-	 
 
 	void Spin()
 	{
@@ -558,7 +329,23 @@ public class PlayerMovement : MonoBehaviour
 			if (!animatorStateInfo.IsName ("VijaySpin"))
 			{
 				characterAnimator.SetBool ("isSpin", canSpin);
-				playerSpinCircleCollider.radius = 8f;
+				normalSelectionCircle.SetActive (false);
+				spinSelectionCircle.SetActive ((true));
+				//playerSpinCircleCollider.radius = 8f;
+			}
+
+			GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
+			foreach(var e in enemyList)
+			{
+				Debug.Log (e.gameObject.name);
+				Debug.Log ( Vector2.Distance (e.gameObject.transform.position, this.transform.position));
+				if(Vector2.Distance (e.gameObject.transform.position, this.transform.position) < spinRange)
+				{
+					e.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+
+					e.gameObject.GetComponent<AIComponent> ().Death ();
+
+				}
 			}
 				
 			
@@ -570,73 +357,20 @@ public class PlayerMovement : MonoBehaviour
 			GameGlobalVariablesManager.isPlayerSpin = false;
 			canSpin = false;
 			sTime = spinTime;
-			playerSpinCircleCollider.radius = 3.5f;
+			normalSelectionCircle.SetActive (true);
+			spinSelectionCircle.SetActive ((false));
+			//playerSpinCircleCollider.radius = 3.5f;
 			characterAnimator.SetBool ("isSpin", canSpin);
 
 		}
-	}
 
 
-	public void SpinAttack()
-	{
-
-		GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
-
-		foreach( var e in enemyList)
-		{
-			Debug.Log (this.transform.position.x - e.transform.position.x);
-		}
-		var newSpawn = from enemy in enemyList
-				where (((this.transform.position.x - enemy.transform.position.x) <  spinAttackDistance ) )
-			
-					//&&(Vector3.Dot (this.transform.TransformDirection (Vector3.forward), (enemy.transform.position - this.transform.position)) > 0))
-			select enemy;
-		//Debug.Log((this.transform.position - enemy.transform.position).sqrMagnitude <  spinAttackDistance );
-
-
-		Debug.Log (newSpawn);
-
-		List<GameObject> tempList = new List<GameObject> ();
-		if (newSpawn != null && newSpawn.Count () > 0) 
-		{
-			tempList = newSpawn.ToList ();
-
-				foreach (GameObject go in tempList) 
-				{  
-
-				if (!go.GetComponent<AIComponent> ().aiAnimatorState.IsTag ("DeathTag")) 
-					go.GetComponent<AIComponent> ().Death ();//  React (id);
-				}
-				 
-			}
-		}
-	 
-
-	void ThrowKnife()
-	{
-		Idle ();
-		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
-		characterAnimator.SetTrigger ("throw");
-		 
-
-		//knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
-		//knife.SetActive (false);
 
 	}
 
-
-	public void LaunchKnife()
-	{
-		Debug.Log ("throwing Knife");
-
-		knife.SetActive (true);
-		knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint.transform.position, knifeThrowSpeed * Time.deltaTime);
-		//knife.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
-
-	}
 
 	 
+	  
 
 	void MoveTowardsPoint()
 	{ 
@@ -717,14 +451,24 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
 			{
-				 
-				if(a_timer <=0f)
+				if(!isKnifeThrow)
 				{
-					// call Attack()
-					Attack();
-					a_timer = attackTime;
+					if(a_timer <=0f)
+					{
+						// call Attack()
+						Attack();
+
+						a_timer = attackTime;
+					}
+					a_timer -= Time.deltaTime;
 				}
-				a_timer -= Time.deltaTime;
+
+				else
+				{
+					//ThrowKnife ();
+
+				}
+
 
 			}
 		}
@@ -776,6 +520,31 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	void ThrowKnife()
+	{
+		//Idle ();
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+		characterAnimator.SetTrigger ("Throw");
+
+
+		//	knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+		//knife.SetActive (false);
+
+	}
+
+
+	public void LaunchKnife()
+	{
+		Debug.Log ("throwing Knife");
+
+		knife.SetActive (true);
+		knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint.transform.position, knifeThrowSpeed * Time.deltaTime);
+		//knife.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
+
+	}
+
+
 	public void React()
 	{
 		if(!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag") )
@@ -818,6 +587,122 @@ public class PlayerMovement : MonoBehaviour
 		 
 
 		}
+
+	}
+
+	void Update()
+	{
+		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
+
+		//if (!isKnifeThrow) 
+		{
+
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
+
+				distanceToAttack = intialDistanceToAttack;
+				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				hit = Physics2D.Raycast (target, Vector2.zero);
+
+
+
+				if (hit.collider != null) {
+					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
+
+					//	Debug.Log (layerName);
+
+					switch (layerName) {
+
+					case "AI":
+
+						selectedObject = hit.collider.gameObject;
+						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
+							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+						}
+						touchPos = selectedObject.transform.position;
+
+						playerBehaviour = PlayerBehaviour.MOVE;
+						break;
+
+					case "Objects":
+						selectedObject = hit.collider.gameObject;
+						touchPos = selectedObject.transform.position;
+
+						Debug.Log ("touch pos is generated");
+						playerBehaviour = PlayerBehaviour.MOVE;
+						break;
+
+					case "WallLightLayer":
+						touchPos = this.transform.position;
+
+						break;
+
+					case "AreaLock":
+						touchPos = this.transform.position;
+						break;
+
+					default:
+
+
+						{
+							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+							if (selectedObject != null) {
+								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+							}
+							playerBehaviour = PlayerBehaviour.MOVE;
+						}
+
+						break;
+					}
+
+				} else {
+
+					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+					if (selectedObject != null) {
+						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+						selectedObject = null;
+					}
+					playerBehaviour = PlayerBehaviour.MOVE;
+				}
+
+
+
+
+
+			} 
+			switch (playerBehaviour) {
+			case PlayerBehaviour.IDLE:
+
+				break;
+			case PlayerBehaviour.MOVE:
+				 
+					MoveTowardsPoint ();
+				 
+				break;
+
+			case PlayerBehaviour.ATTACK:
+
+				break;
+
+			case PlayerBehaviour.REACT:
+
+				break;
+			}
+
+
+
+			if (GameGlobalVariablesManager.isPlayerSpin) 
+			{
+				canSpin = true;
+				sTime -= Time.deltaTime;
+				Spin ();
+				 
+			}
+		}
+
+		/*else
+		{
+			MoveTowardsAndThrow ();
+		}*/
 
 	}
 	 

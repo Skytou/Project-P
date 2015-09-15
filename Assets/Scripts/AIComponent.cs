@@ -60,7 +60,7 @@ public class AIComponent : MonoBehaviour
 	float angle;
 	public float hitsTaken;
 	bool isInMove;
-
+	bool isDead;
 	public bool isAIOverLapped;
 
 	float healthBarScaleFactor;
@@ -86,6 +86,8 @@ public class AIComponent : MonoBehaviour
 		aiSpriteRenderer.enabled = true;
 		enemyDeathParticleEffect.SetActive (false);
 		selectionMarker.SetActive (false);
+
+		isDead = false;
 		//aiMaxHitTaken = 2;
 	}
 
@@ -332,12 +334,18 @@ public class AIComponent : MonoBehaviour
 
 	public void Death()
 	{
-		selectionMarker.SetActive (false);
-		aiAnimator.SetFloat("idleDirection",idleDirection);
-		aiAnimator.SetFloat("moveDirection",moveDirection);
-		int r = Random.Range(1,3);
-		aiAnimator.SetTrigger("Death");
-		aiAnimator.SetInteger("DeathRandom",r);
+		if(!aiAnimatorState.IsTag (("DeathTag")))
+		{
+			isDead = true;
+			Debug.Log ("Triggeringdeath");
+			selectionMarker.SetActive (false);
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+			int r = Random.Range(1,3);
+			aiAnimator.SetTrigger("Death");
+			aiAnimator.SetInteger("DeathRandom",r);
+		}
+
 
 		//Destroy (this.gameObject,2f);
 	}
@@ -353,11 +361,16 @@ public class AIComponent : MonoBehaviour
 
 	void ThrowSpears()
 	{
-		aiAnimator.SetTrigger("Throw");
-		//if(aiAnimator.)
-		//LaunchSpear ();
-		spear = Instantiate (throwPrefab, throwStartPoint.transform.position, Quaternion.identity) as GameObject;
-		spear.SetActive (false);
+		if(!isDead)
+		{
+			aiAnimator.SetTrigger("Throw");
+			//if(aiAnimator.)
+			//LaunchSpear ();
+			spear = Instantiate (throwPrefab, throwStartPoint.transform.position, Quaternion.identity) as GameObject;
+			spear.SetActive (false);
+		}
+		
+
 	}
 
 	public void LaunchSpear()
