@@ -456,6 +456,7 @@ public class PlayerMovement : MonoBehaviour
 					if(a_timer <=0f)
 					{
 						// call Attack()
+						if(selectedObject!=null)
 						Attack();
 
 						a_timer = attackTime;

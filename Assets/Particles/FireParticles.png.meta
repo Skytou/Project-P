@@ -1,0 +1,276 @@
+fileFormatVersion: 2
+guid: 8fcdb6dddb9184902890ce33f2136dfe
+timeCreated: 1442321885
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: FireParticles_0
+    21300002: FireParticles_1
+    21300004: FireParticles_2
+    21300006: FireParticles_3
+    21300008: FireParticles_4
+    21300010: FireParticles_5
+    21300012: FireParticles_6
+    21300014: FireParticles_7
+    21300016: FireParticles_8
+    21300018: FireParticles_9
+    21300020: FireParticles_10
+    21300022: FireParticles_11
+    21300024: FireParticles_12
+    21300026: FireParticles_13
+    21300028: FireParticles_14
+    21300030: FireParticles_15
+    21300032: FireParticles_16
+    21300034: FireParticles_17
+    21300036: FireParticles_18
+    21300038: FireParticles_19
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 1024
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 100
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: FireParticles_0
+      rect:
+        serializedVersion: 2
+        x: 279
+        y: 1342
+        width: 472
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_1
+      rect:
+        serializedVersion: 2
+        x: 1277
+        y: 1342
+        width: 473
+        height: 291
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_2
+      rect:
+        serializedVersion: 2
+        x: 2281
+        y: 1342
+        width: 467
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_3
+      rect:
+        serializedVersion: 2
+        x: 3278
+        y: 1342
+        width: 471
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_4
+      rect:
+        serializedVersion: 2
+        x: 4278
+        y: 1342
+        width: 470
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_5
+      rect:
+        serializedVersion: 2
+        x: 5280
+        y: 1342
+        width: 466
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_6
+      rect:
+        serializedVersion: 2
+        x: 6280
+        y: 1342
+        width: 470
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_7
+      rect:
+        serializedVersion: 2
+        x: 7281
+        y: 1342
+        width: 467
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_8
+      rect:
+        serializedVersion: 2
+        x: 8279
+        y: 1343
+        width: 466
+        height: 295
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_9
+      rect:
+        serializedVersion: 2
+        x: 9278
+        y: 1342
+        width: 470
+        height: 290
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_10
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 342
+        width: 466
+        height: 286
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_11
+      rect:
+        serializedVersion: 2
+        x: 1280
+        y: 342
+        width: 467
+        height: 286
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_12
+      rect:
+        serializedVersion: 2
+        x: 2282
+        y: 342
+        width: 464
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_13
+      rect:
+        serializedVersion: 2
+        x: 3282
+        y: 342
+        width: 467
+        height: 292
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_14
+      rect:
+        serializedVersion: 2
+        x: 4283
+        y: 339
+        width: 463
+        height: 295
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_15
+      rect:
+        serializedVersion: 2
+        x: 5280
+        y: 339
+        width: 465
+        height: 297
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_16
+      rect:
+        serializedVersion: 2
+        x: 6280
+        y: 339
+        width: 463
+        height: 298
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_17
+      rect:
+        serializedVersion: 2
+        x: 7281
+        y: 339
+        width: 463
+        height: 299
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_18
+      rect:
+        serializedVersion: 2
+        x: 8282
+        y: 342
+        width: 462
+        height: 296
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: FireParticles_19
+      rect:
+        serializedVersion: 2
+        x: 9283
+        y: 342
+        width: 462
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

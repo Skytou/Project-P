@@ -15,6 +15,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isKnifeThrow = false;
 
+
+	public static bool isFireBallThrown = false;
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)
