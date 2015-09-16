@@ -4,14 +4,14 @@ using System.Collections;
 
 public enum ThrowObjectType
 {
-	Bomb,
-	Spear
+	BOMB,
+	SPEAR
 }
 
 public class ThrowableObject : MonoBehaviour 
 {
 
-	public ThrowableObject throwableObject;
+	public ThrowObjectType throwableObjectType;
 	public float moveSpeed;
 	private Vector2 tempPos;
 	private bool canThrow;
@@ -45,13 +45,30 @@ public class ThrowableObject : MonoBehaviour
 		{
 			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2(tempPos.x,tempPos.y+7), moveSpeed * Time.deltaTime);
 
-			if (this.transform.position.x == tempPos.x)
+			if(throwableObjectType == ThrowObjectType.BOMB)
+			{
+				if (this.transform.position.x == tempPos.x)
+				{
+
+					ballrenderer.enabled = false;
+					explode.SetActive (true);
+					Destroy (this.gameObject,0.5f);
+					GameGlobalVariablesManager.isFireBallThrown = true;
+				}
+			}
+
+			else
 			{
 
-				ballrenderer.enabled = false;
-				explode.SetActive (true);
-				Destroy (this.gameObject,0.5f);
+				if (this.transform.position.x == tempPos.x)
+				{
+
+					ballrenderer.enabled = false;
+					explode.SetActive (true);
+					Destroy (this.gameObject,0.5f);
+				}
 			}
+
 				
 		}
 	}

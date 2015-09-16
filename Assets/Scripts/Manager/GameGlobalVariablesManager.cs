@@ -18,11 +18,24 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFireBallThrown = false;
 
+	public float fireBallTimer;
+
+	float fTimer;
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)
 		{
 			castleLocked[i] = 1;
+		}
+	}
+
+
+	void Update()
+	{
+		if(isFireBallThrown)
+		{
+			fTimer -= Time.deltaTime;
 		}
 	}
 }
