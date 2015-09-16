@@ -17,6 +17,8 @@ public class ThrowableObject : MonoBehaviour
 	private bool canThrow;
 	public GameObject explode;
 	public SpriteRenderer ballrenderer;
+
+	public GameObject fireRingPrefab;
 	// Use this for initialization
 	void Start () 
 	{
@@ -43,7 +45,7 @@ public class ThrowableObject : MonoBehaviour
 	  
 		if(canThrow)
 		{
-			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2(tempPos.x,tempPos.y+7), moveSpeed * Time.deltaTime);
+			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2(tempPos.x,tempPos.y), moveSpeed * Time.deltaTime);
 
 			if(throwableObjectType == ThrowObjectType.BOMB)
 			{
@@ -52,8 +54,10 @@ public class ThrowableObject : MonoBehaviour
 
 					ballrenderer.enabled = false;
 					explode.SetActive (true);
-					Destroy (this.gameObject,0.5f);
 					GameGlobalVariablesManager.isFireBallThrown = true;
+					Debug.Log ("Enabling fire ring");
+					Destroy (this.gameObject,0.5f);
+
 				}
 			}
 

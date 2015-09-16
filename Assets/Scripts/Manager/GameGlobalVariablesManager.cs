@@ -36,6 +36,14 @@ public class GameGlobalVariablesManager : MonoBehaviour
 		if(isFireBallThrown)
 		{
 			fTimer -= Time.deltaTime;
+			if(fTimer>=0)
+			{
+				Debug.Log ("show circle");
+			}
+			else
+			{
+				Debug.Log ("hide circle");
+			}
 		}
 	}
 }
