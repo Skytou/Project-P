@@ -16,11 +16,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 	public static bool isKnifeThrow = false;
 
 
-	public static bool isFireBallThrown = false;
+	public static bool isFireBallThrown;
 
-	public float fireBallTimer;
-
-	float fTimer;
+ 
 
 	void Awake()
 	{
@@ -33,17 +31,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	void Update()
 	{
-		if(isFireBallThrown)
-		{
-			fTimer -= Time.deltaTime;
-			if(fTimer>=0)
-			{
-				Debug.Log ("show circle");
-			}
-			else
-			{
-				Debug.Log ("hide circle");
-			}
-		}
+		 
 	}
 }

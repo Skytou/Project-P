@@ -9,6 +9,7 @@ public enum PlayerBehaviour
 {
 	IDLE, 
 	MOVE,
+	MOVEANDTHROW,
 	ATTACK,
 	REACT
 }
@@ -28,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
 	private AnimatorStateInfo animatorStateInfo;
   	float idleDirection,moveDirection , prevMoveDirection;
 
-	float initialSpeed, intialDistanceToAttack;
+	float initialSpeed, intialDistanceToAttack , initialDistanceToThrow;
 	float xComponent;
 	float yComponent;
 	float angle;
@@ -61,22 +62,31 @@ public class PlayerMovement : MonoBehaviour
 	RaycastHit hit3D;
 	float a_timer;
 
-	public bool throwKnifeSelected;
+	public bool canThrow;
 	public bool isKnifeThrow;
 	public GameObject knifePrefab ;
 	public  GameObject knifeThrowPoint;
 
-	
+	public float fireBallTimer;
+	public GameObject fireBallPrefab;
+	public GameObject fireBall;
+	public float fTimer;
+
+	 
 	public float interpolationScale;
 	BezierCurve bezierCurve;
 	 
 	public List<Vector3> movementPath;
 
 	bool canSpin;
+	bool throwed;
 
 	public float spinAttackDistance;
 
 	private CircleCollider2D playerSpinCircleCollider;
+
+
+
 
 	 
 	//float tempDistanceToAttack;
@@ -93,13 +103,17 @@ public class PlayerMovement : MonoBehaviour
 	void Start()
 	{
 		initialSpeed =speed;
+
 		intialDistanceToAttack = distanceToAttack;
+		initialDistanceToThrow = distanceToThrow;
 		idleDirection =5;
 		//moveDirection=-1;
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		sTime = spinTime;
+		fTimer = fireBallTimer;
 		spinSelectionCircle.SetActive ((false));
 		normalSelectionCircle.SetActive (true);
+		throwed = false;
 		GameGlobalVariablesManager.isPlayerSpin = false;
 		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
@@ -364,6 +378,30 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+	void ShowFireBallCircle()
+	{
+		if (fTimer >= 0f) 
+		{
+			//Debug.Log ("show circle");
+			//fireBallPrefab.SetActive (true);
+			if(fireBall==null)
+			fireBall = GameObject.Instantiate (fireBallPrefab, this.transform.position, Quaternion.identity) as GameObject; 
+			 
+  
+
+		}
+
+		else
+		{
+			Debug.Log ("hide circle");
+			GameGlobalVariablesManager.isFireBallThrown = false;
+			fTimer = fireBallTimer;
+			Destroy (fireBall.gameObject);
+		}
+		 
+	}
+
+
 
 	 
 	  
@@ -437,6 +475,84 @@ public class PlayerMovement : MonoBehaviour
 
  	 
 	}
+
+	void MoveTowardsThrowPoint()
+	{
+		distanceToPoint = Vector2.Distance(transform.position, touchPos);
+
+
+		if(distanceToPoint<distanceToThrow)
+		{
+			StopAndThrow ();
+			Debug.Log ("Stopping");
+		}
+
+		else
+		{
+			Debug.Log ("ins");
+			xComponent = -transform.position.x + touchPos.x;
+			yComponent = -transform.position.y + touchPos.y;
+
+			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
+
+			isInMove = true;
+
+			if(selectedObject==null)
+			{
+				isRun = true;
+				distanceToThrow =1;
+				speed = initialSpeed;
+			}
+			else
+			{
+				distanceToThrow= initialSpeed;
+				if(distanceToPoint<=distanceToThrow *2)
+				{
+					isRun = false;
+					speed = initialSpeed/2;
+				}
+				else
+				{
+					isRun = true;
+					speed =initialSpeed;
+				}
+			}
+
+			isInMove = true;
+		}
+
+		if(isInMove)
+		{
+			characterAnimator.StopPlayback();
+			CalculateAngle(angle);
+		}
+
+
+		if(transform.position ==  touchPos )
+		{
+			isInMove = false;
+			isRun = false;
+			idleDirection =prevMoveDirection;
+			distanceToThrow = 0;
+
+		}
+
+
+		characterAnimator.SetBool("isInMove",isInMove);
+		characterAnimator.SetBool("isRun",isRun);
+		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("moveDirection",moveDirection);
+
+	}
+
+	void StopAndThrow()
+	{
+		Idle ();
+		if(canThrow)
+		ThrowKnife ();
+	}
+
 
 	void Stop()
 	{
@@ -523,7 +639,7 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		characterAnimator.SetTrigger ("Throw");
-
+		canThrow = false;
 
 		//	knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		//knife.SetActive (false);
@@ -534,13 +650,36 @@ public class PlayerMovement : MonoBehaviour
 	public void LaunchKnife()
 	{
 		Debug.Log ("throwing Knife");
-
+		knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		knife.SetActive (true);
-		knifePrefab.transform.position = Vector2.MoveTowards(knifePrefab.transform.position,knifeThrowPoint.transform.position, knifeThrowSpeed * Time.deltaTime);
-		//knife.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
+		throwed = true;
+		Debug.Log (touchPos);
+		//knife.transform.position = Vector2.MoveTowards(knife.transform.position,touchPos, knifeThrowSpeed * Time.deltaTime);
 
+		//knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos,selectedObject, true);
+		isKnifeThrow = false;
 	}
 
+	void DestroyUsingKnife()
+	{
+		knife.transform.position = Vector2.MoveTowards(knife.transform.position, new Vector2( selectedObject.transform.position.x , selectedObject.transform.position.y+5), knifeThrowSpeed * Time.deltaTime);
+		if(knife.transform.position.x == selectedObject.transform.position.x)
+		{
+			if(selectedObject.GetComponent<AIComponent> ()!=null)
+			{
+				selectedObject.GetComponent<AIComponent> ().Death ();
+				Destroy (knife.gameObject);
+				throwed = false;
+			}
+			else
+			{
+				Destroy (selectedObject);
+				Destroy (knife.gameObject);
+				throwed = false;
+
+			}
+		}
+	}
 
 	public void React()
 	{
@@ -587,14 +726,16 @@ public class PlayerMovement : MonoBehaviour
 
 	}
 
+
 	void Update()
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
-		//if (!isKnifeThrow) 
+		if (!isKnifeThrow) 
 		{
 
-			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
+			{ 
 
 				distanceToAttack = intialDistanceToAttack;
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
@@ -602,17 +743,20 @@ public class PlayerMovement : MonoBehaviour
 
 
 
-				if (hit.collider != null) {
+				if (hit.collider != null) 
+				{
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
 
-					//	Debug.Log (layerName);
+						Debug.Log (layerName);
 
-					switch (layerName) {
+					switch (layerName)
+					{
 
 					case "AI":
 
 						selectedObject = hit.collider.gameObject;
-						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
+						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) 
+						{
 							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
 						}
 						touchPos = selectedObject.transform.position;
@@ -666,24 +810,7 @@ public class PlayerMovement : MonoBehaviour
 
 
 			} 
-			switch (playerBehaviour) {
-			case PlayerBehaviour.IDLE:
 
-				break;
-			case PlayerBehaviour.MOVE:
-				 
-					MoveTowardsPoint ();
-				 
-				break;
-
-			case PlayerBehaviour.ATTACK:
-
-				break;
-
-			case PlayerBehaviour.REACT:
-
-				break;
-			}
 
 
 
@@ -696,12 +823,132 @@ public class PlayerMovement : MonoBehaviour
 			}
 		}
 
-		/*else
-		{
-			MoveTowardsAndThrow ();
-		}*/
 
+		// else condition for player throwing knife...
+
+		else
+		{
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
+
+				distanceToThrow = initialDistanceToThrow;
+				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+				hit = Physics2D.Raycast (target, Vector2.zero);
+
+
+
+				if (hit.collider != null) {
+					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
+
+					Debug.Log (layerName);
+
+					switch (layerName) {
+
+					case "AI":
+
+						selectedObject = hit.collider.gameObject;
+						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
+							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+						}
+						touchPos = selectedObject.transform.position;
+						canThrow = true;
+						playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+						break;
+
+					case "Objects":
+						selectedObject = hit.collider.gameObject;
+						touchPos = selectedObject.transform.position;
+
+						Debug.Log ("touch pos is generated");
+						canThrow = true;
+						playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+						break;
+
+					case "WallLightLayer":
+						touchPos = this.transform.position;
+
+						break;
+
+					case "AreaLock":
+						touchPos = this.transform.position;
+						break;
+
+					default:
+
+
+						{
+							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+							if (selectedObject != null) {
+								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+							}
+							canThrow = true;
+							playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+						}
+
+						break;
+					}
+
+				} else {
+
+					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+					if (selectedObject != null) {
+						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+						selectedObject = null;
+					}
+					//canThrow = true;
+					playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+				}
+
+
+
+
+
+			} 
+		  
+
+			 
+
+		} 
+
+		switch (playerBehaviour) 
+		{
+		case PlayerBehaviour.IDLE:
+
+			break;
+		case PlayerBehaviour.MOVE:
+
+			MoveTowardsPoint ();
+
+			break;
+		case PlayerBehaviour.MOVEANDTHROW:
+			MoveTowardsThrowPoint ();
+
+			break;
+		case PlayerBehaviour.ATTACK:
+
+			break;
+
+		case PlayerBehaviour.REACT:
+
+			break;
+		}
+
+		if(GameGlobalVariablesManager.isFireBallThrown)
+		{
+			//Debug.Log ("countdowntimer");
+			fTimer -= Time.deltaTime;
+			ShowFireBallCircle ();
+		}
+
+		 
+		/*if(isKnifeThrow)
+		{
+			Idle ();
+		}*/
+		if (throwed)
+			DestroyUsingKnife();
 	}
+
+	 
 	 
 	
 }

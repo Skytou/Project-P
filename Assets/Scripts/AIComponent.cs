@@ -3,9 +3,10 @@ using UnityEngine.UI;
 using System.Collections;
 
 
-public class AIProperties
+public enum AIThrow
 {
-
+	SPEAR,
+	BOMB
 	 
 }
 
@@ -21,7 +22,9 @@ public enum AIBehaviour
 public class AIComponent : MonoBehaviour 
 {
 	public AIBehaviour aiBehaviour;
-	 
+
+	public AIThrow aiThrow;
+
 	public float aiMoveSpeed;
 	public int aiLevel;
 	public float aiHealth;
@@ -428,6 +431,7 @@ public class AIComponent : MonoBehaviour
 		aiAnimator.SetFloat("idleDirection",idleDirection);
 		aiAnimator.SetFloat("moveDirection",moveDirection);
 
+		if(aiThrow == AIThrow.SPEAR)
 		//if (isInPlayerRadius)
 		{
 			if (t_timer <= 0f) 
@@ -439,6 +443,21 @@ public class AIComponent : MonoBehaviour
 			}
 			t_timer -= Time.deltaTime;
 		} 
+		else
+		{
+			if(GameGlobalVariablesManager.isFireBallThrown==false)
+			{
+				if (t_timer <= 0f) 
+				{
+					// call Attack()
+
+					ThrowSpears ();
+					t_timer = aiThrowTime;
+				}
+				t_timer -= Time.deltaTime;
+			}
+
+		}
 	}
 	 
 
