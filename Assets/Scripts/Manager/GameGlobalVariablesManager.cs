@@ -18,7 +18,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFireBallThrown;
 
+
+	public static bool isSwordSelected, isKnifeSelected;
+	public static bool isTimerSelected, isBombSelected, isCycloneSelected;
  
+	public static float numberOfKnives = 100;
 
 	void Awake()
 	{
