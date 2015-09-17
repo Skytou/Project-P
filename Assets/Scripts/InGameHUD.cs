@@ -19,6 +19,14 @@ public class InGameHUD : MonoBehaviour
 	
 	}
 
+//	public void 
+
+
+	public void Knife()
+	{
+		
+	}
+
 	public void Timer()
 	{
 		 
