@@ -66,7 +66,7 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject knifePrefab ;
 	public  GameObject knifeThrowPoint;
 
-	public iTween.EaseType easeType;
+	
 	public float interpolationScale;
 	BezierCurve bezierCurve;
 	 
