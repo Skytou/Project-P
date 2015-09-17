@@ -72,7 +72,7 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject fireBall;
 	public float fTimer;
 
-	public iTween.EaseType easeType;
+	 
 	public float interpolationScale;
 	BezierCurve bezierCurve;
 	 
