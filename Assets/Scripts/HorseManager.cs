@@ -2,6 +2,7 @@
 using Prime31;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class HorseManager : MonoBehaviour 
 {
@@ -14,6 +15,10 @@ public class HorseManager : MonoBehaviour
 	public float distanceTravelled;
 
 	private Vector3 lastPosition;
+
+    float coinsCollected;
+    float life;
+    float timer;
 
 
 	Rigidbody2D rBody;
@@ -32,8 +37,13 @@ public class HorseManager : MonoBehaviour
 	private RaycastHit2D _lastControllerColliderHit;
 	private Vector3 _velocity;
 
+    // UI Components
+    public Slider health;
+    public Text coinText;
+    public Text timerText;
 
-	void Awake()
+
+    void Awake()
 	{
 		instance = this;
 		rBody =  GetComponent<Rigidbody2D> ();
@@ -49,6 +59,7 @@ public class HorseManager : MonoBehaviour
 	void Start () 
 	{
 		lastPosition = this.transform.position;
+        life = 3;
 	}
 
 	#region Event Listeners
@@ -66,13 +77,33 @@ public class HorseManager : MonoBehaviour
 
 	void onTriggerEnterEvent( Collider2D col )
 	{
-		Debug.Log( "onTriggerEnterEvent: " + col.gameObject.name );
+		
+        if(col.gameObject.tag=="Coin")
+        {
+            col.gameObject.SetActive(false);
+            coinsCollected += 1;
+            Debug.Log(coinsCollected);
+
+        }
+        else if(col.gameObject.tag == "Obstacle")
+        {
+            life -= 1;
+            health.value = life;
+            if(life<=0)
+            {
+                // game Over code
+            }
+        }
+        else
+        {
+            Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+        }
 	}
 
 
 	void onTriggerExitEvent( Collider2D col )
 	{
-		Debug.Log( "onTriggerExitEvent: " + col.gameObject.name );
+		//Debug.Log( "onTriggerExitEvent: " + col.gameObject.name );
 	}
 
 	#endregion
@@ -92,7 +123,7 @@ public class HorseManager : MonoBehaviour
 
 
 		// we can only jump whilst grounded
-		if( _controller.isGrounded && Input.GetKeyDown( KeyCode.Space ) )
+		if( _controller.isGrounded && Input.GetKeyDown( KeyCode.Space ) || _controller.isGrounded && Input.GetButtonDown("Fire1"))
 		{
 			_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
 
@@ -129,12 +160,16 @@ public class HorseManager : MonoBehaviour
 		HorseMovement();
 		distanceTravelled += Vector3.Distance(transform.position, lastPosition);
 		lastPosition = transform.position;
+        timer += Time.deltaTime;
+        timerText.text = "Time: " + (int)timer;
+        coinText.text = "Coins: " + (int)coinsCollected;
 
-		//Debug.Log (this.transform.position);
-		//Debug.Log ("Distance Travelled " + distanceTravelled);
-		/*if((int)distanceTravelled==10f)
+
+        //Debug.Log (this.transform.position);
+        //Debug.Log ("Distance Travelled " + distanceTravelled);
+        /*if((int)distanceTravelled==10f)
 		{
 			Debug.Log ("reset");
 		}*/
-	}
+    }
 }
