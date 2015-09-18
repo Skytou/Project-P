@@ -22,6 +22,11 @@ public class MainMenuManger : MonoBehaviour
 		
 		Application.LoadLevel (2);
 	}
-	
+
+
+	public void Store()
+	{
+		
+	}
 	 
 }
