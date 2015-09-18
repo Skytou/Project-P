@@ -497,8 +497,11 @@ public class PlayerMovement : MonoBehaviour
 			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
 
 			isInMove = true;
-
-			if(selectedObject==null)
+			isRun = true;
+			//distanceToThrow =1;
+			speed = initialSpeed;
+				
+			/*if(selectedObject==null)
 			{
 				isRun = true;
 				distanceToThrow =1;
@@ -517,9 +520,9 @@ public class PlayerMovement : MonoBehaviour
 					isRun = true;
 					speed =initialSpeed;
 				}
-			}
+			}*/
 
-			isInMove = true;
+			//isInMove = true;
 		}
 
 		if(isInMove)
@@ -563,7 +566,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if(!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
 			{
-				if(!isKnifeThrow)
+				if(!GameGlobalVariablesManager.isKnifeThrow)
 				{
 					if(a_timer <=0f)
 					{
@@ -651,12 +654,14 @@ public class PlayerMovement : MonoBehaviour
 	{
 		Debug.Log ("throwing Knife");
 		knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+		GameGlobalVariablesManager.numberOfKnives--;
 		knife.SetActive (true);
 		throwed = true;
 		Debug.Log (touchPos);
 		//knife.transform.position = Vector2.MoveTowards(knife.transform.position,touchPos, knifeThrowSpeed * Time.deltaTime);
 
 		//knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos,selectedObject, true);
+		GameGlobalVariablesManager.isKnifeThrow = false;
 		isKnifeThrow = false;
 	}
 
@@ -731,7 +736,7 @@ public class PlayerMovement : MonoBehaviour
 	{
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
-		if (!isKnifeThrow) 
+		if (!GameGlobalVariablesManager.isKnifeThrow) 
 		{
 
 			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
