@@ -54,17 +54,17 @@ public class LevelSelection : MonoBehaviour
 			Debug.Log ("Showing ad");
 		}*/
 		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel1());
+		StartCoroutine (LoadLevel (3));
 		//LoadLevel1 ();
 		//LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (3);
 	}
 
-	IEnumerator LoadLevel1()
+	IEnumerator LoadLevel(int levelNumber)
 	{
 		
 
-		AsyncOperation async = Application.LoadLevelAsync(3);
+		AsyncOperation async = Application.LoadLevelAsync(levelNumber);
 		yield return async;
 		Debug.Log("Loading complete");
 	}
@@ -76,7 +76,9 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}*/
-		LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
+		loadingScreen.SetActive (true);
+		StartCoroutine (LoadLevel (4));
+		//LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (4);
 	}
 
@@ -88,8 +90,9 @@ public class LevelSelection : MonoBehaviour
 			Debug.Log ("Showing ad");
 		}*/
 
-
-		LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
+		loadingScreen.SetActive (true);
+		StartCoroutine (LoadLevel (5));
+		//LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (5);
 	}
 
@@ -100,7 +103,9 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}*/
-		LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
+		loadingScreen.SetActive (true);
+		StartCoroutine (LoadLevel (6));
+		//LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
 	}
 
 

@@ -130,43 +130,43 @@ public class LevelManager : MonoBehaviour
 		//if(Input.GetKeyDown(KeyCode.Space))
 		if(activateAISpawn[0])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [0].textToBeDisplayed;
 			SpawnAI (0);
 		}
 		if(activateAISpawn[1])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [1].textToBeDisplayed;
 			SpawnAI (1);
 		}
 		if(activateAISpawn[2])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [2].textToBeDisplayed;
 			SpawnAI (2);
 		}
 		if(activateAISpawn[3])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [3].textToBeDisplayed;
 			SpawnAI (3);
 		}
 		if(activateAISpawn[4])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [4].textToBeDisplayed;
 			SpawnAI (4);
 		}
 		if(activateAISpawn[5])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [5].textToBeDisplayed;
 			SpawnAI (5);
 		}
 		if(activateAISpawn[6])
 		{
-			GameGlobalVariablesManager.isCameraLocked = true;
+			//GameGlobalVariablesManager.isCameraLocked = true;
 			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
 			SpawnAI (6);
 		}
