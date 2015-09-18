@@ -14,7 +14,8 @@ public class ShopMgr : MonoBehaviour {
 
     void OnEnable()
     {
-#if UNITY_ANDROID
+		if( Application.platform != RuntimePlatform.Android )
+			return;
         // Listen to all events for illustration purposes
         GoogleIABManager.billingSupportedEvent += billingSupportedEvent;
         GoogleIABManager.billingNotSupportedEvent += billingNotSupportedEvent;
@@ -25,13 +26,13 @@ public class ShopMgr : MonoBehaviour {
         GoogleIABManager.purchaseFailedEvent += purchaseFailedEvent;
         GoogleIABManager.consumePurchaseSucceededEvent += consumePurchaseSucceededEvent;
         GoogleIABManager.consumePurchaseFailedEvent += consumePurchaseFailedEvent;
-#endif
     }
 
 
     void OnDisable()
     {
-#if UNITY_ANDROID
+		if( Application.platform != RuntimePlatform.Android )
+			return;
         // Remove all event handlers
         GoogleIABManager.billingSupportedEvent -= billingSupportedEvent;
         GoogleIABManager.billingNotSupportedEvent -= billingNotSupportedEvent;
@@ -42,7 +43,6 @@ public class ShopMgr : MonoBehaviour {
         GoogleIABManager.purchaseFailedEvent -= purchaseFailedEvent;
         GoogleIABManager.consumePurchaseSucceededEvent -= consumePurchaseSucceededEvent;
         GoogleIABManager.consumePurchaseFailedEvent -= consumePurchaseFailedEvent;
-#endif
     }
 
 

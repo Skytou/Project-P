@@ -25,15 +25,13 @@ public class OpenAppAndroid : MonoBehaviour
 
     void Update()
     {
-        if (isGalleryImageLoaded)
-        {
-
-        }
     }
 
 
     public void OnOpen()
     {
+		if( Application.platform != RuntimePlatform.Android )
+			return;
         AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
         bool chkVal = currentActivity.Call<bool>("appInstalledOrNot", "com.SkyTou.PuppyWorld"); //com.SkyTou.PuppyWorld
@@ -43,6 +41,8 @@ public class OpenAppAndroid : MonoBehaviour
 
     public void OncallShareApp()
     {
+		if( Application.platform != RuntimePlatform.Android )
+			return;
         string subject = "WORD-O-MAZE";
         string body = "PLAY THIS AWESOME. GET IT ON THE PLAYSTORE";
 
@@ -54,6 +54,8 @@ public class OpenAppAndroid : MonoBehaviour
 
     public void OnOpenApp()
     {
+		if( Application.platform != RuntimePlatform.Android )
+			return;
         AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
         currentActivity.Call("openApp", apps[curAppIndex]); //com.SkyTou.PuppyWorld
