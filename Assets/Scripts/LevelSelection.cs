@@ -13,14 +13,18 @@ public class LevelSelection : MonoBehaviour
 	public RectTransform levelBG;
 	public float dragSpeed;
 
+	public GameObject loadingScreen;
+	//public Slider loadingSlider;
 
 	public Vector2 bgRectTransform;
+
+	//bool isShowProgressBar = false;
 
 	// Use this for initialization
 	void Start () 
 	{
-		isTouched = false;
-
+		//isTouched = false;
+		loadingScreen.SetActive ((false));
 		for(int i =1;i<castle.Length;i++)
 		{
 			if(GameGlobalVariablesManager.castleLocked[i]==1)
@@ -49,8 +53,20 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}*/
-		LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
+		loadingScreen.SetActive (true);
+		StartCoroutine (LoadLevel1());
+		//LoadLevel1 ();
+		//LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (3);
+	}
+
+	IEnumerator LoadLevel1()
+	{
+		
+
+		AsyncOperation async = Application.LoadLevelAsync(3);
+		yield return async;
+		Debug.Log("Loading complete");
 	}
 
 	public void Level2()
@@ -71,6 +87,8 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}*/
+
+
 		LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
 		//Application.LoadLevel (5);
 	}
@@ -129,6 +147,13 @@ public class LevelSelection : MonoBehaviour
 		bgRectTransform.x = Mathf.Clamp (bgRectTransform.x, -1463, 1471);
 		
 		//levelBG.anchoredPosition = new Vector2( Mathf.Clamp(levelBG.anchoredPosition.x,20f,-2400f) ,levelBG.anchoredPosition.y);
+
+		/*if(isShowProgressBar)
+		{
+			if(loadingSlider.value<=loadingSlider.maxValue)
+			loadingSlider.value += Time.deltaTime;
+
+		}*/
 	}
 	
 }

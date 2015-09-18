@@ -105,6 +105,7 @@ public class PlayerMovement : MonoBehaviour
 		initialSpeed =speed;
 
 		intialDistanceToAttack = distanceToAttack;
+		Debug.Log (intialDistanceToAttack);
 		initialDistanceToThrow = distanceToThrow;
 		idleDirection =5;
 		//moveDirection=-1;
@@ -435,7 +436,8 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else
 			{
-				distanceToAttack= initialSpeed;
+				
+				//distanceToAttack= intialDistanceToAttack;
 				if(distanceToPoint<=distanceToAttack *2)
 				{
 					isRun = false;
@@ -501,28 +503,7 @@ public class PlayerMovement : MonoBehaviour
 			//distanceToThrow =1;
 			speed = initialSpeed;
 				
-			/*if(selectedObject==null)
-			{
-				isRun = true;
-				distanceToThrow =1;
-				speed = initialSpeed;
-			}
-			else
-			{
-				distanceToThrow= initialSpeed;
-				if(distanceToPoint<=distanceToThrow *2)
-				{
-					isRun = false;
-					speed = initialSpeed/2;
-				}
-				else
-				{
-					isRun = true;
-					speed =initialSpeed;
-				}
-			}*/
-
-			//isInMove = true;
+			 
 		}
 
 		if(isInMove)
@@ -742,7 +723,7 @@ public class PlayerMovement : MonoBehaviour
 			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
 			{ 
 
-				distanceToAttack = intialDistanceToAttack;
+
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				hit = Physics2D.Raycast (target, Vector2.zero);
 
@@ -760,6 +741,7 @@ public class PlayerMovement : MonoBehaviour
 					case "AI":
 
 						selectedObject = hit.collider.gameObject;
+						distanceToAttack = initialSpeed;
 						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) 
 						{
 							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
@@ -771,8 +753,9 @@ public class PlayerMovement : MonoBehaviour
 
 					case "Objects":
 						selectedObject = hit.collider.gameObject;
+						distanceToAttack = intialDistanceToAttack / 2;
 						touchPos = selectedObject.transform.position;
-
+						 
 						Debug.Log ("touch pos is generated");
 						playerBehaviour = PlayerBehaviour.MOVE;
 						break;

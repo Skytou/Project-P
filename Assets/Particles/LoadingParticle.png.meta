@@ -1,0 +1,254 @@
+fileFormatVersion: 2
+guid: 9c08d4b5644184c31b12448f00a63189
+timeCreated: 1442579834
+licenseType: Pro
+TextureImporter:
+  fileIDToRecycleName:
+    21300000: LoadingParticle_0
+    21300002: LoadingParticle_1
+    21300004: LoadingParticle_2
+    21300006: LoadingParticle_3
+    21300008: LoadingParticle_4
+    21300010: LoadingParticle_5
+    21300012: LoadingParticle_6
+    21300014: LoadingParticle_7
+    21300016: LoadingParticle_8
+    21300018: LoadingParticle_9
+    21300020: LoadingParticle_10
+    21300022: LoadingParticle_11
+    21300024: LoadingParticle_12
+    21300026: LoadingParticle_13
+    21300028: LoadingParticle_14
+    21300030: LoadingParticle_15
+    21300032: LoadingParticle_16
+    21300034: LoadingParticle_17
+  serializedVersion: 2
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    linearTexture: 0
+    correctGamma: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: .25
+    normalMapFilter: 0
+  isReadable: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 0
+  cubemapConvolution: 0
+  cubemapConvolutionSteps: 8
+  cubemapConvolutionExponent: 1.5
+  seamlessCubemap: 0
+  textureFormat: -3
+  maxTextureSize: 2048
+  textureSettings:
+    filterMode: -1
+    aniso: 16
+    mipBias: -1
+    wrapMode: 1
+  nPOTScale: 0
+  lightmap: 0
+  rGBM: 0
+  compressionQuality: 50
+  allowsAlphaSplitting: 0
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: .5, y: .5}
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spritePixelsToUnits: 20
+  alphaIsTransparency: 1
+  textureType: 8
+  buildTargetSettings: []
+  spriteSheet:
+    sprites:
+    - name: LoadingParticle_0
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 265
+        width: 225
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_1
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 270
+        width: 224
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_2
+      rect:
+        serializedVersion: 2
+        x: 531
+        y: 270
+        width: 220
+        height: 233
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_3
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 265
+        width: 224
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_4
+      rect:
+        serializedVersion: 2
+        x: 1049
+        y: 261
+        width: 220
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_5
+      rect:
+        serializedVersion: 2
+        x: 1305
+        y: 261
+        width: 225
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_6
+      rect:
+        serializedVersion: 2
+        x: 1562
+        y: 261
+        width: 224
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_7
+      rect:
+        serializedVersion: 2
+        x: 1818
+        y: 261
+        width: 220
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_8
+      rect:
+        serializedVersion: 2
+        x: 2075
+        y: 261
+        width: 220
+        height: 251
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_9
+      rect:
+        serializedVersion: 2
+        x: 23
+        y: 0
+        width: 224
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_10
+      rect:
+        serializedVersion: 2
+        x: 275
+        y: 0
+        width: 229
+        height: 252
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_11
+      rect:
+        serializedVersion: 2
+        x: 522
+        y: 5
+        width: 238
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_12
+      rect:
+        serializedVersion: 2
+        x: 774
+        y: 5
+        width: 243
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_13
+      rect:
+        serializedVersion: 2
+        x: 1026
+        y: 5
+        width: 247
+        height: 247
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_14
+      rect:
+        serializedVersion: 2
+        x: 1283
+        y: 5
+        width: 247
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_15
+      rect:
+        serializedVersion: 2
+        x: 1539
+        y: 5
+        width: 247
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_16
+      rect:
+        serializedVersion: 2
+        x: 1796
+        y: 5
+        width: 251
+        height: 246
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: LoadingParticle_17
+      rect:
+        serializedVersion: 2
+        x: 2052
+        y: 5
+        width: 252
+        height: 242
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+  spritePackingTag: 
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

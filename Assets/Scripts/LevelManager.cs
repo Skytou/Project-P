@@ -19,7 +19,9 @@ public class LevelManager : MonoBehaviour
 	public static LevelManager instance = null;
 	//public GameObject[] aiPrefab;
 	//public GameObject[] spawnPoiints;
+
 	public int levelNumber;
+	public string  dialogueHUDTextLevelStart ,dialogueHUDTextLevelEnd ;
 
 	public List<AIGameObjectInSections> aiGameObjectsInSections;
 
@@ -30,10 +32,14 @@ public class LevelManager : MonoBehaviour
 
 	public Text helpText;
 
+	public GameObject cameraRef;
 
 	GameObject[] temp;
 
 	public bool[] stageCompleted;
+
+	 
+
 
 	void Awake()
 	{
@@ -47,9 +53,30 @@ public class LevelManager : MonoBehaviour
 
 	void Start()
 	{
+		 
+		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
+
 		helpText = GameObject.FindGameObjectWithTag ("HelpText").GetComponent<Text>();
 		temp = new GameObject[10];
-		helpText.text = "Game On!";
+		switch(levelNumber)
+		{
+		case 1:
+			helpText.text = "Find the document about the old wisp!";
+			break;
+
+		case 2:
+			helpText.text = "Game On!";
+			break;
+
+		case 3:
+			helpText.text = "Game On!";
+			break;
+
+		case 4:
+			helpText.text = "Game On!";
+			break;
+		}
+
 	}
 
 	public void SpawnAI(int index)
@@ -90,6 +117,10 @@ public class LevelManager : MonoBehaviour
 				//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
 				helpText.text = "Crack the pot!";
 				GameGlobalVariablesManager.isCameraLocked = false;
+				if(index==6)
+				{
+					InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+				}
 			}
 		}
 	}

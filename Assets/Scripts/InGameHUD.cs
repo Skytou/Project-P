@@ -6,6 +6,9 @@ using System;
 public class InGameHUD : MonoBehaviour
 {
 
+
+	public static InGameHUD instance = null;
+
 	public GameObject pauseScreen,gameHUD;
 
 	public Sprite swordOn,swordOff,knifeOn,knifeOff;
@@ -18,16 +21,40 @@ public class InGameHUD : MonoBehaviour
 
 	public GameObject sword, knife, timer, bomb, cyclone;
 
+
+	public GameObject dialogueHUD;
+	public Text dialogueHUDText;
+
+
+
+
+	void Awake()
+	{
+		instance = this;
+	}
+
 	// Use this for initialization
 	void Start ()
 	{
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		SetSpriteDefault ();
-
+		dialogueHUD.SetActive (false);
 	
 	}
 
+
+	public void EnableDialogueHUD(string text)
+	{
+		dialogueHUD.SetActive (true);
+		dialogueHUDText.text = text;
+	}
+
+
+	public void DisableDialogueHUD()
+	{
+		dialogueHUD.SetActive (false);
+	}
 
 	void SetSpriteDefault()
 	{
