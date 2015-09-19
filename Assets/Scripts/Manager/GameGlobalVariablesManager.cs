@@ -19,10 +19,15 @@ public class GameGlobalVariablesManager : MonoBehaviour
 	public static bool isFireBallThrown;
 
 
+	public static int currentLevelnumber;
+	public static bool level1Completed, level2Completed, level3Completed, level4Completed;
+
 	public static bool isSwordSelected, isKnifeSelected;
 	public static bool isTimerSelected, isBombSelected, isCycloneSelected;
  
 	public static float numberOfKnives = 100;
+
+	public static bool isFreezeTimerOn;
 
 	void Awake()
 	{

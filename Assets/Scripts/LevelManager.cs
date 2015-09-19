@@ -34,12 +34,13 @@ public class LevelManager : MonoBehaviour
 
 	public GameObject cameraRef;
 
-	GameObject[] temp;
-
+	 
 	public bool[] stageCompleted;
 
+	public GameObject portal;
 	 
-
+	 
+	public bool levelCompleted;
 
 	void Awake()
 	{
@@ -48,6 +49,7 @@ public class LevelManager : MonoBehaviour
 		activateAISpawn = new bool[10];
 		stageCompleted = new bool[10];
 		GameGlobalVariablesManager.isCameraLocked = false;
+		portal.SetActive (false);
 	}
 
 
@@ -57,7 +59,7 @@ public class LevelManager : MonoBehaviour
 		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
 
 		helpText = GameObject.FindGameObjectWithTag ("HelpText").GetComponent<Text>();
-		temp = new GameObject[10];
+		 
 		switch(levelNumber)
 		{
 		case 1:
@@ -119,7 +121,11 @@ public class LevelManager : MonoBehaviour
 				GameGlobalVariablesManager.isCameraLocked = false;
 				if(index==6)
 				{
+					 
 					InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+					GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+					portal.SetActive (true);
+
 				}
 			}
 		}

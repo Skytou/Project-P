@@ -4,11 +4,17 @@ using UnityEngine.Advertisements;
 
 public class MainMenuManger : MonoBehaviour 
 {
-	
+
+
+	public GameObject storeUI;
+
+	//public GameObject backButton;
 
 	// Use this for initialization
 	void Start () 
 	{
+		storeUI.SetActive (false);
+
 		if(Advertisement.IsReady())
 		{
 			Advertisement.Show ();
@@ -24,9 +30,14 @@ public class MainMenuManger : MonoBehaviour
 	}
 
 
+	public void Back()
+	{
+		storeUI.SetActive (false);
+	}
+
 	public void Store()
 	{
-		
+		storeUI.SetActive (true);
 	}
 	 
 }

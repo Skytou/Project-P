@@ -322,6 +322,27 @@ public class PlayerMovement : MonoBehaviour
 			}
 
 			break;
+
+		case "Portal":
+
+			switch(GameGlobalVariablesManager.currentLevelnumber)
+			{
+			case 1:
+				GameGlobalVariablesManager.level1Completed = true;
+				break;
+			case 2:
+				GameGlobalVariablesManager.level2Completed = true;
+				break;
+			case 3:
+				GameGlobalVariablesManager.level3Completed = true;
+				break;
+			case 4:
+				GameGlobalVariablesManager.level4Completed = true;
+				break;
+
+			}
+			break;
+
 		default:
 			
 			break;
