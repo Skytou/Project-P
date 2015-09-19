@@ -37,7 +37,8 @@ public class NotifMgr : MonoBehaviour {
         var noteConfig = new AndroidNotificationConfiguration(10, "Got an energy", "Play the epic clash", "havefun")
         {
             extraData = "ten-second-note",
-            groupKey = "my-note-group"
+            groupKey = "my-note-group",
+            smallIcon = "app_icon"            
         };
 
         // turn off sound and vibration for this notification
@@ -53,7 +54,7 @@ public class NotifMgr : MonoBehaviour {
         var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Collect your daily bonus", "Play the epic clash", "havefun")
         {
             extraData = "one-day-note",
-            groupKey = "my-note-group"
+            groupKey = "my-note-group"            
         };
         _oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
