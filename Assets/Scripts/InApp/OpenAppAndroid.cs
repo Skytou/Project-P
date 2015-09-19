@@ -15,10 +15,10 @@ public class OpenAppAndroid : MonoBehaviour
     {
         // case sensitive
         apps = new List<string>();
-        apps.Add("com.SkyTou.PuppyWorld");
-        apps.Add("com.znop.zigzagnoodles");
-        apps.Add("com.skyTou.puppyWorld");
-        apps.Add("com.Znop.HexaChains");
+        apps.Add("com.skyTou.kaththi3dgameAndroid");
+        apps.Add("air.CleanIndiaMission");
+        apps.Add("com.skytou.pokkiripongal");
+        apps.Add("com.skytou.Gabbar");
         curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
     }
 
