@@ -10,16 +10,20 @@ public class HorseManager : MonoBehaviour
 	public static HorseManager instance = null;
 
 	public GameObject horseRef;
-	private Animator horseAnimator;
+    public int sceneLvl;
+
+    private Animator horseAnimator;
 	 
 	public float distanceTravelled;
+    
 
 	private Vector3 lastPosition;
 
     float coinsCollected;
     float life;
     float timer;
-
+    bool victory;
+    public bool gameRunning;
 
 	Rigidbody2D rBody;
 
@@ -41,6 +45,10 @@ public class HorseManager : MonoBehaviour
     public Slider health;
     public Text coinText;
     public Text timerText;
+    public GameObject gameOverWin;
+    public Text gameOverWinText;
+    public GameObject gameOverLose;
+    public Text gameOverLoseText;
 
 
     void Awake()
@@ -50,8 +58,8 @@ public class HorseManager : MonoBehaviour
 		_animator = horseRef.GetComponent<Animator>();
 		_controller = GetComponent<CharacterController2D>();
 
-		// listen to some events for illustration purposes
-		_controller.onControllerCollidedEvent += onControllerCollider;
+        // listen to some events for illustration purposes
+        _controller.onControllerCollidedEvent += onControllerCollider;
 		_controller.onTriggerEnterEvent += onTriggerEnterEvent;
 		_controller.onTriggerExitEvent += onTriggerExitEvent;
 	}
@@ -60,6 +68,7 @@ public class HorseManager : MonoBehaviour
 	{
 		lastPosition = this.transform.position;
         life = 3;
+        gameRunning = true;
 	}
 
 	#region Event Listeners
@@ -91,7 +100,7 @@ public class HorseManager : MonoBehaviour
             health.value = life;
             if(life<=0)
             {
-                // game Over code
+                GameOver();
             }
         }
         else
@@ -156,20 +165,88 @@ public class HorseManager : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
 	{
+        if (gameRunning)
+        {
+            HorseMovement();
+            distanceTravelled += Vector3.Distance(transform.position, lastPosition);
+            lastPosition = transform.position;
 
-		HorseMovement();
-		distanceTravelled += Vector3.Distance(transform.position, lastPosition);
-		lastPosition = transform.position;
-        timer += Time.deltaTime;
-        timerText.text = "Time: " + (int)timer;
-        coinText.text = "Coins: " + (int)coinsCollected;
+            // timer
+            timer += Time.deltaTime;
+            // UI
+            timerText.text = "Time: " + (int) timer;
+            coinText.text = "Coins: " + (int) coinsCollected;
 
+            TimeKeeper();
 
-        //Debug.Log (this.transform.position);
-        //Debug.Log ("Distance Travelled " + distanceTravelled);
-        /*if((int)distanceTravelled==10f)
-		{
-			Debug.Log ("reset");
-		}*/
+            //Debug.Log (this.transform.position);
+            //Debug.Log ("Distance Travelled " + distanceTravelled);
+            /*if((int)distanceTravelled==10f)
+            {
+                Debug.Log ("reset");
+            }*/
+        }
+    }
+
+    // check for gameOver
+    void TimeKeeper()
+    {
+        if (sceneLvl == 1)
+        {
+            // condition for lvl 1
+            if(timer > 60)
+            {
+                victory = true;
+                GameOver();
+            }
+            if (timer > 30)
+            {
+               SpawnTrigger.maxRange = 10;
+            }
+
+        }
+        else if (sceneLvl == 2)
+        {
+            // condition for lvl 2
+            if (timer > 90)
+            {
+                victory = true;
+                GameOver();
+            }
+            if (timer > 40)
+            {
+                SpawnTrigger.maxRange = 10;
+            }
+        }
+        else if (sceneLvl == 3)
+        {
+            // condition for lvl 3
+            if (timer > 120)
+            {
+                victory = true;
+                GameOver();
+            }
+            if (timer > 60)
+            {
+                SpawnTrigger.maxRange = 10;
+            }
+        }
+    }
+
+    // gameOver function
+    void GameOver()
+    {
+        gameRunning = false;
+        // activate gameover screen and pause game
+        if (victory)
+        {
+            gameOverWin.SetActive(true);
+            gameOverWinText.text = "Coins: "+coinsCollected;
+        }
+        else
+        {
+            gameOverLose.SetActive(true);
+            gameOverLoseText.text = "Coins: " + coinsCollected;
+        }
     }
 }

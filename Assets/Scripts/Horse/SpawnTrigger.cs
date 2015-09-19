@@ -8,6 +8,7 @@ public class SpawnTrigger : MonoBehaviour
     public static int prevPlat;
     public static int beforePrevPlat;
     public static int twoBeforePrevPlat;
+    public static int maxRange;
     public Vector3[] distBtnPlatforms; //  starts from index 1
 
     int randNo;
@@ -18,6 +19,7 @@ public class SpawnTrigger : MonoBehaviour
     void Start()
     {
         prevPlat = 1;
+        maxRange = 8;
     }
 
     void Update()
@@ -33,7 +35,7 @@ public class SpawnTrigger : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             //Debug.Log("Trigger");
-            randNo = Random.Range(1, 8);
+            randNo = Random.Range(1, maxRange);
 
             instance = Pooler.InstRef.GetPooledObject(randNo);
             instance.transform.position = transform.parent.transform.parent.transform.position + distBtnPlatforms[1];
