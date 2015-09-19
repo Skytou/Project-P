@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using Prime31;
 
 public class ShopMgr : MonoBehaviour {
 
