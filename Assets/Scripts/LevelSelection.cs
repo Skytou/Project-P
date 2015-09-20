@@ -144,7 +144,13 @@ public class LevelSelection : MonoBehaviour
 		var pointData = (PointerEventData)data;
 		isTouched = false;
 	}
-	
+
+
+	public void BackButton()
+	{
+		loadingScreen.SetActive (true);
+		StartCoroutine (LoadLevel (1));
+	}
 	// Update is called once per frame
 	void Update ()
 	{

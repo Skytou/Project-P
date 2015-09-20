@@ -15,17 +15,22 @@ public class StoreHUD : MonoBehaviour
 	public Text storeText;
 
 	public string selectedPowerUp;
-
+	public GameObject notEnoughCoinsDialogue;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
+		notEnoughCoinsDialogue.SetActive (false);
 	}
 
 	public void BackButton()
 	{
 		
+	}
+
+	public void OkCoinsButton()
+	{
+		notEnoughCoinsDialogue.SetActive (false);
 	}
 
 	public void BuyLife()
@@ -91,6 +96,47 @@ public class StoreHUD : MonoBehaviour
 		storeImage.sprite = armor;
 		storeText.text = "The armour protects the hero from attack by the enemies. \nUpgrade the armour to reduce damage ";
 		selectedPowerUp = "Armor";
+	}
+
+
+
+	public void BuyButton()
+	{
+		switch(selectedPowerUp)
+		{
+		case "Life":
+
+			break;
+
+
+		case "Sword":
+			break;
+
+		case "Bomb":
+
+			break;
+
+		case "Armor":
+
+			break;
+
+		case "TimerFreeze":
+
+			break;
+
+		case "Energy":
+
+			break;
+
+		case "Cyclone":
+
+			break;
+
+
+		case "Coins":
+
+			break;
+		}
 	}
 	
 	// Update is called once per frame

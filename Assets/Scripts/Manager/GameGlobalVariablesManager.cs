@@ -15,9 +15,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isKnifeThrow = false;
 
+	public static bool isSoundMuted = false;
 
 	public static bool isFireBallThrown;
 
+	public static int totalNumberOfCoins;
 
 	public static int currentLevelnumber;
 	public static bool level1Completed, level2Completed, level3Completed, level4Completed;

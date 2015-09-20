@@ -149,10 +149,10 @@ public class InGameHUD : MonoBehaviour
 
 	public void Resume()
 	{
-		var values = Enum.GetValues (typeof(SceneTransistionSelf));
+		//var values = Enum.GetValues (typeof(SceneTransistionSelf));
 	
 		//SceneTransistionSelf s = (SceneTransistionSelf)values ( Random.Range (0, values.Length));
-		LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransistionSelf.RipplesToSameScene );//  SceneTransistionSelf.RipplesToSameScene);
+		//LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransistionSelf.RipplesToSameScene );//  SceneTransistionSelf.RipplesToSameScene);
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		Time.timeScale = 1.0f;
