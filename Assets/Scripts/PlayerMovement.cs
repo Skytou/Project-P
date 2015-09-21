@@ -692,6 +692,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag") )
 		{
+			GameGlobalVariablesManager.playerHealth--;
+			//InGameHUD.instance.healthBarSlider.value--;
 			playerHealth--;
 			//Debug.Log ("Play react anim");
 			characterAnimator.SetFloat("idleDirection",idleDirection);
@@ -706,7 +708,10 @@ public class PlayerMovement : MonoBehaviour
 
 	public void PlayerDead()
 	{
-		
+		if(GameGlobalVariablesManager.playerHealth<=0)
+		{
+			Debug.Log ("pop up for game over scene");
+		}
 	}
 
 	public void AttackEnemy()
@@ -948,6 +953,7 @@ public class PlayerMovement : MonoBehaviour
 			ShowFireBallCircle ();
 		}
 
+		PlayerDead ();
 		 
 		/*if(isKnifeThrow)
 		{

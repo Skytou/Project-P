@@ -22,6 +22,9 @@ public class InGameHUD : MonoBehaviour
 	public GameObject sword, knife, timer, bomb, cyclone;
 
 
+	public Slider healthBarSlider;
+
+	 
 	public GameObject dialogueHUD;
 	public Text dialogueHUDText;
 
@@ -31,11 +34,14 @@ public class InGameHUD : MonoBehaviour
 	void Awake()
 	{
 		instance = this;
+		 
 	}
 
 	// Use this for initialization
 	void Start ()
 	{
+		healthBarSlider.maxValue = GameGlobalVariablesManager.playerHealth;
+		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		SetSpriteDefault ();
@@ -176,6 +182,8 @@ public class InGameHUD : MonoBehaviour
 	void Update()
 	{
 		SetSpriteUpdated ();
+
+		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
 
 	}
 }

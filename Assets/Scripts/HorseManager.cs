@@ -3,6 +3,7 @@ using Prime31;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
 public class HorseManager : MonoBehaviour 
 {
@@ -132,7 +133,7 @@ public class HorseManager : MonoBehaviour
 
 
 		// we can only jump whilst grounded
-		if( _controller.isGrounded && Input.GetKeyDown( KeyCode.Space ) || _controller.isGrounded && Input.GetButtonDown("Fire1"))
+		if((  _controller.isGrounded && Input.GetKeyDown( KeyCode.Space ) || _controller.isGrounded && Input.GetButtonDown("Fire1") ) && !EventSystem.current.IsPointerOverGameObject () )
 		{
 			_velocity.y = Mathf.Sqrt( 2f * jumpHeight * -gravity );
 

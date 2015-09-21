@@ -20,6 +20,7 @@ public class LevelManager : MonoBehaviour
 	//public GameObject[] aiPrefab;
 	//public GameObject[] spawnPoiints;
 
+	public float playerHealth;
 	public int levelNumber;
 	public string  dialogueHUDTextLevelStart ,dialogueHUDTextLevelEnd ;
 
@@ -50,6 +51,7 @@ public class LevelManager : MonoBehaviour
 		stageCompleted = new bool[10];
 		GameGlobalVariablesManager.isCameraLocked = false;
 		portal.SetActive (false);
+		GameGlobalVariablesManager.playerHealth =playerHealth;
 	}
 
 
@@ -117,7 +119,7 @@ public class LevelManager : MonoBehaviour
 				activateAISpawn [index] = false;
 				stageCompleted [index] = true;
 				//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
-				helpText.text = "Crack the pot!";
+				//helpText.text = "Crack the pot!";
 				GameGlobalVariablesManager.isCameraLocked = false;
 
 				// for level 3 we have index = 4

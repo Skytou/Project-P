@@ -10,6 +10,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isCameraLocked = false;
 
+	public static float playerHealth;
 
 	public static bool isPlayerSpin = false;
 
