@@ -43,7 +43,6 @@ public class HorseManager : MonoBehaviour
 	private Vector3 _velocity;
 
     // UI Components
-    public Slider health;
     public Text coinText;
     public Text timerText;
     public GameObject gameOverWin;
@@ -67,10 +66,11 @@ public class HorseManager : MonoBehaviour
 	// Use this for initialization
 	void Start () 
 	{
-		lastPosition = this.transform.position;
+		lastPosition = transform.position;
         life = 3;
         gameRunning = true;
-	}
+        Time.timeScale = 0.0f;
+    }
 
 	#region Event Listeners
 
@@ -98,8 +98,9 @@ public class HorseManager : MonoBehaviour
         else if(col.gameObject.tag == "Obstacle")
         {
             life -= 1;
-            health.value = life;
-            if(life<=0)
+            HorseHUD.instance.SetLifeInGame();
+            //health.value = life;
+            if (life<=0)
             {
                 GameOver();
             }
@@ -175,8 +176,8 @@ public class HorseManager : MonoBehaviour
             // timer
             timer += Time.deltaTime;
             // UI
-            timerText.text = "Time: " + (int) timer;
-            coinText.text = "Coins: " + (int) coinsCollected;
+            timerText.text = "" + (int) timer;
+            coinText.text = "" + (int) coinsCollected;
 
             TimeKeeper();
 
@@ -238,16 +239,19 @@ public class HorseManager : MonoBehaviour
     void GameOver()
     {
         gameRunning = false;
+        Time.timeScale = 0.0f;
         // activate gameover screen and pause game
         if (victory)
         {
-            gameOverWin.SetActive(true);
-            gameOverWinText.text = "Coins: "+coinsCollected;
+            //gameOverWin.SetActive(true);
+            //gameOverWinText.text = "Coins: "+coinsCollected;
+            HorseHUD.instance.GameOver();
         }
         else
         {
-            gameOverLose.SetActive(true);
-            gameOverLoseText.text = "Coins: " + coinsCollected;
+            //gameOverLose.SetActive(true);
+            //gameOverLoseText.text = "Coins: " + coinsCollected;
+            HorseHUD.instance.GameOver();
         }
     }
 }

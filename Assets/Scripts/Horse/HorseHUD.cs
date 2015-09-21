@@ -36,7 +36,8 @@ public class HorseHUD : MonoBehaviour
 		Time.timeScale = 1.0f;
 		isGameOver = false;
 		SetLifeOnStart ();
-	}
+        lifeIndex = 2;
+    }
 
 
 
@@ -53,12 +54,11 @@ public class HorseHUD : MonoBehaviour
 	{
 		for(int i =0;i<lifeImage.Length;i++)
 		{
-			if(i<=lifeIndex)
-				lifeImage [i].sprite = lifeOff;
-			else
-			{
-				lifeImage [i].sprite = lifeOn;
-			}
+            if (i == lifeIndex)
+            {
+                lifeImage[i].sprite = lifeOff;
+                lifeIndex -= 1;
+            }         
 		}
 	}
 
@@ -66,12 +66,17 @@ public class HorseHUD : MonoBehaviour
 
 	public void OkButtonHUD()
 	{
-		if(!isGameOver)
-		helpHudGameObject.SetActive (false);
-		else
-		{
-			Application.LoadLevel ("LevelSelection");
-		}
+        if (!isGameOver)
+        {
+            helpHudGameObject.SetActive(false);
+            Time.timeScale = 1.0f;
+            //HorseManager.instance.gameRunning = true;
+
+        }
+        else
+        {
+            Application.LoadLevel("LevelSelection");
+        }
 	}
 
 
@@ -107,6 +112,8 @@ public class HorseHUD : MonoBehaviour
 		helpHudText.text = gameOverText;
 		isGameOver = true;
 	}
+
+
 
 	// Update is called once per frame
 	void Update () 
