@@ -503,13 +503,13 @@ public class AIComponent : MonoBehaviour
 		switch(aiBehaviour)
 		{
 		case AIBehaviour.ATTACK:
-			if(!GameGlobalVariablesManager.isBombActivated) 
+			if(  (!GameGlobalVariablesManager.isBombActivated)&& !aiAnimatorState.IsTag (("DeathTag")))// && !GameGlobalVariablesManager.isKnifeThrow )
 			MoveTowardsPlayer ();
 			break;
 
 
 		case AIBehaviour.RANGED:
-			if(!GameGlobalVariablesManager.isBombActivated) 
+			if(  (!GameGlobalVariablesManager.isBombActivated)&& !aiAnimatorState.IsTag (("DeathTag") ))//&& !GameGlobalVariablesManager.isKnifeThrow )
 			MoveTowardsPlayerToThrow ();
 			break;
 		}

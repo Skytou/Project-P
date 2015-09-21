@@ -27,7 +27,7 @@ public class PlayerMovement : MonoBehaviour
 	private Animator characterAnimator;
 	 
 	private AnimatorStateInfo animatorStateInfo;
-  	float idleDirection,moveDirection , prevMoveDirection;
+  	float idleDirection,moveDirection , prevMoveDirection , knifeThrowDirection;
 
 	float initialSpeed, intialDistanceToAttack , initialDistanceToThrow;
 	float xComponent;
@@ -64,7 +64,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public bool canThrow;
 	public bool isKnifeThrow;
-	public GameObject knifePrefab ;
+	public GameObject[] knifePrefab ;
 	public  GameObject knifeThrowPoint;
 
 	public float fireBallTimer;
@@ -84,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
 	public float spinAttackDistance;
 
 	private CircleCollider2D playerSpinCircleCollider;
+
+
 
 
 
@@ -655,35 +657,41 @@ public class PlayerMovement : MonoBehaviour
 	public void LaunchKnife()
 	{
 		Debug.Log ("throwing Knife");
-		knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+		knife = Instantiate (knifePrefab[(int)moveDirection], knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		GameGlobalVariablesManager.numberOfKnives--;
 		knife.SetActive (true);
 		throwed = true;
-		Debug.Log (touchPos);
+		//Debug.Log (touchPos);
 		//knife.transform.position = Vector2.MoveTowards(knife.transform.position,touchPos, knifeThrowSpeed * Time.deltaTime);
 
-		//knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos,selectedObject, true);
-		GameGlobalVariablesManager.isKnifeThrow = false;
-		isKnifeThrow = false;
+		knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos,selectedObject, true);
+		//GameGlobalVariablesManager.isKnifeThrow = false;
+		//isKnifeThrow = false;
+
 	}
 
 	void DestroyUsingKnife()
 	{
-		knife.transform.position = Vector2.MoveTowards(knife.transform.position, new Vector2( selectedObject.transform.position.x , selectedObject.transform.position.y+5), knifeThrowSpeed * Time.deltaTime);
-		if(knife.transform.position.x == selectedObject.transform.position.x)
-		{
-			if(selectedObject.GetComponent<AIComponent> ()!=null)
-			{
-				selectedObject.GetComponent<AIComponent> ().Death ();
-				Destroy (knife.gameObject);
-				throwed = false;
-			}
-			else
-			{
-				Destroy (selectedObject);
-				Destroy (knife.gameObject);
-				throwed = false;
+		if (knife != null) 
+		{ 
+			knife.transform.position = Vector2.MoveTowards (knife.transform.position, new Vector2 (selectedObject.transform.position.x, selectedObject.transform.position.y + 5), knifeThrowSpeed * Time.deltaTime);
+			if (knife.transform.position.x == selectedObject.transform.position.x) {
+				if (selectedObject.GetComponent<AIComponent> () != null) {
+					selectedObject.GetComponent<AIComponent> ().Death ();
+					if (knife != null)
+						Destroy (knife.gameObject);
+					throwed = false;
+					GameGlobalVariablesManager.isKnifeThrow = false;
+					//isKnifeThrow = false;
+				} else {
+					Destroy (selectedObject);
+					if (knife != null)
+						Destroy (knife.gameObject);
+					throwed = false;
+					GameGlobalVariablesManager.isKnifeThrow = false;
+					//isKnifeThrow = false;
 
+				}
 			}
 		}
 	}
@@ -959,8 +967,9 @@ public class PlayerMovement : MonoBehaviour
 		{
 			Idle ();
 		}*/
-		if (throwed)
-			DestroyUsingKnife();
+
+		/*if (throwed)
+			DestroyUsingKnife();*/
 	}
 
 	 

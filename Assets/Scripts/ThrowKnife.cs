@@ -38,19 +38,21 @@ public class ThrowKnife : MonoBehaviour
 			reachPos = tempPos;
 			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2 (tempPos.x, tempPos.y), moveSpeed * Time.deltaTime);
 
-			//if(throwableObjectType == ThrowObjectType.BOMB)
+			if(knifeThrowGameObject!=null)   //if(throwableObjectType == ThrowObjectType.BOMB)
 			{
 				if (this.transform.position.x == tempPos.x) 
 				{
 					if (knifeThrowGameObject.GetComponent<AIComponent> () != null) 
 					{
 						knifeThrowGameObject.GetComponent<AIComponent> ().Death ();
-						Destroy (this.gameObject, 0.5f);
+						GameGlobalVariablesManager.isKnifeThrow = false;
+						Destroy (this.gameObject, 0.25f);
 					}
 					else
 					{
-
-						Destroy (this.gameObject, 0.5f);
+						GameGlobalVariablesManager.isKnifeThrow = false;
+						Destroy (knifeThrowGameObject);
+						Destroy (this.gameObject, 0.25f);
 					}
 					 
 
