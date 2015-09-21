@@ -119,6 +119,9 @@ public class LevelManager : MonoBehaviour
 				//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
 				helpText.text = "Crack the pot!";
 				GameGlobalVariablesManager.isCameraLocked = false;
+
+				// for level 3 we have index = 4
+				// for level 4 we have index = 5
 				if(index==6)
 				{
 					 
