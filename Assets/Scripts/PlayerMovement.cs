@@ -105,7 +105,7 @@ public class PlayerMovement : MonoBehaviour
 		initialSpeed =speed;
 
 		intialDistanceToAttack = distanceToAttack;
-		Debug.Log (intialDistanceToAttack);
+		//Debug.Log (intialDistanceToAttack);
 		initialDistanceToThrow = distanceToThrow;
 		idleDirection =5;
 		//moveDirection=-1;
@@ -573,7 +573,7 @@ public class PlayerMovement : MonoBehaviour
 					if(a_timer <=0f)
 					{
 						// call Attack()
-						if(selectedObject!=null)
+						if(selectedObject!=null  )
 						Attack();
 
 						a_timer = attackTime;
@@ -754,7 +754,7 @@ public class PlayerMovement : MonoBehaviour
 				{
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
 
-						Debug.Log (layerName);
+					//	Debug.Log (layerName);
 
 					switch (layerName)
 					{

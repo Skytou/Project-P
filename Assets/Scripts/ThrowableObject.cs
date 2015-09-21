@@ -55,7 +55,7 @@ public class ThrowableObject : MonoBehaviour
 					ballrenderer.enabled = false;
 					explode.SetActive (true);
 					GameGlobalVariablesManager.isFireBallThrown = true;
-					Debug.Log ("Enabling fire ring");
+				//	Debug.Log ("Enabling fire ring");
 					Destroy (this.gameObject,0.5f);
 
 				}

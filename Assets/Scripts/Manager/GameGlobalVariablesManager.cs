@@ -17,15 +17,18 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isSoundMuted = false;
 
+	public static bool isBombActivated =false;
+
 	public static bool isFireBallThrown;
 
 	public static int totalNumberOfCoins;
+	public static float stunTime =10;
 
 	public static int currentLevelnumber;
 	public static bool level1Completed, level2Completed, level3Completed, level4Completed;
 
 	public static bool isSwordSelected, isKnifeSelected;
-	public static bool isTimerSelected, isBombSelected, isCycloneSelected;
+	public static bool isTimerSelected, isCycloneSelected;
  
 	public static float numberOfKnives = 100;
 

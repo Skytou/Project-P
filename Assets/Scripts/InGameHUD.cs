@@ -122,7 +122,10 @@ public class InGameHUD : MonoBehaviour
 
 	public void Bomb()
 	{
-		 
+		if(!GameGlobalVariablesManager.isBombActivated)
+		{
+			GameGlobalVariablesManager.isBombActivated = true;
+		}
 	}
 
 	public void Cyclone()

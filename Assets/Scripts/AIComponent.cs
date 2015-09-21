@@ -70,6 +70,8 @@ public class AIComponent : MonoBehaviour
 	Vector3 healthBarRectT;
 	GameObject spear;
 	 
+	public bool canStun =false;
+	public float bTimer;
  
 	void Awake()
 	{
@@ -91,6 +93,7 @@ public class AIComponent : MonoBehaviour
 		selectionMarker.SetActive (false);
 
 		isDead = false;
+		bTimer = GameGlobalVariablesManager.stunTime;
 		//aiMaxHitTaken = 2;
 	}
 
@@ -264,7 +267,7 @@ public class AIComponent : MonoBehaviour
 			if (a_timer <= 0f) 
 			{
 				// call Attack()
-
+				if(!GameGlobalVariablesManager.isBombActivated)
 				Attack ();
 				a_timer = aiAttackTime;
 			}
@@ -437,7 +440,7 @@ public class AIComponent : MonoBehaviour
 			if (t_timer <= 0f) 
 			{
 				// call Attack()
-
+				if(!GameGlobalVariablesManager.isBombActivated) 
 				ThrowSpears ();
 				t_timer = aiThrowTime;
 			}
@@ -460,6 +463,35 @@ public class AIComponent : MonoBehaviour
 		}
 	}
 	 
+	void Stun()
+	{
+		if (bTimer >= 0f) 
+		{  
+			isInMove = false;
+
+			idleDirection =prevMoveDirection;
+
+			aiAnimator.SetBool("isInMove",isInMove);
+
+			aiAnimator.SetFloat("idleDirection",idleDirection);
+			aiAnimator.SetFloat("moveDirection",moveDirection);
+
+
+			 
+
+		}
+
+		else
+		{
+			Debug.Log ("time over");
+			GameGlobalVariablesManager.isBombActivated = false;
+			canStun = false;
+			bTimer = GameGlobalVariablesManager.stunTime;
+		 
+
+		}
+
+	}
 
 	// Update is called once per frame
 	void Update () 
@@ -471,16 +503,24 @@ public class AIComponent : MonoBehaviour
 		switch(aiBehaviour)
 		{
 		case AIBehaviour.ATTACK:
+			if(!GameGlobalVariablesManager.isBombActivated) 
 			MoveTowardsPlayer ();
 			break;
 
 
 		case AIBehaviour.RANGED:
-
+			if(!GameGlobalVariablesManager.isBombActivated) 
 			MoveTowardsPlayerToThrow ();
 			break;
 		}
 		 
+		if (GameGlobalVariablesManager.isBombActivated) 
+		{
+			canStun = true;
+			bTimer -= Time.deltaTime;
+			Stun ();
+
+		}
 /*
 		if(Input.GetMouseButtonDown(1))
 		{
