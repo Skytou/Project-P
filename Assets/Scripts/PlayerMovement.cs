@@ -368,17 +368,18 @@ public class PlayerMovement : MonoBehaviour
 				//playerSpinCircleCollider.radius = 8f;
 			}
 
-			GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
-			foreach(var e in enemyList)
-			{
-				Debug.Log (e.gameObject.name);
-				Debug.Log ( Vector2.Distance (e.gameObject.transform.position, this.transform.position));
-				if(Vector2.Distance (e.gameObject.transform.position, this.transform.position) < spinRange)
-				{
-					e.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+			if (animatorStateInfo.IsName ("VijaySpin")) 
+			{ 
+				GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
+				foreach (var e in enemyList) {
+					Debug.Log (e.gameObject.name);
+					Debug.Log (Vector2.Distance (e.gameObject.transform.position, this.transform.position));
+					if (Vector2.Distance (e.gameObject.transform.position, this.transform.position) < spinRange) {
+						e.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
 
-					e.gameObject.GetComponent<AIComponent> ().Death ();
+						e.gameObject.GetComponent<AIComponent> ().Death ();
 
+					}
 				}
 			}
 				
