@@ -4,8 +4,9 @@ using Prime31;
 
 public class NotifMgr : MonoBehaviour {
 
-	private int _tenSecondNotificationId;
-    private int _oneDayNotificationId;
+    private int oneHrNotificationId;
+    private int twoHrNotificationId;
+    private int oneDayNotificationId;
 
     long SecInDay = 24 * 60 * 60;
 
@@ -31,21 +32,37 @@ public class NotifMgr : MonoBehaviour {
     {
     }
 
-    
-    public void SetNotif_10Sec()
+
+    public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(10, "Got an energy", "Play the epic clash", "havefun")
+        var noteConfig = new AndroidNotificationConfiguration(10*60, "Got an energy", "Play the epic clash", "havefun")
         {
-            extraData = "ten-second-note",
+            extraData = "one-hour-note",
             groupKey = "my-note-group",
-            smallIcon = "app_icon"            
+            smallIcon = "app_icon"
         };
 
         // turn off sound and vibration for this notification
         noteConfig.sound = false;
         noteConfig.vibrate = false;
 
-        _tenSecondNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
+        oneHrNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
+    }
+
+    public void SetNotif_2Hr()
+    {
+        var noteConfig = new AndroidNotificationConfiguration(2 * 60 * 60, "Got an energy", "Play the epic clash", "havefun")
+        {
+            extraData = "two-hour-note",
+            groupKey = "my-note-group",
+            smallIcon = "app_icon"
+        };
+
+        // turn off sound and vibration for this notification
+        noteConfig.sound = false;
+        noteConfig.vibrate = false;
+
+        twoHrNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
 
 
@@ -56,14 +73,14 @@ public class NotifMgr : MonoBehaviour {
             extraData = "one-day-note",
             groupKey = "my-note-group"            
         };
-        _oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
+        oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
 
 
     public void CancelAllNotif()
     {
-        EtceteraAndroid.cancelNotification( _tenSecondNotificationId );
-        EtceteraAndroid.cancelNotification( _oneDayNotificationId );
+        EtceteraAndroid.cancelNotification( oneHrNotificationId );
+        EtceteraAndroid.cancelNotification( oneDayNotificationId );
         EtceteraAndroid.cancelAllNotifications();
     }
 
