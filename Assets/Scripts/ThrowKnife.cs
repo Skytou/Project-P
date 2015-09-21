@@ -46,13 +46,13 @@ public class ThrowKnife : MonoBehaviour
 					{
 						knifeThrowGameObject.GetComponent<AIComponent> ().Death ();
 						GameGlobalVariablesManager.isKnifeThrow = false;
-						Destroy (this.gameObject, 0.25f);
+						Destroy (this.gameObject);
 					}
 					else
 					{
 						GameGlobalVariablesManager.isKnifeThrow = false;
 						Destroy (knifeThrowGameObject);
-						Destroy (this.gameObject, 0.25f);
+						Destroy (this.gameObject);
 					}
 					 
 
