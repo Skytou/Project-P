@@ -111,7 +111,7 @@ public class LevelSelection : MonoBehaviour
 
 	public void OnPointerDown( BaseEventData data)
 	{
-		var pointData = (PointerEventData)data;
+		//var pointData = (PointerEventData)data;
 		isTouched = true;
 	}
 

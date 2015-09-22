@@ -40,7 +40,7 @@ public class PlayerMovement : MonoBehaviour
 	bool isInMove;
  	bool isRun;
 
-	Collider2D collider2D;
+	 
 
 	 
 
@@ -74,16 +74,15 @@ public class PlayerMovement : MonoBehaviour
 
 	 
 	public float interpolationScale;
-	BezierCurve bezierCurve;
 	 
-	public List<Vector3> movementPath;
+ 
 
 	bool canSpin;
 	bool throwed;
 
 	public float spinAttackDistance;
 
-	private CircleCollider2D playerSpinCircleCollider;
+	 
 
 
 
@@ -97,9 +96,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		target = transform.position;
 		characterAnimator = GetComponent<Animator>();
-		bezierCurve = new BezierCurve ();
-		playerSpinCircleCollider = this.GetComponent<CircleCollider2D> ();
-
+		 
+	 
 	}
 
 	void Start()

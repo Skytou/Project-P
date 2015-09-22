@@ -325,7 +325,7 @@ public class AIComponent : MonoBehaviour
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
 
-			int r = Random.Range(1,5);
+			//int r = Random.Range(1,5);
 			//Debug.Log("Random value "+ 4);
 			aiAnimator.SetFloat("idleDirection",idleDirection);
 			aiAnimator.SetFloat("moveDirection",moveDirection);
