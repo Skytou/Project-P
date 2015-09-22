@@ -104,6 +104,7 @@ public class HorseManager : MonoBehaviour
             {
                 GameOver();
             }
+            StartCoroutine(FlashSprite(8.0f, 0.7f, new Color(1f, 1f, 1f, 0f)));
         }
         else
         {
@@ -253,5 +254,26 @@ public class HorseManager : MonoBehaviour
             //gameOverLoseText.text = "Coins: " + coinsCollected;
             HorseHUD.instance.GameOver();
         }
+    }
+
+    IEnumerator FlashSprite(float timeScale, float duration, Color blinkColor)
+    {
+
+        var sprite = GetComponentInChildren<SpriteRenderer>();
+        Debug.Log(sprite);
+        var elapsedTime = 0f;
+        while (elapsedTime <= duration)
+        {
+            sprite.color = blinkColor;
+
+            blinkColor.a = Mathf.PingPong(elapsedTime * timeScale, 1f);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        // revert to our standard sprite color
+        blinkColor.a = 1f;
+        sprite.color = blinkColor;
+
     }
 }
