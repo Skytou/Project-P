@@ -42,6 +42,12 @@ public class LevelSelection : MonoBehaviour
 				//castle [i].GetComponent<Image> ().color.a = 150;
 			}
 		}
+
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 	
 	}
 

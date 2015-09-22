@@ -82,6 +82,7 @@ public class AIComponent : MonoBehaviour
 		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
 
 		enemyDeathParticleAnimator = enemyDeathParticleEffect.GetComponent<Animator> ();
+		aiMaxHitTaken = 1;
 		//Debug.Log(healthBarScaleFactor);
 	}
 

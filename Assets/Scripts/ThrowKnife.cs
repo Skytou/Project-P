@@ -36,7 +36,7 @@ public class ThrowKnife : MonoBehaviour
 		if (canThrow) 
 		{
 			reachPos = tempPos;
-			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2 (tempPos.x, tempPos.y), moveSpeed * Time.deltaTime);
+			this.gameObject.transform.position = Vector2.MoveTowards (this.transform.position, new Vector2 (tempPos.x, tempPos.y+5), moveSpeed * Time.deltaTime);
 
 			if(knifeThrowGameObject!=null)   //if(throwableObjectType == ThrowObjectType.BOMB)
 			{

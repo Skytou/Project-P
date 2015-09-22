@@ -649,7 +649,7 @@ public class PlayerMovement : MonoBehaviour
 	public void LaunchKnife()
 	{
 		Debug.Log ("throwing Knife");
-		knife = Instantiate (knifePrefab[(int)moveDirection], knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+		knife = Instantiate (knifePrefab[(int)moveDirection],  knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		GameGlobalVariablesManager.numberOfKnives--;
 		knife.SetActive (true);
 		throwed = true;

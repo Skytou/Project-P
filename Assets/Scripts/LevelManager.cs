@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
@@ -57,7 +58,12 @@ public class LevelManager : MonoBehaviour
 
 	void Start()
 	{
-		 
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		} 
+
 		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
 
 		helpText = GameObject.FindGameObjectWithTag ("HelpText").GetComponent<Text>();
@@ -69,7 +75,7 @@ public class LevelManager : MonoBehaviour
 			break;
 
 		case 2:
-			helpText.text = "Game On!";
+			helpText.text = "Crack the pots to find extra coins";
 			break;
 
 		case 3:
@@ -124,14 +130,38 @@ public class LevelManager : MonoBehaviour
 
 				// for level 3 we have index = 4
 				// for level 4 we have index = 5
-				if(index==6)
-				{
-					 
-					InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-					GameGlobalVariablesManager.currentLevelnumber = levelNumber;
-					portal.SetActive (true);
 
+				switch(levelNumber)
+				{
+				case 1:
+
+					if(index==6)
+					{
+
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+
+					}
+
+					break;
+
+
+				case 2:
+
+					break;
+
+
+				case 3:
+
+					break;
+
+
+				case 4:
+
+					break;
 				}
+
 			}
 		}
 	}

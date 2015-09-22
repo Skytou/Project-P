@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System; 
+using UnityEngine.Advertisements;
 
 public class InGameHUD : MonoBehaviour
 {
@@ -149,7 +150,11 @@ public class InGameHUD : MonoBehaviour
 
 	public void Pause()
 	{
-
+		if(Advertisement.IsReady())
+		{
+			Advertisement.Show ();
+			Debug.Log ("Showing ad");
+		}
 		//LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransition.RipplesToSameScene);
 		pauseScreen.SetActive (true);
 		gameHUD.SetActive (false);
