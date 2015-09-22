@@ -82,14 +82,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public float spinAttackDistance;
 
-	 
-
-
-
-
-
-
-	 
+	  
 	//float tempDistanceToAttack;
 
 	void Awake()
@@ -936,11 +929,12 @@ public class PlayerMovement : MonoBehaviour
 
 			break;
 		case PlayerBehaviour.MOVE:
-
+			if(!GameGlobalVariablesManager.isFireBallThrown)
 			MoveTowardsPoint ();
 
 			break;
 		case PlayerBehaviour.MOVEANDTHROW:
+			 
 			MoveTowardsThrowPoint ();
 
 			break;
