@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
-using Prime31.TransitionKit;
+//using Prime31.TransitionKit;
 
 public class SplashScreenManager : MonoBehaviour 
 {
@@ -13,16 +13,16 @@ public class SplashScreenManager : MonoBehaviour
 
 	void OnEnable()
 	{
-		TransitionKit.onScreenObscured += onScreenObscured;
-		TransitionKit.onTransitionComplete += onTransitionComplete;
+		/*TransitionKit.onScreenObscured += onScreenObscured;
+		TransitionKit.onTransitionComplete += onTransitionComplete;*/
 	}
 	
 	
 	void OnDisable()
 	{
 		// as good citizens we ALWAYS remove event handlers that we added
-		TransitionKit.onScreenObscured -= onScreenObscured;
-		TransitionKit.onTransitionComplete -= onTransitionComplete;
+		/*TransitionKit.onScreenObscured -= onScreenObscured;
+		TransitionKit.onTransitionComplete -= onTransitionComplete;*/
 	}
 
 	void onScreenObscured()
@@ -56,7 +56,7 @@ public class SplashScreenManager : MonoBehaviour
 			if(i!=splashScreen.Length-1)  
 			splashScreen[i].SetActive(false);
 		}
-		LoadSceneManager.instance.LoadSceneWithTransistion(1,SceneTransition.RipplesToScene);
+		//LoadSceneManager.instance.LoadSceneWithTransistion(1,SceneTransition.RipplesToScene);
 		Debug.Log("level loaded");
 		Application.LoadLevel(1);
 	}
