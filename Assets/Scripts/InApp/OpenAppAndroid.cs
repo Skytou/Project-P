@@ -6,10 +6,13 @@ public class OpenAppAndroid : MonoBehaviour
 {
 
     bool isGalleryImageLoaded = false;
-    public Image curImg;
     List<string> apps;
     int curAppIndex = 0;
     public Text curAppText;
+
+    private static string fullClassName = "com.znop.unityplugin06.MainActivity";
+    private static string unityClass = "com.unity3d.player.UnityPlayerNativeActivity";
+
 
     void Start()
     {
@@ -28,37 +31,17 @@ public class OpenAppAndroid : MonoBehaviour
     }
 
 
-    public void OnOpen()
-    {
-		if( Application.platform != RuntimePlatform.Android )
-			return;
-        AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
-        bool chkVal = currentActivity.Call<bool>("appInstalledOrNot", "com.SkyTou.PuppyWorld"); //com.SkyTou.PuppyWorld
-        Debug.Log("chkVal : " + chkVal);
-    }
-
-
-    public void OncallShareApp()
-    {
-		if( Application.platform != RuntimePlatform.Android )
-			return;
-        string subject = "WORD-O-MAZE";
-        string body = "PLAY THIS AWESOME. GET IT ON THE PLAYSTORE";
-
-        AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
-        currentActivity.Call("shareText", subject, body);
-    }
-
-
     public void OnOpenApp()
     {
 		if( Application.platform != RuntimePlatform.Android )
 			return;
-        AndroidJavaClass unity = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
-        AndroidJavaObject currentActivity = unity.GetStatic<AndroidJavaObject>("currentActivity");
-        currentActivity.Call("openApp", apps[curAppIndex]); //com.SkyTou.PuppyWorld
+
+        AndroidJavaClass pluginClass = new AndroidJavaClass(fullClassName);
+        if (pluginClass != null)
+        {
+            pluginClass.CallStatic("OpenApp", apps[curAppIndex]);
+
+        }
 
         curAppIndex++;
         if (curAppIndex >= apps.Count)
@@ -68,9 +51,4 @@ public class OpenAppAndroid : MonoBehaviour
         curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
     }
 
-
-    public void OnPhotoPick(string filePath)
-    {
-        Debug.Log("OnPhotoPick : " + filePath);
-    }
 }
