@@ -8,7 +8,7 @@ public class ShopMgr : MonoBehaviour {
 
     bool isShopOpen = false;
     ShopDB shop = new ShopDB();
-    int totalCoins;
+    long totalCoins = 2000;
     
     // debug
     public Text ShopStatus;
@@ -63,12 +63,17 @@ public class ShopMgr : MonoBehaviour {
         OpenShop();
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(false);
+        UpdateUI();
 	}
 	
 
     void Update () {
-        //TotalCoins.text = "Coins : " + totalCoins;
 	}
+
+    void UpdateUI()
+    {
+        TotalCoins.text = totalCoins.ToString();
+    }
 
 
     bool IsShopOpen()
@@ -121,7 +126,7 @@ public class ShopMgr : MonoBehaviour {
         if (isShopOpen)
         {
             GoogleIAB.purchaseProduct(itemId);
-            ShopStatus.text = "BuyItem : " + itemId;
+            //ShopStatus.text = "BuyItem : " + itemId;
         }
     }
 
@@ -135,6 +140,20 @@ public class ShopMgr : MonoBehaviour {
     public void OnOpenPopup()
     {
         PopUpInApp.SetActive(true);
+        PopUpNotEnoughCoins.SetActive(false);
+    }
+
+
+    public void OnOpenNotEnoughCoins()
+    {
+        PopUpInApp.SetActive(false);
+        PopUpNotEnoughCoins.SetActive(true);
+    }
+
+
+    public void OnCloseNotEnoughCoins()
+    {
+        PopUpNotEnoughCoins.SetActive(false);
     }
 
 
@@ -143,13 +162,12 @@ public class ShopMgr : MonoBehaviour {
         Application.LoadLevel(GameGlobalVariablesManager.MenuScene);
     }
 
+
     #region iabevents
     void billingSupportedEvent()
     {
         Debug.Log("znop: billingSupportedEvent");
         isShopOpen = true;
-        //ShopStatus.text = "isShopOpen : " + isShopOpen;
-
     }
 
 
@@ -157,7 +175,6 @@ public class ShopMgr : MonoBehaviour {
     {
         Debug.Log("znop: billingNotSupportedEvent: " + error);
         isShopOpen = false;
-        //ShopStatus.text = "isShopOpen : " + isShopOpen;
     }
 
 
@@ -214,48 +231,11 @@ public class ShopMgr : MonoBehaviour {
 
 
     #region StoreHUD
-
     public void BuyLife()
     {
         storeImage.sprite = life;
         storeText.text = "The life of the hero can be upgraded to give more survival in-spite the attacks taken. Upgrade to get extra 20 survival capacity";
-        selectedPowerUp = "Life";
-    }
-
-    public void BuyKnife()
-    {
-        storeImage.sprite = throwKnife;
-        storeText.text = "This special weapon helps to kill the enemies from a distance. \nMore the throw knives more are the escape opportunities";
-        selectedPowerUp = "Knife";
-    }
-
-    public void BuyCyclone()
-    {
-        storeImage.sprite = cyclone;
-        storeText.text = "Master move by the player to kill the enemies with a circular spin";
-        selectedPowerUp = "Cyclone";
-    }
-
-    public void BuyEnergy()
-    {
-        storeImage.sprite = energy;
-        storeText.text = "The hero can sustain in the battle field only till his energy lasts. \nUpgrade to get extra 20 energy to give him more fighting time";
-        selectedPowerUp = "Energy";
-    }
-
-    public void BuyBomb()
-    {
-
-        storeImage.sprite = bomb;
-        storeText.text = "Stun bomb to stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
-        selectedPowerUp = "Bomb";
-    }
-
-    public void BuyTimerFreeze()
-    {
-        storeImage.sprite = timer;
-        storeText.text = "An energy freeze to pause the energy depletion of the hero. This gives more fighting time";
-        selectedPowerUp = "TimerFreeze";
+        selectedPowerUp = "Life";        
     }
 
     public void BuySword()
@@ -265,13 +245,12 @@ public class ShopMgr : MonoBehaviour {
         selectedPowerUp = "Sword";
     }
 
-    public void BuyCoins()
+    public void BuyKnife()
     {
-        storeImage.sprite = coins;
-        storeText.text = "Buy more coins and use them in store to get more upgrades";
-        selectedPowerUp = "Coins";
+        storeImage.sprite = throwKnife;
+        storeText.text = "This special weapon helps to kill the enemies from a distance. \nMore the throw knives more are the escape opportunities";
+        selectedPowerUp = "Knife";
     }
-
 
     public void BuyArmor()
     {
@@ -280,44 +259,87 @@ public class ShopMgr : MonoBehaviour {
         selectedPowerUp = "Armor";
     }
 
+    public void BuyEnergy()
+    {
+        storeImage.sprite = energy;
+        storeText.text = "The hero can sustain in the battle field only till his energy lasts. \nUpgrade to get extra 20 energy to give him more fighting time";
+        selectedPowerUp = "Energy";
+    }
+
+    public void BuyCyclone()
+    {
+        storeImage.sprite = cyclone;
+        storeText.text = "Master move by the player to kill the enemies with a circular spin";
+        selectedPowerUp = "Cyclone";
+    }
+
+
+    public void BuyBomb()
+    {
+        storeImage.sprite = bomb;
+        storeText.text = "Stun bomb to stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
+        selectedPowerUp = "Bomb";
+    }
+
+    public void BuyTimerFreeze()
+    {
+        storeImage.sprite = timer;
+        storeText.text = "An energy freeze to pause the energy depletion of the hero. This gives more fighting time";
+        selectedPowerUp = "Timer";
+    }
+
+
+    public void BuyCoins()
+    {
+        storeImage.sprite = coins;
+        storeText.text = "Buy more coins and use them in store to get more upgrades";
+        selectedPowerUp = "Coins";
+    }
 
 
     public void OnBuyButton()
     {
+        if (selectedPowerUp.Equals("Coins"))
+        {
+            OnOpenPopup();
+            return;
+        }
+
+        long curItemPrice = shop.GetCoins(selectedPowerUp);
+        Debug.Log("curItemPrice : " + curItemPrice);
+        if (curItemPrice > totalCoins)
+        {
+            OnOpenNotEnoughCoins();
+            return;
+        }
+        else 
+        {
+            totalCoins -= curItemPrice;
+        }
         switch (selectedPowerUp)
         {
             case "Life":
-
                 break;
-
 
             case "Sword":
                 break;
 
             case "Bomb":
-
                 break;
 
             case "Armor":
-
                 break;
 
             case "TimerFreeze":
-
                 break;
 
             case "Energy":
-
                 break;
 
             case "Cyclone":
-
-                break;
-
-            case "Coins":
-                OnOpenPopup();
-                break;
+                break;           
         }
+        UpdateUI();
     }
 	
     #endregion StoreHUD
