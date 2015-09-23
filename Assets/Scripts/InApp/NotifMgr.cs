@@ -9,7 +9,10 @@ public class NotifMgr : MonoBehaviour {
     private int twoHrNotificationId;
     private int oneDayNotificationId;
 
+    public Text timeRemain;
     long SecInDay = 24 * 60 * 60;
+    float curTime = 0;
+    float curTimeVal = 1;
 
     void OnEnable()
     {
@@ -26,22 +29,32 @@ public class NotifMgr : MonoBehaviour {
     void Start()
     {
         ChkForNotif();
+        SavedData.Inst.LoadSavedData();
     }
 
 
     void Update()
     {
+        // check per second convert this to timer
+        curTime -= Time.deltaTime;
+        if (curTime <= 0)
+        {
+            curTime = curTimeVal;
+            UpdateUI();
+            DailyBonusCheck();
+        }
     }
 
 
     void UpdateUI()
     {
+        timeRemain.text = GetTimeDiff().ToString();
     }
 
 
     public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(10, "Got an energy", "Play the epic clash", "havefun")
+        var noteConfig = new AndroidNotificationConfiguration(1 * 60 * 60, "Got an energy", "Play the epic clash", "Have fun")
         {
             extraData = "one-hour-note",
             groupKey = "my-note-group",
@@ -57,7 +70,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_2Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(2 * 60 * 60, "Got an energy", "Play the epic clash", "havefun")
+        var noteConfig = new AndroidNotificationConfiguration(2 * 60 * 60, "Got an energy", "Play the epic clash", "Have fun")
         {
             extraData = "two-hour-note",
             groupKey = "my-note-group",
@@ -74,7 +87,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_24Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Collect your daily bonus", "Play the epic clash", "havefun")
+        var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Collect your daily bonus", "Play the epic clash", "Have fun")
         {
             extraData = "one-day-note",
             groupKey = "my-note-group"            
@@ -136,6 +149,19 @@ public class NotifMgr : MonoBehaviour {
         {
             Debug.Log("BONUS After : " + (SecInDay - diff.TotalSeconds) + " Seconds");
         }
+    }
+
+
+    string GetTimeDiff()
+    {
+        string retVal = "";
+        System.DateTime currentDate = System.DateTime.Now;
+        long oldDateLong = SavedData.Inst.GetLastBonusTime();
+        System.DateTime oldDate = System.DateTime.FromBinary(oldDateLong);
+
+        System.TimeSpan diff = currentDate.Subtract(oldDate);
+        retVal = diff.ToString();// need to format
+        return retVal;
     }
 
 
