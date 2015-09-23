@@ -9,10 +9,21 @@ public class ShopMgr : MonoBehaviour {
     bool isShopOpen = false;
     ShopDB shop = new ShopDB();
     int totalCoins;
-
+    
     // debug
     public Text ShopStatus;
     public Text TotalCoins;
+
+    public int storeIndex;
+
+    public Sprite life, cyclone, energy, bomb, sword, timer, armor, coins, throwKnife;
+
+    public Image storeImage;
+    public Text storeText;
+
+    public string selectedPowerUp;
+    public GameObject PopUpNotEnoughCoins;
+    public GameObject PopUpInApp;
 
     void OnEnable()
     {
@@ -50,11 +61,13 @@ public class ShopMgr : MonoBehaviour {
 
 	void Start () {
         OpenShop();
+        PopUpInApp.SetActive(false);
+        PopUpNotEnoughCoins.SetActive(false);
 	}
 	
 
     void Update () {
-        TotalCoins.text = "Coins : " + totalCoins;
+        //TotalCoins.text = "Coins : " + totalCoins;
 	}
 
 
@@ -103,7 +116,7 @@ public class ShopMgr : MonoBehaviour {
     }
 
 
-    public void BuyItem(string itemId)
+    public void OnBuyInAppItem(string itemId)
     {
         if (isShopOpen)
         {
@@ -112,12 +125,24 @@ public class ShopMgr : MonoBehaviour {
         }
     }
 
+
+    public void OnClosePopup()
+    {
+        PopUpInApp.SetActive(false);
+    }
+
+    
+    public void OnOpenPopup()
+    {
+        PopUpInApp.SetActive(true);
+    }
+
     #region iabevents
     void billingSupportedEvent()
     {
         Debug.Log("znop: billingSupportedEvent");
         isShopOpen = true;
-        ShopStatus.text = "isShopOpen : " + isShopOpen;
+        //ShopStatus.text = "isShopOpen : " + isShopOpen;
 
     }
 
@@ -126,7 +151,7 @@ public class ShopMgr : MonoBehaviour {
     {
         Debug.Log("znop: billingNotSupportedEvent: " + error);
         isShopOpen = false;
-        ShopStatus.text = "isShopOpen : " + isShopOpen;
+        //ShopStatus.text = "isShopOpen : " + isShopOpen;
     }
 
 
@@ -148,6 +173,7 @@ public class ShopMgr : MonoBehaviour {
     {
         Debug.Log("znop: purchaseCompleteAwaitingVerificationEvent. purchaseData: " + purchaseData + ", signature: " + signature);
     }
+
 
     // immediately consume after purchase
     void purchaseSucceededEvent(GooglePurchase purchase)
@@ -179,4 +205,114 @@ public class ShopMgr : MonoBehaviour {
         ShopStatus.text = "consumePurchaseFailedEvent ";
     }
     #endregion iabevents
+
+
+    #region StoreHUD
+
+    public void BuyLife()
+    {
+        storeImage.sprite = life;
+        storeText.text = "The life of the hero can be upgraded to give more survival in-spite the attacks taken. Upgrade to get extra 20 survival capacity";
+        selectedPowerUp = "Life";
+    }
+
+    public void BuyKnife()
+    {
+        storeImage.sprite = throwKnife;
+        storeText.text = "This special weapon helps to kill the enemies from a distance. \nMore the throw knives more are the escape opportunities";
+        selectedPowerUp = "Knife";
+    }
+
+    public void BuyCyclone()
+    {
+        storeImage.sprite = cyclone;
+        storeText.text = "Master move by the player to kill the enemies with a circular spin";
+        selectedPowerUp = "Cyclone";
+    }
+
+    public void BuyEnergy()
+    {
+        storeImage.sprite = energy;
+        storeText.text = "The hero can sustain in the battle field only till his energy lasts. \nUpgrade to get extra 20 energy to give him more fighting time";
+        selectedPowerUp = "Energy";
+    }
+
+    public void BuyBomb()
+    {
+
+        storeImage.sprite = bomb;
+        storeText.text = "Stun bomb to stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
+        selectedPowerUp = "Bomb";
+    }
+
+    public void BuyTimerFreeze()
+    {
+        storeImage.sprite = timer;
+        storeText.text = "An energy freeze to pause the energy depletion of the hero. This gives more fighting time";
+        selectedPowerUp = "TimerFreeze";
+    }
+
+    public void BuySword()
+    {
+        storeImage.sprite = sword;
+        storeText.text = "The power of the sword determines the hits to kill the enemy. \nUpgrade the sword to kill the enemy fast";
+        selectedPowerUp = "Sword";
+    }
+
+    public void BuyCoins()
+    {
+        storeImage.sprite = coins;
+        storeText.text = "Buy more coins and use them in store to get more upgrades";
+        selectedPowerUp = "Coins";
+    }
+
+
+    public void BuyArmor()
+    {
+        storeImage.sprite = armor;
+        storeText.text = "The armour protects the hero from attack by the enemies. \nUpgrade the armour to reduce damage ";
+        selectedPowerUp = "Armor";
+    }
+
+
+
+    public void OnBuyButton()
+    {
+        switch (selectedPowerUp)
+        {
+            case "Life":
+
+                break;
+
+
+            case "Sword":
+                break;
+
+            case "Bomb":
+
+                break;
+
+            case "Armor":
+
+                break;
+
+            case "TimerFreeze":
+
+                break;
+
+            case "Energy":
+
+                break;
+
+            case "Cyclone":
+
+                break;
+
+            case "Coins":
+                OnOpenPopup();
+                break;
+        }
+    }
+	
+    #endregion StoreHUD
 }
