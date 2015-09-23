@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 using Prime31;
 
@@ -29,6 +30,11 @@ public class NotifMgr : MonoBehaviour {
 
 
     void Update()
+    {
+    }
+
+
+    void UpdateUI()
     {
     }
 

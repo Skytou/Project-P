@@ -53,7 +53,7 @@ public class MainMenuManger : MonoBehaviour
 
 	public void Quit()
 	{
-		Application.Quit ();
+        Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
 	}
 
 	void Update()
