@@ -137,6 +137,12 @@ public class ShopMgr : MonoBehaviour {
         PopUpInApp.SetActive(true);
     }
 
+
+    public void OnBackButton()
+    {
+        Application.LoadLevel(GameGlobalVariablesManager.MenuScene);
+    }
+
     #region iabevents
     void billingSupportedEvent()
     {

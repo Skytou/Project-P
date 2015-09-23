@@ -45,14 +45,9 @@ public class MainMenuManger : MonoBehaviour
 		}
 	}
 
-	public void Back()
-	{
-		storeUI.SetActive (false);
-	}
-
 	public void Store()
 	{
-		storeUI.SetActive (true);
+        Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
 	}
 
 

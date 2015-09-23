@@ -35,6 +35,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFreezeTimerOn;
 
+    public static string StoreScene = "Store";
+    public static string MenuScene = "MainMenu";
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)
