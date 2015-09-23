@@ -159,7 +159,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void OnBackButton()
     {
-        Application.LoadLevel(GameGlobalVariablesManager.MenuScene);
+        Application.LoadLevel(GameGlobalVariablesManager.MainMenu);
     }
 
 

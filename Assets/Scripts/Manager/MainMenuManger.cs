@@ -27,8 +27,8 @@ public class MainMenuManger : MonoBehaviour
 
 	public void Play()
 	{
-		
-		Application.LoadLevel (2);
+
+        Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 
 	public void Sound()

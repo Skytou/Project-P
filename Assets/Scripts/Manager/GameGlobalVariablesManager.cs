@@ -35,8 +35,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFreezeTimerOn;
 
-    public static string StoreScene = "Store";
-    public static string MenuScene = "MainMenu";
+    public static string StoreScene = "StoreScene";
+    public static string MainMenu = "MainMenu";
+    public static string LevelSelection = "LevelSelection";
 
 	void Awake()
 	{

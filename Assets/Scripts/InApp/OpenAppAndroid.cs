@@ -6,23 +6,18 @@ public class OpenAppAndroid : MonoBehaviour
 {
 
     bool isGalleryImageLoaded = false;
-    List<string> apps;
+    public List<string> apps;
+    public List<GameObject> imgList;
     int curAppIndex = 0;
     public Text curAppText;
 
     private static string fullClassName = "com.znop.unityplugin06.MainActivity";
     private static string unityClass = "com.unity3d.player.UnityPlayerNativeActivity";
 
-
     void Start()
     {
         // case sensitive
-        apps = new List<string>();
-        apps.Add("com.skyTou.kaththi3dgameAndroid");
-        apps.Add("air.CleanIndiaMission");
-        apps.Add("com.skytou.pokkiripongal");
-        apps.Add("com.skytou.Gabbar");
-        curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
+        //curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
     }
 
 
@@ -33,6 +28,7 @@ public class OpenAppAndroid : MonoBehaviour
 
     public void OnOpenApp()
     {
+        
 		if( Application.platform != RuntimePlatform.Android )
 			return;
 
@@ -40,15 +36,19 @@ public class OpenAppAndroid : MonoBehaviour
         if (pluginClass != null)
         {
             pluginClass.CallStatic("OpenApp", apps[curAppIndex]);
-
         }
-
+        
         curAppIndex++;
         if (curAppIndex >= apps.Count)
         {
             curAppIndex = 0;
         }
-        curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
+        for (int i = 0; i < imgList.Count; i++)
+        {
+            imgList[i].SetActive(false);
+        }
+        imgList[curAppIndex].SetActive(true);
+        //curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
     }
 
 }
