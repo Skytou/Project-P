@@ -10,6 +10,7 @@ public class AIGameObjectInSections
 	public GameObject[] areaLockCollider;
 	public List<GameObject> ai;
 	public string textToBeDisplayed;
+	public Vector3 cameraLockPos;
 	public int totalNumberOfAIVisible;
 }
 
@@ -35,6 +36,7 @@ public class LevelManager : MonoBehaviour
 	public Text helpText;
 
 	public GameObject cameraRef;
+
 
 	 
 	public bool[] stageCompleted;
@@ -119,14 +121,18 @@ public class LevelManager : MonoBehaviour
 			{
 				Debug.Log ("Limit reached");
 				// TODO: unlock the next area collider  , call camera movement
+				if(limit<aiGameObjectsInSections.Count )
+				{
+					for (int i = 0; i < aiGameObjectsInSections [limit].areaLockCollider.Length; i++)
+						aiGameObjectsInSections [limit].areaLockCollider [i].SetActive (false);
+					activateAISpawn [index] = false;
+					stageCompleted [index] = true;
+					//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
+					//helpText.text = "Crack the pot!";
+					GameGlobalVariablesManager.isCameraLocked = false;
+				}
 
-				for (int i = 0; i < aiGameObjectsInSections [limit].areaLockCollider.Length; i++)
-					aiGameObjectsInSections [limit].areaLockCollider [i].SetActive (false);
-				activateAISpawn [index] = false;
-				stageCompleted [index] = true;
-				//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
-				//helpText.text = "Crack the pot!";
-				GameGlobalVariablesManager.isCameraLocked = false;
+
 
 				// for level 3 we have index = 4
 				// for level 4 we have index = 5
@@ -172,42 +178,49 @@ public class LevelManager : MonoBehaviour
 		if(activateAISpawn[0])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [0].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [0].textToBeDisplayed;
 			SpawnAI (0);
 		}
 		if(activateAISpawn[1])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [1].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [1].textToBeDisplayed;
 			SpawnAI (1);
 		}
 		if(activateAISpawn[2])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [2].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [2].textToBeDisplayed;
 			SpawnAI (2);
 		}
 		if(activateAISpawn[3])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [3].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [3].textToBeDisplayed;
 			SpawnAI (3);
 		}
 		if(activateAISpawn[4])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [4].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [4].textToBeDisplayed;
 			SpawnAI (4);
 		}
 		if(activateAISpawn[5])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [5].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [5].textToBeDisplayed;
 			SpawnAI (5);
 		}
 		if(activateAISpawn[6])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
+			//cameraRef.transform.position = aiGameObjectsInSections [6].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
 			SpawnAI (6);
 		}
