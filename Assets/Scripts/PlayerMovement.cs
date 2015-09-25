@@ -325,6 +325,7 @@ public class PlayerMovement : MonoBehaviour
 				break;
 			case 2:
 				GameGlobalVariablesManager.level2Completed = true;
+				Application.LoadLevel (3);
 				break;
 			case 3:
 				GameGlobalVariablesManager.level3Completed = true;
