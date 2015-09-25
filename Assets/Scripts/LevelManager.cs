@@ -122,15 +122,48 @@ public class LevelManager : MonoBehaviour
 			{
 				Debug.Log ("Limit reached");
 				// TODO: unlock the next area collider  , call camera movement
-				if(limit<aiGameObjectsInSections.Count )
+				//if(limit>aiGameObjectsInSections.Count )
+				 
+					if(!stageCompleted[index])
+					{
+						for (int i = 0; i < aiGameObjectsInSections [limit].areaLockCollider.Length; i++)
+							aiGameObjectsInSections [limit].areaLockCollider [i].SetActive (false);
+						activateAISpawn [limit] = false;
+						stageCompleted [limit] = true;
+
+						GameGlobalVariablesManager.isCameraLocked = false;
+					}
+
+				 
+				else
 				{
-					for (int i = 0; i < aiGameObjectsInSections [limit].areaLockCollider.Length; i++)
-						aiGameObjectsInSections [limit].areaLockCollider [i].SetActive (false);
-					activateAISpawn [index] = false;
-					stageCompleted [index] = true;
-					//doorsToBeOpened [index].GetComponent<Doors> ().OpenDoor ();
-					//helpText.text = "Crack the pot!";
-					GameGlobalVariablesManager.isCameraLocked = false;
+					switch(levelNumber)
+					{
+					case 1: 
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+					 
+
+						break;
+
+
+					case 2:
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+						break;
+
+
+					case 3:
+
+						break;
+
+
+					case 4:
+
+						break;
+					}
 				}
 
 
@@ -138,36 +171,7 @@ public class LevelManager : MonoBehaviour
 				// for level 3 we have index = 4
 				// for level 4 we have index = 5
 
-				switch(levelNumber)
-				{
-				case 1:
 
-					if(index==6)
-					{
-
-						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
-						portal.SetActive (true);
-
-					}
-
-					break;
-
-
-				case 2:
-
-					break;
-
-
-				case 3:
-
-					break;
-
-
-				case 4:
-
-					break;
-				}
 
 			}
 		}
@@ -225,6 +229,9 @@ public class LevelManager : MonoBehaviour
 			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
 			SpawnAI (6);
 		}
+
+
+
 	}
 }
 
