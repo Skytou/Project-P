@@ -48,6 +48,8 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneCastle2 = "castle3";
     public static string SceneCastle3 = "castle4";
 
+    public static bool IsShowAd = false;
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)

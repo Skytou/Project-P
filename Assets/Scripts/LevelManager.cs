@@ -62,7 +62,8 @@ public class LevelManager : MonoBehaviour
 	{
 		if(Advertisement.IsReady())
 		{
-			Advertisement.Show ();
+            if (GameGlobalVariablesManager.IsShowAd)
+			    Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		} 
 

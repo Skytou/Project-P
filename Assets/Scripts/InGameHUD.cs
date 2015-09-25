@@ -152,7 +152,8 @@ public class InGameHUD : MonoBehaviour
 	{
 		if(Advertisement.IsReady())
 		{
-			Advertisement.Show ();
+            if (GameGlobalVariablesManager.IsShowAd)
+                Advertisement.Show();
 			Debug.Log ("Showing ad");
 		}
 		//LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransition.RipplesToSameScene);

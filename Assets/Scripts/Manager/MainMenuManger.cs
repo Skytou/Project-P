@@ -19,8 +19,11 @@ public class MainMenuManger : MonoBehaviour
 
 		if(Advertisement.IsReady())
 		{
-			Advertisement.Show ();
-			Debug.Log ("Showing ad");
+            if (GameGlobalVariablesManager.IsShowAd)
+            {
+                Advertisement.Show();
+                Debug.Log("Showing ad");
+            }			
 		}
 	}
 
