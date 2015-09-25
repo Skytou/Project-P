@@ -70,6 +70,7 @@ public class LevelSelection : MonoBehaviour
         UpdateLocksUI();	
 	}
 
+
     void UpdateLocksUI()
     {
         for (int i = 0; i < castleLock.Length; i++)
@@ -84,26 +85,13 @@ public class LevelSelection : MonoBehaviour
     }
 
 
-	public void Level1()
-	{
-		/*if(Advertisement.IsReady())
-		{
-			Advertisement.Show ();
-			Debug.Log ("Showing ad");
-		}*/
-		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel (3));
-		//LoadLevel1 ();
-		//LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
-		//Application.LoadLevel (3);
-	}
-
 	IEnumerator LoadLevel(int levelNumber)
 	{
 		AsyncOperation async = Application.LoadLevelAsync(levelNumber);
 		yield return async;
 		Debug.Log("Loading complete");
 	}
+
 
     IEnumerator LoadLevelStr(string levelName)
     {
@@ -112,102 +100,61 @@ public class LevelSelection : MonoBehaviour
         Debug.Log("Loading complete");
     }
 
-	public void Level2()
+    /* old level load code
+    public void Level1()
 	{
-		/*if(Advertisement.IsReady())
-		{
-			Advertisement.Show ();
-			Debug.Log ("Showing ad");
-		}*/
-        if (!LevelStatus[1])
-            return;
-
+		//if(Advertisement.IsReady())
+		//{
+		//	Advertisement.Show ();
+		//	Debug.Log ("Showing ad");
+		//}
 		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel (4));
-		//LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
-		//Application.LoadLevel (4);
+		StartCoroutine (LoadLevel (3));
+		//LoadLevel1 ();
+		//LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
+		//Application.LoadLevel (3);
 	}
+    */
 
-	public void Level3()
-	{
-        if (!LevelStatus[2])
-            return;
 
-		/*if(Advertisement.IsReady())
-		{
-			Advertisement.Show ();
-			Debug.Log ("Showing ad");
-		}*/
-
-		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel (5));
-		//LoadSceneManager.instance.LoadSceneWithTransistion (5,SceneTransition.FishEyeToScene);
-		//Application.LoadLevel (5);
-	}
-
-	public void Level4()
-	{
-        if (!LevelStatus[3])
-            return;
-
-		/*if(Advertisement.IsReady())
-		{
-			Advertisement.Show ();
-			Debug.Log ("Showing ad");
-		}*/
-		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel (6));
-		//LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
-	}
-
-    public void Level5()
+    public void OnCastleSelected(int level)
     {
-        if (!LevelStatus[4])
-            return;
+        if (!LevelStatus[level])
+            return;        
+        
+        switch (level)
+        {
+            case 0:
+            case 4:
+            case 8:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle0));
+                break;
 
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevel(6));
+            case 1:
+            case 5:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle1));
+                break;
+
+            case 2:
+            case 6:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle2));
+                break;
+
+            case 3:
+            case 7:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle3));
+                break;
+        }
     }
 
-    public void Level6()
-    {
-        if (!LevelStatus[5])
-            return;
-
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevel(6));
-    }
-
-    public void Level7()
-    {
-        if (!LevelStatus[6])
-            return;
-
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevel(6));
-    }
-
-    public void Level8()
-    {
-        if (!LevelStatus[7])
-            return;
-
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevel(6));
-    }
-
-    public void Level9()
-    {
-        if (!LevelStatus[8])
-            return;
-
-        loadingScreen.SetActive(true);
-        StartCoroutine(LoadLevel(6));
-    }
 
     public void OnHorseSelected(int horseLevel)
     {
-        if (!HorseLevelStatus[horseLevel - 1])
+        if (!HorseLevelStatus[horseLevel])
             return;
         switch(horseLevel)
         {

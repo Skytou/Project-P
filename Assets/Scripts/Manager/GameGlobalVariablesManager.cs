@@ -43,6 +43,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneHorse2 = "horse2";
     public static string SceneHorse3 = "horse3";
 
+    public static string SceneCastle0 = "castle1";
+    public static string SceneCastle1 = "castle2";
+    public static string SceneCastle2 = "castle3";
+    public static string SceneCastle3 = "castle4";
+
 	void Awake()
 	{
 		for(int i =0;i<castleLocked.Length;i++)
