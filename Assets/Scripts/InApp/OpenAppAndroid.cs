@@ -16,8 +16,8 @@ public class OpenAppAndroid : MonoBehaviour
 
     void Start()
     {
-        // case sensitive
-        //curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
+        curAppIndex = Random.Range(0, apps.Count);
+        UpdateUI();
     }
 
 
@@ -37,7 +37,13 @@ public class OpenAppAndroid : MonoBehaviour
         {
             pluginClass.CallStatic("OpenApp", apps[curAppIndex]);
         }
-        
+
+        UpdateUI();
+    }
+
+
+    void UpdateUI()
+    {
         curAppIndex++;
         if (curAppIndex >= apps.Count)
         {
@@ -47,8 +53,7 @@ public class OpenAppAndroid : MonoBehaviour
         {
             imgList[i].SetActive(false);
         }
-        imgList[curAppIndex].SetActive(true);
-        //curAppText.text = "Open[" + curAppIndex + "]" + apps[curAppIndex];
+        imgList[curAppIndex].SetActive(true); 
     }
 
 }
