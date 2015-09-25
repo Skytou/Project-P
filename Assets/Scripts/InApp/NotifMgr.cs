@@ -5,6 +5,8 @@ using Prime31;
 
 public class NotifMgr : MonoBehaviour {
 
+    public GameObject dailyBonusPopup;
+
     private int oneHrNotificationId;
     private int twoHrNotificationId;
     private int oneDayNotificationId;
@@ -14,6 +16,8 @@ public class NotifMgr : MonoBehaviour {
     long EnergyRefillTime = 60 * 60;
     float curTime = 0;
     float curTimeVal = 1;
+    bool isDailyBonus = false;
+    int tapCount = 0;
 
     void OnEnable()
     {
@@ -31,7 +35,16 @@ public class NotifMgr : MonoBehaviour {
     {
         ChkForNotif();
         SavedData.Inst.LoadSavedData();
+        if (SavedData.Inst.GetGamePlayCount() == 1)
+        {
+            // set energy notif
+            SetNotif_1Hr();
+            // set daily bonus notif
+            SetNotif_24Hr();
+        }
         DailyBonusCheck();
+        EnergyRefillCheck();
+        UpdateUI();
     }
 
 
@@ -42,22 +55,29 @@ public class NotifMgr : MonoBehaviour {
         if (curTime <= 0)
         {
             curTime = curTimeVal;
-            UpdateUI();
             DailyBonusCheck();
             EnergyRefillCheck();
+            UpdateUI();
         }
     }
 
 
     void UpdateUI()
     {
-        timeRemain.text = GetTimeDiff().ToString();
+        if (isDailyBonus)
+        {
+            timeRemain.text = "Collect";
+        }
+        else
+        {
+            timeRemain.text = GetTimeDiff().ToString();
+        }
     }
 
 
     public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(1 * 60 * 60, "Got an energy", "Play the epic clash", "Have fun")
+        var noteConfig = new AndroidNotificationConfiguration(EnergyRefillTime, "Got an energy", "Play the Epic Clash", "Have fun")
         {
             extraData = "one-hour-note",
             groupKey = "my-note-group",
@@ -70,6 +90,7 @@ public class NotifMgr : MonoBehaviour {
 
         oneHrNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
+
 
     public void SetNotif_2Hr()
     {
@@ -124,12 +145,8 @@ public class NotifMgr : MonoBehaviour {
 
         if (diff.TotalSeconds >= EnergyRefillTime)
         {
-            Debug.Log("BONUS BONUS BONUS");
-            GiveEnergyBonus();
-        }
-        else
-        {
-            Debug.Log("Energy After : " + (EnergyRefillTime - diff.TotalSeconds) + " Seconds");
+            //Debug.Log("Energy");
+            GiveEnergyBonus();            
         }
     }
 
@@ -138,6 +155,7 @@ public class NotifMgr : MonoBehaviour {
     {
         // save it to pref
         SavedData.Inst.OnDailyBonusGiven();
+        SetNotif_1Hr();
     }
     #endregion Energy
 
@@ -153,21 +171,38 @@ public class NotifMgr : MonoBehaviour {
 
         if (diff.TotalSeconds >= SecInDay)
         {
-            Debug.Log("BONUS BONUS BONUS");
-            GiveDailyBonus();
+            isDailyBonus = true;
         }
         else
         {
-            Debug.Log("BONUS After : " + (SecInDay - diff.TotalSeconds) + " Seconds");
+            isDailyBonus = false;
+            //Debug.Log("BONUS After : " + (SecInDay - diff.TotalSeconds) + " Seconds");
         }
     }
 
 
-    public void GiveDailyBonus()
+    public void OnGiveDailyBonus()
     {
-        // save it to pref
-        SavedData.Inst.OnDailyBonusGiven();
+        if (isDailyBonus)
+        {
+            // save it to pref
+            SavedData.Inst.OnDailyBonusGiven();
+            SetNotif_24Hr();
+            dailyBonusPopup.SetActive(true);
+        }
     }
+
+
+    public void OnClosePopup()
+    {
+        tapCount++;
+        if(tapCount >= 2)
+        {
+            dailyBonusPopup.SetActive(false);
+            tapCount = 0;
+        }
+    }
+
 
     // for ui
     string GetTimeDiff()
@@ -178,7 +213,18 @@ public class NotifMgr : MonoBehaviour {
         System.DateTime oldDate = System.DateTime.FromBinary(oldDateLong);
 
         System.TimeSpan diff = currentDate.Subtract(oldDate);
-        retVal = diff.ToString();// need to format
+        System.TimeSpan oneDayTime = System.TimeSpan.FromSeconds(SecInDay);
+        diff = oneDayTime - diff;
+
+        if(diff.Hours < 10)
+            retVal = "0";
+        retVal += diff.Hours + ":";
+        if(diff.Minutes < 10)
+            retVal += "0";
+        retVal += diff.Minutes + ":";
+        if(diff.Seconds < 10)
+            retVal += "0";
+        retVal += diff.Seconds;
         return retVal;
     }
     #endregion DailyBonus
@@ -187,7 +233,6 @@ public class NotifMgr : MonoBehaviour {
     public void ChkForNotif()
     {
         EtceteraAndroid.checkForNotifications();
-        Debug.Log("checkForNotifications");
     }
 
 

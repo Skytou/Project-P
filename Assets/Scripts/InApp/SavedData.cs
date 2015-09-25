@@ -39,11 +39,10 @@ public class SavedData
             GamePlayCount++;
             CreateDefaultPref();
         }
-        TotalCoins = PlayerPrefs.GetInt("TotalCoins");
-        TotalCrystals = PlayerPrefs.GetInt("TotalCrystals");
-        LastSavedTime = PlayerPrefs.GetString("LastSavedTime");
-        
+        TotalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        TotalCrystals = PlayerPrefs.GetInt("TotalCrystals", 0);
         currentDate = System.DateTime.Now;
+        LastSavedTime = PlayerPrefs.GetString("LastSavedTime", currentDate.ToBinary().ToString());
         LastDailyBonusTime = PlayerPrefs.GetString("LastDailyBonusTime", currentDate.ToBinary().ToString());
         LastEnergyBonusTime = PlayerPrefs.GetString("LastEnergyBonusTime", currentDate.ToBinary().ToString());
     }
