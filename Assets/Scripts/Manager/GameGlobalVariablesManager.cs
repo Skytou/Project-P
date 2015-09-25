@@ -10,7 +10,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isCameraLocked = false;
 
-	public static float playerHealth;
+	public static float playerHealth = 0;
+
+    public static int playerEnergy = 2; // added for energy
 
 	public static bool isPlayerSpin = false;
 
@@ -48,6 +50,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneCastle2 = "castle3";
     public static string SceneCastle3 = "castle4";
 
+    // to take a build with out ads
     public static bool IsShowAd = false;
 
 	void Awake()

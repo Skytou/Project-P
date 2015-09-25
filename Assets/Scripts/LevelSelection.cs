@@ -6,19 +6,17 @@ using System.Collections;
 
 public class LevelSelection : MonoBehaviour
 {
-	public GameObject[] castle;
-
 	bool isTouched;
 
 	public RectTransform levelBG;
 	public float dragSpeed;
 
-	public GameObject loadingScreen;
-	//public Slider loadingSlider;
-
+    public GameObject Popup;
+    public Text PopupText;
+    public GameObject loadingScreen;
+    //public Slider loadingSlider;
+    //bool isShowProgressBar = false;
 	public Vector2 bgRectTransform;
-
-	//bool isShowProgressBar = false;
 
     bool[] LevelStatus = new bool[9];
     bool[] HorseLevelStatus = new bool[8];
@@ -31,23 +29,6 @@ public class LevelSelection : MonoBehaviour
 	{
 		//isTouched = false;
 		loadingScreen.SetActive ((false));
-		for(int i =1;i<castle.Length;i++)
-		{
-			if(GameGlobalVariablesManager.castleLocked[i]==1)
-			{
-				Color c = castle [i].GetComponent<Image> ().color;
-				c.a = 1;
-				castle [i].GetComponent<Image> ().color = c;
-				//castle [i].GetComponent<Image> ().color.a = new float (255);// 255;
-			}
-			else
-			{
-				Color c = castle [i].GetComponent<Image> ().color;
-				c.a = 0.5f;
-				castle [i].GetComponent<Image> ().color = c;
-				//castle [i].GetComponent<Image> ().color.a = 150;
-			}
-		}
 
 		if(Advertisement.IsReady())
 		{
@@ -68,7 +49,8 @@ public class LevelSelection : MonoBehaviour
         }
         LevelStatus[0] = true;
         HorseLevelStatus[0] = true;
-        UpdateLocksUI();	
+        UpdateLocksUI();
+        ClosePopup();
 	}
 
 
@@ -101,27 +83,19 @@ public class LevelSelection : MonoBehaviour
         Debug.Log("Loading complete");
     }
 
-    /* old level load code
-    public void Level1()
-	{
-		//if(Advertisement.IsReady())
-		//{
-		//	Advertisement.Show ();
-		//	Debug.Log ("Showing ad");
-		//}
-		loadingScreen.SetActive (true);
-		StartCoroutine (LoadLevel (3));
-		//LoadLevel1 ();
-		//LoadSceneManager.instance.LoadSceneWithTransistion (3,SceneTransition.FishEyeToScene);
-		//Application.LoadLevel (3);
-	}
-    */
-
 
     public void OnCastleSelected(int level)
     {
         if (!LevelStatus[level])
-            return;        
+        {
+            ShowPopup("Level is Locked.");
+            return;
+        }
+        else if(GameGlobalVariablesManager.playerEnergy <= 0)
+        {
+            ShowPopup("Not enough energy.\nBuy from store.");
+            return;
+        }
         
         switch (level)
         {
@@ -156,7 +130,16 @@ public class LevelSelection : MonoBehaviour
     public void OnHorseSelected(int horseLevel)
     {
         if (!HorseLevelStatus[horseLevel])
+        {
+            ShowPopup("Level is Locked");
             return;
+        }
+        else if (GameGlobalVariablesManager.playerEnergy <= 0)
+        {
+            ShowPopup("Not enough energy.\nBuy from store.");
+            return;
+        }
+
         switch(horseLevel)
         {
             case 0:
@@ -239,6 +222,7 @@ public class LevelSelection : MonoBehaviour
 		}
 	}
 
+
 	public void OnPointerUp( BaseEventData data)
 	{
 		var pointData = (PointerEventData)data;
@@ -251,7 +235,8 @@ public class LevelSelection : MonoBehaviour
 		loadingScreen.SetActive (true);
 		StartCoroutine (LoadLevel (1));
 	}
-	// Update is called once per frame
+
+
 	void Update ()
 	{
 		bgRectTransform = levelBG.anchoredPosition;
@@ -266,5 +251,17 @@ public class LevelSelection : MonoBehaviour
 
 		}*/
 	}
-	
+
+
+    public void ShowPopup(string msg)
+    {
+        PopupText.text = msg;
+        Popup.SetActive(true);
+    }
+
+
+    public void ClosePopup()
+    {
+        Popup.SetActive(false);
+    }
 }
