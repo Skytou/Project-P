@@ -54,7 +54,7 @@ public class MainMenuManger : MonoBehaviour
 	}
 
 
-	public void Quit()
+	public void OnTutorialClick()
 	{
         Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
 	}
