@@ -29,7 +29,7 @@ public class InGameHUD : MonoBehaviour
 	public GameObject dialogueHUD;
 	public Text dialogueHUDText;
 
-
+	public Text totalCoinsText;
 
 
 	void Awake()
@@ -190,6 +190,6 @@ public class InGameHUD : MonoBehaviour
 		SetSpriteUpdated ();
 
 		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
-
+		totalCoinsText.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
 	}
 }
