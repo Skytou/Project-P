@@ -246,13 +246,13 @@ public class HorseManager : MonoBehaviour
         {
             //gameOverWin.SetActive(true);
             //gameOverWinText.text = "Coins: "+coinsCollected;
-            HorseHUD.instance.GameOver();
+            HorseHUD.instance.GameOverWin();
         }
         else
         {
             //gameOverLose.SetActive(true);
             //gameOverLoseText.text = "Coins: " + coinsCollected;
-            HorseHUD.instance.GameOver();
+            HorseHUD.instance.GameOverLose();
         }
     }
 

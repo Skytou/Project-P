@@ -7,8 +7,10 @@ public class HorseHUD : MonoBehaviour
 
 	public static HorseHUD instance;
 	public string introText;
-	public string gameOverText;
-	public GameObject helpHudGameObject;
+	public string gameOverWinText;
+	public string gameOverLoseText;
+
+    public GameObject helpHudGameObject;
 
 	public Text helpHudText;
 
@@ -106,17 +108,25 @@ public class HorseHUD : MonoBehaviour
 		Application.LoadLevel ("LevelSelection");
 	}
 
-	public void GameOver()
+	public void GameOverWin()
 	{
 		helpHudGameObject.SetActive (true);
-		helpHudText.text = gameOverText;
+		helpHudText.text = gameOverWinText;
 		isGameOver = true;
 	}
 
+    public void GameOverLose()
+    {
+        helpHudGameObject.SetActive(true);
+        helpHudText.text = gameOverLoseText;
+        isGameOver = true;
+    }
 
 
-	// Update is called once per frame
-	void Update () 
+
+
+    // Update is called once per frame
+    void Update () 
 	{
 	
 	}
