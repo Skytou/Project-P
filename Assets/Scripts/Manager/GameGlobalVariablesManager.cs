@@ -39,6 +39,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string MainMenu = "MainMenu";
     public static string LevelSelection = "LevelSelection";
     public static string TutorialScene = "TutorialScene";
+    public static string SceneHorse1 = "horse1";
+    public static string SceneHorse2 = "horse2";
+    public static string SceneHorse3 = "horse3";
 
 	void Awake()
 	{

@@ -20,6 +20,12 @@ public class LevelSelection : MonoBehaviour
 
 	//bool isShowProgressBar = false;
 
+    bool[] LevelStatus = new bool[9];
+    bool[] HorseLevelStatus = new bool[8];
+
+    public GameObject[] castleLock;
+    public GameObject[] horseLock;
+    
 	// Use this for initialization
 	void Start () 
 	{
@@ -48,8 +54,34 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}
-	
+
+        // lock status
+        for (int i = 0; i < LevelStatus.Length; i++)
+        {
+            LevelStatus[i] = false;
+        }
+
+        for (int i = 0; i < HorseLevelStatus.Length; i++)
+        {
+            HorseLevelStatus[i] = false;
+        }
+        LevelStatus[0] = true;
+        HorseLevelStatus[0] = true;
+        UpdateLocksUI();	
 	}
+
+    void UpdateLocksUI()
+    {
+        for (int i = 0; i < castleLock.Length; i++)
+        {
+            castleLock[i].SetActive(!LevelStatus[i]);
+        }
+
+        for (int i = 0; i < horseLock.Length; i++)
+        {
+            horseLock[i].SetActive(!HorseLevelStatus[i]);
+        }
+    }
 
 
 	public void Level1()
@@ -68,12 +100,17 @@ public class LevelSelection : MonoBehaviour
 
 	IEnumerator LoadLevel(int levelNumber)
 	{
-		
-
 		AsyncOperation async = Application.LoadLevelAsync(levelNumber);
 		yield return async;
 		Debug.Log("Loading complete");
 	}
+
+    IEnumerator LoadLevelStr(string levelName)
+    {
+        AsyncOperation async = Application.LoadLevelAsync(levelName);
+        yield return async;
+        Debug.Log("Loading complete");
+    }
 
 	public void Level2()
 	{
@@ -82,6 +119,9 @@ public class LevelSelection : MonoBehaviour
 			Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}*/
+        if (!LevelStatus[1])
+            return;
+
 		loadingScreen.SetActive (true);
 		StartCoroutine (LoadLevel (4));
 		//LoadSceneManager.instance.LoadSceneWithTransistion (4,SceneTransition.FishEyeToScene);
@@ -90,6 +130,9 @@ public class LevelSelection : MonoBehaviour
 
 	public void Level3()
 	{
+        if (!LevelStatus[2])
+            return;
+
 		/*if(Advertisement.IsReady())
 		{
 			Advertisement.Show ();
@@ -104,6 +147,9 @@ public class LevelSelection : MonoBehaviour
 
 	public void Level4()
 	{
+        if (!LevelStatus[3])
+            return;
+
 		/*if(Advertisement.IsReady())
 		{
 			Advertisement.Show ();
@@ -114,6 +160,93 @@ public class LevelSelection : MonoBehaviour
 		//LoadSceneManager.instance.LoadSceneWithTransistion (6,SceneTransition.FishEyeToScene);
 	}
 
+    public void Level5()
+    {
+        if (!LevelStatus[4])
+            return;
+
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevel(6));
+    }
+
+    public void Level6()
+    {
+        if (!LevelStatus[5])
+            return;
+
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevel(6));
+    }
+
+    public void Level7()
+    {
+        if (!LevelStatus[6])
+            return;
+
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevel(6));
+    }
+
+    public void Level8()
+    {
+        if (!LevelStatus[7])
+            return;
+
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevel(6));
+    }
+
+    public void Level9()
+    {
+        if (!LevelStatus[8])
+            return;
+
+        loadingScreen.SetActive(true);
+        StartCoroutine(LoadLevel(6));
+    }
+
+    public void OnHorseSelected(int horseLevel)
+    {
+        if (!HorseLevelStatus[horseLevel - 1])
+            return;
+        switch(horseLevel)
+        {
+            case 0:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                break;
+            case 1:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
+                break;
+            case 2:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
+                break;
+            
+            case 3:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                break;
+            case 4:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
+                break;
+            case 5:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
+                break;
+            
+            case 6:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                break;
+            case 7:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
+                break;
+        };
+    }
 
 	public void OnPointerDown( BaseEventData data)
 	{
@@ -141,7 +274,20 @@ public class LevelSelection : MonoBehaviour
 				//bgRectTransform.x = Mathf.Clamp (bgRectTransform.x, -1463, 1521);
 				levelBG.anchoredPosition = bgRectTransform;
 			}
-			//Debug.Log (pointData.delta);
+            // ui fix
+            if (levelBG.anchoredPosition.x > 1500)
+            {
+                Vector2 newVal = levelBG.anchoredPosition;
+                newVal.x = 1500;
+                levelBG.anchoredPosition = newVal;
+            }
+            else if (levelBG.anchoredPosition.x < -1500)
+            {
+                Vector2 newVal = levelBG.anchoredPosition;
+                newVal.x = -1500;
+                levelBG.anchoredPosition = newVal;
+            }
+            //Debug.Log(levelBG.anchoredPosition);
 		}
 	}
 

@@ -8,7 +8,8 @@ public class SavedData
     public int TotalCoins = 0;
     public int TotalCrystals = 0;
     public string LastSavedTime = "";
-    public string LastBonusTime = "";
+    public string LastDailyBonusTime = "";
+    public string LastEnergyBonusTime = "";
 
     System.DateTime currentDate;
 
@@ -41,7 +42,10 @@ public class SavedData
         TotalCoins = PlayerPrefs.GetInt("TotalCoins");
         TotalCrystals = PlayerPrefs.GetInt("TotalCrystals");
         LastSavedTime = PlayerPrefs.GetString("LastSavedTime");
-        LastBonusTime = PlayerPrefs.GetString("LastBonusTime");
+        
+        currentDate = System.DateTime.Now;
+        LastDailyBonusTime = PlayerPrefs.GetString("LastDailyBonusTime", currentDate.ToBinary().ToString());
+        LastEnergyBonusTime = PlayerPrefs.GetString("LastEnergyBonusTime", currentDate.ToBinary().ToString());
     }
 
 
@@ -53,7 +57,8 @@ public class SavedData
         PlayerPrefs.SetInt("TotalCoins", TotalCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
-        PlayerPrefs.SetString("LastBonusTime", LastBonusTime);
+        PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
+        PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
         PlayerPrefs.Save();
     }
 
@@ -65,24 +70,37 @@ public class SavedData
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
-        LastBonusTime = LastSavedTime;
+        LastDailyBonusTime = LastSavedTime;
+        LastEnergyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
-        PlayerPrefs.SetString("LastBonusTime", LastBonusTime);
+        PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
+        PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
         PlayerPrefs.Save();
     }
 
 
-    public void OnBonusGiven()
+    public void OnDailyBonusGiven()
     {
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
-        LastBonusTime = LastSavedTime;
+        LastDailyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
-        PlayerPrefs.SetString("LastBonusTime", LastBonusTime);
+        PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.Save();
     }
 
-    
+
+    public void OnEnergyBonusGiven()
+    {
+        currentDate = System.DateTime.Now;
+        LastSavedTime = currentDate.ToBinary().ToString();
+        LastEnergyBonusTime = LastSavedTime;
+        PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
+        PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+        PlayerPrefs.Save();
+    }
+
+
     void OnApplicationQuit()
     {
         SaveAllData();
@@ -115,13 +133,19 @@ public class SavedData
 
     public long GetLastBonusTime()
     {
-        return System.Convert.ToInt64(LastBonusTime);
+        return System.Convert.ToInt64(LastDailyBonusTime);
+    }
+
+
+    public long GetLastEnergyTime()
+    {
+        return System.Convert.ToInt64(LastEnergyBonusTime);
     }
 
 
     public long GetLastSavedTime()
     {
-        return System.Convert.ToInt64(LastBonusTime);
+        return System.Convert.ToInt64(LastDailyBonusTime);
     }
 
 }

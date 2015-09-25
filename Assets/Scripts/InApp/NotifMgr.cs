@@ -11,6 +11,7 @@ public class NotifMgr : MonoBehaviour {
 
     public Text timeRemain;
     long SecInDay = 24 * 60 * 60;
+    long EnergyRefillTime = 60 * 60;
     float curTime = 0;
     float curTimeVal = 1;
 
@@ -30,6 +31,7 @@ public class NotifMgr : MonoBehaviour {
     {
         ChkForNotif();
         SavedData.Inst.LoadSavedData();
+        DailyBonusCheck();
     }
 
 
@@ -42,6 +44,7 @@ public class NotifMgr : MonoBehaviour {
             curTime = curTimeVal;
             UpdateUI();
             DailyBonusCheck();
+            EnergyRefillCheck();
         }
     }
 
@@ -110,28 +113,36 @@ public class NotifMgr : MonoBehaviour {
     }
 
 
+    #region Energy
     public void EnergyRefillCheck()
     {
-        /*
         System.DateTime currentDate = System.DateTime.Now;
         long oldDateLong = SavedData.Inst.GetLastBonusTime();
         System.DateTime oldDate = System.DateTime.FromBinary(oldDateLong);
 
         System.TimeSpan diff = currentDate.Subtract(oldDate);
 
-        if (diff.TotalSeconds >= 10)
+        if (diff.TotalSeconds >= EnergyRefillTime)
         {
             Debug.Log("BONUS BONUS BONUS");
-            GiveDailyBonus();
+            GiveEnergyBonus();
         }
         else
         {
-            Debug.Log("BONUS After : " + (SecInDay - diff.TotalSeconds) + " Seconds");
+            Debug.Log("Energy After : " + (EnergyRefillTime - diff.TotalSeconds) + " Seconds");
         }
-        */
     }
 
 
+    public void GiveEnergyBonus()
+    {
+        // save it to pref
+        SavedData.Inst.OnDailyBonusGiven();
+    }
+    #endregion Energy
+
+
+    #region DailyBonus
     public void DailyBonusCheck()
     {
         System.DateTime currentDate = System.DateTime.Now;
@@ -152,6 +163,13 @@ public class NotifMgr : MonoBehaviour {
     }
 
 
+    public void GiveDailyBonus()
+    {
+        // save it to pref
+        SavedData.Inst.OnDailyBonusGiven();
+    }
+
+    // for ui
     string GetTimeDiff()
     {
         string retVal = "";
@@ -163,13 +181,7 @@ public class NotifMgr : MonoBehaviour {
         retVal = diff.ToString();// need to format
         return retVal;
     }
-
-
-    public void GiveDailyBonus()
-    {
-        // save it to pref
-        SavedData.Inst.OnBonusGiven();
-    }
+    #endregion DailyBonus
 
 
     public void ChkForNotif()
@@ -177,4 +189,6 @@ public class NotifMgr : MonoBehaviour {
         EtceteraAndroid.checkForNotifications();
         Debug.Log("checkForNotifications");
     }
+
+
 }
