@@ -49,4 +49,8 @@ public class TutorialManager : MonoBehaviour {
             TutImg[count].SetActive(true);
         }
     }
+    public void MainMenu()
+    {
+        Application.LoadLevel("MainMenu");
+    }
 }
