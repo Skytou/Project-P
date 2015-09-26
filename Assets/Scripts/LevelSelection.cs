@@ -30,13 +30,13 @@ public class LevelSelection : MonoBehaviour
 		//isTouched = false;
 		loadingScreen.SetActive ((false));
 
-		if(Advertisement.IsReady())
+		/*if(Advertisement.IsReady())
 		{
             if (GameGlobalVariablesManager.IsShowAd)
                 Advertisement.Show ();
 			Debug.Log ("Showing ad");
 		}
-
+*/
         // lock status
         for (int i = 0; i < LevelStatus.Length; i++)
         {

@@ -60,12 +60,12 @@ public class LevelManager : MonoBehaviour
 
 	void Start()
 	{
-		if(Advertisement.IsReady())
+		/*if(Advertisement.IsReady())
 		{
             if (GameGlobalVariablesManager.IsShowAd)
 			    Advertisement.Show ();
 			Debug.Log ("Showing ad");
-		} 
+		} */
 
 		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
 
