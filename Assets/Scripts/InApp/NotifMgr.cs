@@ -33,8 +33,9 @@ public class NotifMgr : MonoBehaviour {
 
     void Start()
     {
-        ChkForNotif();
         SavedData.Inst.LoadSavedData();
+        ChkForNotif();
+        
         if (SavedData.Inst.GetGamePlayCount() == 1)
         {
             // set energy notif

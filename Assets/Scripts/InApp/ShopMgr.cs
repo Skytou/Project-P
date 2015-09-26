@@ -63,11 +63,14 @@ public class ShopMgr : MonoBehaviour {
 
 
 	void Start () {
+        Debug.Log("Total coins : " + GameGlobalVariablesManager.totalNumberOfCoins);
         SavedData.Inst.LoadSavedData();
+        Debug.Log("Total coins2 : " + GameGlobalVariablesManager.totalNumberOfCoins);
         OpenShop();
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(false);
         UpdateUI();
+        
 	}
 	
 
@@ -322,6 +325,7 @@ public class ShopMgr : MonoBehaviour {
         else 
         {
             GameGlobalVariablesManager.totalNumberOfCoins -= (int)curItemPrice;
+            SavedData.Inst.SaveAllData();
         }
         switch (selectedPowerUp)
         {

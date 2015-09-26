@@ -39,7 +39,7 @@ public class SavedData
             GamePlayCount++;
             CreateDefaultPref();
         }
-        TotalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        TotalCoins = PlayerPrefs.GetInt("TotalCoins", 1000);
         GameGlobalVariablesManager.totalNumberOfCoins = TotalCoins;
         TotalCrystals = PlayerPrefs.GetInt("TotalCrystals", 0);
         currentDate = System.DateTime.Now;
