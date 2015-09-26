@@ -79,29 +79,28 @@ public class ShopDB{
 
 
         // Google shop
-
         ShopItem curShopItem = new ShopItem();
         curShopItem.type = 1;
-        curShopItem.uid = "consume_100_coins";
-        curShopItem.realAmount = 10;
+        curShopItem.uid = "buy_2000_coins";
+        curShopItem.realAmount = 20;
         curShopItem.virtualAmount = 100;
-        curShopItem.Desc = "100 Coins";
+        curShopItem.Desc = "2000 Coins";
         ShopItemList.Add(curShopItem);
 
         curShopItem = new ShopItem();
         curShopItem.type = 1;
-        curShopItem.uid = "consume_200_coins";
-        curShopItem.realAmount = 11;
+        curShopItem.uid = "buy_5000_coins";
+        curShopItem.realAmount = 50;
         curShopItem.virtualAmount = 200;
-        curShopItem.Desc = "200 Coins";
+        curShopItem.Desc = "5000 Coins";
         ShopItemList.Add(curShopItem);
 
         curShopItem = new ShopItem();
-        curShopItem.type = 2;
-        curShopItem.uid = "consume_100_crystals";
-        curShopItem.realAmount = 10;
+        curShopItem.type = 1;
+        curShopItem.uid = "buy_10000_coins";
+        curShopItem.realAmount = 70;
         curShopItem.virtualAmount = 1000;
-        curShopItem.Desc = "100 Crystals";
+        curShopItem.Desc = "10000 Coins";
         ShopItemList.Add(curShopItem);
 
         PrintStatus();
@@ -128,6 +127,7 @@ public class ShopDB{
         }
         return 0;
     }
+
 
     public long GetCoins(string itemId)
     {

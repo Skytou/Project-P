@@ -4,7 +4,6 @@ using System.Collections;
 
 public class HorseHUD : MonoBehaviour
 {
-
 	public static HorseHUD instance;
 	public string introText;
 	public string gameOverWinText;
@@ -16,7 +15,7 @@ public class HorseHUD : MonoBehaviour
 
 	public GameObject pauseMenu;
 
-	public bool isGameOver ;
+	public bool isGameOver;
 
 	public Sprite lifeOn, lifeOff;
 
@@ -29,6 +28,7 @@ public class HorseHUD : MonoBehaviour
 	{
 		instance = this;
 	}
+
 	// Use this for initialization
 	void Start () 
 	{
@@ -65,7 +65,6 @@ public class HorseHUD : MonoBehaviour
 	}
 
 
-
 	public void OkButtonHUD()
 	{
         if (!isGameOver)
@@ -73,11 +72,10 @@ public class HorseHUD : MonoBehaviour
             helpHudGameObject.SetActive(false);
             Time.timeScale = 1.0f;
             //HorseManager.instance.gameRunning = true;
-
         }
         else
         {
-            Application.LoadLevel("LevelSelection");
+            Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
         }
 	}
 
@@ -96,16 +94,14 @@ public class HorseHUD : MonoBehaviour
 
 	public void RestartButton()
 	{
-		
 		Time.timeScale = 1.0f;
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
-
 	public void MenuButton()
 	{
 		Time.timeScale = 1.0f;
-		Application.LoadLevel ("LevelSelection");
+        Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 
 	public void GameOverWin()
@@ -122,10 +118,6 @@ public class HorseHUD : MonoBehaviour
         isGameOver = true;
     }
 
-
-
-
-    // Update is called once per frame
     void Update () 
 	{
 	

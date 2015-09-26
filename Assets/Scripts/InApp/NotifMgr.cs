@@ -13,7 +13,7 @@ public class NotifMgr : MonoBehaviour {
 
     public Text timeRemain;
     long SecInDay = 24 * 60 * 60;
-    long EnergyRefillTime = 60 * 60;
+    long EnergyRefillTime = 5 * 60;
     float curTime = 0;
     float curTimeVal = 1;
     bool isDailyBonus = false;
@@ -88,6 +88,8 @@ public class NotifMgr : MonoBehaviour {
         noteConfig.sound = false;
         noteConfig.vibrate = false;
 
+        System.DateTime currentDate = System.DateTime.Now;
+        Debug.Log("SetNotif_1Hr : " + currentDate.ToString());
         oneHrNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
 
@@ -114,8 +116,12 @@ public class NotifMgr : MonoBehaviour {
         var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Collect your daily bonus", "Play the epic clash", "Have fun")
         {
             extraData = "one-day-note",
-            groupKey = "my-note-group"            
+            groupKey = "my-note-group",
+            smallIcon = "app_icon"
         };
+
+        System.DateTime currentDate = System.DateTime.Now;
+        Debug.Log("SetNotif_24Hr : " + currentDate.ToString());
         oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
     }
 

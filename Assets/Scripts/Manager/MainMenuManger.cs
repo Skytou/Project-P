@@ -28,47 +28,51 @@ public class MainMenuManger : MonoBehaviour
 	}
 
 
-	public void Play()
-	{
-
+    public void Play()
+    {
         Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
-	}
+    }
 
-	public void Sound()
-	{
-		if(!GameGlobalVariablesManager.isSoundMuted)
-		{
-			GameGlobalVariablesManager.isSoundMuted = true;
-			soundMutedText.color = Color.red;
-		}
-		else
-		{
-			GameGlobalVariablesManager.isSoundMuted = false;
-			soundMutedText.color = Color.black;
-		}
-	}
-
-	public void Store()
-	{
-        Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
-	}
-
-
-	public void OnTutorialClick()
-	{
+    public void OnTutorialClick()
+    {
         Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
-	}
+    }
+
+    public void Store()
+    {
+        Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
+    }
+
+    public void Credits()
+    {
+        Application.Quit();
+        return;
+        // Credits Button
+        //Application.LoadLevel(GameGlobalVariablesManager.Credits);
+    }
+
+    public void Sound()
+    {
+        if (!GameGlobalVariablesManager.isSoundMuted)
+        {
+            GameGlobalVariablesManager.isSoundMuted = true;
+            soundMutedText.color = Color.red;
+        }
+        else
+        {
+            GameGlobalVariablesManager.isSoundMuted = false;
+            soundMutedText.color = Color.black;
+        }
+    }
 
 	void Update()
 	{
 		if(!GameGlobalVariablesManager.isSoundMuted)
 		{
-			 
 			soundMutedText.color = Color.red;
 		}
 		else
 		{
-			 
 			soundMutedText.color = Color.black;
 		}
 	}

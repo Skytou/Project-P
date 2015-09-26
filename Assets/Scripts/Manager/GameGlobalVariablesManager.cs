@@ -12,8 +12,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static float playerHealth = 0;
 
-    public static int playerEnergy = 2; // added for energy
-
 	public static bool isPlayerSpin = false;
 
 	public static bool isKnifeThrow = false;
@@ -41,6 +39,8 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string MainMenu = "MainMenu";
     public static string LevelSelection = "LevelSelection";
     public static string TutorialScene = "TutorialScene";
+    public static string Credits = "Credits";
+    
     public static string SceneHorse1 = "horse1";
     public static string SceneHorse2 = "horse2";
     public static string SceneHorse3 = "horse3";
@@ -50,8 +50,19 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneCastle2 = "castle3";
     public static string SceneCastle3 = "castle4";
 
+    public static int TotalEnergy = 3;
+    public static int TotalKnife = 10;
+    public static int TotalBombs = 5;
+    public static int TotalCyclone = 5;
+
+    public static int playerEnergy = 3; // at start 3 energy given
+
+    public static int Enemy1_Drop = 3;
+    public static int Enemy2_Drop = 6;
+    public static int Enemy3_Drop = 10;
+
     // to take a build with out ads
-    public static bool IsShowAd = false;
+    public static bool IsShowAd = true;
 
 	void Awake()
 	{
