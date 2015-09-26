@@ -8,7 +8,6 @@ public class ShopMgr : MonoBehaviour {
 
     bool isShopOpen = false;
     ShopDB shop = new ShopDB();
-    long totalCoins = 2000;
     
     // debug
     public Text ShopStatus;
@@ -24,6 +23,10 @@ public class ShopMgr : MonoBehaviour {
     public string selectedPowerUp;
     public GameObject PopUpNotEnoughCoins;
     public GameObject PopUpInApp;
+
+    public Text KnifeCountText;
+    public Text BombsCountText;
+    public Text CycloneCountText;
 
     void OnEnable()
     {
@@ -60,6 +63,7 @@ public class ShopMgr : MonoBehaviour {
 
 
 	void Start () {
+        SavedData.Inst.LoadSavedData();
         OpenShop();
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(false);
@@ -72,7 +76,10 @@ public class ShopMgr : MonoBehaviour {
 
     void UpdateUI()
     {
-        TotalCoins.text = totalCoins.ToString();
+        TotalCoins.text = GameGlobalVariablesManager.totalNumberOfCoins.ToString();
+        KnifeCountText.text = GameGlobalVariablesManager.KnifeCount.ToString();
+        BombsCountText.text = GameGlobalVariablesManager.BombsCount.ToString();
+        CycloneCountText.text = GameGlobalVariablesManager.CycloneCount.ToString();
     }
 
 
@@ -99,16 +106,16 @@ public class ShopMgr : MonoBehaviour {
 
     public void AddCoins(int coins)
     {
-        totalCoins += coins;
+        GameGlobalVariablesManager.totalNumberOfCoins += coins;
     }
 
     
     public bool UseCoins(int coins)
     {
         bool retVal = false;
-        if (coins >= totalCoins)
+        if (coins >= GameGlobalVariablesManager.totalNumberOfCoins)
         {
-            totalCoins -= coins;
+            GameGlobalVariablesManager.totalNumberOfCoins -= coins;
             retVal = true;
         }
         return retVal;
@@ -307,14 +314,14 @@ public class ShopMgr : MonoBehaviour {
 
         long curItemPrice = shop.GetCoins(selectedPowerUp);
         Debug.Log("curItemPrice : " + curItemPrice);
-        if (curItemPrice > totalCoins)
+        if (curItemPrice > GameGlobalVariablesManager.totalNumberOfCoins)
         {
             OnOpenNotEnoughCoins();
             return;
         }
         else 
         {
-            totalCoins -= curItemPrice;
+            GameGlobalVariablesManager.totalNumberOfCoins -= (int)curItemPrice;
         }
         switch (selectedPowerUp)
         {
@@ -324,7 +331,12 @@ public class ShopMgr : MonoBehaviour {
             case "Sword":
                 break;
 
+            case "Knife":
+                GameGlobalVariablesManager.KnifeCount += 1;
+                break;
+
             case "Bomb":
+                GameGlobalVariablesManager.BombsCount += 1;
                 break;
 
             case "Armor":
@@ -337,6 +349,7 @@ public class ShopMgr : MonoBehaviour {
                 break;
 
             case "Cyclone":
+                GameGlobalVariablesManager.CycloneCount += 1;
                 break;           
         }
         UpdateUI();

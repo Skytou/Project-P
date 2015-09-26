@@ -40,6 +40,7 @@ public class SavedData
             CreateDefaultPref();
         }
         TotalCoins = PlayerPrefs.GetInt("TotalCoins", 0);
+        GameGlobalVariablesManager.totalNumberOfCoins = TotalCoins;
         TotalCrystals = PlayerPrefs.GetInt("TotalCrystals", 0);
         currentDate = System.DateTime.Now;
         LastSavedTime = PlayerPrefs.GetString("LastSavedTime", currentDate.ToBinary().ToString());
@@ -53,6 +54,7 @@ public class SavedData
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
         PlayerPrefs.SetInt("GamePlayCount", GamePlayCount);
+        TotalCoins = GameGlobalVariablesManager.totalNumberOfCoins;
         PlayerPrefs.SetInt("TotalCoins", TotalCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
@@ -65,7 +67,7 @@ public class SavedData
     public void CreateDefaultPref()
     {
         PlayerPrefs.SetInt("GamePlayCount", GamePlayCount);
-        PlayerPrefs.SetInt("TotalCoins", TotalCoins);
+        PlayerPrefs.SetInt("TotalCoins", GameGlobalVariablesManager.GameStartCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();

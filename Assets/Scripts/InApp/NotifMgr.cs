@@ -191,6 +191,7 @@ public class NotifMgr : MonoBehaviour {
     {
         if (isDailyBonus)
         {
+            GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
             // save it to pref
             SavedData.Inst.OnDailyBonusGiven();
             SetNotif_24Hr();

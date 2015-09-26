@@ -22,7 +22,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFireBallThrown;
 
-	public static int totalNumberOfCoins;
+	public static int totalNumberOfCoins = 1000;
 	public static float stunTime =10;
 
 	public static int currentLevelnumber;
@@ -55,11 +55,18 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int TotalBombs = 5;
     public static int TotalCyclone = 5;
 
+    public static int KnifeCount = 5;
+    public static int BombsCount = 3;
+    public static int CycloneCount = 3;
+
     public static int playerEnergy = 3; // at start 3 energy given
 
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;
     public static int Enemy3_Drop = 10;
+
+    public static int GameStartCoins = 500;
+    public static int DailyBonusCoins = 250;
 
     // to take a build with out ads
     public static bool IsShowAd = true;
