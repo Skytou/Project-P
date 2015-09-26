@@ -46,6 +46,6 @@ public class TutorialManager : MonoBehaviour {
     }
     public void MainMenu()
     {
-        Application.LoadLevel("MainMenu");
+        Application.LoadLevel(GameGlobalVariablesManager.MainMenu);
     }
 }
