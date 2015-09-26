@@ -20,7 +20,7 @@ public class HorseManager : MonoBehaviour
 
 	private Vector3 lastPosition;
 
-    float coinsCollected;
+    int coinsCollected;
     float life;
     float timer;
     bool victory;
@@ -50,6 +50,9 @@ public class HorseManager : MonoBehaviour
     public GameObject gameOverLose;
     public Text gameOverLoseText;
 
+    AudioSource audioSrc;
+    public AudioClip CoinCollectSfx;
+    public AudioClip CrashSfx;
 
     void Awake()
 	{
@@ -70,6 +73,7 @@ public class HorseManager : MonoBehaviour
         life = 3;
         gameRunning = true;
         Time.timeScale = 0.0f;
+        audioSrc = GetComponent<AudioSource>();
     }
 
 	#region Event Listeners
@@ -87,16 +91,17 @@ public class HorseManager : MonoBehaviour
 
 	void onTriggerEnterEvent( Collider2D col )
 	{
-		
         if(col.gameObject.tag=="Coin")
         {
             col.gameObject.SetActive(false);
             coinsCollected += 1;
             Debug.Log(coinsCollected);
-
+            audioSrc.PlayOneShot(CoinCollectSfx, 0.7f);
         }
         else if(col.gameObject.tag == "Obstacle")
         {
+            audioSrc.PlayOneShot(CrashSfx, 0.8f);
+            
             life -= 1;
             HorseHUD.instance.SetLifeInGame();
             //health.value = life;
@@ -246,14 +251,16 @@ public class HorseManager : MonoBehaviour
         {
             //gameOverWin.SetActive(true);
             //gameOverWinText.text = "Coins: "+coinsCollected;
-            HorseHUD.instance.GameOverWin();
+            HorseHUD.instance.GameOverWin(coinsCollected);
         }
         else
         {
             //gameOverLose.SetActive(true);
             //gameOverLoseText.text = "Coins: " + coinsCollected;
-            HorseHUD.instance.GameOverLose();
+            HorseHUD.instance.GameOverLose(coinsCollected);
         }
+        GameGlobalVariablesManager.totalNumberOfCoins += coinsCollected;
+        SavedData.Inst.SaveAllData();
     }
 
     IEnumerator FlashSprite(float timeScale, float duration, Color blinkColor)

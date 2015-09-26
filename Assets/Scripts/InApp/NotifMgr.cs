@@ -35,7 +35,8 @@ public class NotifMgr : MonoBehaviour {
     {
         SavedData.Inst.LoadSavedData();
         ChkForNotif();
-        
+
+        Debug.Log("play count : " + SavedData.Inst.GetGamePlayCount().ToString());
         if (SavedData.Inst.GetGamePlayCount() == 1)
         {
             OnGiveDailyBonus();

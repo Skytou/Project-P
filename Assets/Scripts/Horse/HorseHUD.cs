@@ -104,14 +104,14 @@ public class HorseHUD : MonoBehaviour
         Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 
-	public void GameOverWin()
+	public void GameOverWin(int coinsCollected)
 	{
 		helpHudGameObject.SetActive (true);
 		helpHudText.text = gameOverWinText;
 		isGameOver = true;
 	}
 
-    public void GameOverLose()
+    public void GameOverLose(int coinsCollected)
     {
         helpHudGameObject.SetActive(true);
         helpHudText.text = gameOverLoseText;

@@ -5,15 +5,15 @@ using UnityEngine.Advertisements;
 
 public class MainMenuManger : MonoBehaviour 
 {
-
-
-	public GameObject storeUI;
+    public GameObject storeUI;
 
 	public Text soundMutedText;
 	//public GameObject backButton;
 
-	// Use this for initialization
-	void Start () 
+    public GameObject SoundOn;
+    public GameObject SoundOff;
+
+    void Start() 
 	{
 		storeUI.SetActive (false);
 
@@ -26,7 +26,6 @@ public class MainMenuManger : MonoBehaviour
             }			
 		}
 	}
-
 
     public void Play()
     {
@@ -56,25 +55,35 @@ public class MainMenuManger : MonoBehaviour
         if (!GameGlobalVariablesManager.isSoundMuted)
         {
             GameGlobalVariablesManager.isSoundMuted = true;
-            soundMutedText.color = Color.red;
+            SoundOn.SetActive(false);
+            SoundOff.SetActive(true);
         }
         else
         {
             GameGlobalVariablesManager.isSoundMuted = false;
-            soundMutedText.color = Color.black;
+            SoundOn.SetActive(true);
+            SoundOff.SetActive(false);
         }
     }
 
 	void Update()
 	{
-		if(!GameGlobalVariablesManager.isSoundMuted)
-		{
-			soundMutedText.color = Color.red;
-		}
-		else
-		{
-			soundMutedText.color = Color.black;
-		}
+        UpdateUI();
 	}
-	 
+
+
+    void UpdateUI()
+    {
+        if (GameGlobalVariablesManager.isSoundMuted)
+        {
+            SoundOn.SetActive(false);
+            SoundOff.SetActive(true);
+        }
+        else
+        {
+            SoundOn.SetActive(true);
+            SoundOff.SetActive(false);
+        }
+    }
 }
+

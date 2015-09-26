@@ -59,6 +59,10 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int BombsCount = 3;
     public static int CycloneCount = 3;
 
+    public static int StartKnifeCount = 5;
+    public static int StartBombsCount = 3;
+    public static int StartCycloneCount = 3;
+
     public static int playerEnergy = 3; // at start 3 energy given
 
     public static int Enemy1_Drop = 3;
