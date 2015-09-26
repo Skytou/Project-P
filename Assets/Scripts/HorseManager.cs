@@ -96,18 +96,22 @@ public class HorseManager : MonoBehaviour
             col.gameObject.SetActive(false);
             coinsCollected += 1;
             Debug.Log(coinsCollected);
-            audioSrc.PlayOneShot(CoinCollectSfx, 0.7f);
+            if(!GameGlobalVariablesManager.isSoundMuted)
+                audioSrc.PlayOneShot(CoinCollectSfx, 0.7f);
         }
         else if(col.gameObject.tag == "Obstacle")
         {
-            audioSrc.PlayOneShot(CrashSfx, 0.8f);
-            
             life -= 1;
             HorseHUD.instance.SetLifeInGame();
             //health.value = life;
-            if (life<=0)
+            if (life <= 0)
             {
                 GameOver();
+            }
+            else
+            {
+                if (!GameGlobalVariablesManager.isSoundMuted)
+                    audioSrc.PlayOneShot(CrashSfx, 0.8f);
             }
             StartCoroutine(FlashSprite(8.0f, 0.7f, new Color(1f, 1f, 1f, 0f)));
         }
@@ -261,6 +265,9 @@ public class HorseManager : MonoBehaviour
         }
         GameGlobalVariablesManager.totalNumberOfCoins += coinsCollected;
         SavedData.Inst.SaveAllData();
+
+        if (!GameGlobalVariablesManager.isSoundMuted)
+            audioSrc.PlayOneShot(CrashSfx, 0.8f);
     }
 
     IEnumerator FlashSprite(float timeScale, float duration, Color blinkColor)
