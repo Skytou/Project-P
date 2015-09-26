@@ -38,6 +38,7 @@ public class NotifMgr : MonoBehaviour {
         
         if (SavedData.Inst.GetGamePlayCount() == 1)
         {
+            OnGiveDailyBonus();
             // set energy notif
             SetNotif_1Hr();
             // set daily bonus notif
@@ -92,6 +93,8 @@ public class NotifMgr : MonoBehaviour {
         System.DateTime currentDate = System.DateTime.Now;
         Debug.Log("SetNotif_1Hr : " + currentDate.ToString());
         oneHrNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
+
+        SavedData.Inst.SaveAllData();
     }
 
 
@@ -124,6 +127,7 @@ public class NotifMgr : MonoBehaviour {
         System.DateTime currentDate = System.DateTime.Now;
         Debug.Log("SetNotif_24Hr : " + currentDate.ToString());
         oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
+        SavedData.Inst.SaveAllData();
     }
 
 

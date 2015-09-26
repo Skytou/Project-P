@@ -33,12 +33,12 @@ public class SavedData
 
     public void LoadSavedData()
     {
-        GamePlayCount = PlayerPrefs.GetInt("GamePlayCount", 0);
+        GamePlayCount = PlayerPrefs.GetInt("GamePlayCount", 0);        
         if (GamePlayCount == 0)
         {
-            GamePlayCount++;
             CreateDefaultPref();
         }
+        GamePlayCount++;
         TotalCoins = PlayerPrefs.GetInt("TotalCoins", 1000);
         GameGlobalVariablesManager.totalNumberOfCoins = TotalCoins;
         TotalCrystals = PlayerPrefs.GetInt("TotalCrystals", 0);
