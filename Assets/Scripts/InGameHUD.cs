@@ -22,23 +22,20 @@ public class InGameHUD : MonoBehaviour
 
 	public GameObject sword, knife, timer, bomb, cyclone;
 
-
 	public Slider healthBarSlider;
-
 	 
 	public GameObject dialogueHUD;
 	public Text dialogueHUDText;
 
-	public Text totalCoinsText;
-
+    public Text totalCoinsText;
+    public Text totalCoinsTextShadow;
 
 	void Awake()
 	{
 		instance = this;
-		 
 	}
 
-	// Use this for initialization
+
 	void Start ()
 	{
 		healthBarSlider.maxValue = GameGlobalVariablesManager.playerHealth;
@@ -47,7 +44,6 @@ public class InGameHUD : MonoBehaviour
 		gameHUD.SetActive (true);
 		SetSpriteDefault ();
 		dialogueHUD.SetActive (false);
-	
 	}
 
 
@@ -71,7 +67,6 @@ public class InGameHUD : MonoBehaviour
 		timer.GetComponent<Image>().sprite = timerOn;
 		bomb.GetComponent<Image>().sprite = bombOn;
 		cyclone.GetComponent<Image>().sprite = cycloneOn;
-
 	}
 
 
@@ -97,7 +92,6 @@ public class InGameHUD : MonoBehaviour
 			sword.GetComponent<Image>().sprite = swordOn;
 		}
 	}
-//	public void 
 
 
 	public void Knife()
@@ -191,5 +185,6 @@ public class InGameHUD : MonoBehaviour
 
 		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
 		totalCoinsText.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
+        totalCoinsTextShadow.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
 	}
 }

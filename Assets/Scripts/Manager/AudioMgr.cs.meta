@@ -1,10 +1,20 @@
 fileFormatVersion: 2
 guid: 0fc09e660e0a4b84598e7cc6567959a0
-timeCreated: 1443308481
+timeCreated: 1443354029
 licenseType: Free
 MonoImporter:
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - CoinCollect: {instanceID: 0}
+  - CrateCrash: {instanceID: 0}
+  - PotCrash: {instanceID: 0}
+  - EnemyDeath: {instanceID: 0}
+  - Sword: {instanceID: 0}
+  - Knife: {instanceID: 0}
+  - Bomb: {instanceID: 0}
+  - Cyclone: {instanceID: 0}
+  - CameraLock: {instanceID: 0}
+  - FrogTalk: {instanceID: 0}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

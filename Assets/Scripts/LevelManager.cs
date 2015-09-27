@@ -33,16 +33,14 @@ public class LevelManager : MonoBehaviour
 
 	public bool[] activateAISpawn;
 
-	public Text helpText;
+    public Text helpText;
+    public Text helpTextShadow;
 
 	public GameObject cameraRef;
 
-
-	 
 	public bool[] stageCompleted;
 
-	public GameObject portal;
-	 
+	public GameObject portal;	 
 	 
 	public bool levelCompleted;
 
@@ -68,8 +66,6 @@ public class LevelManager : MonoBehaviour
 		} */
 
 		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
-
-		helpText = GameObject.FindGameObjectWithTag ("HelpText").GetComponent<Text>();
 		 
 		switch(levelNumber)
 		{
@@ -89,7 +85,7 @@ public class LevelManager : MonoBehaviour
 			helpText.text = "Game On!";
 			break;
 		}
-
+        helpTextShadow.text = helpText.text;
 	}
 
 	public void SpawnAI(int index)
@@ -185,51 +181,57 @@ public class LevelManager : MonoBehaviour
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [0].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [0].textToBeDisplayed;
-			SpawnAI (0);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(0);
 		}
 		if(activateAISpawn[1])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [1].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [1].textToBeDisplayed;
-			SpawnAI (1);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(1);
 		}
 		if(activateAISpawn[2])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [2].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [2].textToBeDisplayed;
-			SpawnAI (2);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(2);
 		}
 		if(activateAISpawn[3])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [3].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [3].textToBeDisplayed;
-			SpawnAI (3);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(3);
 		}
 		if(activateAISpawn[4])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [4].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [4].textToBeDisplayed;
-			SpawnAI (4);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(4);
 		}
 		if(activateAISpawn[5])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [5].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [5].textToBeDisplayed;
-			SpawnAI (5);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(5);
 		}
 		if(activateAISpawn[6])
 		{
 			//GameGlobalVariablesManager.isCameraLocked = true;
 			//cameraRef.transform.position = aiGameObjectsInSections [6].cameraLockPos;
 			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
-			SpawnAI (6);
+            helpTextShadow.text = helpText.text;
+            SpawnAI(6);
 		}
-
 
 
 	}

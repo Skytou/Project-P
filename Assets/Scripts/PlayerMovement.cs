@@ -802,6 +802,7 @@ public class PlayerMovement : MonoBehaviour
 						{
 							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 							if (selectedObject != null) {
+                                //ponz.2do null check
 								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 							}
 							playerBehaviour = PlayerBehaviour.MOVE;
