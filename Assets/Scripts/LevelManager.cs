@@ -66,7 +66,16 @@ public class LevelManager : MonoBehaviour
 		} */
 
 		InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelStart);
-		 
+
+        if (helpText == null)
+        {
+            helpText = GameObject.FindGameObjectWithTag("HelpText").GetComponent<Text>() as Text;
+        }
+        if (helpTextShadow == null)
+        {
+            helpTextShadow = GameObject.FindGameObjectWithTag("HelpTextShadow").GetComponent<Text>() as Text;
+        }
+
 		switch(levelNumber)
 		{
 		case 1:
