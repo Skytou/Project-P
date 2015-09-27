@@ -40,9 +40,7 @@ public class PlayerMovement : MonoBehaviour
 	bool isInMove;
  	bool isRun;
 
-	 
-
-	 
+    public GameObject PotParticleObj;
 
 	//string selectedObject;
 	GameObject selectedEnemy, selectedObject;
@@ -89,8 +87,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		target = transform.position;
 		characterAnimator = GetComponent<Animator>();
-		 
-	 
+        PotParticleObj = Instantiate(PotParticleObj) as GameObject;
+        PotParticleObj.SetActive(false);	 
 	}
 
 	void Start()
@@ -727,27 +725,35 @@ public class PlayerMovement : MonoBehaviour
 		{
 			switch(LayerMask.LayerToName (selectedObject.layer) )
 			{
+                case "AI":
+                    AudioMgr.Inst.PlaySfx(SfxVals.Sword);
+				    selectedObject.GetComponent<AIComponent>().React();
+				    //selectedObject.GetComponent<AIComponent>().aiAnimatorState
+				    break;
 
-			case "AI":
-                AudioMgr.Inst.PlaySfx(SfxVals.Sword);
-				selectedObject.GetComponent<AIComponent>().React();
-				//selectedObject.GetComponent<AIComponent>().aiAnimatorState
-				break;
 
+			    case "Objects":
+		            PotParticleObj.SetActive (true);
+                    PotParticleObj.transform.position = selectedObject.transform.position;
+                    StartCoroutine(HideAfterTime(1.5f));
 
-			case "Objects":
-				Destroy (selectedObject.gameObject);
-                AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
-                AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
-                GameGlobalVariablesManager.totalNumberOfCoins += 20;
-				break;
-			}
-		 
+                    Destroy (selectedObject.gameObject);
+                    AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
+                    AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
+                    GameGlobalVariablesManager.totalNumberOfCoins += 20;
+				    break;
+			}	 
 
 		}
 
 	}
 
+
+    IEnumerator HideAfterTime(float waitTime)
+    {
+        yield return new WaitForSeconds(waitTime);
+        PotParticleObj.SetActive(false);
+    }
 
 	void Update()
 	{

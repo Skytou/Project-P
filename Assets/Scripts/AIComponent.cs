@@ -364,7 +364,7 @@ public class AIComponent : MonoBehaviour
 	{ 
 		enemyDeathParticleEffect.SetActive (true);
 		aiSpriteRenderer.enabled = false;
-		Destroy (this.gameObject,1.0f);
+		Destroy (this.gameObject, 0.5f);
 	}
  
  
