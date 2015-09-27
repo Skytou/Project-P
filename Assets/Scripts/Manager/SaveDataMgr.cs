@@ -39,6 +39,7 @@ public class SaveDataMgr : MonoBehaviour {
 
     void OnApplicationQuit()
     {
+        // to save data on app quit
         SavedData.Inst.SaveAllData();
     }
 

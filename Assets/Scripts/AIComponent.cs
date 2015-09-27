@@ -82,7 +82,7 @@ public class AIComponent : MonoBehaviour
 		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
 
 		enemyDeathParticleAnimator = enemyDeathParticleEffect.GetComponent<Animator> ();
-		aiMaxHitTaken = 1;
+		aiMaxHitTaken = 3;
 		//Debug.Log(healthBarScaleFactor);
 	}
 
@@ -309,7 +309,7 @@ public class AIComponent : MonoBehaviour
 
 	public void React()
 	{
-		Debug.Log ("Calling");
+		Debug.Log ("Calling, react");
 		if (hitsTaken >= aiMaxHitTaken-1)
 		{ 	
 			//Debug.Log("Calling Dead state");
@@ -351,6 +351,9 @@ public class AIComponent : MonoBehaviour
 			int r = Random.Range(1,3);
 			aiAnimator.SetTrigger("Death");
 			aiAnimator.SetInteger("DeathRandom",r);
+
+            GameGlobalVariablesManager.totalNumberOfCoins += 10;
+            AudioMgr.Inst.PlaySfx(SfxVals.EnemyDeath);
 		}
 
 

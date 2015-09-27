@@ -619,6 +619,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Attack()
 	{
+        Debug.Log("Attack()");
 		//if(Input.GetKeyDown(KeyCode.A))
 		if(selectedObject!=null)
 		{
@@ -640,6 +641,8 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		characterAnimator.SetTrigger ("Throw");
 		canThrow = false;
+
+        AudioMgr.Inst.PlaySfx(SfxVals.Knife);
 
 		//	knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		//knife.SetActive (false);
@@ -712,18 +715,21 @@ public class PlayerMovement : MonoBehaviour
 		if(GameGlobalVariablesManager.playerHealth<=0)
 		{
 			Debug.Log ("pop up for game over scene");
+            // ponz.2do
 		}
 	}
 
 	public void AttackEnemy()
 	{
-		Debug.Log ("executing attack in player script");
+        Debug.Log("AttackEnemy()");
+        Debug.Log("executing attack in player script");
 		if(selectedObject!=null)
 		{
 			switch(LayerMask.LayerToName (selectedObject.layer) )
 			{
 
 			case "AI":
+                AudioMgr.Inst.PlaySfx(SfxVals.Sword);
 				selectedObject.GetComponent<AIComponent>().React();
 				//selectedObject.GetComponent<AIComponent>().aiAnimatorState
 				break;
@@ -731,6 +737,9 @@ public class PlayerMovement : MonoBehaviour
 
 			case "Objects":
 				Destroy (selectedObject.gameObject);
+                AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
+                AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
+                GameGlobalVariablesManager.totalNumberOfCoins += 20;
 				break;
 			}
 		 
@@ -803,7 +812,11 @@ public class PlayerMovement : MonoBehaviour
 							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 							if (selectedObject != null) {
                                 //ponz.2do null check
-								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+								//selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
+
+                                if(selectedObject.GetComponent<AIComponent>() != null)
+								    selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
+
 							}
 							playerBehaviour = PlayerBehaviour.MOVE;
 						}
@@ -815,7 +828,9 @@ public class PlayerMovement : MonoBehaviour
 
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					if (selectedObject != null) {
-						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+                        // ponz.2do
+                        if (selectedObject.GetComponent<AIComponent>() != null)
+                            selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						selectedObject = null;
 					}
 					playerBehaviour = PlayerBehaviour.MOVE;

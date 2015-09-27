@@ -17,6 +17,8 @@ public enum SfxVals
 
 public class AudioMgr : MonoBehaviour {
 
+    public AudioSource audioSrc;
+
     public AudioClip CoinCollect;
     public AudioClip CrateCrash;
     public AudioClip PotCrash;
@@ -27,8 +29,35 @@ public class AudioMgr : MonoBehaviour {
     public AudioClip Cyclone;
     public AudioClip CameraLock;
     public AudioClip FrogTalk;
+    
+    private static AudioMgr instance = null;
+    public static AudioMgr Inst
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<AudioMgr>();
+                DontDestroyOnLoad(instance.gameObject);
+            }
+            return instance;
+        }
+    }
 
-    AudioSource audioSrc;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(this);
+        }
+        else
+        {
+            if (this != instance)
+                Destroy(this.gameObject);
+        }
+    }
+
 
 	void Start () {
 	}
@@ -55,7 +84,7 @@ public class AudioMgr : MonoBehaviour {
                 break;
 
             case SfxVals.EnemyDeath:
-                audioSrc.PlayOneShot(EnemyDeath);
+                audioSrc.PlayOneShot(EnemyDeath, 0.2f);
                 break;
 
             case SfxVals.Sword:
