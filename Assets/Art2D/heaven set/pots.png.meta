@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: aee64144f2d2c334fbb4f15d7017bfe0
-timeCreated: 1442211814
+timeCreated: 1443392677
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -68,18 +68,18 @@ TextureImporter:
     - name: pots_0
       rect:
         serializedVersion: 2
-        x: 121
-        y: 813
+        x: 31
+        y: 821
         width: 114
-        height: 198
+        height: 196
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: pots_1
       rect:
         serializedVersion: 2
-        x: 569
-        y: 813
+        x: 207
+        y: 793
         width: 134
         height: 216
       alignment: 0
@@ -88,9 +88,9 @@ TextureImporter:
     - name: pots_2
       rect:
         serializedVersion: 2
-        x: 1031
-        y: 815
-        width: 154
+        x: 409
+        y: 785
+        width: 152
         height: 216
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -98,8 +98,8 @@ TextureImporter:
     - name: pots_3
       rect:
         serializedVersion: 2
-        x: 1445
-        y: 821
+        x: 621
+        y: 791
         width: 128
         height: 224
       alignment: 0
@@ -108,29 +108,29 @@ TextureImporter:
     - name: pots_4
       rect:
         serializedVersion: 2
-        x: 1703
-        y: 809
-        width: 146
-        height: 228
+        x: 824
+        y: 775
+        width: 152
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: pots_5
       rect:
         serializedVersion: 2
-        x: 105
-        y: 409
+        x: 37
+        y: 567
         width: 100
-        height: 206
+        height: 204
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: pots_6
       rect:
         serializedVersion: 2
-        x: 569
-        y: 405
-        width: 150
+        x: 205
+        y: 519
+        width: 148
         height: 224
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -138,8 +138,8 @@ TextureImporter:
     - name: pots_7
       rect:
         serializedVersion: 2
-        x: 1035
-        y: 413
+        x: 419
+        y: 525
         width: 150
         height: 216
       alignment: 0
@@ -148,8 +148,8 @@ TextureImporter:
     - name: pots_8
       rect:
         serializedVersion: 2
-        x: 1445
-        y: 459
+        x: 633
+        y: 543
         width: 160
         height: 210
       alignment: 0
@@ -158,19 +158,19 @@ TextureImporter:
     - name: pots_9
       rect:
         serializedVersion: 2
-        x: 1703
-        y: 459
+        x: 839
+        y: 539
         width: 146
-        height: 228
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: pots_10
       rect:
         serializedVersion: 2
-        x: 71
-        y: 43
-        width: 108
+        x: 35
+        y: 301
+        width: 109
         height: 218
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -178,9 +178,9 @@ TextureImporter:
     - name: pots_11
       rect:
         serializedVersion: 2
-        x: 583
-        y: 37
-        width: 136
+        x: 211
+        y: 271
+        width: 134
         height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -188,9 +188,9 @@ TextureImporter:
     - name: pots_12
       rect:
         serializedVersion: 2
-        x: 1031
-        y: 41
-        width: 154
+        x: 423
+        y: 271
+        width: 152
         height: 220
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -198,9 +198,9 @@ TextureImporter:
     - name: pots_13
       rect:
         serializedVersion: 2
-        x: 1461
-        y: 37
-        width: 126
+        x: 648
+        y: 267
+        width: 129
         height: 228
       alignment: 0
       pivot: {x: 0, y: 0}
@@ -208,10 +208,10 @@ TextureImporter:
     - name: pots_14
       rect:
         serializedVersion: 2
-        x: 1703
-        y: 43
-        width: 146
-        height: 228
+        x: 840
+        y: 269
+        width: 147
+        height: 230
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

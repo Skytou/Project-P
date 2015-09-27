@@ -734,8 +734,8 @@ public class PlayerMovement : MonoBehaviour
 
 			    case "Objects":
 		            PotParticleObj.SetActive (true);
-                    PotParticleObj.transform.position = selectedObject.transform.position;
-                    StartCoroutine(HideAfterTime(1.5f));
+                    PotParticleObj.transform.position = selectedObject.transform.position + new Vector3(0, 1.3f, 0);
+                    StartCoroutine(HideAfterTime(1.0f));
 
                     Destroy (selectedObject.gameObject);
                     AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
