@@ -13,7 +13,7 @@ public class NotifMgr : MonoBehaviour {
 
     public Text timeRemain;
     long SecInDay = 24 * 60 * 60;
-    long EnergyRefillTime = 5 * 60;
+    long EnergyRefillTime = 30 * 60; // 30 minutes = 1 energy
     float curTime = 0;
     float curTimeVal = 1;
     bool isDailyBonus = false;
