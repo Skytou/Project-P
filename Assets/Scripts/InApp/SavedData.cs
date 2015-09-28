@@ -15,6 +15,15 @@ public class SavedData
     public int BombsCount = 3;
     public int CycloneCount = 3;
 
+    public int LevelsCleared = 1;
+    public int EnergyAvailable = 1;
+
+    public int SwordLevel = 1;
+    public int KnifeLevel = 1;
+    public int BombLevel = 1;
+    public int CycloneLevel = 1;
+    public int PlayerLevel = 1;
+
     System.DateTime currentDate;
 
     private int _fiveSecondNotificationId;
@@ -37,6 +46,7 @@ public class SavedData
 
     public void LoadSavedData()
     {
+        //CreateDefaultPref();
         GamePlayCount = PlayerPrefs.GetInt("GamePlayCount", 0);        
         if (GamePlayCount == 0)
         {
@@ -54,6 +64,8 @@ public class SavedData
         GameGlobalVariablesManager.KnifeCount = PlayerPrefs.GetInt("KnifeCount", GameGlobalVariablesManager.StartKnifeCount);
         GameGlobalVariablesManager.BombsCount = PlayerPrefs.GetInt("BombsCount", GameGlobalVariablesManager.StartBombsCount);
         GameGlobalVariablesManager.CycloneCount = PlayerPrefs.GetInt("CycloneCount", GameGlobalVariablesManager.StartCycloneCount);
+
+        GameGlobalVariablesManager.LevelsCleared = PlayerPrefs.GetInt("LevelsCleared", GameGlobalVariablesManager.LevelsCleared);
     }
 
 
@@ -71,6 +83,7 @@ public class SavedData
         PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.KnifeCount);
         PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.BombsCount);
         PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.CycloneCount);
+        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.LevelsCleared);        
         PlayerPrefs.Save();
     }
 
@@ -90,6 +103,7 @@ public class SavedData
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.StartLevelsCleared);
         PlayerPrefs.Save();
     }
 
@@ -115,6 +129,15 @@ public class SavedData
         PlayerPrefs.Save();
     }
 
+
+    public void OnEnergyUsed()
+    {
+        LastSavedTime = currentDate.ToBinary().ToString();
+        LastEnergyBonusTime = LastSavedTime;
+        PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
+        PlayerPrefs.SetInt("EnergyAvailable", EnergyAvailable);
+        PlayerPrefs.Save();
+    }
 
     void OnApplicationQuit()
     {

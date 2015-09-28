@@ -83,7 +83,7 @@ public class ShopDB{
         curShopItem.type = 1;
         curShopItem.uid = "buy_2000_coins";
         curShopItem.realAmount = 20;
-        curShopItem.virtualAmount = 100;
+        curShopItem.virtualAmount = 2000;
         curShopItem.Desc = "2000 Coins";
         ShopItemList.Add(curShopItem);
 
@@ -91,7 +91,7 @@ public class ShopDB{
         curShopItem.type = 1;
         curShopItem.uid = "buy_5000_coins";
         curShopItem.realAmount = 50;
-        curShopItem.virtualAmount = 200;
+        curShopItem.virtualAmount = 5000;
         curShopItem.Desc = "5000 Coins";
         ShopItemList.Add(curShopItem);
 
@@ -99,7 +99,7 @@ public class ShopDB{
         curShopItem.type = 1;
         curShopItem.uid = "buy_10000_coins";
         curShopItem.realAmount = 70;
-        curShopItem.virtualAmount = 1000;
+        curShopItem.virtualAmount = 10000;
         curShopItem.Desc = "10000 Coins";
         ShopItemList.Add(curShopItem);
 

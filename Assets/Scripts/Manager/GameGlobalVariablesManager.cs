@@ -7,6 +7,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 {
 
 	public static int[] castleLocked = new int[4];// leve2Locked , level3Locked, level4Locked;
+    public static int LevelsCleared = 1;
 
 	public static bool isCameraLocked = false;
 
@@ -45,25 +46,33 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneHorse2 = "horse2";
     public static string SceneHorse3 = "horse3";
 
-    public static string SceneCastle0 = "castle1";
-    public static string SceneCastle1 = "castle2";
-    public static string SceneCastle2 = "castle3";
-    public static string SceneCastle3 = "castle4";
+    public static string SceneCastle1 = "castle1";
+    public static string SceneCastle2 = "castle2";
+    public static string SceneCastle3 = "castle3";
+    public static string SceneCastle4 = "castle4";
 
     public static int TotalEnergy = 3;
     public static int TotalKnife = 10;
     public static int TotalBombs = 5;
     public static int TotalCyclone = 5;
 
+    public static int EnergyAvailable = 3;
     public static int KnifeCount = 5;
     public static int BombsCount = 3;
     public static int CycloneCount = 3;
 
+    public static int StartEnergyAvailable = 3;
     public static int StartKnifeCount = 5;
     public static int StartBombsCount = 3;
     public static int StartCycloneCount = 3;
+    public static int StartLevelsCleared = 1;
 
-    public static int playerEnergy = 3; // at start 3 energy given
+    public static int PlayerLevel = 1;
+    public static int SwordLevel = 1;
+    public static int KnifeLevel = 1;
+    public static int BombLevel = 1;
+    public static int CycloneLevel = 1;
+
 
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;

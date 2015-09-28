@@ -18,11 +18,9 @@ public class LevelSelection : MonoBehaviour
     //bool isShowProgressBar = false;
 	public Vector2 bgRectTransform;
 
-    bool[] LevelStatus = new bool[9];
-    bool[] HorseLevelStatus = new bool[8];
-
-    public GameObject[] castleLock;
-    public GameObject[] horseLock;
+    bool[] LevelStatus = new bool[17];
+    public GameObject[] levelLock;
+    public int levelsUnlocked = 0;
     
 	// Use this for initialization
 	void Start () 
@@ -41,14 +39,8 @@ public class LevelSelection : MonoBehaviour
         for (int i = 0; i < LevelStatus.Length; i++)
         {
             LevelStatus[i] = false;
-        }
-
-        for (int i = 0; i < HorseLevelStatus.Length; i++)
-        {
-            HorseLevelStatus[i] = false;
-        }
+        }        
         LevelStatus[0] = true;
-        HorseLevelStatus[0] = true;
         UpdateLocksUI();
         ClosePopup();
 	}
@@ -56,14 +48,19 @@ public class LevelSelection : MonoBehaviour
 
     void UpdateLocksUI()
     {
-        for (int i = 0; i < castleLock.Length; i++)
+        for (int i = 0; i < LevelStatus.Length; i++)
         {
-            castleLock[i].SetActive(!LevelStatus[i]);
+            LevelStatus[i] = false;
         }
 
-        for (int i = 0; i < horseLock.Length; i++)
+        for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
         {
-            horseLock[i].SetActive(!HorseLevelStatus[i]);
+            LevelStatus[i] = true;
+        }        
+
+        for (int i = 0; i < levelLock.Length; i++)
+        {
+            levelLock[i].SetActive(!LevelStatus[i]);
         }
     }
 
@@ -84,14 +81,14 @@ public class LevelSelection : MonoBehaviour
     }
 
 
-    public void OnCastleSelected(int level)
+    public void OnLevelSelected(int level)
     {
         if (!LevelStatus[level])
         {
             ShowPopup("Level is Locked.");
             return;
         }
-        else if(GameGlobalVariablesManager.playerEnergy <= 0)
+        else if(GameGlobalVariablesManager.EnergyAvailable <= 0)
         {
             ShowPopup("Not enough energy.\nBuy from store.");
             return;
@@ -100,84 +97,55 @@ public class LevelSelection : MonoBehaviour
         switch (level)
         {
             case 0:
-            case 4:
-            case 8:
-                loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle0));
-                break;
-
-            case 1:
-            case 5:
                 loadingScreen.SetActive(true);
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle1));
                 break;
-
+            case 1:
+                loadingScreen.SetActive(true);
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                break;
             case 2:
-            case 6:
                 loadingScreen.SetActive(true);
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle2));
                 break;
-
             case 3:
-            case 7:
-                loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle3));
-                break;
-        }
-    }
-
-
-    public void OnHorseSelected(int horseLevel)
-    {
-        if (!HorseLevelStatus[horseLevel])
-        {
-            ShowPopup("Level is Locked");
-            return;
-        }
-        else if (GameGlobalVariablesManager.playerEnergy <= 0)
-        {
-            ShowPopup("Not enough energy.\nBuy from store.");
-            return;
-        }
-
-        switch(horseLevel)
-        {
-            case 0:
-                loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
-                break;
-            case 1:
                 loadingScreen.SetActive(true);
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
                 break;
-            case 2:
-                loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
-                break;
-            
-            case 3:
-                loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
-                break;
+
             case 4:
                 loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle3));
                 break;
             case 5:
                 loadingScreen.SetActive(true);
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
                 break;
-            
             case 6:
                 loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle4));
                 break;
             case 7:
                 loadingScreen.SetActive(true);
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
                 break;
-        };
+            case 8:
+            case 9:
+            case 10:
+            case 11:
+            case 12:
+            case 13:
+            case 14:
+            case 15:
+            case 16:
+            case 17:
+            case 18:
+            case 19:
+            case 20:
+                break;
+        }
     }
+
 
 	public void OnPointerDown( BaseEventData data)
 	{
@@ -250,6 +218,8 @@ public class LevelSelection : MonoBehaviour
 			loadingSlider.value += Time.deltaTime;
 
 		}*/
+
+        UpdateLocksUI();
 	}
 
 
