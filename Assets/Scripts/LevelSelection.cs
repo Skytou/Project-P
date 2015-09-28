@@ -20,7 +20,7 @@ public class LevelSelection : MonoBehaviour
 
     bool[] LevelStatus = new bool[17];
     public GameObject[] levelLock;
-    public int levelsUnlocked = 0;
+    public int levelsUnlocked = 3;
     
 	// Use this for initialization
 	void Start () 
@@ -53,10 +53,11 @@ public class LevelSelection : MonoBehaviour
             LevelStatus[i] = false;
         }
 
-        for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
+        // ponz.2do for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
+        for (int i = 0; i < 6; i++)
         {
             LevelStatus[i] = true;
-        }        
+        }
 
         for (int i = 0; i < levelLock.Length; i++)
         {
