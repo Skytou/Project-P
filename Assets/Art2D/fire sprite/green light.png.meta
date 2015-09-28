@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: bbcf8d0454d67ee428f8d4018b40c123
-timeCreated: 1442074583
+timeCreated: 1443397190
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -96,129 +96,129 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 600
-        width: 526.692322
-        height: 600
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_1
       rect:
         serializedVersion: 2
-        x: 526
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 315
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_2
       rect:
         serializedVersion: 2
-        x: 1052
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 630
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_3
       rect:
         serializedVersion: 2
-        x: 1578
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 945
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_4
       rect:
         serializedVersion: 2
-        x: 2104
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 1260
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_5
       rect:
         serializedVersion: 2
-        x: 2630
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 1575
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_6
       rect:
         serializedVersion: 2
-        x: 3156
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 1890
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_7
       rect:
         serializedVersion: 2
-        x: 3682
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 2205
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_8
       rect:
         serializedVersion: 2
-        x: 4208
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 2520
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_9
       rect:
         serializedVersion: 2
-        x: 4734
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 2835
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_10
       rect:
         serializedVersion: 2
-        x: 5260
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 3150
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_11
       rect:
         serializedVersion: 2
-        x: 5786
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 3465
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_12
       rect:
         serializedVersion: 2
-        x: 6312
-        y: 600
-        width: 526.692322
-        height: 600
+        x: 3780
+        y: 359
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -227,128 +227,128 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_14
       rect:
         serializedVersion: 2
-        x: 526
+        x: 315
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_15
       rect:
         serializedVersion: 2
-        x: 1052
+        x: 630
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_16
       rect:
         serializedVersion: 2
-        x: 1578
+        x: 945
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_17
       rect:
         serializedVersion: 2
-        x: 2104
+        x: 1260
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_18
       rect:
         serializedVersion: 2
-        x: 2630
+        x: 1575
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_19
       rect:
         serializedVersion: 2
-        x: 3156
+        x: 1890
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_20
       rect:
         serializedVersion: 2
-        x: 3682
+        x: 2205
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_21
       rect:
         serializedVersion: 2
-        x: 4208
+        x: 2520
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_22
       rect:
         serializedVersion: 2
-        x: 4734
+        x: 2835
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_23
       rect:
         serializedVersion: 2
-        x: 5260
+        x: 3150
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_24
       rect:
         serializedVersion: 2
-        x: 5786
+        x: 3465
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: green light_25
       rect:
         serializedVersion: 2
-        x: 6312
+        x: 3780
         y: 0
-        width: 526.692322
-        height: 600
+        width: 315.076935
+        height: 359
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}

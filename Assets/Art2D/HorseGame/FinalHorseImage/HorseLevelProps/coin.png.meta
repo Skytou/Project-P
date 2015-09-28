@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: c7fd8421e18ef0f4ca937f9604c2446e
-timeCreated: 1442568359
+timeCreated: 1443399057
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -8,10 +8,11 @@ TextureImporter:
     21300002: coin_1
     21300004: coin_3
     21300006: coin_4
+    21300008: coin_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -31,7 +32,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 16
@@ -58,41 +59,41 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 395
-        y: 1421
+        y: 1469
         width: 256
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: coin_1
       rect:
         serializedVersion: 2
-        x: 1433
-        y: 1421
+        x: 1431
+        y: 1469
         width: 192
+        height: 259
+      alignment: 0
+      pivot: {x: .5, y: .5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+    - name: coin_2
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 469
+        width: 90
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: coin_3
       rect:
         serializedVersion: 2
-        x: 481
-        y: 421
-        width: 90
-        height: 256
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: coin_4
-      rect:
-        serializedVersion: 2
         x: 1511
-        y: 421
+        y: 469
         width: 26
         height: 256
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
   spritePackingTag: 
   userData: 

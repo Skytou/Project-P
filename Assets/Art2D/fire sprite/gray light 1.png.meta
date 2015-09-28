@@ -1,6 +1,6 @@
 fileFormatVersion: 2
 guid: d2d2b8e48fb664142a41954c0a945fb6
-timeCreated: 1442195619
+timeCreated: 1443397594
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
@@ -30,10 +30,29 @@ TextureImporter:
     21300046: gray light 1_23
     21300048: gray light 1_24
     21300050: gray light 1_25
+    21300052: gray light 1_26
+    21300054: gray light 1_27
+    21300056: gray light 1_28
+    21300058: gray light 1_29
+    21300060: gray light 1_30
+    21300062: gray light 1_31
+    21300064: gray light 1_32
+    21300066: gray light 1_33
+    21300068: gray light 1_34
+    21300070: gray light 1_35
+    21300072: gray light 1_36
+    21300074: gray light 1_37
+    21300076: gray light 1_38
+    21300078: gray light 1_39
+    21300080: gray light 1_40
+    21300082: gray light 1_41
+    21300084: gray light 1_42
+    21300086: gray light 1_43
+    21300088: gray light 1_44
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     linearTexture: 0
     correctGamma: 0
     fadeOut: 0
@@ -53,7 +72,7 @@ TextureImporter:
   cubemapConvolutionExponent: 1.5
   seamlessCubemap: 0
   textureFormat: -1
-  maxTextureSize: 2048
+  maxTextureSize: 1024
   textureSettings:
     filterMode: -1
     aniso: 16
