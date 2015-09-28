@@ -723,29 +723,27 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("executing attack in player script");
 		if(selectedObject!=null)
 		{
-			switch(LayerMask.LayerToName (selectedObject.layer) )
-			{
+            switch (LayerMask.LayerToName(selectedObject.layer))
+            {
                 case "AI":
                     AudioMgr.Inst.PlaySfx(SfxVals.Sword);
-				    selectedObject.GetComponent<AIComponent>().React();
-				    //selectedObject.GetComponent<AIComponent>().aiAnimatorState
-				    break;
+                    selectedObject.GetComponent<AIComponent>().React();
+                    //selectedObject.GetComponent<AIComponent>().aiAnimatorState
+                    break;
 
 
-			    case "Objects":
-		            PotParticleObj.SetActive (true);
+                case "Objects":
+                    PotParticleObj.SetActive(true);
                     PotParticleObj.transform.position = selectedObject.transform.position + new Vector3(0, 1.3f, 0);
                     StartCoroutine(HideAfterTime(1.0f));
 
-                    Destroy (selectedObject.gameObject);
+                    Destroy(selectedObject.gameObject);
                     AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
                     AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
                     GameGlobalVariablesManager.totalNumberOfCoins += 20;
-				    break;
-			}	 
-
+                    break;
+            }
 		}
-
 	}
 
 
@@ -761,14 +759,10 @@ public class PlayerMovement : MonoBehaviour
 
 		if (!GameGlobalVariablesManager.isKnifeThrow) 
 		{
-
 			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ())
-			{ 
-
-
+			{
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				hit = Physics2D.Raycast (target, Vector2.zero);
-
 
 
 				if (hit.collider != null) 
@@ -826,12 +820,10 @@ public class PlayerMovement : MonoBehaviour
 							}
 							playerBehaviour = PlayerBehaviour.MOVE;
 						}
-
-						break;
+                        break;
 					}
 
 				} else {
-
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					if (selectedObject != null) {
                         // ponz.2do
@@ -841,15 +833,7 @@ public class PlayerMovement : MonoBehaviour
 					}
 					playerBehaviour = PlayerBehaviour.MOVE;
 				}
-
-
-
-
-
 			} 
-
-
-
 
 			if (GameGlobalVariablesManager.isPlayerSpin) 
 			{
@@ -859,19 +843,14 @@ public class PlayerMovement : MonoBehaviour
 				 
 			}
 		}
-
-
 		// else condition for player throwing knife...
-
 		else
 		{
-			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) { 
-
+			if (Input.GetMouseButtonDown (0) && !EventSystem.current.IsPointerOverGameObject ()) 
+            {
 				distanceToThrow = initialDistanceToThrow;
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				hit = Physics2D.Raycast (target, Vector2.zero);
-
-
 
 				if (hit.collider != null) {
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
@@ -910,8 +889,6 @@ public class PlayerMovement : MonoBehaviour
 						break;
 
 					default:
-
-
 						{
 							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 							if (selectedObject != null) {
@@ -920,7 +897,6 @@ public class PlayerMovement : MonoBehaviour
 							canThrow = true;
 							playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
 						}
-
 						break;
 					}
 
@@ -934,16 +910,7 @@ public class PlayerMovement : MonoBehaviour
 					//canThrow = true;
 					playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
 				}
-
-
-
-
-
 			} 
-		  
-
-			 
-
 		} 
 
 		switch (playerBehaviour) 

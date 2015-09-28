@@ -81,6 +81,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int GameStartCoins = 500;
     public static int DailyBonusCoins = 250;
 
+    // layer collision
+    public static int WallLightLayer = 12;
+
     // to take a build with out ads
     public static bool IsShowAd = true;
 
