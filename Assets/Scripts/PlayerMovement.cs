@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator CoinAnimUI;
     public GameObject coinUI;
     public GameObject coinParticles;
+    public List<GameObject> coinParticlesList;
     public GameObject normalSelectionCircle;
 	public float playerHealth;
 	public float speed ,knifeThrowSpeed ;
@@ -89,8 +90,9 @@ public class PlayerMovement : MonoBehaviour
 
 	void Start()
 	{
-		initialSpeed =speed;
-        CoinAnimUI = coinUI.GetComponent<Animator>();
+		initialSpeed = speed;
+        if (coinUI != null)
+            CoinAnimUI = coinUI.GetComponent<Animator>();
 		intialDistanceToAttack = distanceToAttack;
 		//Debug.Log (intialDistanceToAttack);
 		initialDistanceToThrow = distanceToThrow;
@@ -717,7 +719,8 @@ public class PlayerMovement : MonoBehaviour
                     StartCoroutine(HideAfterTime(1.0f));
 
                     Destroy(selectedObject.gameObject);
-                    CoinAnimUI.SetTrigger("CanBlink");
+                    if (CoinAnimUI != null)
+                        CoinAnimUI.SetTrigger("CanBlink");
 
                     StartCoroutine(PlayCoinAnim(selectedObject.transform.position));
 
@@ -944,10 +947,20 @@ public class PlayerMovement : MonoBehaviour
         coinParticles.SetActive(true);
         coinParticles.transform.position = newPos;
         float curTime = 0;
-        while (curTime < 0.75f)
+        
+        for (int i = 0; i < coinParticlesList.Count; i++)
+        {
+            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(1, 3), Random.Range(1, 2), 0);
+        }
+                    
+        while (curTime < 5f)
         {
             curTime += Time.deltaTime;
-            coinParticles.transform.position += new Vector3(0, Time.deltaTime * 5, 0);
+            for (int i = 0; i < coinParticlesList.Count; i++)
+            {
+                coinParticlesList[i].transform.position 
+                    += new Vector3(0, Time.deltaTime * 10, 0);
+            }
             yield return null;
         }
         coinParticles.SetActive(false);
