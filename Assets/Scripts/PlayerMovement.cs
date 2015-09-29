@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using Prime31;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public enum PlayerBehaviour
 {
@@ -16,10 +17,11 @@ public enum PlayerBehaviour
 
 public class PlayerMovement : MonoBehaviour
 {
-
 	public PlayerBehaviour playerBehaviour;
-
-	public GameObject normalSelectionCircle;
+    private Animator CoinAnimUI;
+    public GameObject coinUI;
+    public GameObject coinParticles;
+    public GameObject normalSelectionCircle;
 	public float playerHealth;
 	public float speed ,knifeThrowSpeed ;
 	public Vector2 velocity;
@@ -45,7 +47,7 @@ public class PlayerMovement : MonoBehaviour
 	//string selectedObject;
 	GameObject selectedEnemy, selectedObject;
 
- 	public float distanceToPoint , distanceToAttack , distanceToThrow;
+ 	public float distanceToPoint, distanceToAttack, distanceToThrow;
 
 	public float attackTime;
 
@@ -70,18 +72,12 @@ public class PlayerMovement : MonoBehaviour
 	public GameObject fireBall;
 	public float fTimer;
 
-	 
 	public float interpolationScale;
-	 
- 
 
 	bool canSpin;
 	bool throwed;
 
 	public float spinAttackDistance;
-
-	  
-	//float tempDistanceToAttack;
 
 	void Awake()
 	{
@@ -94,7 +90,7 @@ public class PlayerMovement : MonoBehaviour
 	void Start()
 	{
 		initialSpeed =speed;
-
+        CoinAnimUI = coinUI.GetComponent<Animator>();
 		intialDistanceToAttack = distanceToAttack;
 		//Debug.Log (intialDistanceToAttack);
 		initialDistanceToThrow = distanceToThrow;
@@ -107,7 +103,6 @@ public class PlayerMovement : MonoBehaviour
 		normalSelectionCircle.SetActive (true);
 		throwed = false;
 		GameGlobalVariablesManager.isPlayerSpin = false;
-		//characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
  
 
@@ -121,7 +116,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =1;
 				prevMoveDirection =1;
 				idleDirection =-1;
-				 
 			}
 			else if(angle > 15 && angle <= 75)
 			{
@@ -129,7 +123,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =2;
 				prevMoveDirection=2;
 				idleDirection =-1;
-
 			}
 			else if(angle >= 0 && angle <= 15)
 			{
@@ -144,7 +137,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =8;
 				prevMoveDirection=8;
 				idleDirection =-1;
-				 
 			}
 			else //if(angle>165 && angle<=180)
 			{
@@ -152,9 +144,7 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =7;
 				prevMoveDirection=7;
 				idleDirection =-1;
-				 
 			}
-			 
 		}
 		
 		// Mapping angle to 8 directions 0 - -180
@@ -166,7 +156,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =5;
 				prevMoveDirection=5;
 				idleDirection =-1;
-				 
 			}
 			else if(angle < -15 && angle >= -75)
 			{
@@ -174,7 +163,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =4;
 				prevMoveDirection=4;
 				idleDirection =-1;
-			 
 			}
 			else if(angle <= 0 && angle >= -15)
 			{
@@ -182,7 +170,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =3;
 				prevMoveDirection=3;
 				idleDirection =-1;
-				 
 			}
 			else if(angle < -105 && angle >= -165)
 			{
@@ -190,7 +177,6 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =6;
 				prevMoveDirection=6;
 				idleDirection =-1;
-				 
 			}
 			else //if(angle<-165 && angle>=-180)
 			{
@@ -198,14 +184,8 @@ public class PlayerMovement : MonoBehaviour
 				moveDirection =7;
 				prevMoveDirection=7;
 				idleDirection =-1;
-				 
 			}
-
 		}
-
-		//return moveDirection;
- 
-	 
 	}
 
 	 
@@ -225,9 +205,7 @@ public class PlayerMovement : MonoBehaviour
 				//other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
 				//other.gameObject.GetComponent<AIComponent> ().Death ();
 			}
-			 
 			break;
-
 		case "EnemyTrigger0":
 			Debug.Log ("touched trigger " + other.gameObject.name);
 			LevelManager.instance.activateAISpawn [0] = true;
@@ -727,6 +705,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 case "AI":
                     AudioMgr.Inst.PlaySfx(SfxVals.Sword);
+                    CoinAnimUI.SetTrigger("CanBlink");
                     selectedObject.GetComponent<AIComponent>().React();
                     //selectedObject.GetComponent<AIComponent>().aiAnimatorState
                     break;
@@ -738,6 +717,10 @@ public class PlayerMovement : MonoBehaviour
                     StartCoroutine(HideAfterTime(1.0f));
 
                     Destroy(selectedObject.gameObject);
+                    CoinAnimUI.SetTrigger("CanBlink");
+
+                    StartCoroutine(PlayCoinAnim(selectedObject.transform.position));
+
                     AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
                     AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
                     GameGlobalVariablesManager.totalNumberOfCoins += 20;
@@ -955,7 +938,20 @@ public class PlayerMovement : MonoBehaviour
 			DestroyUsingKnife();*/
 	}
 
-	 
-	 
-	
+
+    IEnumerator PlayCoinAnim(Vector3 newPos)
+    {
+        coinParticles.SetActive(true);
+        coinParticles.transform.position = newPos;
+        float curTime = 0;
+        while (curTime < 0.75f)
+        {
+            curTime += Time.deltaTime;
+            coinParticles.transform.position += new Vector3(0, Time.deltaTime * 5, 0);
+            yield return null;
+        }
+        coinParticles.SetActive(false);
+    }
+
+   
 }

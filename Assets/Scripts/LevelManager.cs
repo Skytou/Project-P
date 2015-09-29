@@ -9,8 +9,9 @@ public class AIGameObjectInSections
 {
 	public GameObject[] areaLockCollider;
 	public List<GameObject> ai;
-	public string textToBeDisplayed;
-	public Vector3 cameraLockPos;
+    public string textToBeDisplayed;
+    public string textOnFightOver;
+    public Vector3 cameraLockPos;
 	public int totalNumberOfAIVisible;
 }
 
@@ -79,7 +80,7 @@ public class LevelManager : MonoBehaviour
 		switch(levelNumber)
 		{
 		case 1:
-			helpText.text = "Find the document about the old wisp!";
+			helpText.text = "Find clue about the old wisp!";
 			break;
 
 		case 2:
@@ -94,6 +95,7 @@ public class LevelManager : MonoBehaviour
 			helpText.text = "Game On!";
 			break;
 		}
+        helpText.text = "Game On!";
         helpTextShadow.text = helpText.text;
 	}
 
@@ -182,8 +184,13 @@ public class LevelManager : MonoBehaviour
 		}
 	}
 
-	void Update()
-	{
+    void Update()
+    {
+        UpdateUI();
+    }
+
+    void UpdateUI()
+    {
 		//if(Input.GetKeyDown(KeyCode.Space))
 		if(activateAISpawn[0])
 		{
