@@ -906,7 +906,7 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		case PlayerBehaviour.MOVE:
 			if(!GameGlobalVariablesManager.isFireBallThrown)
-			MoveTowardsPoint ();
+			    MoveTowardsPoint ();
 
 			break;
 		case PlayerBehaviour.MOVEANDTHROW:
@@ -950,7 +950,7 @@ public class PlayerMovement : MonoBehaviour
         
         for (int i = 0; i < coinParticlesList.Count; i++)
         {
-            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(1, 3), Random.Range(1, 2), 0);
+            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(1, 5), Random.Range(1, 2), 0);
         }
                     
         while (curTime < 5f)

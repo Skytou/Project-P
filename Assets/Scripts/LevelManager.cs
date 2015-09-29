@@ -41,8 +41,9 @@ public class LevelManager : MonoBehaviour
 
 	public bool[] stageCompleted;
 
-	public GameObject portal;	 
-	 
+	public GameObject portal;
+
+    public int LevelCompleteIndex;
 	public bool levelCompleted;
 
 	void Awake()
@@ -54,6 +55,8 @@ public class LevelManager : MonoBehaviour
 		GameGlobalVariablesManager.isCameraLocked = false;
 		portal.SetActive (false);
 		GameGlobalVariablesManager.playerHealth =playerHealth;
+
+        LevelCompleteIndex = aiGameObjectsInSections.Count;
 	}
 
 
@@ -130,28 +133,29 @@ public class LevelManager : MonoBehaviour
 				Debug.Log ("Limit reached");
 				// TODO: unlock the next area collider  , call camera movement
 				//if(limit>aiGameObjectsInSections.Count )
-				 
-					if(!stageCompleted[index])
-					{
-						for (int i = 0; i < aiGameObjectsInSections [limit].areaLockCollider.Length; i++)
-							aiGameObjectsInSections [limit].areaLockCollider [i].SetActive (false);
-						activateAISpawn [limit] = false;
-						stageCompleted [limit] = true;
+                
+                if (limit < LevelCompleteIndex-1)
+				{
+                    for (int i = 0; i < aiGameObjectsInSections[limit].areaLockCollider.Length; i++)
+                    {
+                        if (aiGameObjectsInSections[limit].areaLockCollider[i] != null)
+                            aiGameObjectsInSections[limit].areaLockCollider[i].SetActive(false);
+                    }
+					activateAISpawn [limit] = false;
+					stageCompleted [limit] = true;
 
-						GameGlobalVariablesManager.isCameraLocked = false;
-					}
-
-				 
+					GameGlobalVariablesManager.isCameraLocked = false;
+                    Debug.Log("index: " + index + "limit :" + limit + "len" + activateAISpawn.Length);
+				}
 				else
 				{
+                    Debug.Log("index: " + index + "limit :" + limit + "levelNumber: " + levelNumber);
 					switch(levelNumber)
 					{
 					case 1: 
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
 						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
 						portal.SetActive (true);
-					 
-
 						break;
 
 
