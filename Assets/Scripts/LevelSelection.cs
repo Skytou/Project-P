@@ -3,6 +3,7 @@ using UnityEngine.Advertisements;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class LevelSelection : MonoBehaviour
 {
@@ -39,10 +40,12 @@ public class LevelSelection : MonoBehaviour
         for (int i = 0; i < LevelStatus.Length; i++)
         {
             LevelStatus[i] = false;
-        }        
-        LevelStatus[0] = true;
+        }
+
         UpdateLocksUI();
         ClosePopup();
+        if (GameGlobalVariablesManager.LevelsCleared <= 1)
+            OnStoryBtn();
 	}
 
 
@@ -53,8 +56,9 @@ public class LevelSelection : MonoBehaviour
             LevelStatus[i] = false;
         }
 
-        // ponz.2do for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
-        for (int i = 0; i < 6; i++)
+        // ponz.2do 
+        for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
+        //for (int i = 0; i < 6; i++)
         {
             LevelStatus[i] = true;
         }
@@ -235,4 +239,70 @@ public class LevelSelection : MonoBehaviour
     {
         Popup.SetActive(false);
     }
+
+
+
+    // story
+    public GameObject DialogBox;
+    public GameObject Shruthi;
+    public GameObject Frog;
+
+    public List<GameObject> Dialog;
+
+    public GameObject LSpeech;
+    public GameObject RSpeech;
+
+    int dialog = -1;
+    public void ShowDialog()
+    {
+        for (int i = 0; i < Dialog.Count; i++)
+        {
+            if (i == dialog)
+            {
+                Dialog[i].SetActive(true);
+                if (dialog == 0 || dialog == 2 || dialog == 6)
+                {
+                    LSpeech.SetActive(true);
+                    RSpeech.SetActive(false);
+                }
+                else
+                {
+                    LSpeech.SetActive(false);
+                    RSpeech.SetActive(true);
+                }
+            }
+            else
+                Dialog[i].SetActive(false);
+
+
+        }
+
+        if (dialog >= 5)
+        {
+            Shruthi.SetActive(false);
+            Frog.SetActive(true);
+        }
+    }
+
+
+    public void OnNextBtn()
+    {
+        Debug.Log("dialog" + dialog);
+        dialog++;
+        if (dialog >= 7)
+        {
+            DialogBox.SetActive(false);
+        }
+        else
+            ShowDialog();
+    }
+
+
+    public void OnStoryBtn()
+    {
+        DialogBox.SetActive(true);
+        dialog = 0;
+        ShowDialog();
+    }
+
 }
