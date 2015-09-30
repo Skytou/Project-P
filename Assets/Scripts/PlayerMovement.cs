@@ -568,11 +568,17 @@ public class PlayerMovement : MonoBehaviour
 
 	void ThrowKnife()
 	{
+        Debug.Log("ThrowKnife");
+        if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
+            return;
 		//Idle ();
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 		characterAnimator.SetTrigger ("Throw");
 		canThrow = false;
+
+        GameGlobalVariablesManager.numberOfKnives--;
+        GameGlobalVariablesManager.KnifeCount -= 1;
 
         AudioMgr.Inst.PlaySfx(SfxVals.Knife);
 
@@ -583,9 +589,13 @@ public class PlayerMovement : MonoBehaviour
 
 	public void LaunchKnife()
 	{
-		Debug.Log ("throwing Knife");
+        if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
+            return;
+        Debug.Log("LaunchKnife");
 		knife = Instantiate (knifePrefab[(int)moveDirection],  knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
-		GameGlobalVariablesManager.numberOfKnives--;
+        // ponz.2do
+		//GameGlobalVariablesManager.numberOfKnives--;
+        //GameGlobalVariablesManager.KnifeCount -= 1;
 		knife.SetActive (true);
 		throwed = true;
 		//Debug.Log (touchPos);

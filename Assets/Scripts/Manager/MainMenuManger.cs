@@ -13,6 +13,8 @@ public class MainMenuManger : MonoBehaviour
     public GameObject SoundOn;
     public GameObject SoundOff;
 
+    public Text EnergyValText;
+
     void Start() 
 	{
 		storeUI.SetActive (false);
@@ -66,6 +68,13 @@ public class MainMenuManger : MonoBehaviour
         }
     }
 
+
+    public void OnEnergy()
+    {
+        //show video reward ads
+    }
+
+
 	void Update()
 	{
         UpdateUI();
@@ -84,6 +93,8 @@ public class MainMenuManger : MonoBehaviour
             SoundOn.SetActive(true);
             SoundOff.SetActive(false);
         }
+
+        EnergyValText.text = GameGlobalVariablesManager.EnergyAvailable.ToString();
     }
 }
 

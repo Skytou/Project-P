@@ -101,13 +101,18 @@ public class InGameHUD : MonoBehaviour
 
 	public void Knife()
 	{
-		if(GameGlobalVariablesManager.numberOfKnives>0)
+        if (GameGlobalVariablesManager.numberOfKnives > 0 
+            && GameGlobalVariablesManager.KnifeCount > 0
+            && !GameGlobalVariablesManager.isPlayerSpin)
 		{
-			if(!GameGlobalVariablesManager.isKnifeThrow)
-				GameGlobalVariablesManager.isKnifeThrow = true;
+            if (!GameGlobalVariablesManager.isKnifeThrow)
+            {
+                GameGlobalVariablesManager.isKnifeThrow = true;
+            }
 		}
 		else
 		{
+            //ponz.2do
 			Debug.Log ("show pop up to store");
 		}
 	}
@@ -127,21 +132,33 @@ public class InGameHUD : MonoBehaviour
 
 	public void Bomb()
 	{
-		if(!GameGlobalVariablesManager.isBombActivated)
+        if (!GameGlobalVariablesManager.isBombActivated && GameGlobalVariablesManager.BombsCount>0)
 		{
 			GameGlobalVariablesManager.isBombActivated = true;
+            GameGlobalVariablesManager.BombsCount -= 1;
 		}
+        else
+        {
+            //ponz.2do
+            Debug.Log("show pop up to store");
+        }
 	}
 
 
 	public void Cyclone()
-	{	
-		if (!GameGlobalVariablesManager.isPlayerSpin)
+	{
+        if (!GameGlobalVariablesManager.isPlayerSpin && GameGlobalVariablesManager.CycloneCount > 0)
 		{
 			//Debug.Log ("cyclone");
 			GameGlobalVariablesManager.isPlayerSpin = true;
 			GameGlobalVariablesManager.isKnifeThrow = false;
-		}	
+            GameGlobalVariablesManager.CycloneCount -= 1;
+        }
+        else
+        {
+            //ponz.2do
+            Debug.Log("show pop up to store");
+        }	
 	}
 
 	
