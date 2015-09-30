@@ -341,7 +341,7 @@ public class AIComponent : MonoBehaviour
 
 	public void Death()
 	{
-		if(!aiAnimatorState.IsTag (("DeathTag")))
+        if (!aiAnimatorState.IsTag(("DeathTag")) && !isDead)
 		{
 			isDead = true;
 			Debug.Log ("Triggeringdeath");
