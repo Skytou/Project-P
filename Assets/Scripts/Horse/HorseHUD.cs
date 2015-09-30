@@ -60,8 +60,8 @@ public class HorseHUD : MonoBehaviour
             {
                 lifeImage[i].sprite = lifeOff;
                 lifeIndex -= 1;
-            }         
-		}
+            }
+        }
 	}
 
 
@@ -76,6 +76,7 @@ public class HorseHUD : MonoBehaviour
         else
         {
             Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+            GameGlobalVariablesManager.OnLevelCleared();
         }
 	}
 
@@ -107,19 +108,20 @@ public class HorseHUD : MonoBehaviour
 	public void GameOverWin(int coinsCollected)
 	{
 		helpHudGameObject.SetActive (true);
-		helpHudText.text = gameOverWinText;
+		helpHudText.text = "Collected : " + coinsCollected + "\n" + gameOverWinText;
 		isGameOver = true;
 	}
 
     public void GameOverLose(int coinsCollected)
     {
         helpHudGameObject.SetActive(true);
-        helpHudText.text = gameOverLoseText;
+        helpHudText.text = "Collected : " + coinsCollected + "\n" + gameOverLoseText;
         isGameOver = true;
     }
 
     void Update () 
 	{
-	
 	}
+
+
 }

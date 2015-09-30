@@ -104,35 +104,43 @@ public class LevelSelection : MonoBehaviour
         {
             case 0:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 1;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle1));
                 break;
             case 1:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 2;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
                 break;
             case 2:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 3;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle2));
                 break;
             case 3:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 4;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
                 break;
 
             case 4:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 5;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle3));
                 break;
             case 5:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 6;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
                 break;
             case 6:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 7;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle4));
                 break;
             case 7:
                 loadingScreen.SetActive(true);
+                GameGlobalVariablesManager.currentLevelnumber = 8;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
                 break;
             case 8:

@@ -301,9 +301,9 @@ public class PlayerMovement : MonoBehaviour
 
 		case "Portal":
 				GameGlobalVariablesManager.level1Completed = true;
-                GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;
                 Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
                 LevelManager.instance.ClosePortal();
+                GameGlobalVariablesManager.OnLevelCleared();
                 Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 			break;
 

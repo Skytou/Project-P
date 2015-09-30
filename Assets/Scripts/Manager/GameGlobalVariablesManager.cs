@@ -25,7 +25,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 	public static int totalNumberOfCoins = 1000;
 	public static float stunTime =10;
 
-	public static int currentLevelnumber;
+	public static int currentLevelnumber = 1;
 	public static bool level1Completed, level2Completed, level3Completed, level4Completed;
 
 	public static bool isSwordSelected, isKnifeSelected;
@@ -73,7 +73,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int CycloneLevel = 1;
     public static int LevelsCleared = 1;
 
-
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;
     public static int Enemy3_Drop = 10;
@@ -100,4 +99,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
 	{
 		 
 	}
+
+
+    public static void OnLevelCleared()
+    {
+        if (GameGlobalVariablesManager.LevelsCleared <= GameGlobalVariablesManager.currentLevelnumber)
+            GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;        
+    }
 }
