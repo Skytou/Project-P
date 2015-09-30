@@ -20,8 +20,6 @@ public class PlayerMovement : MonoBehaviour
 	public PlayerBehaviour playerBehaviour;
     private Animator CoinAnimUI;
     public GameObject coinUI;
-    public GameObject coinParticles;
-    public List<GameObject> coinParticlesList;
     public GameObject normalSelectionCircle;
 	public float playerHealth;
 	public float speed ,knifeThrowSpeed ;
@@ -79,13 +77,14 @@ public class PlayerMovement : MonoBehaviour
 	bool throwed;
 
 	public float spinAttackDistance;
+    CoinAnim coinAnim;
 
 	void Awake()
 	{
 		target = transform.position;
 		characterAnimator = GetComponent<Animator>();
         PotParticleObj = Instantiate(PotParticleObj) as GameObject;
-        PotParticleObj.SetActive(false);	 
+        PotParticleObj.SetActive(false);
 	}
 
 	void Start()
@@ -105,6 +104,12 @@ public class PlayerMovement : MonoBehaviour
 		normalSelectionCircle.SetActive (true);
 		throwed = false;
 		GameGlobalVariablesManager.isPlayerSpin = false;
+
+        GameObject curObj = GameObject.FindGameObjectWithTag("CoinParticles") as GameObject;
+        if (curObj != null)
+        {
+            coinAnim = curObj.GetComponent<CoinAnim>() as CoinAnim;
+        }
 	}
  
 
@@ -626,7 +631,6 @@ public class PlayerMovement : MonoBehaviour
 			characterAnimator.SetInteger("ReactRandom",1);
 			characterAnimator.SetTrigger("React");
 		}
-
 	}
 
 	public void PlayerDead()
@@ -653,7 +657,6 @@ public class PlayerMovement : MonoBehaviour
                     //selectedObject.GetComponent<AIComponent>().aiAnimatorState
                     break;
 
-
                 case "Objects":
                     PotParticleObj.SetActive(true);
                     PotParticleObj.transform.position = selectedObject.transform.position + new Vector3(0, 1.3f, 0);
@@ -663,7 +666,8 @@ public class PlayerMovement : MonoBehaviour
                     if (CoinAnimUI != null)
                         CoinAnimUI.SetTrigger("CanBlink");
 
-                    StartCoroutine(PlayCoinAnim(selectedObject.transform.position));
+                    if (coinAnim != null)
+                        coinAnim.PlayCoinAnim(selectedObject.transform.position);
 
                     AudioMgr.Inst.PlaySfx(SfxVals.PotCrash);
                     AudioMgr.Inst.PlaySfx(SfxVals.CoinCollect);
@@ -881,31 +885,6 @@ public class PlayerMovement : MonoBehaviour
 		/*if (throwed)
 			DestroyUsingKnife();*/
 	}
-
-
-    IEnumerator PlayCoinAnim(Vector3 newPos)
-    {
-        coinParticles.SetActive(true);
-        coinParticles.transform.position = newPos;
-        float curTime = 0;
-        
-        for (int i = 0; i < coinParticlesList.Count; i++)
-        {
-            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(1, 5), Random.Range(1, 2), 0);
-        }
-                    
-        while (curTime < 5f)
-        {
-            curTime += Time.deltaTime;
-            for (int i = 0; i < coinParticlesList.Count; i++)
-            {
-                coinParticlesList[i].transform.position 
-                    += new Vector3(0, Time.deltaTime * 10, 0);
-            }
-            yield return null;
-        }
-        coinParticles.SetActive(false);
-    }
 
    
 }
