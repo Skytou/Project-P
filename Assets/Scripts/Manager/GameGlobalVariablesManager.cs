@@ -7,7 +7,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 {
 
 	public static int[] castleLocked = new int[4];// leve2Locked , level3Locked, level4Locked;
-    public static int LevelsCleared = 1;
 
 	public static bool isCameraLocked = false;
 
@@ -72,6 +71,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int KnifeLevel = 1;
     public static int BombLevel = 1;
     public static int CycloneLevel = 1;
+    public static int LevelsCleared = 1;
 
 
     public static int Enemy1_Drop = 3;

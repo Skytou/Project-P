@@ -295,36 +295,17 @@ public class PlayerMovement : MonoBehaviour
 			break;
 
 		case "Portal":
-
-			switch(GameGlobalVariablesManager.currentLevelnumber)
-			{
-			case 1:
 				GameGlobalVariablesManager.level1Completed = true;
-				break;
-			case 2:
-				GameGlobalVariablesManager.level2Completed = true;
-				Application.LoadLevel (3);
-				break;
-			case 3:
-				GameGlobalVariablesManager.level3Completed = true;
-				break;
-			case 4:
-				GameGlobalVariablesManager.level4Completed = true;
-				break;
-
-			}
+                GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;
+                Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
+                LevelManager.instance.ClosePortal();
+                Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 			break;
 
 		default:
-			
 			break;
 		}
 	}
-	 
-	 
-
-
-
 
 	void Spin()
 	{
@@ -341,21 +322,18 @@ public class PlayerMovement : MonoBehaviour
 			if (animatorStateInfo.IsName ("VijaySpin")) 
 			{ 
 				GameObject[] enemyList = GameObject.FindGameObjectsWithTag ("AI");
-				foreach (var e in enemyList) {
-					Debug.Log (e.gameObject.name);
+				foreach (var e in enemyList) 
+                {
+                    Debug.Log (e.gameObject.name);
 					Debug.Log (Vector2.Distance (e.gameObject.transform.position, this.transform.position));
-					if (Vector2.Distance (e.gameObject.transform.position, this.transform.position) < spinRange) {
+					if (Vector2.Distance (e.gameObject.transform.position, this.transform.position) < spinRange) 
+                    {
 						e.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
-
 						e.gameObject.GetComponent<AIComponent> ().Death ();
-
-					}
-				}
+                    }
+                }
 			}
-				
-			
 		}
- 
 		else
 		{
 			Debug.Log ("time over");
@@ -366,12 +344,9 @@ public class PlayerMovement : MonoBehaviour
 			spinSelectionCircle.SetActive ((false));
 			//playerSpinCircleCollider.radius = 3.5f;
 			characterAnimator.SetBool ("isSpin", canSpin);
-
 		}
-
-
-
 	}
+
 
 	void ShowFireBallCircle()
 	{
@@ -381,37 +356,26 @@ public class PlayerMovement : MonoBehaviour
 			//fireBallPrefab.SetActive (true);
 			if(fireBall==null)
 			fireBall = GameObject.Instantiate (fireBallPrefab, this.transform.position, Quaternion.identity) as GameObject; 
-			 
-  
-
 		}
-
 		else
 		{
 			Debug.Log ("hide circle");
 			GameGlobalVariablesManager.isFireBallThrown = false;
 			fTimer = fireBallTimer;
 			Destroy (fireBall.gameObject);
-		}
-		 
+		}		 
 	}
 
 
-
-	 
-	  
-
 	void MoveTowardsPoint()
 	{ 
-		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-		 
+		distanceToPoint = Vector2.Distance(transform.position, touchPos);		 
 
  		if(distanceToPoint<distanceToAttack)
 		{
 			Stop ();
 			//Debug.Log ("Stopping");
 		}
-
 		else
 		{
  			xComponent = -transform.position.x + touchPos.x;
@@ -430,8 +394,6 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else
 			{
-				
-				//distanceToAttack= intialDistanceToAttack;
 				if(distanceToPoint<=distanceToAttack *2)
 				{
 					isRun = false;
@@ -443,7 +405,6 @@ public class PlayerMovement : MonoBehaviour
 					speed =initialSpeed;
 				}
 			}
-
 			isInMove = true;
  		}
 
@@ -452,37 +413,31 @@ public class PlayerMovement : MonoBehaviour
 			characterAnimator.StopPlayback();
 			CalculateAngle(angle);
 		}
-			
 
-		if(transform.position ==  touchPos )
-		{
-			isInMove = false;
-			isRun = false;
-			idleDirection =prevMoveDirection;
-			distanceToAttack = 0;
-			
-		}
-		 
+        if (transform.position == touchPos)
+        {
+            isInMove = false;
+            isRun = false;
+            idleDirection = prevMoveDirection;
+            distanceToAttack = 0;
+        }
 
 		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
 		characterAnimator.SetFloat("idleDirection",idleDirection);
-		characterAnimator.SetFloat("moveDirection",moveDirection);
-
- 	 
+		characterAnimator.SetFloat("moveDirection",moveDirection); 	 
 	}
+
 
 	void MoveTowardsThrowPoint()
 	{
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-
 
 		if(distanceToPoint<distanceToThrow)
 		{
 			StopAndThrow ();
 			Debug.Log ("Stopping");
 		}
-
 		else
 		{
 			Debug.Log ("ins");
@@ -496,8 +451,6 @@ public class PlayerMovement : MonoBehaviour
 			isRun = true;
 			//distanceToThrow =1;
 			speed = initialSpeed;
-				
-			 
 		}
 
 		if(isInMove)
@@ -505,30 +458,26 @@ public class PlayerMovement : MonoBehaviour
 			characterAnimator.StopPlayback();
 			CalculateAngle(angle);
 		}
-
-
 		if(transform.position ==  touchPos )
 		{
 			isInMove = false;
 			isRun = false;
 			idleDirection =prevMoveDirection;
 			distanceToThrow = 0;
-
 		}
-
 
 		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
-
 	}
+
 
 	void StopAndThrow()
 	{
-		Idle ();
+		Idle();
 		if(canThrow)
-		ThrowKnife ();
+		    ThrowKnife();
 	}
 
 
@@ -557,15 +506,11 @@ public class PlayerMovement : MonoBehaviour
 				else
 				{
 					//ThrowKnife ();
-
 				}
-
-
 			}
 		}
 		else
-			return;
- 		 
+			return; 		 
 	}
 
  
@@ -574,8 +519,6 @@ public class PlayerMovement : MonoBehaviour
 
 		if (!animatorStateInfo.IsTag ("ReactTag")) 
 		{
-			
-		 
 			xComponent = -transform.position.x + touchPos.x;
 			yComponent = -transform.position.y + touchPos.y;
 		
@@ -624,7 +567,6 @@ public class PlayerMovement : MonoBehaviour
 
 		//	knife = Instantiate (knifePrefab, knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
 		//knife.SetActive (false);
-
 	}
 
 
@@ -641,7 +583,6 @@ public class PlayerMovement : MonoBehaviour
 		knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos,selectedObject, true);
 		//GameGlobalVariablesManager.isKnifeThrow = false;
 		//isKnifeThrow = false;
-
 	}
 
 	void DestroyUsingKnife()

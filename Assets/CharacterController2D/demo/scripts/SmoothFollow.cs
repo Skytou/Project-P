@@ -19,7 +19,7 @@ public class SmoothFollow : MonoBehaviour
 	
 	void Awake()
 	{
-
+        GameGlobalVariablesManager.isCameraLocked = false;
 		instance = this;
 		transform = gameObject.transform;
 		_playerController = target.GetComponent<CharacterController2D>();
@@ -35,7 +35,8 @@ public class SmoothFollow : MonoBehaviour
 
 	void FixedUpdate()
 	{
-		if( useFixedUpdate )
+        Debug.Log("isCameraLocked: " + GameGlobalVariablesManager.isCameraLocked);
+		if(useFixedUpdate)
 			updateCameraPosition();
 	}
 

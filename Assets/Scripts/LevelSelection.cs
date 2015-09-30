@@ -44,6 +44,7 @@ public class LevelSelection : MonoBehaviour
 
         UpdateLocksUI();
         ClosePopup();
+        Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
         if (GameGlobalVariablesManager.LevelsCleared <= 1)
             OnStoryBtn();
 	}
@@ -53,14 +54,14 @@ public class LevelSelection : MonoBehaviour
     {
         for (int i = 0; i < LevelStatus.Length; i++)
         {
-            LevelStatus[i] = false;
-        }
-
-        // ponz.2do 
-        for (int i = 0; i < GameGlobalVariablesManager.LevelsCleared; i++)
-        //for (int i = 0; i < 6; i++)
-        {
-            LevelStatus[i] = true;
+            if (i < GameGlobalVariablesManager.LevelsCleared)
+            {
+                LevelStatus[i] = true;
+            }
+            else
+            {
+                LevelStatus[i] = false;
+            }
         }
 
         for (int i = 0; i < levelLock.Length; i++)
@@ -273,8 +274,6 @@ public class LevelSelection : MonoBehaviour
             }
             else
                 Dialog[i].SetActive(false);
-
-
         }
 
         if (dialog >= 5)
@@ -294,7 +293,9 @@ public class LevelSelection : MonoBehaviour
             DialogBox.SetActive(false);
         }
         else
+        {
             ShowDialog();
+        }
     }
 
 
@@ -304,5 +305,6 @@ public class LevelSelection : MonoBehaviour
         dialog = 0;
         ShowDialog();
     }
+    
 
 }

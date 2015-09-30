@@ -59,6 +59,7 @@ public class InGameHUD : MonoBehaviour
 		dialogueHUD.SetActive (false);
 	}
 
+
 	void SetSpriteDefault()
 	{
 		sword.GetComponent<Image>().sprite = swordOn;
@@ -105,7 +106,6 @@ public class InGameHUD : MonoBehaviour
 		{
 			Debug.Log ("show pop up to store");
 		}
-
 	}
 
 
@@ -113,13 +113,13 @@ public class InGameHUD : MonoBehaviour
 	{
 		if(GameGlobalVariablesManager.isKnifeThrow)
 			GameGlobalVariablesManager.isKnifeThrow = false;
-			
 	}
 
+
 	public void Timer()
-	{
-		 
+	{	 
 	}
+
 
 	public void Bomb()
 	{
@@ -129,20 +129,19 @@ public class InGameHUD : MonoBehaviour
 		}
 	}
 
+
 	public void Cyclone()
-	{
-		
+	{	
 		if (!GameGlobalVariablesManager.isPlayerSpin)
 		{
 			//Debug.Log ("cyclone");
 			GameGlobalVariablesManager.isPlayerSpin = true;
 			GameGlobalVariablesManager.isKnifeThrow = false;
-
-		}
-			
+		}	
 	}
 
-	public void Pause()
+	
+    public void Pause()
 	{
 		if(Advertisement.IsReady())
 		{
@@ -156,10 +155,10 @@ public class InGameHUD : MonoBehaviour
 		Time.timeScale = 0f;
 	}
 
-	public void Resume()
+	
+    public void Resume()
 	{
 		//var values = Enum.GetValues (typeof(SceneTransistionSelf));
-	
 		//SceneTransistionSelf s = (SceneTransistionSelf)values ( Random.Range (0, values.Length));
 		//LoadSceneManager.instance.LoadSameSceneWithTransistion (SceneTransistionSelf.RipplesToSameScene );//  SceneTransistionSelf.RipplesToSameScene);
 		pauseScreen.SetActive (false);
@@ -167,13 +166,15 @@ public class InGameHUD : MonoBehaviour
 		Time.timeScale = 1.0f;
 	}
 
-	public void Restart()
+	
+    public void Restart()
 	{
 		Time.timeScale = 1.0f;
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
-	public void Menu()
+	
+    public void Menu()
 	{
 		Application.LoadLevel ("LevelSelection");
 	}
@@ -182,9 +183,10 @@ public class InGameHUD : MonoBehaviour
 	void Update()
 	{
 		SetSpriteUpdated ();
-
 		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
 		totalCoinsText.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
         totalCoinsTextShadow.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
 	}
+
+
 }

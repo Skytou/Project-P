@@ -42,6 +42,7 @@ public class LevelManager : MonoBehaviour
 	public bool[] stageCompleted;
 
 	public GameObject portal;
+    bool isPortalOpen = false;
 
     public int LevelCompleteIndex;
 	public bool levelCompleted;
@@ -54,7 +55,7 @@ public class LevelManager : MonoBehaviour
 		stageCompleted = new bool[10];
 		GameGlobalVariablesManager.isCameraLocked = false;
 		portal.SetActive (false);
-		GameGlobalVariablesManager.playerHealth =playerHealth;
+		GameGlobalVariablesManager.playerHealth = playerHealth;
 
         LevelCompleteIndex = aiGameObjectsInSections.Count;
 	}
@@ -104,6 +105,9 @@ public class LevelManager : MonoBehaviour
 
 	public void SpawnAI(int index)
 	{
+        if (isPortalOpen)
+            return;
+
 		var limit = index;// - 1;
 		 
 		{
@@ -149,41 +153,37 @@ public class LevelManager : MonoBehaviour
 				}
 				else
 				{
-                    Debug.Log("index: " + index + "limit :" + limit + "levelNumber: " + levelNumber);
 					switch(levelNumber)
 					{
 					case 1: 
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
 						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
 						portal.SetActive (true);
+                        isPortalOpen = true;
 						break;
-
 
 					case 2:
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
 						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
 						portal.SetActive (true);
+                        isPortalOpen = true;
 						break;
-
 
 					case 3:
-
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+                        isPortalOpen = true;
 						break;
 
-
 					case 4:
-
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
+						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+                        isPortalOpen = true;
 						break;
 					}
 				}
-
-
-
-				// for level 3 we have index = 4
-				// for level 4 we have index = 5
-
-
-
 			}
 		}
 	}
@@ -195,7 +195,6 @@ public class LevelManager : MonoBehaviour
 
     void UpdateUI()
     {
-		//if(Input.GetKeyDown(KeyCode.Space))
 		if(activateAISpawn[0])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
@@ -252,9 +251,18 @@ public class LevelManager : MonoBehaviour
             helpTextShadow.text = helpText.text;
             SpawnAI(6);
 		}
-
-
 	}
+
+
+    public bool OpenPortal()
+    {
+        return isPortalOpen;
+    }
+
+    public void ClosePortal()
+    {
+        isPortalOpen = false;
+    }
 }
 
 
