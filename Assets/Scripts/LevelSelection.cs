@@ -54,7 +54,7 @@ public class LevelSelection : MonoBehaviour
     {
         for (int i = 0; i < LevelStatus.Length; i++)
         {
-            if (i <= GameGlobalVariablesManager.LevelsCleared)
+            if (i <= 8)
             {
                 LevelStatus[i] = true;
             }

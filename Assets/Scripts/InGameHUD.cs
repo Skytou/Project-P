@@ -30,6 +30,10 @@ public class InGameHUD : MonoBehaviour
     public Text totalCoinsText;
     public Text totalCoinsTextShadow;
 
+    public Text TotalKnifeText;
+    public Text TotalBombText;
+    public Text TotalCycloneText;
+
 	void Awake()
 	{
 		instance = this;
@@ -186,6 +190,10 @@ public class InGameHUD : MonoBehaviour
 		healthBarSlider.value = GameGlobalVariablesManager.playerHealth;
 		totalCoinsText.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
         totalCoinsTextShadow.text = "" + GameGlobalVariablesManager.totalNumberOfCoins;
+
+        TotalKnifeText.text = "" + GameGlobalVariablesManager.KnifeCount;
+        TotalBombText.text = "" + GameGlobalVariablesManager.BombsCount;
+        TotalCycloneText.text = "" + GameGlobalVariablesManager.CycloneCount;
 	}
 
 
