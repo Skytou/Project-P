@@ -24,7 +24,6 @@ public class LevelManager : MonoBehaviour
 	//public GameObject[] spawnPoiints;
 
 	public float playerHealth;
-	public int levelNumber;
 	public string  dialogueHUDTextLevelStart ,dialogueHUDTextLevelEnd ;
 
 	public List<AIGameObjectInSections> aiGameObjectsInSections;
@@ -81,9 +80,9 @@ public class LevelManager : MonoBehaviour
             helpTextShadow = GameObject.FindGameObjectWithTag("HelpTextShadow").GetComponent<Text>() as Text;
         }
 
-		switch(levelNumber)
+		switch(GameGlobalVariablesManager.currentLevelnumber)
 		{
-		case 1:
+		case 0:
 			helpText.text = "Find clue about the old wisp!";
 			break;
 
@@ -91,11 +90,11 @@ public class LevelManager : MonoBehaviour
 			helpText.text = "Crack the pots to find extra coins";
 			break;
 
-		case 3:
+		case 4:
 			helpText.text = "Game On!";
 			break;
 
-		case 4:
+		case 6:
 			helpText.text = "Game On!";
 			break;
 		}
@@ -153,32 +152,28 @@ public class LevelManager : MonoBehaviour
 				}
 				else
 				{
-					switch(levelNumber)
+                    switch (GameGlobalVariablesManager.currentLevelnumber)
 					{
-					case 1: 
+					case 0: 
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
 						portal.SetActive (true);
                         isPortalOpen = true;
 						break;
 
 					case 2:
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
-						portal.SetActive (true);
-                        isPortalOpen = true;
-						break;
-
-					case 3:
-						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
 						portal.SetActive (true);
                         isPortalOpen = true;
 						break;
 
 					case 4:
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
-						GameGlobalVariablesManager.currentLevelnumber = levelNumber;
+						portal.SetActive (true);
+                        isPortalOpen = true;
+						break;
+
+					case 6:
+						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
 						portal.SetActive (true);
                         isPortalOpen = true;
 						break;
