@@ -45,7 +45,7 @@ public class LevelSelection : MonoBehaviour
         UpdateLocksUI();
         ClosePopup();
         Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
-        if (GameGlobalVariablesManager.LevelsCleared <= 1)
+        if (GameGlobalVariablesManager.LevelsCleared < 1)
             OnStoryBtn();
 	}
 
@@ -54,7 +54,7 @@ public class LevelSelection : MonoBehaviour
     {
         for (int i = 0; i < LevelStatus.Length; i++)
         {
-            if (i < GameGlobalVariablesManager.LevelsCleared)
+            if (i <= GameGlobalVariablesManager.LevelsCleared)
             {
                 LevelStatus[i] = true;
             }
@@ -104,43 +104,43 @@ public class LevelSelection : MonoBehaviour
         {
             case 0:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 1;
+                GameGlobalVariablesManager.currentLevelnumber = 0;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle1));
                 break;
             case 1:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 2;
+                GameGlobalVariablesManager.currentLevelnumber = 1;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
                 break;
             case 2:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 3;
+                GameGlobalVariablesManager.currentLevelnumber = 2;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle2));
                 break;
             case 3:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 4;
+                GameGlobalVariablesManager.currentLevelnumber = 3;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse2));
                 break;
 
             case 4:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 5;
+                GameGlobalVariablesManager.currentLevelnumber = 4;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle3));
                 break;
             case 5:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 6;
+                GameGlobalVariablesManager.currentLevelnumber = 5;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse3));
                 break;
             case 6:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 7;
+                GameGlobalVariablesManager.currentLevelnumber = 6;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneCastle4));
                 break;
             case 7:
                 loadingScreen.SetActive(true);
-                GameGlobalVariablesManager.currentLevelnumber = 8;
+                GameGlobalVariablesManager.currentLevelnumber = 7;
                 StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
                 break;
             case 8:
@@ -288,6 +288,11 @@ public class LevelSelection : MonoBehaviour
         {
             Shruthi.SetActive(false);
             Frog.SetActive(true);
+        }
+        else
+        {
+            Shruthi.SetActive(true);
+            Frog.SetActive(false); 
         }
     }
 

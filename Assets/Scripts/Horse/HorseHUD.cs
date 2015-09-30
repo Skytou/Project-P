@@ -16,6 +16,7 @@ public class HorseHUD : MonoBehaviour
 	public GameObject pauseMenu;
 
 	public bool isGameOver;
+    public bool victory;
 
 	public Sprite lifeOn, lifeOff;
 
@@ -76,7 +77,10 @@ public class HorseHUD : MonoBehaviour
         else
         {
             Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
-            GameGlobalVariablesManager.OnLevelCleared();
+            if (victory)
+                GameGlobalVariablesManager.OnLevelCleared();
+            else
+                GameGlobalVariablesManager.OnLevelOver();
         }
 	}
 
@@ -108,20 +112,21 @@ public class HorseHUD : MonoBehaviour
 	public void GameOverWin(int coinsCollected)
 	{
 		helpHudGameObject.SetActive (true);
-		helpHudText.text = "Collected : " + coinsCollected + "\n" + gameOverWinText;
+		helpHudText.text = "Collected : " + coinsCollected + " Coins\n" + gameOverWinText;
 		isGameOver = true;
+        victory = true;
 	}
 
     public void GameOverLose(int coinsCollected)
     {
         helpHudGameObject.SetActive(true);
-        helpHudText.text = "Collected : " + coinsCollected + "\n" + gameOverLoseText;
+        helpHudText.text = "Collected : " + coinsCollected + " Coins\n" + gameOverLoseText;
         isGameOver = true;
+        victory = false;
     }
 
     void Update () 
 	{
 	}
-
 
 }

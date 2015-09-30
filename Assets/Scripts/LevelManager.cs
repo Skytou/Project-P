@@ -44,7 +44,7 @@ public class LevelManager : MonoBehaviour
 	public GameObject portal;
     bool isPortalOpen = false;
 
-    public int LevelCompleteIndex;
+    public int StageCompleteIndex;
 	public bool levelCompleted;
 
 	void Awake()
@@ -57,7 +57,7 @@ public class LevelManager : MonoBehaviour
 		portal.SetActive (false);
 		GameGlobalVariablesManager.playerHealth = playerHealth;
 
-        LevelCompleteIndex = aiGameObjectsInSections.Count;
+        StageCompleteIndex = aiGameObjectsInSections.Count;
 	}
 
 
@@ -137,8 +137,8 @@ public class LevelManager : MonoBehaviour
 				Debug.Log ("Limit reached");
 				// TODO: unlock the next area collider  , call camera movement
 				//if(limit>aiGameObjectsInSections.Count )
-                
-                if (limit < LevelCompleteIndex-1)
+
+                if (limit < aiGameObjectsInSections.Count - 1)
 				{
                     for (int i = 0; i < aiGameObjectsInSections[limit].areaLockCollider.Length; i++)
                     {

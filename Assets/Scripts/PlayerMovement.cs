@@ -110,6 +110,12 @@ public class PlayerMovement : MonoBehaviour
         {
             coinAnim = curObj.GetComponent<CoinAnim>() as CoinAnim;
         }
+        
+        for (int curLayer = 31; curLayer >= 0; curLayer--)
+        {
+            Physics2D.IgnoreLayerCollision(gameObject.layer, curLayer, false);
+        }
+        Debug.Log("Playing level : " + GameGlobalVariablesManager.currentLevelnumber);
 	}
  
 
@@ -198,6 +204,7 @@ public class PlayerMovement : MonoBehaviour
 	 
 	void OnTriggerEnter2D(Collider2D other)
 	{
+        Debug.Log("OnTriggerEnter2D");
 		layerName = LayerMask.LayerToName (other.gameObject.layer);
 		
 		switch (layerName)
@@ -300,8 +307,7 @@ public class PlayerMovement : MonoBehaviour
 			break;
 
 		case "Portal":
-				GameGlobalVariablesManager.level1Completed = true;
-                Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
+                Debug.Log("LevelsCleared, portal : " + GameGlobalVariablesManager.LevelsCleared);
                 LevelManager.instance.ClosePortal();
                 GameGlobalVariablesManager.OnLevelCleared();
                 Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
@@ -652,7 +658,8 @@ public class PlayerMovement : MonoBehaviour
             {
                 case "AI":
                     AudioMgr.Inst.PlaySfx(SfxVals.Sword);
-                    CoinAnimUI.SetTrigger("CanBlink");
+                    if (coinUI != null)
+                        CoinAnimUI.SetTrigger("CanBlink");
                     selectedObject.GetComponent<AIComponent>().React();
                     //selectedObject.GetComponent<AIComponent>().aiAnimatorState
                     break;
@@ -660,7 +667,7 @@ public class PlayerMovement : MonoBehaviour
                 case "Objects":
                     PotParticleObj.SetActive(true);
                     PotParticleObj.transform.position = selectedObject.transform.position + new Vector3(0, 1.3f, 0);
-                    StartCoroutine(HideAfterTime(1.0f));
+                    StartCoroutine(HideAfterTime(0.7f));
 
                     Destroy(selectedObject.gameObject);
                     if (CoinAnimUI != null)
@@ -686,6 +693,7 @@ public class PlayerMovement : MonoBehaviour
 
 	void Update()
 	{
+        //Debug.Log("Update");
 		animatorStateInfo = characterAnimator.GetCurrentAnimatorStateInfo (0);
 
 		if (!GameGlobalVariablesManager.isKnifeThrow) 
@@ -842,8 +850,9 @@ public class PlayerMovement : MonoBehaviour
 					playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
 				}
 			} 
-		} 
+		}
 
+        //Debug.Log("playerBehaviour : " + playerBehaviour);
 		switch (playerBehaviour) 
 		{
 		case PlayerBehaviour.IDLE:

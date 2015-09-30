@@ -74,6 +74,7 @@ public class HorseManager : MonoBehaviour
         gameRunning = true;
         Time.timeScale = 0.0f;
         audioSrc = GetComponent<AudioSource>();
+        GameGlobalVariablesManager.isCameraLocked = false;
     }
 
 	#region Event Listeners
@@ -95,7 +96,7 @@ public class HorseManager : MonoBehaviour
         {
             col.gameObject.SetActive(false);
             coinsCollected += 1;
-            Debug.Log(coinsCollected);
+            //Debug.Log(coinsCollected);
             if(!GameGlobalVariablesManager.isSoundMuted)
                 audioSrc.PlayOneShot(CoinCollectSfx, 0.7f);
         }
@@ -206,7 +207,7 @@ public class HorseManager : MonoBehaviour
         if (sceneLvl == 1)
         {
             // condition for lvl 1
-            if(timer > 60)
+            if(timer > 10)
             {
                 victory = true;
                 GameOver();
@@ -248,8 +249,7 @@ public class HorseManager : MonoBehaviour
     // gameOver function
     void GameOver()
     {
-        gameRunning = false;
-        Time.timeScale = 0.0f;
+        gameRunning = false;        
         // activate gameover screen and pause game
         if (victory)
         {

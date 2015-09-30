@@ -5,9 +5,6 @@ using System.Collections;
 
 public class GameGlobalVariablesManager : MonoBehaviour 
 {
-
-	public static int[] castleLocked = new int[4];// leve2Locked , level3Locked, level4Locked;
-
 	public static bool isCameraLocked = false;
 
 	public static float playerHealth = 0;
@@ -22,18 +19,17 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isFireBallThrown;
 
-	public static int totalNumberOfCoins = 1000;
-	public static float stunTime =10;
+    public static bool isFreezeTimerOn;
 
-	public static int currentLevelnumber = 1;
-	public static bool level1Completed, level2Completed, level3Completed, level4Completed;
+	public static int totalNumberOfCoins = 1000;
+	public static float stunTime = 10;
+
+	public static int currentLevelnumber = 0;
 
 	public static bool isSwordSelected, isKnifeSelected;
 	public static bool isTimerSelected, isCycloneSelected;
  
 	public static float numberOfKnives = 100;
-
-	public static bool isFreezeTimerOn;
 
     public static string StoreScene = "StoreScene";
     public static string MainMenu = "MainMenu";
@@ -64,14 +60,14 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int StartKnifeCount = 5;
     public static int StartBombsCount = 3;
     public static int StartCycloneCount = 3;
-    public static int StartLevelsCleared = 1;
+    public static int StartLevelsCleared = 0;
 
     public static int PlayerLevel = 1;
     public static int SwordLevel = 1;
     public static int KnifeLevel = 1;
     public static int BombLevel = 1;
     public static int CycloneLevel = 1;
-    public static int LevelsCleared = 1;
+    public static int LevelsCleared = 0;
 
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;
@@ -84,26 +80,45 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int WallLightLayer = 12;
 
     // to take a build with out ads
-    public static bool IsShowAd = true;
+    public static bool IsShowAd = false;
 
 	void Awake()
 	{
-		for(int i =0;i<castleLocked.Length;i++)
-		{
-			castleLocked[i] = 1;
-		}
 	}
 
 
 	void Update()
 	{
-		 
 	}
 
 
     public static void OnLevelCleared()
     {
+        Debug.Log("LevelsCleared:" + GameGlobalVariablesManager.LevelsCleared);
+        Debug.Log("currentLevelnumber:" + GameGlobalVariablesManager.currentLevelnumber);
         if (GameGlobalVariablesManager.LevelsCleared <= GameGlobalVariablesManager.currentLevelnumber)
-            GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;        
+            GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber;
+
+        OnLevelOver();
     }
+
+    public static void OnLevelOver()
+    {
+        isCameraLocked = false;
+
+        isKnifeSelected = false;
+        isSwordSelected = true;
+        isTimerSelected = false;
+        isCycloneSelected = false;
+        
+        TotalEnergy -= 1;
+
+        isFreezeTimerOn = false;
+        isPlayerSpin = false;
+        isKnifeThrow = false;
+        isBombActivated = false;
+        isFireBallThrown = false;
+    }
+
+
 }
