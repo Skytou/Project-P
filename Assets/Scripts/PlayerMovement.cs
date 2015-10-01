@@ -598,8 +598,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public void LaunchKnife()
 	{
-        if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
-            return;
+        if (selectedObject != null)
+        {
+            if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
+                return;
+        }
         Debug.Log("LaunchKnife");
 		knife = Instantiate (knifePrefab[(int)moveDirection],  knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
         // ponz.2do
