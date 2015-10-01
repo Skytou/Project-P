@@ -6,8 +6,6 @@ using UnityEngine.Advertisements;
 
 public class InGameHUD : MonoBehaviour
 {
-
-
 	public static InGameHUD instance = null;
 
 	public GameObject pauseScreen,gameHUD;
@@ -33,6 +31,8 @@ public class InGameHUD : MonoBehaviour
     public Text TotalKnifeText;
     public Text TotalBombText;
     public Text TotalCycloneText;
+
+    public GameObject freezeui;
 
 	void Awake()
 	{
@@ -96,7 +96,11 @@ public class InGameHUD : MonoBehaviour
 			knife.GetComponent<Image>().sprite = knifeOff;
 			sword.GetComponent<Image>().sprite = swordOn;
 		}
-	}
+        if (GameGlobalVariablesManager.isCameraLocked)
+            freezeui.SetActive(true);
+        else
+            freezeui.SetActive(false);
+    }
 
 
 	public void Knife()

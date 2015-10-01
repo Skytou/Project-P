@@ -24,7 +24,10 @@ public class TutorialManager : MonoBehaviour {
         count += 1;
         if (count >= 4)
         {
-            Application.LoadLevel(GameGlobalVariablesManager.MainMenu);
+            if (SavedData.Inst.GetGamePlayCount() <= 1)
+                Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+            else
+                MainMenu();
         }
         if (count > 3)
         {

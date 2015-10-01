@@ -31,7 +31,10 @@ public class MainMenuManger : MonoBehaviour
 
     public void Play()
     {
-        Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+        if(SavedData.Inst.GetGamePlayCount() <= 1)
+            Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
+        else
+            Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
     }
 
     public void OnTutorialClick()

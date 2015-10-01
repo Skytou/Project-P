@@ -30,7 +30,7 @@ public class CoinAnim : MonoBehaviour {
         for (int i = 0; i < coinCount; i++)
         {
             coinParticlesList[i].SetActive(true);
-            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(0.5f, 3), Random.Range(0, 3), 0);
+            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(0.5f, 3)-2, Random.Range(0, 3)-2, 0);
             //Debug.Log(coinParticlesList[i].transform.position.ToString());
         }
         while (curTime < 0.3f)
