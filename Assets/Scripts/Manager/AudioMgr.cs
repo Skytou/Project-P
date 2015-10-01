@@ -72,6 +72,7 @@ public class AudioMgr : MonoBehaviour {
 
     public void PlaySfx(SfxVals curSfxVal)
     {
+        Debug.Log("PlaySfx");
         if(GameGlobalVariablesManager.isSoundMuted)
             return;
         switch(curSfxVal)
@@ -117,7 +118,7 @@ public class AudioMgr : MonoBehaviour {
                 break;
 
             case SfxVals.ButtonClick:
-                audioSrc.PlayOneShot(ButtonClick, 0.8f);
+                audioSrc.PlayOneShot(ButtonClick, 0.6f);
                 break;
 
             case SfxVals.BuyItem:

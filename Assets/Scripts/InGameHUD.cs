@@ -60,6 +60,7 @@ public class InGameHUD : MonoBehaviour
 
 	public void DisableDialogueHUD()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		dialogueHUD.SetActive (false);
 	}
 
@@ -111,6 +112,7 @@ public class InGameHUD : MonoBehaviour
 		{
             if (!GameGlobalVariablesManager.isKnifeThrow)
             {
+                AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
                 GameGlobalVariablesManager.isKnifeThrow = true;
             }
 		}
@@ -125,7 +127,10 @@ public class InGameHUD : MonoBehaviour
 	public void Sword()
 	{
 		if(GameGlobalVariablesManager.isKnifeThrow)
+        {
+            AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 			GameGlobalVariablesManager.isKnifeThrow = false;
+        }
 	}
 
 
@@ -138,6 +143,7 @@ public class InGameHUD : MonoBehaviour
 	{
         if (!GameGlobalVariablesManager.isBombActivated && GameGlobalVariablesManager.BombsCount>0)
 		{
+            AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 			GameGlobalVariablesManager.isBombActivated = true;
             GameGlobalVariablesManager.BombsCount -= 1;
 		}
@@ -153,6 +159,7 @@ public class InGameHUD : MonoBehaviour
 	{
         if (!GameGlobalVariablesManager.isPlayerSpin && GameGlobalVariablesManager.CycloneCount > 0)
 		{
+            AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 			//Debug.Log ("cyclone");
 			GameGlobalVariablesManager.isPlayerSpin = true;
 			GameGlobalVariablesManager.isKnifeThrow = false;
@@ -178,6 +185,7 @@ public class InGameHUD : MonoBehaviour
 		pauseScreen.SetActive (true);
 		gameHUD.SetActive (false);
 		Time.timeScale = 0f;
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 	}
 
 	
@@ -189,19 +197,22 @@ public class InGameHUD : MonoBehaviour
 		pauseScreen.SetActive (false);
 		gameHUD.SetActive (true);
 		Time.timeScale = 1.0f;
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 	}
 
 	
     public void Restart()
 	{
 		Time.timeScale = 1.0f;
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
 	
     public void Menu()
 	{
-		Application.LoadLevel ("LevelSelection");
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 
 	 

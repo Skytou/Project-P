@@ -22,8 +22,20 @@ public class LevelSelection : MonoBehaviour
     bool[] LevelStatus = new bool[17];
     public GameObject[] levelLock;
     public int levelsUnlocked = 3;
+
+    // story
+    public GameObject DialogBox;
+    public GameObject Shruthi;
+    public GameObject Frog;
+
+    public List<GameObject> Dialog;
+
+    public GameObject LSpeech;
+    public GameObject RSpeech;
+
+    int dialog = -1;
     
-	// Use this for initialization
+
 	void Start () 
 	{
 		//isTouched = false;
@@ -43,10 +55,13 @@ public class LevelSelection : MonoBehaviour
         }
 
         UpdateLocksUI();
-        ClosePopup();
+        
+        // hide popup
+        Popup.SetActive(false);
+
         Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
         if (GameGlobalVariablesManager.LevelsCleared < 1)
-            OnStoryBtn();
+            OpenStoryDialog();
 	}
 
 
@@ -259,17 +274,7 @@ public class LevelSelection : MonoBehaviour
 
 
 
-    // story
-    public GameObject DialogBox;
-    public GameObject Shruthi;
-    public GameObject Frog;
-
-    public List<GameObject> Dialog;
-
-    public GameObject LSpeech;
-    public GameObject RSpeech;
-
-    int dialog = -1;
+    #region Story
     public void ShowDialog()
     {
         for (int i = 0; i < Dialog.Count; i++)
@@ -324,10 +329,16 @@ public class LevelSelection : MonoBehaviour
     public void OnStoryBtn()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        OpenStoryDialog();
+    }
+
+
+    void OpenStoryDialog()
+    {
         DialogBox.SetActive(true);
         dialog = 0;
         ShowDialog();
     }
-    
+    #endregion Story
 
 }

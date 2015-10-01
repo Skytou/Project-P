@@ -30,7 +30,7 @@ public class HorseHUD : MonoBehaviour
 		instance = this;
 	}
 
-	// Use this for initialization
+
 	void Start () 
 	{
 		helpHudGameObject.SetActive (true);
@@ -82,29 +82,34 @@ public class HorseHUD : MonoBehaviour
             else
                 GameGlobalVariablesManager.OnLevelOver();
         }
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 	}
 
 
 	public void PauseButton()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		pauseMenu.SetActive (true);
 		Time.timeScale = 0.0f;
 	}
 
 	public void ResumeButton()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		Time.timeScale = 1.0f;
 		pauseMenu.SetActive (false);
 	}
 
 	public void RestartButton()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		Time.timeScale = 1.0f;
 		Application.LoadLevel (Application.loadedLevel);
 	}
 
 	public void MenuButton()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		Time.timeScale = 1.0f;
         Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
