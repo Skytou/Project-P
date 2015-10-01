@@ -31,7 +31,8 @@ public class MainMenuManger : MonoBehaviour
 
     public void Play()
     {
-        if(SavedData.Inst.GetGamePlayCount() <= 1)
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        if (SavedData.Inst.GetGamePlayCount() <= 1)
             Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
         else
             Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
@@ -39,16 +40,19 @@ public class MainMenuManger : MonoBehaviour
 
     public void OnTutorialClick()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Application.LoadLevel(GameGlobalVariablesManager.TutorialScene);
     }
 
     public void Store()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
     }
 
     public void Credits()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Application.Quit();
         return;
         // Credits Button
@@ -69,11 +73,14 @@ public class MainMenuManger : MonoBehaviour
             SoundOn.SetActive(true);
             SoundOff.SetActive(false);
         }
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        AudioMgr.Inst.MusicToggle();
     }
 
 
     public void OnEnergy()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         //show video reward ads
     }
 

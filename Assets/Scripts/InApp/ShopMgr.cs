@@ -133,6 +133,7 @@ public class ShopMgr : MonoBehaviour {
     {
         if (isShopOpen)
         {
+            AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
             GoogleIAB.purchaseProduct(itemId);
             //ShopStatus.text = "BuyItem : " + itemId;
         }
@@ -141,12 +142,14 @@ public class ShopMgr : MonoBehaviour {
 
     public void OnClosePopup()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         PopUpInApp.SetActive(false);
     }
 
     
     public void OnOpenPopup()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         PopUpInApp.SetActive(true);
         PopUpNotEnoughCoins.SetActive(false);
     }
@@ -154,6 +157,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void OnOpenNotEnoughCoins()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(true);
     }
@@ -161,12 +165,14 @@ public class ShopMgr : MonoBehaviour {
 
     public void OnCloseNotEnoughCoins()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         PopUpNotEnoughCoins.SetActive(false);
     }
 
 
     public void OnBackButton()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Application.LoadLevel(GameGlobalVariablesManager.MainMenu);
     }
 
@@ -241,13 +247,15 @@ public class ShopMgr : MonoBehaviour {
     #region StoreHUD
     public void BuyLife()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = life;
         storeText.text = "The life of the hero can be upgraded to give more survival in-spite the attacks taken. Upgrade to get extra 20 survival capacity";
-        selectedPowerUp = "Life";        
+        selectedPowerUp = "Life";
     }
 
     public void BuySword()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = sword;
         storeText.text = "The power of the sword determines the hits to kill the enemy. \nUpgrade the sword to kill the enemy fast";
         selectedPowerUp = "Sword";
@@ -255,6 +263,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyKnife()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = throwKnife;
         storeText.text = "This special weapon helps to kill the enemies from a distance. \nMore the throw knives more are the escape opportunities";
         selectedPowerUp = "Knife";
@@ -262,6 +271,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyArmor()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = armor;
         storeText.text = "The armour protects the hero from attack by the enemies. \nUpgrade the armour to reduce damage ";
         selectedPowerUp = "Armor";
@@ -269,6 +279,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyEnergy()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = energy;
         storeText.text = "The hero can sustain in the battle field only till his energy lasts. \nUpgrade to get extra 20 energy to give him more fighting time";
         selectedPowerUp = "Energy";
@@ -276,6 +287,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyCyclone()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = cyclone;
         storeText.text = "Master move by the player to kill the enemies with a circular spin";
         selectedPowerUp = "Cyclone";
@@ -284,6 +296,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyBomb()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = bomb;
         storeText.text = "Stun bomb to stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
         selectedPowerUp = "Bomb";
@@ -291,6 +304,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyTimerFreeze()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = timer;
         storeText.text = "An energy freeze to pause the energy depletion of the hero. This gives more fighting time";
         selectedPowerUp = "Timer";
@@ -299,6 +313,7 @@ public class ShopMgr : MonoBehaviour {
 
     public void BuyCoins()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = coins;
         storeText.text = "Buy more coins and use them in store to get more upgrades";
         selectedPowerUp = "Coins";
@@ -309,6 +324,7 @@ public class ShopMgr : MonoBehaviour {
     {
         if (selectedPowerUp.Equals("Coins"))
         {
+            AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
             OnOpenPopup();
             return;
         }
@@ -324,6 +340,7 @@ public class ShopMgr : MonoBehaviour {
         {
             GameGlobalVariablesManager.totalNumberOfCoins -= (int)curItemPrice;
             SavedData.Inst.SaveAllData();
+            AudioMgr.Inst.PlaySfx(SfxVals.BuyItem);
         }
         switch (selectedPowerUp)
         {
@@ -348,6 +365,7 @@ public class ShopMgr : MonoBehaviour {
                 break;
 
             case "Energy":
+                GameGlobalVariablesManager.IncreaseEnergy();
                 break;
 
             case "Cyclone":

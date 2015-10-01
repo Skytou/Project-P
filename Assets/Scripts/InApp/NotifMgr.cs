@@ -195,6 +195,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void OnGiveDailyBonus()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         if (isDailyBonus)
         {
             GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
@@ -208,6 +209,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void OnClosePopup()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         tapCount++;
         if(tapCount >= 2)
         {

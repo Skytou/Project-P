@@ -89,6 +89,12 @@ public class LevelSelection : MonoBehaviour
 
     public void OnLevelSelected(int level)
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        if (level >= GameGlobalVariablesManager.PlayableLevels)
+        {
+            ShowPopup("Coming Soon !!! \n With more action, enemies, powerups and thrilling story");
+            return;
+        }
         if (!LevelStatus[level])
         {
             ShowPopup("Level is Locked.");
@@ -98,8 +104,7 @@ public class LevelSelection : MonoBehaviour
         {
             ShowPopup("Not enough energy.\nBuy from store.");
             return;
-        }
-        
+        }        
         switch (level)
         {
             case 0:
@@ -156,6 +161,7 @@ public class LevelSelection : MonoBehaviour
             case 18:
             case 19:
             case 20:
+
                 break;
         }
     }
@@ -214,6 +220,7 @@ public class LevelSelection : MonoBehaviour
 
 	public void BackButton()
 	{
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		loadingScreen.SetActive (true);
 		StartCoroutine (LoadLevel (1));
 	}
@@ -246,6 +253,7 @@ public class LevelSelection : MonoBehaviour
 
     public void ClosePopup()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Popup.SetActive(false);
     }
 
@@ -299,6 +307,7 @@ public class LevelSelection : MonoBehaviour
 
     public void OnNextBtn()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Debug.Log("dialog" + dialog);
         dialog++;
         if (dialog >= 7)
@@ -314,6 +323,7 @@ public class LevelSelection : MonoBehaviour
 
     public void OnStoryBtn()
     {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         DialogBox.SetActive(true);
         dialog = 0;
         ShowDialog();

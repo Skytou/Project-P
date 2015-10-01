@@ -46,10 +46,10 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneCastle3 = "castle3";
     public static string SceneCastle4 = "castle4";
 
-    public static int TotalEnergy = 3;
-    public static int TotalKnife = 10;
-    public static int TotalBombs = 5;
-    public static int TotalCyclone = 5;
+    public static int MaxEnergy = 3;
+    public static int MaxKnife = 10;
+    public static int MaxBombs = 5;
+    public static int MaxCyclone = 5;
 
     public static int EnergyAvailable = 3;
     public static int KnifeCount = 5;
@@ -61,6 +61,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int StartBombsCount = 3;
     public static int StartCycloneCount = 3;
     public static int StartLevelsCleared = 0;
+    public static int PlayableLevels = 7;
 
     public static int PlayerLevel = 1;
     public static int SwordLevel = 1;
@@ -111,7 +112,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
         isTimerSelected = false;
         isCycloneSelected = false;
         
-        TotalEnergy -= 1;
+        MaxEnergy -= 1;
 
         isFreezeTimerOn = false;
         isPlayerSpin = false;
@@ -120,5 +121,17 @@ public class GameGlobalVariablesManager : MonoBehaviour
         isFireBallThrown = false;
     }
 
+
+    public static void IncreaseEnergy()
+    {
+        if (EnergyAvailable < MaxEnergy)
+            EnergyAvailable += 1;
+    }
+
+    public static void DecreaseEnergy()
+    {
+        if (EnergyAvailable > 0)
+            EnergyAvailable -= 1;
+    }
 
 }

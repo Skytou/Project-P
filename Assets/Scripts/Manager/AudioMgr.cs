@@ -13,11 +13,14 @@ public enum SfxVals
     Cyclone,
     CameraLock,
     FrogTalk,
+    ButtonClick,
+    BuyItem
 }
 
 public class AudioMgr : MonoBehaviour {
 
     public AudioSource audioSrc;
+    public AudioSource audioSrcBg;
 
     public AudioClip CoinCollect;
     public AudioClip CrateCrash;
@@ -29,6 +32,8 @@ public class AudioMgr : MonoBehaviour {
     public AudioClip Cyclone;
     public AudioClip CameraLock;
     public AudioClip FrogTalk;
+    public AudioClip ButtonClick;
+    public AudioClip BuyItem;
     
     private static AudioMgr instance = null;
     public static AudioMgr Inst
@@ -110,6 +115,19 @@ public class AudioMgr : MonoBehaviour {
             case SfxVals.FrogTalk:
                 audioSrc.PlayOneShot(FrogTalk);
                 break;
+
+            case SfxVals.ButtonClick:
+                audioSrc.PlayOneShot(ButtonClick, 0.8f);
+                break;
+
+            case SfxVals.BuyItem:
+                audioSrc.PlayOneShot(BuyItem, 0.8f);
+                break;
         }
+    }
+
+    public void MusicToggle()
+    {
+        audioSrcBg.mute = GameGlobalVariablesManager.isSoundMuted;
     }
 }

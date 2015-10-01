@@ -43,7 +43,7 @@ public class CoinAnim : MonoBehaviour {
         for (int i = 0; i < coinParticlesList.Count; i++)
         {
             coinParticlesList[i].SetActive(false);
-            Debug.Log(coinParticlesList[i].transform.position.ToString());
+            //Debug.Log(coinParticlesList[i].transform.position.ToString());
         }
         //transform.position = new Vector3(2000,2000,0);
     }
