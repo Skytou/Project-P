@@ -557,9 +557,18 @@ public class PlayerMovement : MonoBehaviour
 		{
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
-			int r = Random.Range(1,4);
-			//Debug.Log("Random value "+ 4);
-			characterAnimator.SetInteger("AttackRandom",r);
+            Debug.Log("Attack lay " + selectedObject.layer);
+            if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
+            {
+                Debug.Log("Attack 2");
+                characterAnimator.SetInteger("AttackRandom", 3 + Random.Range(0, 2));
+            }
+            else
+            {
+                Debug.Log("Attack 1");
+                int r = Random.Range(1, 3);
+                characterAnimator.SetInteger("AttackRandom", r);
+            }
 			characterAnimator.SetTrigger("Attack");
 
 			//Debug.Log( "Event "+ characterAnimator.fireEvents );
