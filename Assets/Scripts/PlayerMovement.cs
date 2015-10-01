@@ -21,8 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator CoinAnimUI;
     public GameObject coinUI;
     public GameObject normalSelectionCircle;
-	public float playerHealth;
-	public float speed ,knifeThrowSpeed ;
+	public float speed, knifeThrowSpeed ;
 	public Vector2 velocity;
 	private Vector3 target;
 	private Animator characterAnimator;
@@ -586,8 +585,9 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetTrigger ("Throw");
 		canThrow = false;
 
-        GameGlobalVariablesManager.numberOfKnives--;
         GameGlobalVariablesManager.KnifeCount -= 1;
+        if (GameGlobalVariablesManager.KnifeCount <= 0)
+            GameGlobalVariablesManager.KnifeCount = 0;
 
         AudioMgr.Inst.PlaySfx(SfxVals.Knife);
 
@@ -648,9 +648,8 @@ public class PlayerMovement : MonoBehaviour
 	{
 		if(!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag") )
 		{
-			GameGlobalVariablesManager.playerHealth--;
-			//InGameHUD.instance.healthBarSlider.value--;
-			playerHealth--;
+            Debug.Log("Health : " + GameGlobalVariablesManager.playerHealth);
+            GameGlobalVariablesManager.playerHealth -= GameGlobalVariablesManager.AttackHealthLost;
 			//Debug.Log ("Play react anim");
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
@@ -663,10 +662,11 @@ public class PlayerMovement : MonoBehaviour
 
 	public void PlayerDead()
 	{
+        // player dead
 		if(GameGlobalVariablesManager.playerHealth<=0)
 		{
-			Debug.Log ("pop up for game over scene");
-            // ponz.2do
+            InGameHUD.instance.EnableDialogueHUD("Well fought ! \n better luck next time");
+            GameGlobalVariablesManager.PlayerDied = true;
 		}
 	}
 

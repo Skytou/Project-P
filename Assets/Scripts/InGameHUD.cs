@@ -62,6 +62,10 @@ public class InGameHUD : MonoBehaviour
 	{
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		dialogueHUD.SetActive (false);
+        if (GameGlobalVariablesManager.PlayerDied)
+        {
+            Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+        }
 	}
 
 
@@ -106,8 +110,7 @@ public class InGameHUD : MonoBehaviour
 
 	public void Knife()
 	{
-        if (GameGlobalVariablesManager.numberOfKnives > 0 
-            && GameGlobalVariablesManager.KnifeCount > 0
+        if (GameGlobalVariablesManager.KnifeCount > 0 
             && !GameGlobalVariablesManager.isPlayerSpin)
 		{
             if (!GameGlobalVariablesManager.isKnifeThrow)

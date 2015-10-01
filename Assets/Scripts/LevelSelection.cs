@@ -119,7 +119,12 @@ public class LevelSelection : MonoBehaviour
         {
             ShowPopup("Not enough energy.\nBuy from store.");
             return;
-        }        
+        }
+
+        // reset player
+        GameGlobalVariablesManager.PlayerDied = false;
+        GameGlobalVariablesManager.playerHealth = 100;
+
         switch (level)
         {
             case 0:
@@ -313,7 +318,7 @@ public class LevelSelection : MonoBehaviour
     public void OnNextBtn()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
-        Debug.Log("dialog" + dialog);
+        //Debug.Log("dialog" + dialog);
         dialog++;
         if (dialog >= 7)
         {

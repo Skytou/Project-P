@@ -7,8 +7,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 {
 	public static bool isCameraLocked = false;
 
-	public static float playerHealth = 0;
-
 	public static bool isPlayerSpin = false;
 
 	public static bool isKnifeThrow = false;
@@ -28,8 +26,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isSwordSelected, isKnifeSelected;
 	public static bool isTimerSelected, isCycloneSelected;
- 
-	public static float numberOfKnives = 100;
 
     public static string StoreScene = "StoreScene";
     public static string MainMenu = "MainMenu";
@@ -81,7 +77,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int WallLightLayer = 12;
 
     // to take a build with out ads
-    public static bool IsShowAd = false;
+    public static bool IsShowAd = true;
+
+    public static int playerHealth = 100;
+    public static int AttackHealthLost = 5;
+    public static bool PlayerDied = false;
 
 	void Awake()
 	{

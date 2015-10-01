@@ -23,7 +23,6 @@ public class LevelManager : MonoBehaviour
 	//public GameObject[] aiPrefab;
 	//public GameObject[] spawnPoiints;
 
-	public float playerHealth;
 	public string  dialogueHUDTextLevelStart ,dialogueHUDTextLevelEnd ;
 
 	public List<AIGameObjectInSections> aiGameObjectsInSections;
@@ -54,7 +53,6 @@ public class LevelManager : MonoBehaviour
 		stageCompleted = new bool[10];
 		GameGlobalVariablesManager.isCameraLocked = false;
 		portal.SetActive (false);
-		GameGlobalVariablesManager.playerHealth = playerHealth;
 
         StageCompleteIndex = aiGameObjectsInSections.Count;
 	}
