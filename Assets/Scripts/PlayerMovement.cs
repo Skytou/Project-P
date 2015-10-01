@@ -677,7 +677,7 @@ public class PlayerMovement : MonoBehaviour
                 case "Objects":
                     PotParticleObj.SetActive(true);
                     PotParticleObj.transform.position = selectedObject.transform.position + new Vector3(0, 1.3f, 0);
-                    StartCoroutine(HideAfterTime(0.7f));
+                    StartCoroutine(HideAfterTime(0.6f));
 
                     Destroy(selectedObject.gameObject);
                     if (CoinAnimUI != null)

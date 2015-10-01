@@ -72,7 +72,9 @@ public class AIComponent : MonoBehaviour
 	 
 	public bool canStun =false;
 	public float bTimer;
- 
+
+    CoinAnim coinAnim;
+
 	void Awake()
 	{
 		//playerRef = GameObject.FindGameObjectWithTag("Player");
@@ -95,6 +97,11 @@ public class AIComponent : MonoBehaviour
 
 		isDead = false;
 		bTimer = GameGlobalVariablesManager.stunTime;
+        GameObject curObj = GameObject.FindGameObjectWithTag("CoinParticles") as GameObject;
+        if (curObj != null)
+        {
+            coinAnim = curObj.GetComponent<CoinAnim>() as CoinAnim;
+        }
 		//aiMaxHitTaken = 2;
 	}
 
@@ -352,21 +359,20 @@ public class AIComponent : MonoBehaviour
 			aiAnimator.SetTrigger("Death");
 			aiAnimator.SetInteger("DeathRandom",r);
 
+            if (coinAnim != null)
+                coinAnim.PlayCoinAnim(transform.position + new Vector3(0,4,0));
             GameGlobalVariablesManager.totalNumberOfCoins += 10;
             AudioMgr.Inst.PlaySfx(SfxVals.EnemyDeath);
 		}
-
-
-		//Destroy (this.gameObject,2f);
 	}
+
  	 
 	public void DestroyEnemy()
 	{ 
 		enemyDeathParticleEffect.SetActive (true);
 		aiSpriteRenderer.enabled = false;
 		Destroy (this.gameObject, 0.5f);
-	}
- 
+	} 
  
 
 	void ThrowSpears()
@@ -379,9 +385,8 @@ public class AIComponent : MonoBehaviour
 			spear = Instantiate (throwPrefab, throwStartPoint.transform.position, Quaternion.identity) as GameObject;
 			spear.SetActive (false);
 		}
-		
-
 	}
+
 
 	public void LaunchSpear()
 	{
@@ -389,8 +394,8 @@ public class AIComponent : MonoBehaviour
 
 		spear.SetActive (true);
 		spear.GetComponent<ThrowableObject> ().ThowObjectTo (playerRef.transform.position, true);
-
 	}
+
 
 	void MoveTowardsPlayerToThrow()
 	{

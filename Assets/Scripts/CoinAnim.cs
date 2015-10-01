@@ -25,23 +25,27 @@ public class CoinAnim : MonoBehaviour {
 
     IEnumerator PlayCoinAnimAt(Vector3 newPos)
     {
-        transform.position = newPos;
         float curTime = 0;
-        for (int i = 0; i < coinParticlesList.Count; i++)
+        int coinCount = Random.Range(3, coinParticlesList.Count);
+        for (int i = 0; i < coinCount; i++)
         {
-            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(1, 5), Random.Range(1, 2), 0);
+            coinParticlesList[i].SetActive(true);
+            coinParticlesList[i].transform.position = newPos + new Vector3(Random.Range(0.5f, 3), Random.Range(0, 3), 0);
+            Debug.Log(coinParticlesList[i].transform.position.ToString());
         }
-        while (curTime < 5f)
+        while (curTime < 0.3f)
         {
             curTime += Time.deltaTime;
-            for (int i = 0; i < coinParticlesList.Count; i++)
-            {
-                coinParticlesList[i].transform.position
+            transform.position
                     += new Vector3(0, Time.deltaTime * 10, 0);
-            }
             yield return null;
         }
-        transform.position = new Vector3(10000,5000,0);
+        for (int i = 0; i < coinParticlesList.Count; i++)
+        {
+            coinParticlesList[i].SetActive(false);
+            Debug.Log(coinParticlesList[i].transform.position.ToString());
+        }
+        //transform.position = new Vector3(2000,2000,0);
     }
 
 
