@@ -207,7 +207,7 @@ public class HorseManager : MonoBehaviour
         if (sceneLvl == 1)
         {
             // condition for lvl 1
-            if(timer > 10)
+            if(timer > 60)
             {
                 victory = true;
                 GameOver();

@@ -96,8 +96,8 @@ public class GameGlobalVariablesManager : MonoBehaviour
     {
         Debug.Log("LevelsCleared:" + GameGlobalVariablesManager.LevelsCleared);
         Debug.Log("currentLevelnumber:" + GameGlobalVariablesManager.currentLevelnumber);
-        if (GameGlobalVariablesManager.LevelsCleared <= GameGlobalVariablesManager.currentLevelnumber)
-            GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber;
+        if (GameGlobalVariablesManager.LevelsCleared <= GameGlobalVariablesManager.currentLevelnumber + 1)
+            GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;
 
         OnLevelOver();
     }
