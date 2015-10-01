@@ -32,6 +32,7 @@ public class LevelSelection : MonoBehaviour
 
     public GameObject LSpeech;
     public GameObject RSpeech;
+    public GameObject StoreBtn;
 
     int dialog = -1;
     
@@ -62,6 +63,8 @@ public class LevelSelection : MonoBehaviour
         Debug.Log("LevelsCleared : " + GameGlobalVariablesManager.LevelsCleared);
         if (GameGlobalVariablesManager.LevelsCleared < 1)
             OpenStoryDialog();
+
+        //GameGlobalVariablesManager.EnergyAvailable = 0;
 	}
 
 
@@ -117,7 +120,7 @@ public class LevelSelection : MonoBehaviour
         }
         else if(GameGlobalVariablesManager.EnergyAvailable <= 0)
         {
-            ShowPopup("Not enough energy.\nBuy from store.");
+            ShowStorePopup("Not enough energy.\nBuy from store.");
             return;
         }
 
@@ -267,7 +270,15 @@ public class LevelSelection : MonoBehaviour
     public void ShowPopup(string msg)
     {
         PopupText.text = msg;
+        Popup.SetActive(true);        
+    }
+
+
+    public void ShowStorePopup(string msg)
+    {
+        PopupText.text = msg;
         Popup.SetActive(true);
+        StoreBtn.SetActive(true);
     }
 
 
@@ -275,9 +286,29 @@ public class LevelSelection : MonoBehaviour
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         Popup.SetActive(false);
+        StoreBtn.SetActive(false);
     }
 
 
+    public void OpenStore()
+    {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        Popup.SetActive(false);
+        StoreBtn.SetActive(false);
+        Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
+    }
+
+    public void OnEnergy()
+    {
+        if (GameGlobalVariablesManager.EnergyAvailable <= 0)
+        {
+            ShowStorePopup("Not enough energy.\nBuy from store.");            
+        }
+        else
+        {
+            ShowStorePopup("you have " + GameGlobalVariablesManager.EnergyAvailable + " energy.");
+        }
+    }
 
     #region Story
     public void ShowDialog()

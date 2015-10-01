@@ -369,9 +369,13 @@ public class ShopMgr : MonoBehaviour {
                 break;
 
             case "Cyclone":
-                GameGlobalVariablesManager.CycloneCount += 1;
+                if (GameGlobalVariablesManager.CycloneCount < GameGlobalVariablesManager.MaxCyclone)
+                {
+                    GameGlobalVariablesManager.CycloneCount += 1;
+                }
                 break;           
         }
+        SavedData.Inst.SaveAllData();
         UpdateUI();
     }
 	

@@ -36,7 +36,7 @@ public class HorseHUD : MonoBehaviour
 		helpHudGameObject.SetActive (true);
 		helpHudText.text = introText;
 		pauseMenu.SetActive (false);
-		Time.timeScale = 1.0f;
+		//Time.timeScale = 1.0f;
 		isGameOver = false;
 		SetLifeOnStart ();
         lifeIndex = 2;
@@ -81,6 +81,7 @@ public class HorseHUD : MonoBehaviour
                 GameGlobalVariablesManager.OnLevelCleared();
             else
                 GameGlobalVariablesManager.OnLevelOver();
+            Time.timeScale = 1.0f;
         }
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 	}
@@ -111,6 +112,7 @@ public class HorseHUD : MonoBehaviour
 	{
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 		Time.timeScale = 1.0f;
+        SavedData.Inst.SaveAllData();
         Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 

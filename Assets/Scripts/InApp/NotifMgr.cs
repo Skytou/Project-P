@@ -12,11 +12,10 @@ public class NotifMgr : MonoBehaviour {
     private int oneDayNotificationId;
 
     public Text timeRemain;
-    long SecInDay = 24 * 60 * 60;
-    long EnergyRefillTime = 30 * 60; // 30 minutes = 1 energy
+    long SecInDay = 10 * 60;
+    long EnergyRefillTime = 5 * 60; // 30 minutes = 1 energy
     float curTime = 0;
     float curTimeVal = 1;
-    bool isDailyBonus = false;
     int tapCount = 0;
 
     void OnEnable()
@@ -67,14 +66,7 @@ public class NotifMgr : MonoBehaviour {
 
     void UpdateUI()
     {
-        if (isDailyBonus)
-        {
-            timeRemain.text = "Collect";
-        }
-        else
-        {
-            timeRemain.text = GetTimeDiff().ToString();
-        }
+        timeRemain.text = GetTimeDiff().ToString();
     }
 
 
@@ -165,6 +157,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void GiveEnergyBonus()
     {
+        GameGlobalVariablesManager.IncreaseEnergy();
         // save it to pref
         SavedData.Inst.OnDailyBonusGiven();
         SetNotif_1Hr();
@@ -181,14 +174,9 @@ public class NotifMgr : MonoBehaviour {
 
         System.TimeSpan diff = currentDate.Subtract(oldDate);
 
-        if (diff.TotalSeconds >= SecInDay)
+        if (diff.TotalSeconds >= SecInDay && diff.TotalSeconds <= 2 * SecInDay)
         {
-            isDailyBonus = true;
-        }
-        else
-        {
-            isDailyBonus = false;
-            //Debug.Log("BONUS After : " + (SecInDay - diff.TotalSeconds) + " Seconds");
+            OnGiveDailyBonus();
         }
     }
 
@@ -196,14 +184,11 @@ public class NotifMgr : MonoBehaviour {
     public void OnGiveDailyBonus()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
-        if (isDailyBonus)
-        {
-            GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
-            // save it to pref
-            SavedData.Inst.OnDailyBonusGiven();
-            SetNotif_24Hr();
-            dailyBonusPopup.SetActive(true);
-        }
+        GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
+        // save it to pref
+        SavedData.Inst.OnDailyBonusGiven();
+        SetNotif_24Hr();
+        dailyBonusPopup.SetActive(true);
     }
 
 

@@ -86,6 +86,7 @@ public class PlayerMovement : MonoBehaviour
         PotParticleObj.SetActive(false);
 	}
 
+
 	void Start()
 	{
 		initialSpeed = speed;
@@ -115,6 +116,9 @@ public class PlayerMovement : MonoBehaviour
             Physics2D.IgnoreLayerCollision(gameObject.layer, curLayer, false);
         }
         Debug.Log("Playing level : " + GameGlobalVariablesManager.currentLevelnumber);
+
+        GameGlobalVariablesManager.DecreaseEnergy();
+        SavedData.Inst.SaveAllData();
 	}
  
 
@@ -203,7 +207,7 @@ public class PlayerMovement : MonoBehaviour
 	 
 	void OnTriggerEnter2D(Collider2D other)
 	{
-        Debug.Log("OnTriggerEnter2D");
+        //Debug.Log("OnTriggerEnter2D");
 		layerName = LayerMask.LayerToName (other.gameObject.layer);
 		
 		switch (layerName)
@@ -308,6 +312,7 @@ public class PlayerMovement : MonoBehaviour
 		case "Portal":
                 Debug.Log("LevelsCleared, portal : " + GameGlobalVariablesManager.LevelsCleared);
                 LevelManager.instance.ClosePortal();
+                SavedData.Inst.SaveAllData();
                 GameGlobalVariablesManager.OnLevelCleared();
                 Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 			break;
@@ -316,6 +321,7 @@ public class PlayerMovement : MonoBehaviour
 			break;
 		}
 	}
+
 
 	void Spin()
 	{
@@ -663,10 +669,11 @@ public class PlayerMovement : MonoBehaviour
 	public void PlayerDead()
 	{
         // player dead
-		if(GameGlobalVariablesManager.playerHealth<=0)
+        if (GameGlobalVariablesManager.playerHealth <= 0 && !GameGlobalVariablesManager.PlayerDied)
 		{
             InGameHUD.instance.EnableDialogueHUD("Well fought ! \n better luck next time");
-            GameGlobalVariablesManager.PlayerDied = true;
+            GameGlobalVariablesManager.PlayerDied = true;            
+            SavedData.Inst.SaveAllData();
 		}
 	}
 

@@ -215,6 +215,7 @@ public class InGameHUD : MonoBehaviour
     public void Menu()
 	{
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        SavedData.Inst.SaveAllData();
         Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
 	}
 

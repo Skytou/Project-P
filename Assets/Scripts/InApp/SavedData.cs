@@ -80,6 +80,8 @@ public class SavedData
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+
+        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.EnergyAvailable);        
         PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.KnifeCount);
         PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.BombsCount);
         PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.CycloneCount);
@@ -96,6 +98,8 @@ public class SavedData
         PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.StartKnifeCount);
         PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.StartBombsCount);
         PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.StartCycloneCount);
+        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.StartEnergyAvailable);
+        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.StartLevelsCleared);
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
         LastDailyBonusTime = LastSavedTime;
@@ -103,7 +107,6 @@ public class SavedData
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
-        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.StartLevelsCleared);
         PlayerPrefs.Save();
     }
 

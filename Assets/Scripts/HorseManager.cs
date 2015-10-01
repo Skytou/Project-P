@@ -66,7 +66,8 @@ public class HorseManager : MonoBehaviour
 		_controller.onTriggerEnterEvent += onTriggerEnterEvent;
 		_controller.onTriggerExitEvent += onTriggerExitEvent;
 	}
-	// Use this for initialization
+
+
 	void Start () 
 	{
 		lastPosition = transform.position;
@@ -75,6 +76,9 @@ public class HorseManager : MonoBehaviour
         Time.timeScale = 0.0f;
         audioSrc = GetComponent<AudioSource>();
         GameGlobalVariablesManager.isCameraLocked = false;
+
+        GameGlobalVariablesManager.DecreaseEnergy();
+        SavedData.Inst.SaveAllData();
     }
 
 	#region Event Listeners
