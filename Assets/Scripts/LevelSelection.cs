@@ -35,7 +35,7 @@ public class LevelSelection : MonoBehaviour
     public GameObject StoreBtn;
 
     int dialog = -1;
-    
+    public Text EnergyCountText;
 
 	void Start () 
 	{
@@ -86,6 +86,8 @@ public class LevelSelection : MonoBehaviour
         {
             levelLock[i].SetActive(!LevelStatus[i]);
         }
+
+        EnergyCountText.text = GameGlobalVariablesManager.EnergyAvailable.ToString();
     }
 
 

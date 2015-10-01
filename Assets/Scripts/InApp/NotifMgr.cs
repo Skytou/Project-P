@@ -12,8 +12,9 @@ public class NotifMgr : MonoBehaviour {
     private int oneDayNotificationId;
 
     public Text timeRemain;
+    public Text DailyBonusText;
     long SecInDay = 10 * 60;
-    long EnergyRefillTime = 5 * 60; // 30 minutes = 1 energy
+    long EnergyRefillTime = 2 * 60; // 30 minutes = 1 energy
     float curTime = 0;
     float curTimeVal = 1;
     int tapCount = 0;
@@ -66,7 +67,7 @@ public class NotifMgr : MonoBehaviour {
 
     void UpdateUI()
     {
-        timeRemain.text = GetTimeDiff().ToString();
+        //timeRemain.text = GetTimeDiff().ToString();
     }
 
 
@@ -176,15 +177,24 @@ public class NotifMgr : MonoBehaviour {
 
         if (diff.TotalSeconds >= SecInDay && diff.TotalSeconds <= 2 * SecInDay)
         {
+            Debug.Log("OnGiveDailyBonus");
             OnGiveDailyBonus();
         }
     }
 
 
+    public void OnGiveDailyBonusBtn()
+    {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        DailyBonusText.text = "play daily to \ncollect daily bonus";
+        dailyBonusPopup.SetActive(true);
+    }
+
     public void OnGiveDailyBonus()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
+        DailyBonusText.text = "Congrats\n you got daily bonus";
         // save it to pref
         SavedData.Inst.OnDailyBonusGiven();
         SetNotif_24Hr();
