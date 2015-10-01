@@ -13,8 +13,8 @@ public class NotifMgr : MonoBehaviour {
 
     public Text timeRemain;
     public Text DailyBonusText;
-    long SecInDay = 10 * 60;
-    long EnergyRefillTime = 2 * 60; // 30 minutes = 1 energy
+    long SecInDay = 24 * 60 * 60;
+    long EnergyRefillTime = 30 * 60; // 30 minutes = 1 energy
     float curTime = 0;
     float curTimeVal = 1;
     int tapCount = 0;
@@ -73,7 +73,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(EnergyRefillTime, "Got an energy", "Play the Epic Clash", "Have fun")
+        var noteConfig = new AndroidNotificationConfiguration(EnergyRefillTime, "Epic Clash - The Puli", "Got an energy, conitnue the game", "Have fun")
         {
             extraData = "one-hour-note",
             groupKey = "my-note-group",
@@ -111,7 +111,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_24Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Collect your daily bonus", "Play the epic clash", "Have fun")
+        var noteConfig = new AndroidNotificationConfiguration(SecInDay, "Epic Clash - The Puli", "Play daily to collect your daily bonus", "Have fun")
         {
             extraData = "one-day-note",
             groupKey = "my-note-group",
@@ -175,7 +175,7 @@ public class NotifMgr : MonoBehaviour {
 
         System.TimeSpan diff = currentDate.Subtract(oldDate);
 
-        if (diff.TotalSeconds >= SecInDay && diff.TotalSeconds <= 2 * SecInDay)
+        if (diff.TotalSeconds >= SecInDay)
         {
             Debug.Log("OnGiveDailyBonus");
             OnGiveDailyBonus();
@@ -189,6 +189,7 @@ public class NotifMgr : MonoBehaviour {
         DailyBonusText.text = "play daily to \ncollect daily bonus";
         dailyBonusPopup.SetActive(true);
     }
+
 
     public void OnGiveDailyBonus()
     {
