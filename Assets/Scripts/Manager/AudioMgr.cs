@@ -72,7 +72,6 @@ public class AudioMgr : MonoBehaviour {
 
     public void PlaySfx(SfxVals curSfxVal)
     {
-        Debug.Log("PlaySfx");
         if(GameGlobalVariablesManager.isSoundMuted)
             return;
         switch(curSfxVal)

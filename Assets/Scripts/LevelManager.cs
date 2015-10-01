@@ -133,7 +133,7 @@ public class LevelManager : MonoBehaviour
 			}
 			else
 			{
-				Debug.Log ("Limit reached");
+                Debug.Log("Limit reached : " + aiGameObjectsInSections.Count);
 				// TODO: unlock the next area collider  , call camera movement
 				//if(limit>aiGameObjectsInSections.Count )
 
@@ -173,6 +173,7 @@ public class LevelManager : MonoBehaviour
 						break;
 
 					case 6:
+                        Debug.Log("portal open");
 						InGameHUD.instance.EnableDialogueHUD (dialogueHUDTextLevelEnd);
 						portal.SetActive (true);
                         isPortalOpen = true;
