@@ -37,13 +37,14 @@ public class PlayerMovement : MonoBehaviour
 	Vector3 touchPos;
 	string layerName;
 
-	bool isInMove;
- 	bool isRun;
     bool isIdle;
+    bool isInMove;
+ 	bool isRun;
+    bool isAttack;
+    bool isReact;
 
     public GameObject PotParticleObj;
 
-	//string selectedObject;
 	GameObject selectedEnemy, selectedObject;
 
  	public float distanceToPoint, distanceToAttack, distanceToThrow;
@@ -57,7 +58,7 @@ public class PlayerMovement : MonoBehaviour
 
 	public GameObject knife;
 
-	RaycastHit2D hit ;
+	RaycastHit2D hit;
 	RaycastHit hit3D;
 	float a_timer;
 
@@ -120,6 +121,12 @@ public class PlayerMovement : MonoBehaviour
 
         GameGlobalVariablesManager.DecreaseEnergy();
         SavedData.Inst.SaveAllData();
+
+        isIdle = true;
+        isInMove = false;
+        isRun = false;
+        isAttack = false;
+        isReact = false;
 	}
  
 
@@ -441,6 +448,8 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetBool("isInMove",isInMove);
         characterAnimator.SetBool("isRun", isRun);
         characterAnimator.SetBool("isIdle", isIdle);
+        characterAnimator.SetBool("isAttack", isAttack);
+        characterAnimator.SetBool("isReact", isReact);
         characterAnimator.SetFloat("idleDirection", idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection); 	 
 	}
@@ -673,8 +682,18 @@ public class PlayerMovement : MonoBehaviour
 			//Debug.Log("Random value "+ 4);
 			characterAnimator.SetInteger("ReactRandom",1);
 			characterAnimator.SetTrigger("React");
+
+            StartCoroutine(ShowAttackColors());
 		}
 	}
+
+    IEnumerator ShowAttackColors()
+    {
+        SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
+        sr.color = new Color(1, 0.5f, 0.5f, 1);
+        yield return new WaitForSeconds(0.2f);
+        sr.color = new Color(1, 1, 1, 1);
+    }
 
 
 	public void PlayerDead()
@@ -808,7 +827,6 @@ public class PlayerMovement : MonoBehaviour
                         if (selectedObject.GetComponent<AIComponent>() != null)
                             selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						selectedObject = null;
-
 					}
                     //characterAnimator.ResetTrigger("Attack");
 					playerBehaviour = PlayerBehaviour.MOVE;
@@ -868,14 +886,12 @@ public class PlayerMovement : MonoBehaviour
 						break;
 
 					default:
-						{
 							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 							if (selectedObject != null) {
 								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 							}
 							canThrow = true;
 							playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
-						}
 						break;
 					}
 
