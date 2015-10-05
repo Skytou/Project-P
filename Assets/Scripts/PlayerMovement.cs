@@ -60,7 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
 	RaycastHit2D hit;
 	RaycastHit hit3D;
-	float a_timer;
+	float nextAttackTimer;
 
 	public bool canThrow;
 	public bool isKnifeThrow;
@@ -394,7 +394,7 @@ public class PlayerMovement : MonoBehaviour
 	void MoveTowardsPoint()
 	{ 
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-        Debug.Log("distance Point: " + distanceToPoint + ", Attack: " + distanceToAttack);
+        //Debug.Log("distance Point: " + distanceToPoint + ", Attack: " + distanceToAttack);
  		if(distanceToPoint < distanceToAttack)
 		{
 			Stop ();
@@ -518,15 +518,17 @@ public class PlayerMovement : MonoBehaviour
             {
                 if (!GameGlobalVariablesManager.isKnifeThrow)
                 {
-                    if (a_timer <= 0f)
+                    if (nextAttackTimer <= 0f)
                     {
                         // call Attack()
                         if (selectedObject != null)
+                        {
                             Attack();
+                        }
 
-                        a_timer = attackTime;
+                        nextAttackTimer = attackTime;
                     }
-                    a_timer -= Time.deltaTime;
+                    nextAttackTimer -= Time.deltaTime;
                 }
                 else
                 {
@@ -536,7 +538,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            
+            isAttack = false;
         }
 			
         return; 		 
@@ -559,13 +561,17 @@ public class PlayerMovement : MonoBehaviour
 			idleDirection = prevMoveDirection;
 
             if (!animatorStateInfo.IsTag("AttackTag"))
+            {
                 isIdle = true;
+            }
 
-			characterAnimator.SetBool ("isInMove", isInMove);
-            characterAnimator.SetBool ("isRun", isRun);
-            characterAnimator.SetBool ("isIdle", isIdle);
-			characterAnimator.SetFloat ("idleDirection", idleDirection);
-			characterAnimator.SetFloat ("moveDirection", moveDirection);
+            characterAnimator.SetBool("isInMove", isInMove);
+            characterAnimator.SetBool("isRun", isRun);
+            characterAnimator.SetBool("isIdle", isIdle);
+            characterAnimator.SetBool("isAttack", isAttack);
+            characterAnimator.SetBool("isReact", isReact);
+            characterAnimator.SetFloat("idleDirection", idleDirection);
+            characterAnimator.SetFloat("moveDirection", moveDirection); 
 		}
 	}
 
@@ -574,10 +580,10 @@ public class PlayerMovement : MonoBehaviour
 	{
         Debug.Log("Attack()");
 		//if(Input.GetKeyDown(KeyCode.A))
-		if(selectedObject!=null)
-		{
-			characterAnimator.SetFloat("idleDirection",idleDirection);
-			characterAnimator.SetFloat("moveDirection",moveDirection);
+        if (selectedObject != null)
+        {
+            characterAnimator.SetFloat("idleDirection", idleDirection);
+            characterAnimator.SetFloat("moveDirection", moveDirection);
             Debug.Log("Attack lay " + selectedObject.layer);
             if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
             {
@@ -590,10 +596,14 @@ public class PlayerMovement : MonoBehaviour
                 int r = Random.Range(1, 3);
                 characterAnimator.SetInteger("AttackRandom", r);
             }
-			characterAnimator.SetTrigger("Attack");
+            characterAnimator.SetTrigger("Attack");
 
-			//Debug.Log( "Event "+ characterAnimator.fireEvents );
-		}
+            //Debug.Log( "Event "+ characterAnimator.fireEvents );
+        }
+        else
+        {
+            isAttack = false;
+        }
 	}
 
 
@@ -687,6 +697,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+
     IEnumerator ShowAttackColors()
     {
         SpriteRenderer sr = gameObject.GetComponent<SpriteRenderer>() as SpriteRenderer;
@@ -711,8 +722,8 @@ public class PlayerMovement : MonoBehaviour
 	public void AttackEnemy()
 	{
         Debug.Log("AttackEnemy() : executing attack in player script");
-		if(selectedObject!=null)
-		{
+        if (selectedObject != null)
+        {
             switch (LayerMask.LayerToName(selectedObject.layer))
             {
                 case "AI":
@@ -740,7 +751,19 @@ public class PlayerMovement : MonoBehaviour
                     GameGlobalVariablesManager.totalNumberOfCoins += 20;
                     break;
             }
-		}
+        }
+        else
+        {
+            isAttack = false;
+
+            characterAnimator.SetBool("isInMove", isInMove);
+            characterAnimator.SetBool("isRun", isRun);
+            characterAnimator.SetBool("isIdle", isIdle);
+            characterAnimator.SetBool("isAttack", isAttack);
+            characterAnimator.SetBool("isReact", isReact);
+            characterAnimator.SetFloat("idleDirection", idleDirection);
+            characterAnimator.SetFloat("moveDirection", moveDirection); 
+        }
 	}
 
 
@@ -779,7 +802,8 @@ public class PlayerMovement : MonoBehaviour
 							    selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
 						    }
 						    touchPos = selectedObject.transform.position;
-
+                            isAttack = true;
+                            nextAttackTimer = 0;
 						    playerBehaviour = PlayerBehaviour.MOVE;
 						    break;
 
@@ -787,22 +811,29 @@ public class PlayerMovement : MonoBehaviour
 						    selectedObject = hit.collider.gameObject;
 						    distanceToAttack = intialDistanceToAttack / 2;
 						    touchPos = selectedObject.transform.position;
-						 
-						    Debug.Log ("touch pos is generated");
+
+                            Debug.Log("clicked on Objects");
+                            isAttack = true;
+                            nextAttackTimer = 0;
 						    playerBehaviour = PlayerBehaviour.MOVE;
 						    break;
 
 					    case "WallLightLayer":
 						    touchPos = this.transform.position;
-
+                            isAttack = false;
+                            nextAttackTimer = 0;
 						    break;
 
 					    case "AreaLock":
 						    touchPos = this.transform.position;
+                            isAttack = false;
+                            nextAttackTimer = 0;
 						    break;
 
                         case "Player":
                             touchPos = this.transform.position;
+                            isAttack = false;
+                            nextAttackTimer = 0;
                             break;
 
 					    default:
@@ -814,13 +845,15 @@ public class PlayerMovement : MonoBehaviour
                                 if(selectedObject.GetComponent<AIComponent>() != null)
 								    selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						    }
+                            isAttack = false;
+                            nextAttackTimer = 0;
 						    playerBehaviour = PlayerBehaviour.MOVE;
                             break;
                     }// end of switch
 				} //if  collider != null
                 else 
                 {
-                    //Debug.Log("collider = null");
+                    Debug.Log("collider = null");
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					if (selectedObject != null) {
                         // ponz.2do
@@ -828,6 +861,8 @@ public class PlayerMovement : MonoBehaviour
                             selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						selectedObject = null;
 					}
+                    isAttack = false;
+                    nextAttackTimer = 0;
                     //characterAnimator.ResetTrigger("Attack");
 					playerBehaviour = PlayerBehaviour.MOVE;
 				}
@@ -887,7 +922,7 @@ public class PlayerMovement : MonoBehaviour
 
 					default:
 							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-							if (selectedObject != null) {
+							if (selectedObject != null){
 								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 							}
 							canThrow = true;
