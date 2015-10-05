@@ -11,8 +11,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
 	public static bool isKnifeThrow = false;
 
-	public static bool isSoundMuted = false;
-
 	public static bool isBombActivated =false;
 
 	public static bool isFireBallThrown;
@@ -76,8 +74,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
     // layer collision
     public static int WallLightLayer = 12;
 
+    #region TempVals
     // to take a build with out ads
-    public static bool IsShowAd = true;
+    public static bool IsShowAd = false;
+    public static bool isSoundMuted = true;
+    #endregion TempVals
 
     public static int playerHealth = 100;
     public static int AttackHealthLost = 5;

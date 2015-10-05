@@ -39,6 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
 	bool isInMove;
  	bool isRun;
+    bool isIdle;
 
     public GameObject PotParticleObj;
 
@@ -95,9 +96,9 @@ public class PlayerMovement : MonoBehaviour
 		intialDistanceToAttack = distanceToAttack;
 		//Debug.Log (intialDistanceToAttack);
 		initialDistanceToThrow = distanceToThrow;
-		idleDirection =5;
+		idleDirection = 5;
 		//moveDirection=-1;
-		characterAnimator.SetFloat("idleDirection",idleDirection);
+		characterAnimator.SetFloat("idleDirection", idleDirection);
 		sTime = spinTime;
 		fTimer = fireBallTimer;
 		spinSelectionCircle.SetActive ((false));
@@ -385,12 +386,11 @@ public class PlayerMovement : MonoBehaviour
 
 	void MoveTowardsPoint()
 	{ 
-		distanceToPoint = Vector2.Distance(transform.position, touchPos);		 
-
- 		if(distanceToPoint<distanceToAttack)
+		distanceToPoint = Vector2.Distance(transform.position, touchPos);
+        Debug.Log("distance Point: " + distanceToPoint + ", Attack: " + distanceToAttack);
+ 		if(distanceToPoint < distanceToAttack)
 		{
 			Stop ();
-			//Debug.Log ("Stopping");
 		}
 		else
 		{
@@ -399,8 +399,6 @@ public class PlayerMovement : MonoBehaviour
 			
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
 			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
-
-			isInMove = true;
 			 
 			if(selectedObject==null)
 			{
@@ -410,7 +408,7 @@ public class PlayerMovement : MonoBehaviour
 			}
 			else
 			{
-				if(distanceToPoint<=distanceToAttack *2)
+				if(distanceToPoint<=distanceToAttack * 2)
 				{
 					isRun = false;
 					speed = initialSpeed/2;
@@ -428,19 +426,22 @@ public class PlayerMovement : MonoBehaviour
 		{
 			characterAnimator.StopPlayback();
 			CalculateAngle(angle);
+            isIdle = false;
 		}
 
         if (transform.position == touchPos)
         {
             isInMove = false;
             isRun = false;
+            isIdle = true;
             idleDirection = prevMoveDirection;
             distanceToAttack = 0;
         }
 
 		characterAnimator.SetBool("isInMove",isInMove);
-		characterAnimator.SetBool("isRun",isRun);
-		characterAnimator.SetFloat("idleDirection",idleDirection);
+        characterAnimator.SetBool("isRun", isRun);
+        characterAnimator.SetBool("isIdle", isIdle);
+        characterAnimator.SetFloat("idleDirection", idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection); 	 
 	}
 
@@ -484,6 +485,7 @@ public class PlayerMovement : MonoBehaviour
 
 		characterAnimator.SetBool("isInMove",isInMove);
 		characterAnimator.SetBool("isRun",isRun);
+        characterAnimator.SetBool("isIdle", isIdle);        
 		characterAnimator.SetFloat("idleDirection",idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection);
 	}
@@ -499,40 +501,41 @@ public class PlayerMovement : MonoBehaviour
 
 	void Stop()
 	{
-		
-	 	Idle();
+        Idle();
 
-		if(selectedObject!=null )
-		{
-			if(!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
-			{
-				if(!GameGlobalVariablesManager.isKnifeThrow)
-				{
-					if(a_timer <=0f)
-					{
-						// call Attack()
-						if(selectedObject!=null  )
-						Attack();
+        if (selectedObject != null)
+        {
+            if (!animatorStateInfo.IsTag("AttackTag") && (!animatorStateInfo.IsTag("ReactTag")))
+            {
+                if (!GameGlobalVariablesManager.isKnifeThrow)
+                {
+                    if (a_timer <= 0f)
+                    {
+                        // call Attack()
+                        if (selectedObject != null)
+                            Attack();
 
-						a_timer = attackTime;
-					}
-					a_timer -= Time.deltaTime;
-				}
-
-				else
-				{
-					//ThrowKnife ();
-				}
-			}
-		}
-		else
-			return; 		 
+                        a_timer = attackTime;
+                    }
+                    a_timer -= Time.deltaTime;
+                }
+                else
+                {
+                    //ThrowKnife ();
+                }
+            }
+        }
+        else
+        {
+            
+        }
+			
+        return; 		 
 	}
 
  
 	void Idle()
 	{
-
 		if (!animatorStateInfo.IsTag ("ReactTag")) 
 		{
 			xComponent = -transform.position.x + touchPos.x;
@@ -546,13 +549,17 @@ public class PlayerMovement : MonoBehaviour
 			isRun = false;
 			idleDirection = prevMoveDirection;
 
+            if (!animatorStateInfo.IsTag("AttackTag"))
+                isIdle = true;
 
 			characterAnimator.SetBool ("isInMove", isInMove);
-			characterAnimator.SetBool ("isRun", isRun);
+            characterAnimator.SetBool ("isRun", isRun);
+            characterAnimator.SetBool ("isIdle", isIdle);
 			characterAnimator.SetFloat ("idleDirection", idleDirection);
 			characterAnimator.SetFloat ("moveDirection", moveDirection);
 		}
 	}
+
 
 	void Attack()
 	{
@@ -579,6 +586,7 @@ public class PlayerMovement : MonoBehaviour
 			//Debug.Log( "Event "+ characterAnimator.fireEvents );
 		}
 	}
+
 
 	void ThrowKnife()
 	{
@@ -624,6 +632,7 @@ public class PlayerMovement : MonoBehaviour
 		//isKnifeThrow = false;
 	}
 
+
 	void DestroyUsingKnife()
 	{
 		if (knife != null) 
@@ -650,6 +659,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+
 	public void React()
 	{
 		if(!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag") )
@@ -666,6 +676,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+
 	public void PlayerDead()
 	{
         // player dead
@@ -677,10 +688,10 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+
 	public void AttackEnemy()
 	{
-        Debug.Log("AttackEnemy()");
-        Debug.Log("executing attack in player script");
+        Debug.Log("AttackEnemy() : executing attack in player script");
 		if(selectedObject!=null)
 		{
             switch (LayerMask.LayerToName(selectedObject.layer))
@@ -720,6 +731,7 @@ public class PlayerMovement : MonoBehaviour
         PotParticleObj.SetActive(false);
     }
 
+
 	void Update()
 	{
         //Debug.Log("Update");
@@ -732,73 +744,73 @@ public class PlayerMovement : MonoBehaviour
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				hit = Physics2D.Raycast (target, Vector2.zero);
 
-
 				if (hit.collider != null) 
 				{
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
 
-					//	Debug.Log (layerName);
+					Debug.Log (layerName);
 
 					switch (layerName)
 					{
+                        case "AI":
+                            selectedObject = hit.collider.gameObject;
+						    distanceToAttack = initialSpeed;
+						    if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) 
+						    {
+							    selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+						    }
+						    touchPos = selectedObject.transform.position;
 
-					case "AI":
+						    playerBehaviour = PlayerBehaviour.MOVE;
+						    break;
 
-						selectedObject = hit.collider.gameObject;
-						distanceToAttack = initialSpeed;
-						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) 
-						{
-							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
-						}
-						touchPos = selectedObject.transform.position;
-
-						playerBehaviour = PlayerBehaviour.MOVE;
-						break;
-
-					case "Objects":
-						selectedObject = hit.collider.gameObject;
-						distanceToAttack = intialDistanceToAttack / 2;
-						touchPos = selectedObject.transform.position;
+					    case "Objects":
+						    selectedObject = hit.collider.gameObject;
+						    distanceToAttack = intialDistanceToAttack / 2;
+						    touchPos = selectedObject.transform.position;
 						 
-						Debug.Log ("touch pos is generated");
-						playerBehaviour = PlayerBehaviour.MOVE;
-						break;
+						    Debug.Log ("touch pos is generated");
+						    playerBehaviour = PlayerBehaviour.MOVE;
+						    break;
 
-					case "WallLightLayer":
-						touchPos = this.transform.position;
+					    case "WallLightLayer":
+						    touchPos = this.transform.position;
 
-						break;
+						    break;
 
-					case "AreaLock":
-						touchPos = this.transform.position;
-						break;
+					    case "AreaLock":
+						    touchPos = this.transform.position;
+						    break;
 
-					default:
+                        case "Player":
+                            touchPos = this.transform.position;
+                            break;
 
-
-						{
-							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-							if (selectedObject != null) {
+					    default:
+                            touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+						    if (selectedObject != null) {
                                 //ponz.2do null check
-								//selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
+							    //selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 
                                 if(selectedObject.GetComponent<AIComponent>() != null)
 								    selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
-
-							}
-							playerBehaviour = PlayerBehaviour.MOVE;
-						}
-                        break;
-					}
-
-				} else {
+						    }
+						    playerBehaviour = PlayerBehaviour.MOVE;
+                            break;
+                    }// end of switch
+				} //if  collider != null
+                else 
+                {
+                    //Debug.Log("collider = null");
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 					if (selectedObject != null) {
                         // ponz.2do
                         if (selectedObject.GetComponent<AIComponent>() != null)
                             selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						selectedObject = null;
+
 					}
+                    //characterAnimator.ResetTrigger("Attack");
 					playerBehaviour = PlayerBehaviour.MOVE;
 				}
 			} 
@@ -807,8 +819,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				canSpin = true;
 				sTime -= Time.deltaTime;
-				Spin ();
-				 
+				Spin ();				 
 			}
 		}
 		// else condition for player throwing knife...
@@ -885,24 +896,21 @@ public class PlayerMovement : MonoBehaviour
 		switch (playerBehaviour) 
 		{
 		case PlayerBehaviour.IDLE:
-
 			break;
+
 		case PlayerBehaviour.MOVE:
 			if(!GameGlobalVariablesManager.isFireBallThrown)
 			    MoveTowardsPoint ();
-
 			break;
+
 		case PlayerBehaviour.MOVEANDTHROW:
-			 
 			MoveTowardsThrowPoint ();
-
 			break;
-		case PlayerBehaviour.ATTACK:
 
+		case PlayerBehaviour.ATTACK:
 			break;
 
 		case PlayerBehaviour.REACT:
-
 			break;
 		}
 
@@ -922,7 +930,6 @@ public class PlayerMovement : MonoBehaviour
 
 		/*if (throwed)
 			DestroyUsingKnife();*/
-	}
-
-   
+	}   
 }
+
