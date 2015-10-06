@@ -981,6 +981,6 @@ public class PlayerMovement : MonoBehaviour
 
 		/*if (throwed)
 			DestroyUsingKnife();*/
-	}   
+	}
 }
 
