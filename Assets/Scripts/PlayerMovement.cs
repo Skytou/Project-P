@@ -83,6 +83,8 @@ public class PlayerMovement : MonoBehaviour
 
     int AttackCombo = 0;
     float CoolOffTime = 10.0f;
+    public int prevID = 0;
+
 
 	void Awake()
 	{
@@ -488,7 +490,10 @@ public class PlayerMovement : MonoBehaviour
 		characterAnimator.SetBool("isInMove",isInMove);
         characterAnimator.SetBool("isRun", isRun);
         characterAnimator.SetBool("isIdle", isIdle);
-        characterAnimator.SetBool("isAttack", isAttack);
+        if(isInMove)
+            characterAnimator.SetBool("isAttack", false);
+        else
+            characterAnimator.SetBool("isAttack", isAttack);
         characterAnimator.SetBool("isReact", isReact);
         characterAnimator.SetFloat("idleDirection", idleDirection);
 		characterAnimator.SetFloat("moveDirection",moveDirection); 	 
@@ -561,11 +566,11 @@ public class PlayerMovement : MonoBehaviour
                     if (nextAttackTimer <= 0f)
                     {
                         // call Attack()
-                        if (selectedObject != null)
+                        float distanceToPoint1 = Vector2.Distance(transform.position, selectedObject.transform.position);
+                        if (distanceToPoint1 < distanceToAttack)
                         {
                             Attack();
                         }
-
                         nextAttackTimer = attackTime;
                     }
                     nextAttackTimer -= Time.deltaTime;
@@ -763,11 +768,15 @@ public class PlayerMovement : MonoBehaviour
         Debug.Log("AttackEnemy() : executing attack in player script");
         if (selectedObject != null)
         {
+            int curID = selectedObject.GetInstanceID();
+            //if (curID == prevID)
             switch (LayerMask.LayerToName(selectedObject.layer))
             {
                 case "AI":
                     if (selectedObject.GetComponent<AIComponent>().isDead)
+                    {
                         Debug.Log("selectedObject.GetComponent<AIComponent>()");
+                    }
                     else
                     {
                         AudioMgr.Inst.PlaySfx(SfxVals.Sword);
@@ -795,6 +804,7 @@ public class PlayerMovement : MonoBehaviour
                     GameGlobalVariablesManager.totalNumberOfCoins += 20;
                     break;
             }
+            prevID = selectedObject.GetInstanceID();
         }
         else
         {
@@ -833,9 +843,7 @@ public class PlayerMovement : MonoBehaviour
 				if (hit.collider != null) 
 				{
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
-
 					Debug.Log (layerName);
-
 					switch (layerName)
 					{
                         case "AI":
