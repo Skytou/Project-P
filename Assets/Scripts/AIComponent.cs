@@ -63,7 +63,7 @@ public class AIComponent : MonoBehaviour
 	float angle;
 	public float hitsTaken;
 	bool isInMove;
-	bool isDead;
+	public bool isDead;
 	public bool isAIOverLapped;
 
 	float healthBarScaleFactor;
@@ -352,6 +352,7 @@ public class AIComponent : MonoBehaviour
 		{
 			isDead = true;
 			Debug.Log ("Triggeringdeath");
+
 			selectionMarker.SetActive (false);
 			aiAnimator.SetFloat("idleDirection",idleDirection);
 			aiAnimator.SetFloat("moveDirection",moveDirection);
@@ -363,7 +364,10 @@ public class AIComponent : MonoBehaviour
                 coinAnim.PlayCoinAnim(transform.position + new Vector3(0,4,0));
             GameGlobalVariablesManager.totalNumberOfCoins += 10;
             AudioMgr.Inst.PlaySfx(SfxVals.EnemyDeath);
-		}
+        
+            if (playerRef != null)
+                playerRef.GetComponent<PlayerMovement>().AttackToIdleState();
+        }
 	}
 
  	 

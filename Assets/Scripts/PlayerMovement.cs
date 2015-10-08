@@ -766,12 +766,16 @@ public class PlayerMovement : MonoBehaviour
             switch (LayerMask.LayerToName(selectedObject.layer))
             {
                 case "AI":
-                    AudioMgr.Inst.PlaySfx(SfxVals.Sword);
-                    if (coinUI != null)
-                        CoinAnimUI.SetTrigger("CanBlink");
-                    selectedObject.GetComponent<AIComponent>().React();
-                    UpdateAttackCombo(1);
-                    //selectedObject.GetComponent<AIComponent>().aiAnimatorState
+                    if (selectedObject.GetComponent<AIComponent>().isDead)
+                        Debug.Log("selectedObject.GetComponent<AIComponent>()");
+                    else
+                    {
+                        AudioMgr.Inst.PlaySfx(SfxVals.Sword);
+                        if (coinUI != null)
+                            CoinAnimUI.SetTrigger("CanBlink");
+                        selectedObject.GetComponent<AIComponent>().React();
+                        UpdateAttackCombo(1);
+                    }
                     break;
 
                 case "Objects":
@@ -1035,5 +1039,18 @@ public class PlayerMovement : MonoBehaviour
         InGameHUD.instance.UpdateAttackCombo(AttackCombo);
     }
 
+
+    public void AttackToIdleState()
+    {
+        isAttack = false;
+
+        characterAnimator.SetBool("isInMove", isInMove);
+        characterAnimator.SetBool("isRun", isRun);
+        characterAnimator.SetBool("isIdle", isIdle);
+        characterAnimator.SetBool("isAttack", isAttack);
+        characterAnimator.SetBool("isReact", isReact);
+        characterAnimator.SetFloat("idleDirection", idleDirection);
+        characterAnimator.SetFloat("moveDirection", moveDirection);  
+    }
 }
 
