@@ -189,10 +189,11 @@ public class LevelManager : MonoBehaviour
 
     void UpdateUI()
     {
+        float camLockSpeed = 10 * Time.deltaTime;
 		if(activateAISpawn[0])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [0].cameraLockPos;
+			cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections [0].cameraLockPos, camLockSpeed);
 			helpText.text = aiGameObjectsInSections [0].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(0);
@@ -200,48 +201,48 @@ public class LevelManager : MonoBehaviour
 		if(activateAISpawn[1])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [1].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [1].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[1].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[1].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(1);
 		}
 		if(activateAISpawn[2])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [2].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [2].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[2].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[2].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(2);
 		}
 		if(activateAISpawn[3])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [3].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [3].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[3].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[3].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(3);
 		}
 		if(activateAISpawn[4])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [4].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [4].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[4].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[4].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(4);
 		}
 		if(activateAISpawn[5])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [5].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [5].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[5].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[5].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(5);
 		}
 		if(activateAISpawn[6])
 		{
 			GameGlobalVariablesManager.isCameraLocked = true;
-			cameraRef.transform.position = aiGameObjectsInSections [6].cameraLockPos;
-			helpText.text = aiGameObjectsInSections [6].textToBeDisplayed;
+            cameraRef.transform.position = Vector3.MoveTowards(cameraRef.transform.position, aiGameObjectsInSections[6].cameraLockPos, camLockSpeed);
+            helpText.text = aiGameObjectsInSections[6].textToBeDisplayed;
             helpTextShadow.text = helpText.text;
             SpawnAI(6);
 		}
