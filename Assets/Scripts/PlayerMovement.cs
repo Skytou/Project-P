@@ -21,6 +21,7 @@ public class PlayerMovement : MonoBehaviour
     private Animator CoinAnimUI;
     public GameObject coinUI;
     public GameObject normalSelectionCircle;
+    public GameObject wallColliderObj;
 	public float speed, knifeThrowSpeed ;
 	public Vector2 velocity;
 	private Vector3 target;
@@ -220,110 +221,116 @@ public class PlayerMovement : MonoBehaviour
 		
 		switch (layerName)
 		{
-		case "Player":
+		    case "Player":
 
-			break;
+			    break;
 			
-		case "AI":
-			if(canSpin)
-			{
-				//other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
-				//other.gameObject.GetComponent<AIComponent> ().Death ();
-			}
-			break;
-		case "EnemyTrigger0":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [0] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger1":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [1] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger2":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [2] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger3":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [3] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger4":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [4] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger5":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [5] = true;
-			other.gameObject.SetActive (false);
-			break;
-		case "EnemyTrigger6":
-			Debug.Log ("touched trigger " + other.gameObject.name);
-			LevelManager.instance.activateAISpawn [6] = true;
-			other.gameObject.SetActive (false);
-			break;
+		    case "AI":
+			    if(canSpin)
+			    {
+				    //other.gameObject.GetComponent<AIComponent> ().healthBar.SetActive (false);
+				    //other.gameObject.GetComponent<AIComponent> ().Death ();
+			    }
+			    break;
+		    case "EnemyTrigger0":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [0] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger1":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [1] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger2":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [2] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger3":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [3] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger4":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [4] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger5":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [5] = true;
+			    other.gameObject.SetActive (false);
+			    break;
+		    case "EnemyTrigger6":
+			    Debug.Log ("touched trigger " + other.gameObject.name);
+			    LevelManager.instance.activateAISpawn [6] = true;
+			    other.gameObject.SetActive (false);
+			    break;
 
-		case "Door0":
+		    case "Door0":
 
-			if (LevelManager.instance.stageCompleted [0]) {
-				LevelManager.instance.doorsToBeOpened [0].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [0]) {
+				    LevelManager.instance.doorsToBeOpened [0].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door1":
+			    break;
+		    case "Door1":
 
-			if (LevelManager.instance.stageCompleted [1]) {
-				LevelManager.instance.doorsToBeOpened [1].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [1]) {
+				    LevelManager.instance.doorsToBeOpened [1].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door2":
+			    break;
+		    case "Door2":
 
-			if (LevelManager.instance.stageCompleted [2]) {
-				LevelManager.instance.doorsToBeOpened [2].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [2]) {
+				    LevelManager.instance.doorsToBeOpened [2].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door3":
+			    break;
+		    case "Door3":
 
-			if (LevelManager.instance.stageCompleted [3]) {
-				LevelManager.instance.doorsToBeOpened [3].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [3]) {
+				    LevelManager.instance.doorsToBeOpened [3].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door4":
+			    break;
+		    case "Door4":
 
-			if (LevelManager.instance.stageCompleted [4]) {
-				LevelManager.instance.doorsToBeOpened [4].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [4]) {
+				    LevelManager.instance.doorsToBeOpened [4].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door5":
+			    break;
+		    case "Door5":
 
-			if (LevelManager.instance.stageCompleted [5]) {
-				LevelManager.instance.doorsToBeOpened [5].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [5]) {
+				    LevelManager.instance.doorsToBeOpened [5].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
-		case "Door6":
+			    break;
+		    case "Door6":
 
-			if (LevelManager.instance.stageCompleted [6]) {
-				LevelManager.instance.doorsToBeOpened [6].GetComponent<Doors> ().OpenDoor ();
-			}
+			    if (LevelManager.instance.stageCompleted [6]) {
+				    LevelManager.instance.doorsToBeOpened [6].GetComponent<Doors> ().OpenDoor ();
+			    }
 
-			break;
+			    break;
 
-		case "Portal":
-                Debug.Log("LevelsCleared, portal : " + GameGlobalVariablesManager.LevelsCleared);
-                LevelManager.instance.ClosePortal();
-                SavedData.Inst.SaveAllData();
-                GameGlobalVariablesManager.OnLevelCleared();
-                Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
-			break;
+		    case "Portal":
+                    Debug.Log("LevelsCleared, portal : " + GameGlobalVariablesManager.LevelsCleared);
+                    LevelManager.instance.ClosePortal();
+                    SavedData.Inst.SaveAllData();
+                    GameGlobalVariablesManager.OnLevelCleared();
+                    Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+			    break;
+
+            case "WallLightLayer":
+                Debug.Log("WallLightLayer: " + transform.position + other.gameObject.name);
+                Idle();
+                playerBehaviour = PlayerBehaviour.IDLE;
+            break;
 
 		default:
 			break;
@@ -392,41 +399,69 @@ public class PlayerMovement : MonoBehaviour
 
 
 	void MoveTowardsPoint()
-	{ 
+	{
+        Vector3 oldPos = transform.position;
 		distanceToPoint = Vector2.Distance(transform.position, touchPos);
-        //Debug.Log("distance Point: " + distanceToPoint + ", Attack: " + distanceToAttack);
- 		if(distanceToPoint < distanceToAttack)
-		{
-			Stop ();
-		}
-		else
-		{
- 			xComponent = -transform.position.x + touchPos.x;
-			yComponent = -transform.position.y + touchPos.y;
-			
-			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
-			transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
-			 
-			if(selectedObject==null)
-			{
-				isRun = true;
-				distanceToAttack =1;
-				speed = initialSpeed;
-			}
-			else
-			{
-				if(distanceToPoint<=distanceToAttack * 2)
-				{
-					isRun = false;
-					speed = initialSpeed/2;
-				}
-				else
-				{
-					isRun = true;
-					speed =initialSpeed;
-				}
-			}
-			isInMove = true;
+        if(distanceToPoint < distanceToAttack)
+	    {
+		    Stop ();
+	    }
+	    else
+	    {
+            bool isColl = false;
+            xComponent = -transform.position.x + touchPos.x;
+            yComponent = -transform.position.y + touchPos.y;
+
+            angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
+            transform.position = Vector2.MoveTowards(transform.position, touchPos, speed * Time.deltaTime);
+            //Debug.Log("radius : " + wallColliderObj.GetComponent<CircleCollider2D>().radius);
+
+            int wallLayerMask = 1 << GameGlobalVariablesManager.WallLightLayer;
+            Vector2 dest = new Vector2(touchPos.x, touchPos.y);
+            Vector2 org = new Vector2(wallColliderObj.transform.position.x, wallColliderObj.transform.position.y);
+
+            Collider2D[] allColliders = Physics2D.OverlapCircleAll(wallColliderObj.transform.position, 1.5f, wallLayerMask);
+            for (int i = 0; i < allColliders.Length && !isColl; i++)
+            {
+                if (allColliders[i].gameObject.layer == GameGlobalVariablesManager.WallLightLayer)
+                {
+                    isColl = true;
+                }
+            }
+
+            if (isColl)
+            {
+                Stop();
+                playerBehaviour = PlayerBehaviour.IDLE;
+                isAttack = false;
+                nextAttackTimer = 0;
+                transform.position = oldPos;
+                Debug.Log("oldPos : stop()");
+            }
+            else
+            {
+                Debug.Log("oldPos : " + oldPos + "newPos: " + transform.position);
+                if (selectedObject == null)
+                {
+                    isRun = true;
+                    distanceToAttack = 1;
+                    speed = initialSpeed;
+                }
+                else
+                {
+                    if (distanceToPoint <= distanceToAttack * 2)
+                    {
+                        isRun = false;
+                        speed = initialSpeed / 2;
+                    }
+                    else
+                    {
+                        isRun = true;
+                        speed = initialSpeed;
+                    }
+                }
+                isInMove = true;
+            }
  		}
 
 		if(isInMove)
@@ -853,18 +888,16 @@ public class PlayerMovement : MonoBehaviour
 				} //if  collider != null
                 else 
                 {
-                    Debug.Log("collider = null");
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-					if (selectedObject != null) {
+                    Debug.Log("collider = null =" + touchPos);
+                    if (selectedObject != null)
+                    {
                         // ponz.2do
                         if (selectedObject.GetComponent<AIComponent>() != null)
                             selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive (false);
 						selectedObject = null;
 					}
-                    isAttack = false;
-                    nextAttackTimer = 0;
-                    //characterAnimator.ResetTrigger("Attack");
-					playerBehaviour = PlayerBehaviour.MOVE;
+                    playerBehaviour = PlayerBehaviour.MOVE;
 				}
 			} 
 
@@ -884,36 +917,34 @@ public class PlayerMovement : MonoBehaviour
 				target = Camera.main.ScreenToWorldPoint (Input.mousePosition);
 				hit = Physics2D.Raycast (target, Vector2.zero);
 
-				if (hit.collider != null) {
+				if (hit.collider != null)
+                {
 					layerName = LayerMask.LayerToName (hit.collider.gameObject.layer);
-
 					Debug.Log (layerName);
 
-					switch (layerName) {
-
+					switch (layerName) 
+                    {
 					case "AI":
+                        selectedObject = hit.collider.gameObject;
+					    if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null)
+                        {
+						    selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
+					    }
+					    touchPos = selectedObject.transform.position;
+					    canThrow = true;
+					    playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+					    break;
 
-						selectedObject = hit.collider.gameObject;
-						if (selectedObject.GetComponent<AIComponent> ().selectionMarker != null) {
-							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (true);
-						}
-						touchPos = selectedObject.transform.position;
-						canThrow = true;
-						playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
-						break;
-
-					case "Objects":
-						selectedObject = hit.collider.gameObject;
-						touchPos = selectedObject.transform.position;
-
-						Debug.Log ("touch pos is generated");
-						canThrow = true;
-						playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
-						break;
+				    case "Objects":
+					    selectedObject = hit.collider.gameObject;
+					    touchPos = selectedObject.transform.position;
+					    Debug.Log ("touch pos is generated");
+					    canThrow = true;
+					    playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+					    break;
 
 					case "WallLightLayer":
 						touchPos = this.transform.position;
-
 						break;
 
 					case "AreaLock":
@@ -921,19 +952,21 @@ public class PlayerMovement : MonoBehaviour
 						break;
 
 					default:
-							touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-							if (selectedObject != null){
-								selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
-							}
-							canThrow = true;
-							playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
+						touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
+						if (selectedObject != null)
+                        {
+							selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
+						}
+						canThrow = true;
+						playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
 						break;
 					}
-
-				} else {
-
+				}
+                else
+                {
 					touchPos = Camera.main.ScreenToWorldPoint (Input.mousePosition);
-					if (selectedObject != null) {
+					if (selectedObject != null)
+                    {
 						selectedObject.GetComponent<AIComponent> ().selectionMarker.SetActive (false);
 						selectedObject = null;
 					}
@@ -973,14 +1006,8 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		PlayerDead ();
-		 
-		/*if(isKnifeThrow)
-		{
-			Idle ();
-		}*/
 
-		/*if (throwed)
-			DestroyUsingKnife();*/
+        Debug.DrawLine(wallColliderObj.transform.position, touchPos, Color.red, 0.5f);
 	}
 }
 
