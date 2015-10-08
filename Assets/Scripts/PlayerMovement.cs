@@ -81,6 +81,9 @@ public class PlayerMovement : MonoBehaviour
 	public float spinAttackDistance;
     CoinAnim coinAnim;
 
+    int AttackCombo = 0;
+    float CoolOffTime = 10.0f;
+
 	void Awake()
 	{
 		target = transform.position;
@@ -460,6 +463,8 @@ public class PlayerMovement : MonoBehaviour
                         speed = initialSpeed;
                     }
                 }
+                // always run
+                isRun = true;
                 isInMove = true;
             }
  		}
@@ -632,8 +637,6 @@ public class PlayerMovement : MonoBehaviour
                 characterAnimator.SetInteger("AttackRandom", r);
             }
             characterAnimator.SetTrigger("Attack");
-
-            //Debug.Log( "Event "+ characterAnimator.fireEvents );
         }
         else
         {
@@ -720,6 +723,7 @@ public class PlayerMovement : MonoBehaviour
 		{
             Debug.Log("Health : " + GameGlobalVariablesManager.playerHealth);
             GameGlobalVariablesManager.playerHealth -= GameGlobalVariablesManager.AttackHealthLost;
+            UpdateAttackCombo(0);
 			//Debug.Log ("Play react anim");
 			characterAnimator.SetFloat("idleDirection",idleDirection);
 			characterAnimator.SetFloat("moveDirection",moveDirection);
@@ -766,6 +770,7 @@ public class PlayerMovement : MonoBehaviour
                     if (coinUI != null)
                         CoinAnimUI.SetTrigger("CanBlink");
                     selectedObject.GetComponent<AIComponent>().React();
+                    UpdateAttackCombo(1);
                     //selectedObject.GetComponent<AIComponent>().aiAnimatorState
                     break;
 
@@ -1008,6 +1013,27 @@ public class PlayerMovement : MonoBehaviour
 		PlayerDead ();
 
         Debug.DrawLine(wallColliderObj.transform.position, touchPos, Color.red, 0.5f);
+        if (CoolOffTime < 0)
+        {
+            CoolOffTime = 10.0f;
+            UpdateAttackCombo(0);
+        }
+        else
+        {
+            CoolOffTime -= Time.deltaTime;
+        }
 	}
+
+
+    public void UpdateAttackCombo(int val)
+    {
+        if (val == 0)
+            AttackCombo = 0;
+        else
+            AttackCombo += val;
+        CoolOffTime = 10.0f;
+        InGameHUD.instance.UpdateAttackCombo(AttackCombo);
+    }
+
 }
 

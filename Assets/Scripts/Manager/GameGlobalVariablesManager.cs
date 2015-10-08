@@ -77,7 +77,8 @@ public class GameGlobalVariablesManager : MonoBehaviour
     #region TempVals
     // to take a build with out ads
     public static bool IsShowAd = false;
-    public static bool isSoundMuted = true;
+    public static bool isSoundMuted = false;
+    public static bool IsHackEnabled = true;
     #endregion TempVals
 
     public static int playerHealth = 100;

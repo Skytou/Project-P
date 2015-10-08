@@ -28,6 +28,8 @@ public class ShopMgr : MonoBehaviour {
     public Text BombsCountText;
     public Text CycloneCountText;
 
+    int hackTap = 0;
+
     void OnEnable()
     {
 		if( Application.platform != RuntimePlatform.Android )
@@ -68,7 +70,7 @@ public class ShopMgr : MonoBehaviour {
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(false);
         UpdateUI();
-        
+        hackTap = 0;
 	}
 	
 
@@ -376,6 +378,15 @@ public class ShopMgr : MonoBehaviour {
                 break;           
         }
         SavedData.Inst.SaveAllData();
+        UpdateUI();
+    }
+
+    // hack 
+    public void OnHackMoney()
+    {
+        hackTap++;
+        if (hackTap > 5 && GameGlobalVariablesManager.IsHackEnabled)
+            GameGlobalVariablesManager.totalNumberOfCoins += 1000;
         UpdateUI();
     }
 	

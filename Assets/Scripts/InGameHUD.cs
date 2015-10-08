@@ -34,6 +34,8 @@ public class InGameHUD : MonoBehaviour
 
     public GameObject freezeui;
 
+    public Text AttackComboText;
+
 	void Awake()
 	{
 		instance = this;
@@ -230,7 +232,12 @@ public class InGameHUD : MonoBehaviour
         TotalKnifeText.text = "" + GameGlobalVariablesManager.KnifeCount;
         TotalBombText.text = "" + GameGlobalVariablesManager.BombsCount;
         TotalCycloneText.text = "" + GameGlobalVariablesManager.CycloneCount;
+
 	}
 
+    public void UpdateAttackCombo(int AttackCombo)
+    {
+        AttackComboText.text = AttackCombo + " x";
+    }
 
 }
