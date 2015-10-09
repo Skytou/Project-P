@@ -352,7 +352,11 @@ public class AIComponent : MonoBehaviour
 		{
 			isDead = true;
 			Debug.Log ("Triggeringdeath");
-
+            Collider2D col2d = this.gameObject.GetComponent<Collider2D>() as Collider2D;
+            if (col2d != null)
+            {
+                col2d.enabled = false;
+            }
 			selectionMarker.SetActive (false);
 			aiAnimator.SetFloat("idleDirection",idleDirection);
 			aiAnimator.SetFloat("moveDirection",moveDirection);

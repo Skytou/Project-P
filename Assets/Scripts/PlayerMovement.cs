@@ -63,7 +63,7 @@ public class PlayerMovement : MonoBehaviour
     RaycastHit hit3D;
     float nextAttackTimer;
 
-    public bool canThrow;
+    public bool canThrow = false;
     public GameObject[] knifePrefab;
     public GameObject knifeThrowPoint;
 
@@ -75,7 +75,6 @@ public class PlayerMovement : MonoBehaviour
     public float interpolationScale;
 
     bool canSpin;
-    bool throwed = false;
 
     public float spinAttackDistance;
     CoinAnim coinAnim;
@@ -108,7 +107,6 @@ public class PlayerMovement : MonoBehaviour
         fTimer = fireBallTimer;
         spinSelectionCircle.SetActive((false));
         normalSelectionCircle.SetActive(true);
-        throwed = false;
         GameGlobalVariablesManager.isPlayerSpin = false;
 
         GameObject curObj = GameObject.FindGameObjectWithTag("CoinParticles") as GameObject;
@@ -450,7 +448,7 @@ public class PlayerMovement : MonoBehaviour
             }
             else
             {
-                Debug.Log("oldPos : " + oldPos + "newPos: " + transform.position);
+                //Debug.Log("oldPos : " + oldPos + "newPos: " + transform.position);
                 if (selectedObject == null)
                 {
                     isRun = true;
@@ -603,7 +601,7 @@ public class PlayerMovement : MonoBehaviour
     void StopAndThrow()
     {
         Idle();
-        if (canThrow && !throwed)
+        if (canThrow)
         {
             ThrowKnife();
         }
@@ -709,7 +707,6 @@ public class PlayerMovement : MonoBehaviour
 
     void ThrowKnife()
     {
-        Debug.Log("ThrowKnife");
         if (selectedObject != null)
         {
             if (LayerMask.LayerToName(selectedObject.layer).Equals("Objects"))
@@ -719,11 +716,14 @@ public class PlayerMovement : MonoBehaviour
         {
             return;
         }
-
-        characterAnimator.SetFloat("idleDirection", idleDirection);
-        characterAnimator.SetFloat("moveDirection", moveDirection);
-        characterAnimator.SetTrigger("Throw");
-        canThrow = false;
+        if (canThrow)
+        {
+            Debug.Log("ThrowKnife");
+            characterAnimator.SetFloat("idleDirection", idleDirection);
+            characterAnimator.SetFloat("moveDirection", moveDirection);
+            characterAnimator.SetTrigger("Throw");
+            canThrow = false;
+        }
     }
 
 
@@ -744,11 +744,14 @@ public class PlayerMovement : MonoBehaviour
         knife = Instantiate(knifePrefab[(int)moveDirection], knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
         knife.SetActive(true);
         knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos, selectedObject, true);
-        GameGlobalVariablesManager.isKnifeThrow = false;
+        
         GameGlobalVariablesManager.KnifeCount -= 1;
         if (GameGlobalVariablesManager.KnifeCount <= 0)
         {
             GameGlobalVariablesManager.KnifeCount = 0;
+        }
+        else
+        {
             AudioMgr.Inst.PlaySfx(SfxVals.Knife);
         }
     }
@@ -987,7 +990,7 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
-            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject())
+            if (Input.GetMouseButtonDown(0) && !EventSystem.current.IsPointerOverGameObject() && !canThrow)
             {
                 distanceToThrow = initialDistanceToThrow;
                 target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -1008,6 +1011,7 @@ public class PlayerMovement : MonoBehaviour
                             }
                             touchPos = selectedObject.transform.position;
                             canThrow = true;
+                            CoolOffKnife = 3.0f;
                             playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
                             break;
 
@@ -1046,7 +1050,6 @@ public class PlayerMovement : MonoBehaviour
                         selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive(false);
                         selectedObject = null;
                     }
-                    //canThrow = true;
                     playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
                 }
             }
@@ -1093,13 +1096,13 @@ public class PlayerMovement : MonoBehaviour
             CoolOffTime -= Time.deltaTime;
         }
 
-        if (throwed)
+        if (canThrow)
         {
             CoolOffKnife -= Time.deltaTime;
             if (CoolOffKnife < 0)
             {
-                CoolOffKnife = 1.0f;
-                throwed = false;
+                CoolOffKnife = 3.0f;
+                canThrow = false;
             }
         }
     }
