@@ -300,6 +300,7 @@ public class LevelSelection : MonoBehaviour
         Application.LoadLevel(GameGlobalVariablesManager.StoreScene);
     }
 
+
     public void OnEnergy()
     {
         if (GameGlobalVariablesManager.EnergyAvailable <= 0)
@@ -311,6 +312,7 @@ public class LevelSelection : MonoBehaviour
             ShowStorePopup("you have " + GameGlobalVariablesManager.EnergyAvailable + " energy.");
         }
     }
+
 
     #region Story
     public void ShowDialog()

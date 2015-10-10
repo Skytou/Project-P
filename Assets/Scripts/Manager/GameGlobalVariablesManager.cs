@@ -51,10 +51,11 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int BombsCount = 3;
     public static int CycloneCount = 3;
 
+    public static int InitCoins = 1000;
     public static int InitEnergyAvailable = 3;
-    public static int InitKnifeCount = 5;
-    public static int InitBombsCount = 3;
-    public static int InitCycloneCount = 3;
+    public static int InitKnifeCount = 10;
+    public static int InitBombsCount = 5;
+    public static int InitCycloneCount = 5;
 
     public static int PlayerLevel = 1;
     public static int SwordLevel = 1;
@@ -71,7 +72,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int Enemy2_Drop = 6;
     public static int Enemy3_Drop = 10;
 
-    public static int GameStartCoins = 500;
     public static int DailyBonusCoins = 250;
 
     // layer collision

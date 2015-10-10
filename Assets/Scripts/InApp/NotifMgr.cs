@@ -6,13 +6,13 @@ using Prime31;
 public class NotifMgr : MonoBehaviour {
 
     public GameObject dailyBonusPopup;
+    public GameObject CollectDailyBonusPopup;
+    public Text DayCountText;
 
     private int oneHrNotificationId;
     private int twoHrNotificationId;
     private int oneDayNotificationId;
 
-    public Text timeRemain;
-    public Text DailyBonusText;
     long SecInDay = 24 * 60 * 60;
     long EnergyRefillTime = 30 * 60; // 30 minutes = 1 energy
     float curTime = 0;
@@ -39,12 +39,15 @@ public class NotifMgr : MonoBehaviour {
         Debug.Log("play count : " + SavedData.Inst.GetGamePlayCount().ToString());
         if (SavedData.Inst.GetGamePlayCount() == 1)
         {
-            OnGiveDailyBonus();
             // set energy notif
             SetNotif_1Hr();
             // set daily bonus notif
             SetNotif_24Hr();
         }
+
+        CollectDailyBonusPopup.SetActive(false);
+        dailyBonusPopup.SetActive(false);
+
         DailyBonusCheck();
         EnergyRefillCheck();
         UpdateUI();
@@ -119,7 +122,7 @@ public class NotifMgr : MonoBehaviour {
         };
 
         System.DateTime currentDate = System.DateTime.Now;
-        Debug.Log("SetNotif_24Hr : " + currentDate.ToString());
+        //Debug.Log("SetNotif_24Hr : " + currentDate.ToString());
         oneDayNotificationId = EtceteraAndroid.scheduleNotification(noteConfig);
         SavedData.Inst.SaveAllData();
     }
@@ -177,8 +180,18 @@ public class NotifMgr : MonoBehaviour {
 
         if (diff.TotalSeconds >= SecInDay)
         {
-            Debug.Log("OnGiveDailyBonus");
-            OnGiveDailyBonus();
+            long firstDateLong = SavedData.Inst.GetFirstBonusTime();
+            System.DateTime firstDate = System.DateTime.FromBinary(firstDateLong);
+            System.TimeSpan firstDiff = currentDate.Subtract(firstDate);
+
+            double dayCount = firstDiff.TotalSeconds / SecInDay;
+            if (dayCount > 30)
+                dayCount = 30;
+            if (dayCount <= 0)
+                dayCount = 1;
+            Debug.Log("OnGiveDailyBonus" + firstDate.ToString() + " = " + oldDate.ToString());
+
+            OnGiveDailyBonus((int)dayCount);
         }
     }
 
@@ -186,32 +199,38 @@ public class NotifMgr : MonoBehaviour {
     public void OnGiveDailyBonusBtn()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
-        DailyBonusText.text = "play daily to \ncollect daily bonus";
         dailyBonusPopup.SetActive(true);
+        CollectDailyBonusPopup.SetActive(false);
     }
 
 
-    public void OnGiveDailyBonus()
+    public void OnGiveDailyBonus(int dayCount)
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
-        DailyBonusText.text = "Congrats\n you got daily bonus";
+
+        DayCountText.text = "Day " + dayCount;
+
+        Debug.Log("save it to pref");
+
         // save it to pref
-        SavedData.Inst.OnDailyBonusGiven();
+        if (dayCount == 1)
+            SavedData.Inst.OnFirstBonusGiven();
+        else
+            SavedData.Inst.OnDailyBonusGiven();
+        SavedData.Inst.SaveAllData();
         SetNotif_24Hr();
-        dailyBonusPopup.SetActive(true);
+
+        CollectDailyBonusPopup.SetActive(true);
+        dailyBonusPopup.SetActive(false);
     }
 
 
     public void OnClosePopup()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
-        tapCount++;
-        if(tapCount >= 2)
-        {
-            dailyBonusPopup.SetActive(false);
-            tapCount = 0;
-        }
+        dailyBonusPopup.SetActive(false); 
+        CollectDailyBonusPopup.SetActive(false);
     }
 
 

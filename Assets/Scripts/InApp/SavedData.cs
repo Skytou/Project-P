@@ -8,6 +8,7 @@ public class SavedData
     public int TotalCoins = 0;
     public int TotalCrystals = 0;
     public string LastSavedTime = "";
+    public string FirstDailyBonusTime = "";
     public string LastDailyBonusTime = "";
     public string LastEnergyBonusTime = "";
 
@@ -51,13 +52,14 @@ public class SavedData
             CreateDefaultPref();
         }
         GamePlayCount++;
-        TotalCoins = PlayerPrefs.GetInt("TotalCoins", 1000);
+        currentDate = System.DateTime.Now;
+        TotalCoins = PlayerPrefs.GetInt("TotalCoins", GameGlobalVariablesManager.InitCoins);
         GameGlobalVariablesManager.totalNumberOfCoins = TotalCoins;
         TotalCrystals = PlayerPrefs.GetInt("TotalCrystals", 0);
-        currentDate = System.DateTime.Now;
         LastSavedTime = PlayerPrefs.GetString("LastSavedTime", currentDate.ToBinary().ToString());
         LastDailyBonusTime = PlayerPrefs.GetString("LastDailyBonusTime", currentDate.ToBinary().ToString());
         LastEnergyBonusTime = PlayerPrefs.GetString("LastEnergyBonusTime", currentDate.ToBinary().ToString());
+        FirstDailyBonusTime = PlayerPrefs.GetString("FirstDailyBonusTime", currentDate.ToBinary().ToString());
 
         GameGlobalVariablesManager.EnergyAvailable = PlayerPrefs.GetInt("EnergyAvailable", GameGlobalVariablesManager.InitEnergyAvailable);
         GameGlobalVariablesManager.PlayerLevel  = PlayerPrefs.GetInt("PlayerLevel", 1);
@@ -67,7 +69,6 @@ public class SavedData
         GameGlobalVariablesManager.KnifeCount = PlayerPrefs.GetInt("KnifeCount", GameGlobalVariablesManager.InitKnifeCount);
         GameGlobalVariablesManager.BombsCount = PlayerPrefs.GetInt("BombsCount", GameGlobalVariablesManager.InitBombsCount);
         GameGlobalVariablesManager.CycloneCount = PlayerPrefs.GetInt("CycloneCount", GameGlobalVariablesManager.InitCycloneCount);
-
         GameGlobalVariablesManager.LevelsCleared = PlayerPrefs.GetInt("LevelsCleared", GameGlobalVariablesManager.LevelsCleared);
     }
 
@@ -81,6 +82,7 @@ public class SavedData
         PlayerPrefs.SetInt("TotalCoins", TotalCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
+        PlayerPrefs.SetString("FirstDailyBonusTime", FirstDailyBonusTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
 
@@ -99,7 +101,7 @@ public class SavedData
     public void CreateDefaultPref()
     {
         PlayerPrefs.SetInt("GamePlayCount", GamePlayCount);
-        PlayerPrefs.SetInt("TotalCoins", GameGlobalVariablesManager.GameStartCoins);
+        PlayerPrefs.SetInt("TotalCoins", GameGlobalVariablesManager.InitCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
         PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.InitEnergyAvailable);
         PlayerPrefs.SetInt("PlayerLevel", GameGlobalVariablesManager.PlayerLevel);
@@ -115,8 +117,10 @@ public class SavedData
         LastDailyBonusTime = LastSavedTime;
         LastEnergyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
+        PlayerPrefs.SetString("FirstDailyBonusTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+
         PlayerPrefs.Save();
     }
 
@@ -128,6 +132,18 @@ public class SavedData
         LastDailyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
+        PlayerPrefs.Save();
+    }
+
+    public void OnFirstBonusGiven()
+    {
+        currentDate = System.DateTime.Now;
+        LastSavedTime = currentDate.ToBinary().ToString();
+        LastDailyBonusTime = LastSavedTime;
+        FirstDailyBonusTime = LastSavedTime;
+        PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
+        PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
+        PlayerPrefs.SetString("FirstDailyBonusTime", LastDailyBonusTime);        
         PlayerPrefs.Save();
     }
 
@@ -151,6 +167,7 @@ public class SavedData
         PlayerPrefs.SetInt("EnergyAvailable", EnergyAvailable);
         PlayerPrefs.Save();
     }
+
 
     void OnApplicationQuit()
     {
@@ -188,6 +205,22 @@ public class SavedData
         try
         {
             daily = System.Convert.ToInt64(LastDailyBonusTime);
+        }
+        catch (System.Exception e)
+        {
+            System.DateTime curDate = System.DateTime.Now;
+            daily = currentDate.ToBinary();
+        }
+        return daily;
+    }
+
+
+    public long GetFirstBonusTime()
+    {
+        long daily;
+        try
+        {
+            daily = System.Convert.ToInt64(FirstDailyBonusTime);
         }
         catch (System.Exception e)
         {
