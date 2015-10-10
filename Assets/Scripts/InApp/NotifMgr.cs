@@ -195,7 +195,14 @@ public class NotifMgr : MonoBehaviour {
                 
             Debug.Log("OnGiveDailyBonus" + firstDate.ToString() + " = " + oldDate.ToString());
 
-            OnGiveDailyBonus((int)dayCount);
+            if (diff.TotalSeconds > 2 * SecInDay)
+            {
+                OnGiveDailyBonus((int)dayCount);
+            }
+            else
+            {
+                OnGiveDailyBonus(2);
+            }
         }
     }
 
@@ -213,7 +220,7 @@ public class NotifMgr : MonoBehaviour {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
 
-        DayCountText.text = "Day " + dayCount;
+        DayCountText.text = "Bonus";
 
         Debug.Log("save it to pref");
 

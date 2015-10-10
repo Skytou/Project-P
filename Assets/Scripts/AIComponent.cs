@@ -341,14 +341,12 @@ public class AIComponent : MonoBehaviour
 		{ 	
 			//Debug.Log("Calling Dead state");
 			healthBar.SetActive(false);
-			hitsTaken++;
 			Death ();
 			return;
 		}
 		else
 		{
-			hitsTaken++;
-
+            hitsTaken += GameGlobalVariablesManager.SwordLevel;
 			healthBarRectT = healthBarRectTransform.localScale;
 			healthBarRectT.x = healthBarRectT.x -healthBarScaleFactor;
 			healthBarRectTransform.localScale =healthBarRectT;
@@ -362,7 +360,6 @@ public class AIComponent : MonoBehaviour
 			return;
 		 	//Debug.Log(hitsTaken);
 		}
-
 	}
 
 
