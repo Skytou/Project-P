@@ -11,6 +11,7 @@ public class SavedData
     public string FirstDailyBonusTime = "";
     public string LastDailyBonusTime = "";
     public string LastEnergyBonusTime = "";
+    public int DayCount = 0;
 
     public int KnifeCount = 5;
     public int BombsCount = 3;
@@ -60,6 +61,7 @@ public class SavedData
         LastDailyBonusTime = PlayerPrefs.GetString("LastDailyBonusTime", currentDate.ToBinary().ToString());
         LastEnergyBonusTime = PlayerPrefs.GetString("LastEnergyBonusTime", currentDate.ToBinary().ToString());
         FirstDailyBonusTime = PlayerPrefs.GetString("FirstDailyBonusTime", currentDate.ToBinary().ToString());
+        DayCount = PlayerPrefs.GetInt("DayCount", DayCount);
 
         GameGlobalVariablesManager.EnergyAvailable = PlayerPrefs.GetInt("EnergyAvailable", GameGlobalVariablesManager.InitEnergyAvailable);
         GameGlobalVariablesManager.PlayerLevel  = PlayerPrefs.GetInt("PlayerLevel", 1);
@@ -85,6 +87,7 @@ public class SavedData
         PlayerPrefs.SetString("FirstDailyBonusTime", FirstDailyBonusTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+        PlayerPrefs.SetInt("DayCount", DayCount);
 
         PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.EnergyAvailable);
         PlayerPrefs.SetInt("PlayerLevel", GameGlobalVariablesManager.PlayerLevel);
@@ -120,6 +123,7 @@ public class SavedData
         PlayerPrefs.SetString("FirstDailyBonusTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
+        PlayerPrefs.SetInt("DayCount", DayCount);
 
         PlayerPrefs.Save();
     }
@@ -132,18 +136,23 @@ public class SavedData
         LastDailyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
+        DayCount++;
+        PlayerPrefs.SetInt("DayCount", DayCount);
         PlayerPrefs.Save();
     }
 
+
     public void OnFirstBonusGiven()
     {
+        DayCount = 1;
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
         LastDailyBonusTime = LastSavedTime;
         FirstDailyBonusTime = LastSavedTime;
         PlayerPrefs.SetString("LastSavedTime", LastSavedTime);
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
-        PlayerPrefs.SetString("FirstDailyBonusTime", LastDailyBonusTime);        
+        PlayerPrefs.SetString("FirstDailyBonusTime", LastDailyBonusTime);
+        PlayerPrefs.SetInt("DayCount", DayCount);
         PlayerPrefs.Save();
     }
 
@@ -228,6 +237,11 @@ public class SavedData
             daily = currentDate.ToBinary();
         }
         return daily;
+    }
+
+    public int GetSavedDayCount()
+    {
+        return DayCount;        
     }
 
 

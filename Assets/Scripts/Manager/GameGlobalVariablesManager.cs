@@ -72,16 +72,16 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int Enemy2_Drop = 6;
     public static int Enemy3_Drop = 10;
 
-    public static int DailyBonusCoins = 250;
+    public static int DailyBonusCoins = 500;
 
     // layer collision
     public static int WallLightLayer = 12;
 
     #region TempVals
     // to take a build with out ads
-    public static bool IsShowAd = false;
+    public static bool IsShowAd = true;
     public static bool isSoundMuted = false;
-    public static bool IsHackEnabled = true;
+    public static bool IsHackEnabled = false;
     #endregion TempVals
 
     public static int playerHealth = 100;

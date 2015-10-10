@@ -184,11 +184,15 @@ public class NotifMgr : MonoBehaviour {
             System.DateTime firstDate = System.DateTime.FromBinary(firstDateLong);
             System.TimeSpan firstDiff = currentDate.Subtract(firstDate);
 
+            int savedDayCount = SavedData.Inst.GetSavedDayCount();
             double dayCount = firstDiff.TotalSeconds / SecInDay;
+            Debug.Log("dayCount : " + dayCount + " vs" + savedDayCount);
+
             if (dayCount > 30)
                 dayCount = 30;
-            if (dayCount <= 0)
+            if (dayCount <= 0) 
                 dayCount = 1;
+                
             Debug.Log("OnGiveDailyBonus" + firstDate.ToString() + " = " + oldDate.ToString());
 
             OnGiveDailyBonus((int)dayCount);

@@ -395,9 +395,9 @@ public class ShopMgr : MonoBehaviour {
                 }
                 break;
             case "Armor":
-                GameGlobalVariablesManager.ArmorLevel += 1;
                 if (GameGlobalVariablesManager.ArmorLevel < GameGlobalVariablesManager.MaxLevel)
                 {
+                    GameGlobalVariablesManager.ArmorLevel += 1;
                     GameGlobalVariablesManager.AttackHealthLost = GameGlobalVariablesManager.MaxLevel - GameGlobalVariablesManager.ArmorLevel + 1;
                     if (GameGlobalVariablesManager.AttackHealthLost < 1)
                         GameGlobalVariablesManager.AttackHealthLost = 1;
