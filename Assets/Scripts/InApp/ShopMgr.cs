@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using Prime31;
@@ -346,6 +347,36 @@ public class ShopMgr : MonoBehaviour {
         UpdateLevelUI();
     }
 
+	public void ShowRewardedAd()
+	{
+		Debug.Log ("Video ad reward");
+		if (Advertisement.IsReady("rewardedVideo"))
+		{
+			var options = new ShowOptions { resultCallback = HandleShowResult };
+			Advertisement.Show("rewardedVideo", options);
+		}
+	}
+
+	private void HandleShowResult(ShowResult result)
+	{
+		switch (result)
+		{
+		case ShowResult.Finished:
+			Debug.Log("The ad was successfully shown.");
+			//
+			// YOUR CODE TO REWARD THE GAMER
+			// Give coins etc.
+			GameGlobalVariablesManager.EnergyAvailable+=1;
+			SavedData.Inst.SaveAllData ();
+			break;
+		case ShowResult.Skipped:
+			Debug.Log("The ad was skipped before reaching the end.");
+			break;
+		case ShowResult.Failed:
+			Debug.LogError("The ad failed to be shown.");
+			break;
+		}
+	}
 
     public void OnBuyButton()
     {

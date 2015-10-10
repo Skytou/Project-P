@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 //using Prime31;
 using UnityEngine.EventSystems;
+using UnityEngine.Advertisements;
 using UnityEngine.UI;
 
 public enum PlayerBehaviour
@@ -819,6 +820,11 @@ public class PlayerMovement : MonoBehaviour
         // player dead
         if (GameGlobalVariablesManager.playerHealth <= 0 && !GameGlobalVariablesManager.PlayerDied)
         {
+			if (GameGlobalVariablesManager.IsShowAd)
+			{
+				Advertisement.Show();
+				Debug.Log("Showing ad");
+			}	
             InGameHUD.instance.EnableDialogueHUD("Well fought ! \n better luck next time");
             GameGlobalVariablesManager.PlayerDied = true;
             SavedData.Inst.SaveAllData();
