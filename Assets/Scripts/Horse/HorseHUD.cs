@@ -76,12 +76,17 @@ public class HorseHUD : MonoBehaviour
         }
         else
         {
-            Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
+            SavedData.Inst.SaveAllData();
             if (victory)
+            {
                 GameGlobalVariablesManager.OnLevelCleared();
+            }
             else
+            {
                 GameGlobalVariablesManager.OnLevelOver();
+            }
             Time.timeScale = 1.0f;
+            Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
         }
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
 	}

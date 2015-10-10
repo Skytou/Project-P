@@ -20,13 +20,19 @@ public class ShopMgr : MonoBehaviour {
     public Image storeImage;
     public Text storeText;
 
-    public string selectedPowerUp;
+    public string selectedPowerUp = "store";
     public GameObject PopUpNotEnoughCoins;
     public GameObject PopUpInApp;
 
     public Text KnifeCountText;
     public Text BombsCountText;
     public Text CycloneCountText;
+
+    public Text LevelText;
+    public GameObject LevelTextBg;
+    public Text CoinsValText;
+    public GameObject CoinsValBg;
+
 
     int hackTap = 0;
 
@@ -69,6 +75,10 @@ public class ShopMgr : MonoBehaviour {
         OpenShop();
         PopUpInApp.SetActive(false);
         PopUpNotEnoughCoins.SetActive(false);
+
+        HideLevelUI();
+        HideCoinsUI();
+
         UpdateUI();
         hackTap = 0;
 	}
@@ -251,9 +261,11 @@ public class ShopMgr : MonoBehaviour {
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = life;
-        storeText.text = "The life of the hero can be upgraded to give more survival in-spite the attacks taken. Upgrade to get extra 20 survival capacity";
+        storeText.text = "The life of the hero can be upgraded to give more survival in-spite the attacks taken. Upgrade to get extra life";
         selectedPowerUp = "Life";
+        UpdateLevelUI();
     }
+
 
     public void BuySword()
     {
@@ -261,7 +273,9 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = sword;
         storeText.text = "The power of the sword determines the hits to kill the enemy. \nUpgrade the sword to kill the enemy fast";
         selectedPowerUp = "Sword";
+        UpdateLevelUI();
     }
+
 
     public void BuyKnife()
     {
@@ -269,7 +283,9 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = throwKnife;
         storeText.text = "This special weapon helps to kill the enemies from a distance. \nMore the throw knives more are the escape opportunities";
         selectedPowerUp = "Knife";
+        UpdateLevelUI();
     }
+
 
     public void BuyArmor()
     {
@@ -277,15 +293,19 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = armor;
         storeText.text = "The armour protects the hero from attack by the enemies. \nUpgrade the armour to reduce damage ";
         selectedPowerUp = "Armor";
+        UpdateLevelUI();
     }
+
 
     public void BuyEnergy()
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = energy;
-        storeText.text = "The hero can sustain in the battle field only till his energy lasts. \nUpgrade to get extra 20 energy to give him more fighting time";
+        storeText.text = "Hero needs energy to enter every level.\nBuy more energy to continue fight";
         selectedPowerUp = "Energy";
+        UpdateLevelUI();
     }
+
 
     public void BuyCyclone()
     {
@@ -293,6 +313,7 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = cyclone;
         storeText.text = "Master move by the player to kill the enemies with a circular spin";
         selectedPowerUp = "Cyclone";
+        UpdateLevelUI();
     }
 
 
@@ -300,9 +321,11 @@ public class ShopMgr : MonoBehaviour {
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         storeImage.sprite = bomb;
-        storeText.text = "Stun bomb to stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
+        storeText.text = "Stun bomb stuns the enemies for a certain time. Purchase more bombs to freeze enemies at multiple instances";
         selectedPowerUp = "Bomb";
+        UpdateLevelUI();
     }
+
 
     public void BuyTimerFreeze()
     {
@@ -310,6 +333,7 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = timer;
         storeText.text = "An energy freeze to pause the energy depletion of the hero. This gives more fighting time";
         selectedPowerUp = "Timer";
+        UpdateLevelUI();
     }
 
 
@@ -319,6 +343,7 @@ public class ShopMgr : MonoBehaviour {
         storeImage.sprite = coins;
         storeText.text = "Buy more coins and use them in store to get more upgrades";
         selectedPowerUp = "Coins";
+        UpdateLevelUI();
     }
 
 
@@ -338,47 +363,71 @@ public class ShopMgr : MonoBehaviour {
             OnOpenNotEnoughCoins();
             return;
         }
-        else 
-        {
-            GameGlobalVariablesManager.totalNumberOfCoins -= (int)curItemPrice;
-            SavedData.Inst.SaveAllData();
-            AudioMgr.Inst.PlaySfx(SfxVals.BuyItem);
-        }
+        bool isPurchased = false;
         switch (selectedPowerUp)
         {
             case "Life":
+                if (GameGlobalVariablesManager.PlayerLevel < GameGlobalVariablesManager.MaxLevel)
+                {
+                    GameGlobalVariablesManager.PlayerLevel += 1;
+                    isPurchased = true;
+                }
                 break;
-
             case "Sword":
+                if (GameGlobalVariablesManager.SwordLevel < GameGlobalVariablesManager.MaxLevel)
+                {
+                    GameGlobalVariablesManager.SwordLevel += 1;
+                    isPurchased = true;
+                }
                 break;
-
             case "Knife":
-                GameGlobalVariablesManager.KnifeCount += 1;
+                if (GameGlobalVariablesManager.KnifeCount < GameGlobalVariablesManager.MaxKnife)
+                {
+                    GameGlobalVariablesManager.KnifeCount += 1;
+                    isPurchased = true;
+                }
                 break;
-
             case "Bomb":
-                GameGlobalVariablesManager.BombsCount += 1;
+                if (GameGlobalVariablesManager.BombsCount < GameGlobalVariablesManager.MaxBombs)
+                {
+                    GameGlobalVariablesManager.BombsCount += 1;
+                    isPurchased = true;
+                }
                 break;
-
             case "Armor":
+                GameGlobalVariablesManager.ArmorLevel += 1;
+                if (GameGlobalVariablesManager.ArmorLevel < GameGlobalVariablesManager.MaxLevel)
+                {
+                    GameGlobalVariablesManager.AttackHealthLost = GameGlobalVariablesManager.MaxLevel - GameGlobalVariablesManager.ArmorLevel + 1;
+                    if (GameGlobalVariablesManager.AttackHealthLost < 1)
+                        GameGlobalVariablesManager.AttackHealthLost = 1;
+                    isPurchased = true;
+                }
                 break;
-
-            case "TimerFreeze":
-                break;
-
             case "Energy":
-                GameGlobalVariablesManager.IncreaseEnergy();
+                if (GameGlobalVariablesManager.EnergyAvailable < GameGlobalVariablesManager.MaxEnergy)
+                {
+                    GameGlobalVariablesManager.IncreaseEnergy();
+                    isPurchased = true;
+                }
                 break;
-
             case "Cyclone":
                 if (GameGlobalVariablesManager.CycloneCount < GameGlobalVariablesManager.MaxCyclone)
                 {
                     GameGlobalVariablesManager.CycloneCount += 1;
+                    isPurchased = true;
                 }
                 break;           
         }
-        SavedData.Inst.SaveAllData();
+        if(isPurchased)
+        {
+            GameGlobalVariablesManager.totalNumberOfCoins -= (int)curItemPrice;
+            SavedData.Inst.SaveAllData();
+            AudioMgr.Inst.PlaySfx(SfxVals.BuyItem);
+            SavedData.Inst.SaveAllData();
+        }        
         UpdateUI();
+        UpdateLevelUI();
     }
 
     // hack 
@@ -389,6 +438,86 @@ public class ShopMgr : MonoBehaviour {
             GameGlobalVariablesManager.totalNumberOfCoins += 1000;
         UpdateUI();
     }
-	
+
+    public void UpdateLevelUI()
+    {
+        long curItemPrice = shop.GetCoins(selectedPowerUp);
+        switch (selectedPowerUp)
+        {
+            case "Life":
+                LevelText.gameObject.SetActive(true);
+                LevelTextBg.SetActive(true);
+                LevelText.text = GameGlobalVariablesManager.PlayerLevel.ToString();
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Sword":
+                LevelText.gameObject.SetActive(true);
+                LevelTextBg.SetActive(true);
+                LevelText.text = GameGlobalVariablesManager.SwordLevel.ToString();
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Armor":
+                LevelText.gameObject.SetActive(true);
+                LevelTextBg.SetActive(true);
+                LevelText.text = GameGlobalVariablesManager.ArmorLevel.ToString();
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Knife":
+                LevelText.gameObject.SetActive(false);
+                LevelTextBg.SetActive(false);
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Bomb":
+                LevelText.gameObject.SetActive(false);
+                LevelTextBg.SetActive(false);
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Cyclone":
+                LevelText.gameObject.SetActive(false);
+                LevelTextBg.SetActive(false);
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Energy":
+                LevelText.gameObject.SetActive(true);
+                LevelTextBg.SetActive(true);
+                LevelText.text = GameGlobalVariablesManager.EnergyAvailable.ToString();
+                CoinsValText.gameObject.SetActive(true);
+                CoinsValBg.SetActive(true);
+                CoinsValText.text = curItemPrice.ToString();
+                break;
+            case "Coins":
+                LevelText.gameObject.SetActive(false);
+                LevelTextBg.SetActive(false);
+                CoinsValText.gameObject.SetActive(false);
+                CoinsValBg.SetActive(false);
+                break;
+        }
+    }
+        
+
+    public void HideLevelUI()
+    {
+        LevelText.gameObject.SetActive(false);
+        LevelTextBg.SetActive(false);
+    }
+
+    public void HideCoinsUI()
+    {
+        CoinsValText.gameObject.SetActive(false);
+        CoinsValBg.SetActive(false);
+    }
+
     #endregion StoreHUD
 }

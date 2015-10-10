@@ -5,12 +5,19 @@ using System.Collections;
 
 public enum AIThrow
 {
+    BOMB,
 	SPEAR,
-	BOMB
-	 
 }
 
- 
+
+public enum AIType
+{
+    ENEMY1,
+    ENEMY2,
+    ENEMY3,
+    ENEMY4,
+}
+
 
 public enum AIBehaviour
 {
@@ -22,8 +29,8 @@ public enum AIBehaviour
 public class AIComponent : MonoBehaviour 
 {
 	public AIBehaviour aiBehaviour;
-
 	public AIThrow aiThrow;
+    public AIType aiType;
 
 	public float aiMoveSpeed;
 	public int aiLevel;
@@ -78,17 +85,53 @@ public class AIComponent : MonoBehaviour
 	void Awake()
 	{
 		//playerRef = GameObject.FindGameObjectWithTag("Player");
-		Debug.Log (playerRef);
+		//Debug.Log (playerRef);
 		aiAnimator = GetComponent<Animator>();
 		healthBarRectTransform = healthBar.GetComponent<RectTransform>();
-		healthBarScaleFactor = healthBarRectTransform.localScale.x/ aiMaxHitTaken;
+		healthBarScaleFactor = healthBarRectTransform.localScale.x / aiMaxHitTaken;
 
 		enemyDeathParticleAnimator = enemyDeathParticleEffect.GetComponent<Animator> ();
-		//aiMaxHitTaken = 1;
-		//Debug.Log(healthBarScaleFactor);
+        switch (GameGlobalVariablesManager.currentLevelnumber)
+        {
+            case 0:
+                if (aiType == AIType.ENEMY1)
+                    aiMaxHitTaken = 3;
+                else if (aiType == AIType.ENEMY2)
+                    aiMaxHitTaken = 4;
+                else if (aiType == AIType.ENEMY4)
+                    aiMaxHitTaken = 5;
+                break;
+
+            case 2:
+                if (aiType == AIType.ENEMY1)
+                    aiMaxHitTaken = 4;
+                else if (aiType == AIType.ENEMY2)
+                    aiMaxHitTaken = 5;
+                else if (aiType == AIType.ENEMY4)
+                    aiMaxHitTaken = 6;
+                break;
+
+            case 4:
+                if (aiType == AIType.ENEMY1)
+                    aiMaxHitTaken = 5;
+                else if (aiType == AIType.ENEMY2)
+                    aiMaxHitTaken = 6;
+                else if (aiType == AIType.ENEMY4)
+                    aiMaxHitTaken = 7;
+                break;
+
+            case 6:
+                if (aiType == AIType.ENEMY1)
+                    aiMaxHitTaken = 6;
+                else if (aiType == AIType.ENEMY2)
+                    aiMaxHitTaken = 7;
+                else if (aiType == AIType.ENEMY4)
+                    aiMaxHitTaken = 8;
+                break;
+        }
 	}
 
-	// Use this for initialization
+
 	void Start () 
 	{
 		aiSpriteRenderer.enabled = true;
@@ -102,9 +145,7 @@ public class AIComponent : MonoBehaviour
         {
             coinAnim = curObj.GetComponent<CoinAnim>() as CoinAnim;
         }
-		//aiMaxHitTaken = 2;
 	}
-
 	 
 
 	void AttackPlayer(int id)
@@ -112,13 +153,14 @@ public class AIComponent : MonoBehaviour
 		
 	}
 
+
 	void AIReact()
 	{
 
 	}
 
-	//Calculate the angle and return the movedirection
 
+	//Calculate the angle and return the movedirection
 	void CalculateAngle(float angle)
 	{
 		if(angle>0)
@@ -152,7 +194,6 @@ public class AIComponent : MonoBehaviour
 				moveDirection =1;
 				prevMoveDirection=1;
 				idleDirection =-1;
-				
 			}
 			else //if(angle>165 && angle<=180)
 			{
@@ -160,11 +201,8 @@ public class AIComponent : MonoBehaviour
 				moveDirection =7;
 				prevMoveDirection=7;
 				idleDirection =-1;
-				
 			}
-			
 		}
-		
 		// Mapping angle to 8 directions 0 - -180
 		else
 		{
@@ -174,7 +212,6 @@ public class AIComponent : MonoBehaviour
 				moveDirection =5;
 				prevMoveDirection=5;
 				idleDirection =-1;
-				
 			}
 			else if(angle < -15 && angle >= -75)
 			{
@@ -190,7 +227,6 @@ public class AIComponent : MonoBehaviour
 				moveDirection =3;
 				prevMoveDirection=3;
 				idleDirection =-1;
-				
 			}
 			else if(angle < -105 && angle >= -165)
 			{
@@ -198,7 +234,6 @@ public class AIComponent : MonoBehaviour
 				moveDirection =5;
 				prevMoveDirection=5;
 				idleDirection =-1;
-				
 			}
 			else //if(angle<-165 && angle>=-180)
 			{
@@ -206,13 +241,10 @@ public class AIComponent : MonoBehaviour
 				moveDirection =7;
 				prevMoveDirection=7;
 				idleDirection =-1;
-				
 			}
-			
 		}
-	 
-		//return moveDirection;
 	}
+
 
 	void MoveTowardsPlayer()
 	{
@@ -226,7 +258,6 @@ public class AIComponent : MonoBehaviour
  		}
 		else  
 		{
-
 			xComponent = -transform.position.x + playerPos.x;
 			yComponent = -transform.position.y + playerPos.y;
 			angle = Mathf.Atan2(yComponent, xComponent) * Mathf.Rad2Deg;
@@ -238,17 +269,12 @@ public class AIComponent : MonoBehaviour
 			aiAnimator.SetFloat("idleDirection",idleDirection);
 			aiAnimator.SetFloat("moveDirection",moveDirection);
 		}
-		  
-
+		
 		if(transform.position ==  playerRef.transform.position)
 		{ 
 			idleDirection =prevMoveDirection;
 			moveDirection=-1;
-			
 		}
-
-
-
 	}
 
 
@@ -281,9 +307,6 @@ public class AIComponent : MonoBehaviour
 			}
 			a_timer -= Time.deltaTime;
 		} 
-
-		 
-	  
 	}
 
 	void Attack()
@@ -300,19 +323,16 @@ public class AIComponent : MonoBehaviour
 
 	void HitPlayer()
 	{
-		 
 		playerRef.GetComponent<PlayerMovement>().React ();
 	}
-	 
-
 	 
 
 	void OnCollisionMove()
 	{
 		Debug.Log ("On collision move");
-
 		this.transform.position = Vector2.MoveTowards(this.transform.position, new Vector2( playerRef.transform.position.x + Random.insideUnitCircle.x *5, playerRef.transform.position.y *5 + Random.insideUnitCircle.y) ,aiMoveSpeed * Time.deltaTime);
 	}
+
 
 	public void React()
 	{

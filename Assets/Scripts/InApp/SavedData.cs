@@ -19,9 +19,7 @@ public class SavedData
     public int EnergyAvailable = 1;
 
     public int SwordLevel = 1;
-    public int KnifeLevel = 1;
-    public int BombLevel = 1;
-    public int CycloneLevel = 1;
+    public int ArmorLevel = 1;
     public int PlayerLevel = 1;
 
     System.DateTime currentDate;
@@ -61,9 +59,14 @@ public class SavedData
         LastDailyBonusTime = PlayerPrefs.GetString("LastDailyBonusTime", currentDate.ToBinary().ToString());
         LastEnergyBonusTime = PlayerPrefs.GetString("LastEnergyBonusTime", currentDate.ToBinary().ToString());
 
-        GameGlobalVariablesManager.KnifeCount = PlayerPrefs.GetInt("KnifeCount", GameGlobalVariablesManager.StartKnifeCount);
-        GameGlobalVariablesManager.BombsCount = PlayerPrefs.GetInt("BombsCount", GameGlobalVariablesManager.StartBombsCount);
-        GameGlobalVariablesManager.CycloneCount = PlayerPrefs.GetInt("CycloneCount", GameGlobalVariablesManager.StartCycloneCount);
+        GameGlobalVariablesManager.EnergyAvailable = PlayerPrefs.GetInt("EnergyAvailable", GameGlobalVariablesManager.InitEnergyAvailable);
+        GameGlobalVariablesManager.PlayerLevel  = PlayerPrefs.GetInt("PlayerLevel", 1);
+        GameGlobalVariablesManager.SwordLevel = PlayerPrefs.GetInt("SwordLevel", 1);
+        GameGlobalVariablesManager.ArmorLevel = PlayerPrefs.GetInt("ArmorLevel", 1);
+
+        GameGlobalVariablesManager.KnifeCount = PlayerPrefs.GetInt("KnifeCount", GameGlobalVariablesManager.InitKnifeCount);
+        GameGlobalVariablesManager.BombsCount = PlayerPrefs.GetInt("BombsCount", GameGlobalVariablesManager.InitBombsCount);
+        GameGlobalVariablesManager.CycloneCount = PlayerPrefs.GetInt("CycloneCount", GameGlobalVariablesManager.InitCycloneCount);
 
         GameGlobalVariablesManager.LevelsCleared = PlayerPrefs.GetInt("LevelsCleared", GameGlobalVariablesManager.LevelsCleared);
     }
@@ -81,7 +84,10 @@ public class SavedData
         PlayerPrefs.SetString("LastDailyBonusTime", LastDailyBonusTime);
         PlayerPrefs.SetString("LastEnergyBonusTime", LastEnergyBonusTime);
 
-        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.EnergyAvailable);        
+        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.EnergyAvailable);
+        PlayerPrefs.SetInt("PlayerLevel", GameGlobalVariablesManager.PlayerLevel);
+        PlayerPrefs.SetInt("SwordLevel", GameGlobalVariablesManager.SwordLevel);
+        PlayerPrefs.SetInt("ArmorLevel", GameGlobalVariablesManager.ArmorLevel);
         PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.KnifeCount);
         PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.BombsCount);
         PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.CycloneCount);
@@ -95,11 +101,15 @@ public class SavedData
         PlayerPrefs.SetInt("GamePlayCount", GamePlayCount);
         PlayerPrefs.SetInt("TotalCoins", GameGlobalVariablesManager.GameStartCoins);
         PlayerPrefs.SetInt("TotalCrystals", TotalCrystals);
-        PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.StartKnifeCount);
-        PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.StartBombsCount);
-        PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.StartCycloneCount);
-        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.StartEnergyAvailable);
-        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.StartLevelsCleared);
+        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.InitEnergyAvailable);
+        PlayerPrefs.SetInt("PlayerLevel", GameGlobalVariablesManager.PlayerLevel);
+        PlayerPrefs.SetInt("SwordLevel", GameGlobalVariablesManager.SwordLevel);
+        PlayerPrefs.SetInt("ArmorLevel", GameGlobalVariablesManager.ArmorLevel);
+        PlayerPrefs.SetInt("KnifeCount", GameGlobalVariablesManager.InitKnifeCount);
+        PlayerPrefs.SetInt("BombsCount", GameGlobalVariablesManager.InitBombsCount);
+        PlayerPrefs.SetInt("CycloneCount", GameGlobalVariablesManager.InitCycloneCount);
+        PlayerPrefs.SetInt("LevelsCleared", GameGlobalVariablesManager.InitLevelsCleared);
+
         currentDate = System.DateTime.Now;
         LastSavedTime = currentDate.ToBinary().ToString();
         LastDailyBonusTime = LastSavedTime;

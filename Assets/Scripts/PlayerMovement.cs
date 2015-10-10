@@ -84,7 +84,6 @@ public class PlayerMovement : MonoBehaviour
     public int prevID = 0;
     public float CoolOffKnife = 1.0f;
 
-
     void Awake()
     {
         target = transform.position;
@@ -108,6 +107,8 @@ public class PlayerMovement : MonoBehaviour
         spinSelectionCircle.SetActive((false));
         normalSelectionCircle.SetActive(true);
         GameGlobalVariablesManager.isPlayerSpin = false;
+
+        GameGlobalVariablesManager.playerHealth = 80 + GameGlobalVariablesManager.PlayerLevel * 20;
 
         GameObject curObj = GameObject.FindGameObjectWithTag("CoinParticles") as GameObject;
         if (curObj != null)
@@ -739,12 +740,7 @@ public class PlayerMovement : MonoBehaviour
             {
                 return;
             }
-        }
-        Debug.Log("LaunchKnife");
-        knife = Instantiate(knifePrefab[(int)moveDirection], knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
-        knife.SetActive(true);
-        knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos, selectedObject, true);
-        
+        }        
         GameGlobalVariablesManager.KnifeCount -= 1;
         if (GameGlobalVariablesManager.KnifeCount <= 0)
         {
@@ -752,6 +748,10 @@ public class PlayerMovement : MonoBehaviour
         }
         else
         {
+            Debug.Log("LaunchKnife");
+            knife = Instantiate(knifePrefab[(int)moveDirection], knifeThrowPoint.transform.position, Quaternion.identity) as GameObject;
+            knife.SetActive(true);
+            knife.GetComponent<ThrowKnife>().ThowKnifeTo(touchPos, selectedObject, true);
             AudioMgr.Inst.PlaySfx(SfxVals.Knife);
         }
     }
@@ -790,7 +790,7 @@ public class PlayerMovement : MonoBehaviour
         if (!animatorStateInfo.IsTag("ReactTag") || !animatorStateInfo.IsTag("MovementTag"))
         {
             Debug.Log("Health : " + GameGlobalVariablesManager.playerHealth);
-            GameGlobalVariablesManager.playerHealth -= GameGlobalVariablesManager.AttackHealthLost;
+            GameGlobalVariablesManager.playerHealth -= GameGlobalVariablesManager.MaxLevel - GameGlobalVariablesManager.ArmorLevel + 1;
             UpdateAttackCombo(0);
             //Debug.Log ("Play react anim");
             characterAnimator.SetFloat("idleDirection", idleDirection);
@@ -1037,7 +1037,6 @@ public class PlayerMovement : MonoBehaviour
                             {
                                 selectedObject.GetComponent<AIComponent>().selectionMarker.SetActive(false);
                             }
-                            canThrow = true;
                             playerBehaviour = PlayerBehaviour.MOVEANDTHROW;
                             break;
                     }

@@ -17,63 +17,63 @@ public class ShopDB{
         LocalShopItem curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Life";
         curLocalShopItem.type = 1;
-        curLocalShopItem.virtualAmount = 100;
+        curLocalShopItem.virtualAmount = 500;
         curLocalShopItem.Desc = "Life";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Sword";
         curLocalShopItem.type = 2;
-        curLocalShopItem.virtualAmount = 100;
+        curLocalShopItem.virtualAmount = 500;
         curLocalShopItem.Desc = "Sword";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Knife";
         curLocalShopItem.type = 3;
-        curLocalShopItem.virtualAmount = 50;
+        curLocalShopItem.virtualAmount = 250;
         curLocalShopItem.Desc = "Knife";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Armor";
         curLocalShopItem.type = 4;
-        curLocalShopItem.virtualAmount = 100;
+        curLocalShopItem.virtualAmount = 500;
         curLocalShopItem.Desc = "Armor";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Energy";
         curLocalShopItem.type = 5;
-        curLocalShopItem.virtualAmount = 500;
+        curLocalShopItem.virtualAmount = 1000;
         curLocalShopItem.Desc = "Energy";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Cyclone";
         curLocalShopItem.type = 6;
-        curLocalShopItem.virtualAmount = 50;
+        curLocalShopItem.virtualAmount = 250;
         curLocalShopItem.Desc = "Cyclone";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Bomb";
         curLocalShopItem.type = 7;
-        curLocalShopItem.virtualAmount = 50;
+        curLocalShopItem.virtualAmount = 250;
         curLocalShopItem.Desc = "Bomb";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Timer";
         curLocalShopItem.type = 8;
-        curLocalShopItem.virtualAmount = 50;
+        curLocalShopItem.virtualAmount = 250;
         curLocalShopItem.Desc = "Timer";
         LocalShopItemList.Add(curLocalShopItem);
 
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Coins";
         curLocalShopItem.type = 9;
-        curLocalShopItem.virtualAmount = 900;
+        curLocalShopItem.virtualAmount = 500;
         curLocalShopItem.Desc = "Coins";
         LocalShopItemList.Add(curLocalShopItem);
 

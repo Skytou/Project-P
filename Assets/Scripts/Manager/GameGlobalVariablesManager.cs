@@ -40,6 +40,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneCastle3 = "castle3";
     public static string SceneCastle4 = "castle4";
 
+    public static int MaxLevel = 5;
     public static int MaxEnergy = 3;
     public static int MaxKnife = 10;
     public static int MaxBombs = 5;
@@ -50,19 +51,21 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int BombsCount = 3;
     public static int CycloneCount = 3;
 
-    public static int StartEnergyAvailable = 3;
-    public static int StartKnifeCount = 5;
-    public static int StartBombsCount = 3;
-    public static int StartCycloneCount = 3;
-    public static int StartLevelsCleared = 0;
-    public static int PlayableLevels = 7;
+    public static int InitEnergyAvailable = 3;
+    public static int InitKnifeCount = 5;
+    public static int InitBombsCount = 3;
+    public static int InitCycloneCount = 3;
 
     public static int PlayerLevel = 1;
     public static int SwordLevel = 1;
+    public static int ArmorLevel = 1;
     public static int KnifeLevel = 1;
     public static int BombLevel = 1;
     public static int CycloneLevel = 1;
+
+    public static int InitLevelsCleared = 0;
     public static int LevelsCleared = 0;
+    public static int PlayableLevels = 7;
 
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;
@@ -85,6 +88,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int AttackHealthLost = 5;
     public static bool PlayerDied = false;
 
+
 	void Awake()
 	{
 	}
@@ -101,9 +105,9 @@ public class GameGlobalVariablesManager : MonoBehaviour
         Debug.Log("currentLevelnumber:" + GameGlobalVariablesManager.currentLevelnumber);
         if (GameGlobalVariablesManager.LevelsCleared <= GameGlobalVariablesManager.currentLevelnumber + 1)
             GameGlobalVariablesManager.LevelsCleared = GameGlobalVariablesManager.currentLevelnumber + 1;
-
         OnLevelOver();
     }
+
 
     public static void OnLevelOver()
     {
@@ -130,10 +134,10 @@ public class GameGlobalVariablesManager : MonoBehaviour
             EnergyAvailable += 1;
     }
 
+
     public static void DecreaseEnergy()
     {
         if (EnergyAvailable > 0)
             EnergyAvailable -= 1;
     }
-
 }
