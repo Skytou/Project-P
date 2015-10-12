@@ -377,6 +377,7 @@ public class ShopMgr : MonoBehaviour {
 			break;
 		}
         UpdateUI();
+        UpdateLevelUI();
 	}
 
     public void OnBuyButton()
