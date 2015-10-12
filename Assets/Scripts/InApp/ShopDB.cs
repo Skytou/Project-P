@@ -45,7 +45,7 @@ public class ShopDB{
         curLocalShopItem = new LocalShopItem();
         curLocalShopItem.uid = "Energy";
         curLocalShopItem.type = 5;
-        curLocalShopItem.virtualAmount = 1000;
+        curLocalShopItem.virtualAmount = 750;
         curLocalShopItem.Desc = "Energy";
         LocalShopItemList.Add(curLocalShopItem);
 

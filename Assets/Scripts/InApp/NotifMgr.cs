@@ -178,34 +178,23 @@ public class NotifMgr : MonoBehaviour {
 
         System.TimeSpan diff = currentDate.Subtract(oldDate);
 
-        if (diff.TotalSeconds >= SecInDay)
+        long firstDateLong = SavedData.Inst.GetFirstBonusTime();
+        System.DateTime firstDate = System.DateTime.FromBinary(firstDateLong);
+        System.TimeSpan firstDiff = currentDate.Subtract(firstDate);
+
+        int savedDayCount = SavedData.Inst.GetSavedDayCount();
+        int dayCount = (int)(firstDiff.TotalSeconds / SecInDay);
+
+        if (diff.TotalSeconds >= SecInDay || dayCount == savedDayCount + 1)
         {
-            long firstDateLong = SavedData.Inst.GetFirstBonusTime();
-            System.DateTime firstDate = System.DateTime.FromBinary(firstDateLong);
-            System.TimeSpan firstDiff = currentDate.Subtract(firstDate);
-
-            int savedDayCount = SavedData.Inst.GetSavedDayCount();
-            double dayCount = firstDiff.TotalSeconds / SecInDay;
             Debug.Log("dayCount : " + dayCount + " vs" + savedDayCount);
-
-            if (dayCount > 30)
-                dayCount = 30;
-            if (dayCount <= 0) 
-                dayCount = 1;
+            if (dayCount > savedDayCount + 1 || dayCount < 0)
+                dayCount = 0;
                 
             Debug.Log("OnGiveDailyBonus" + firstDate.ToString() + " = " + oldDate.ToString());
-
-            if (diff.TotalSeconds > 2 * SecInDay)
-            {
-                OnGiveDailyBonus((int)dayCount);
-            }
-            else
-            {
-                OnGiveDailyBonus(2);
-            }
+            OnGiveDailyBonus((int)dayCount);
         }
     }
-
 
     public void OnGiveDailyBonusBtn()
     {
@@ -220,17 +209,21 @@ public class NotifMgr : MonoBehaviour {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
         GameGlobalVariablesManager.totalNumberOfCoins += GameGlobalVariablesManager.DailyBonusCoins;
 
-        DayCountText.text = "Bonus";
-
         Debug.Log("save it to pref");
 
         // save it to pref
-        if (dayCount == 1)
+        if (dayCount == 0)
             SavedData.Inst.OnFirstBonusGiven();
         else
             SavedData.Inst.OnDailyBonusGiven();
         SavedData.Inst.SaveAllData();
         SetNotif_24Hr();
+
+        if (dayCount > 30)
+            dayCount = 30;
+        if (dayCount < 0)
+            dayCount = 0;
+        DayCountText.text = "Day " + (dayCount + 1);
 
         CollectDailyBonusPopup.SetActive(true);
         dailyBonusPopup.SetActive(false);

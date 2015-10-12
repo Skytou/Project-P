@@ -72,7 +72,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static int Enemy2_Drop = 6;
     public static int Enemy3_Drop = 10;
 
-    public static int DailyBonusCoins = 500;
+    public static int DailyBonusCoins = 250;
 
     // layer collision
     public static int WallLightLayer = 12;
