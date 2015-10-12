@@ -350,10 +350,10 @@ public class ShopMgr : MonoBehaviour {
 	public void ShowRewardedAd()
 	{
 		Debug.Log ("Video ad reward");
-		if (Advertisement.IsReady("rewardedVideo"))
+		if (Advertisement.IsReady("rewardedVideoZone"))
 		{
 			var options = new ShowOptions { resultCallback = HandleShowResult };
-			Advertisement.Show("rewardedVideo", options);
+			Advertisement.Show("rewardedVideoZone", options);
 		}
 	}
 
@@ -366,8 +366,8 @@ public class ShopMgr : MonoBehaviour {
 			//
 			// YOUR CODE TO REWARD THE GAMER
 			// Give coins etc.
-            GameGlobalVariablesManager.IncreaseEnergy(1);
-			SavedData.Inst.SaveEnergyData ();
+			GameGlobalVariablesManager.EnergyAvailable+=1;
+			SavedData.Inst.SaveAllData ();
 			break;
 		case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -376,7 +376,6 @@ public class ShopMgr : MonoBehaviour {
 			Debug.LogError("The ad failed to be shown.");
 			break;
 		}
-        UpdateUI();
 	}
 
     public void OnBuyButton()
