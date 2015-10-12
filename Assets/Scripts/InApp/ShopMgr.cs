@@ -354,12 +354,12 @@ public class ShopMgr : MonoBehaviour {
 		if (Advertisement.IsReady("rewardedVideoZone"))
 		{
 			var options = new ShowOptions { resultCallback = HandleShowResult };
-<<<<<<< HEAD
+ 
 			Advertisement.Show("rewardedVideoZone", options);
-=======
+ 
 			Advertisement.Show("rewardedVideo", options);
             AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
->>>>>>> origin/master
+ 
 		}
 	}
 
@@ -381,11 +381,11 @@ public class ShopMgr : MonoBehaviour {
 			Debug.LogError("The ad failed to be shown.");
 			break;
 		}
-<<<<<<< HEAD
-=======
+
+
         UpdateUI();
         UpdateLevelUI();
->>>>>>> origin/master
+
 	}
 
     public void OnBuyButton()
