@@ -93,7 +93,7 @@ public class AudioMgr : MonoBehaviour {
                 break;
 
             case SfxVals.Sword:
-                audioSrc.PlayOneShot(Sword, 0.8f);
+                audioSrc.PlayOneShot(Sword);
                 break;
 
             case SfxVals.Knife:
