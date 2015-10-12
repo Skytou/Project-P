@@ -255,16 +255,6 @@ public class LevelSelection : MonoBehaviour
 	{
 		bgRectTransform = levelBG.anchoredPosition;
 		bgRectTransform.x = Mathf.Clamp (bgRectTransform.x, -1463, 1471);
-		
-		//levelBG.anchoredPosition = new Vector2( Mathf.Clamp(levelBG.anchoredPosition.x,20f,-2400f) ,levelBG.anchoredPosition.y);
-
-		/*if(isShowProgressBar)
-		{
-			if(loadingSlider.value<=loadingSlider.maxValue)
-			loadingSlider.value += Time.deltaTime;
-
-		}*/
-
         UpdateLocksUI();
 	}
 
@@ -365,6 +355,12 @@ public class LevelSelection : MonoBehaviour
         }
     }
 
+    public void OnSkipBtn()
+    {
+        AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        dialog = 7;
+        DialogBox.SetActive(false);
+    }
 
     public void OnStoryBtn()
     {

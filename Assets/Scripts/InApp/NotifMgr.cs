@@ -17,7 +17,6 @@ public class NotifMgr : MonoBehaviour {
     long EnergyRefillTime = 30 * 60; // 30 minutes = 1 energy
     float curTime = 0;
     float curTimeVal = 1;
-    int tapCount = 0;
 
     void OnEnable()
     {
@@ -76,7 +75,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(EnergyRefillTime, "Epic Clash - The Puli", "Got an energy, conitnue the game", "Have fun")
+        var noteConfig = new AndroidNotificationConfiguration(3 * EnergyRefillTime, "Epic Clash - The Puli", "Got an energy, conitnue the game", "Have fun")
         {
             extraData = "one-hour-note",
             groupKey = "my-note-group",
@@ -153,17 +152,18 @@ public class NotifMgr : MonoBehaviour {
 
         if (diff.TotalSeconds >= EnergyRefillTime)
         {
-            //Debug.Log("Energy");
-            GiveEnergyBonus();            
+            int energyCount = (int)(diff.TotalSeconds / EnergyRefillTime);
+            Debug.Log("energyCount: " + energyCount);
+            GiveEnergyBonus(energyCount);            
         }
     }
 
 
-    public void GiveEnergyBonus()
+    public void GiveEnergyBonus(int energyCount)
     {
-        GameGlobalVariablesManager.IncreaseEnergy();
+        GameGlobalVariablesManager.IncreaseEnergy(energyCount);
         // save it to pref
-        SavedData.Inst.OnDailyBonusGiven();
+        SavedData.Inst.OnEnergyBonusGiven();
         SetNotif_1Hr();
     }
     #endregion Energy

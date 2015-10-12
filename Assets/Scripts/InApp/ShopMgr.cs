@@ -366,8 +366,8 @@ public class ShopMgr : MonoBehaviour {
 			//
 			// YOUR CODE TO REWARD THE GAMER
 			// Give coins etc.
-			GameGlobalVariablesManager.EnergyAvailable+=1;
-			SavedData.Inst.SaveAllData ();
+            GameGlobalVariablesManager.IncreaseEnergy(1);
+			SavedData.Inst.SaveEnergyData ();
 			break;
 		case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
@@ -376,6 +376,7 @@ public class ShopMgr : MonoBehaviour {
 			Debug.LogError("The ad failed to be shown.");
 			break;
 		}
+        UpdateUI();
 	}
 
     public void OnBuyButton()
@@ -438,7 +439,7 @@ public class ShopMgr : MonoBehaviour {
             case "Energy":
                 if (GameGlobalVariablesManager.EnergyAvailable < GameGlobalVariablesManager.MaxEnergy)
                 {
-                    GameGlobalVariablesManager.IncreaseEnergy();
+                    GameGlobalVariablesManager.IncreaseEnergy(1);
                     isPurchased = true;
                 }
                 break;

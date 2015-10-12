@@ -168,6 +168,14 @@ public class SavedData
     }
 
 
+
+    public void SaveEnergyData()
+    {
+        PlayerPrefs.SetInt("EnergyAvailable", GameGlobalVariablesManager.EnergyAvailable);
+        PlayerPrefs.Save();
+    }
+
+
     public void OnEnergyUsed()
     {
         LastSavedTime = currentDate.ToBinary().ToString();
@@ -217,8 +225,9 @@ public class SavedData
         }
         catch (System.Exception e)
         {
+            Debug.Log(e);
             System.DateTime curDate = System.DateTime.Now;
-            daily = currentDate.ToBinary();
+            daily = curDate.ToBinary();
         }
         return daily;
     }
@@ -233,8 +242,9 @@ public class SavedData
         }
         catch (System.Exception e)
         {
+            Debug.Log(e);
             System.DateTime curDate = System.DateTime.Now;
-            daily = currentDate.ToBinary();
+            daily = curDate.ToBinary();
         }
         return daily;
     }

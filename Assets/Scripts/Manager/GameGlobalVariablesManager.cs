@@ -117,8 +117,6 @@ public class GameGlobalVariablesManager : MonoBehaviour
         isSwordSelected = true;
         isTimerSelected = false;
         isCycloneSelected = false;
-        
-        MaxEnergy -= 1;
 
         isFreezeTimerOn = false;
         isPlayerSpin = false;
@@ -128,16 +126,18 @@ public class GameGlobalVariablesManager : MonoBehaviour
     }
 
 
-    public static void IncreaseEnergy()
+    public static void IncreaseEnergy(int energyCount)
     {
-        if (EnergyAvailable < MaxEnergy)
-            EnergyAvailable += 1;
+        EnergyAvailable += energyCount;
+        if (EnergyAvailable > MaxEnergy)
+            EnergyAvailable = MaxEnergy;
     }
 
 
     public static void DecreaseEnergy()
     {
-        if (EnergyAvailable > 0)
-            EnergyAvailable -= 1;
+        EnergyAvailable -= 1;
+        if (EnergyAvailable < 0)
+            EnergyAvailable = 0;
     }
 }
