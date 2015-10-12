@@ -371,8 +371,9 @@ public class ShopMgr : MonoBehaviour {
 			Debug.Log("The ad was successfully shown.");
 			// YOUR CODE TO REWARD THE GAMER
 			// Give coins etc.
-			GameGlobalVariablesManager.EnergyAvailable+=1;
-			SavedData.Inst.SaveAllData ();
+			GameGlobalVariablesManager.IncreaseEnergy (1);
+			//GameGlobalVariablesManager.EnergyAvailable+=1;
+			SavedData.Inst.SaveEnergyData ();
 			break;
 		case ShowResult.Skipped:
 			Debug.Log("The ad was skipped before reaching the end.");
