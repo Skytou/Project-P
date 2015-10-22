@@ -22,7 +22,7 @@ public class HorseManager : MonoBehaviour
 
     int coinsCollected;
     float life;
-    float timer;
+    public float timer;
     bool victory;
     public bool gameRunning;
 
@@ -71,7 +71,7 @@ public class HorseManager : MonoBehaviour
 	void Start () 
 	{
 		lastPosition = transform.position;
-        life = 3;
+        life = 1;
         gameRunning = true;
         Time.timeScale = 0.0f;
         audioSrc = GetComponent<AudioSource>();
@@ -79,6 +79,8 @@ public class HorseManager : MonoBehaviour
 
         GameGlobalVariablesManager.DecreaseEnergy();
         SavedData.Inst.SaveAllData();
+
+        coinText.text = "" + (int) coinsCollected;
     }
 
 	#region Event Listeners
@@ -96,18 +98,19 @@ public class HorseManager : MonoBehaviour
 
 	void onTriggerEnterEvent( Collider2D col )
 	{
-        if(col.gameObject.tag=="Coin")
+        if(col.gameObject.CompareTag("Coin"))
         {
             col.gameObject.SetActive(false);
             coinsCollected += 1;
+            coinText.text = "" + (int) coinsCollected;
             //Debug.Log(coinsCollected);
-            if(!GameGlobalVariablesManager.isSoundMuted)
+            if (!GameGlobalVariablesManager.isSoundMuted)
                 audioSrc.PlayOneShot(CoinCollectSfx, 0.7f);
         }
-        else if(col.gameObject.tag == "Obstacle")
+        else if(col.gameObject.CompareTag("Obstacle"))
         {
             life -= 1;
-            HorseHUD.instance.SetLifeInGame();
+            //HorseHUD.instance.SetLifeInGame();
             //health.value = life;
             if (life <= 0)
             {
@@ -122,7 +125,7 @@ public class HorseManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
+            //Debug.Log("onTriggerEnterEvent: " + col.gameObject.name);
         }
 	}
 
@@ -192,7 +195,6 @@ public class HorseManager : MonoBehaviour
             timer += Time.deltaTime;
             // UI
             timerText.text = "" + (int) timer;
-            coinText.text = "" + (int) coinsCollected;
 
             TimeKeeper();
 
@@ -245,7 +247,20 @@ public class HorseManager : MonoBehaviour
             }
             if (timer > 60)
             {
-                SpawnTrigger.maxRange = 10;
+                SpawnTrigger.maxRange = 12;
+            }
+        }
+        else if (sceneLvl == 4)
+        {
+            // condition for lvl 4
+            if (timer > 180)
+            {
+                victory = true;
+                GameOver();
+            }
+            if (timer > 80)
+            {
+                SpawnTrigger.maxRange = 14;
             }
         }
     }

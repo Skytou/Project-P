@@ -18,6 +18,9 @@ public class Pooler : MonoBehaviour
     public PoolerData[] PoolHolder;
 
     GameObject instance;
+    GameObject polledInst;
+    PoolerData pooler;
+    GameObject pooledObj;
 
     [System.Serializable]
     public struct PoolerData
@@ -81,7 +84,7 @@ public class Pooler : MonoBehaviour
     {
         for (int i = 0; i < data.cloneLimit; i++)
         {
-            instance=(GameObject)Instantiate(data.prefab, Vector3.zero, Quaternion.identity);
+            instance=Instantiate(data.prefab, Vector3.zero, Quaternion.identity) as GameObject;
             instance.transform.parent = transform;
             data.pool.Add(instance);
             instance.SetActive(false);
@@ -103,8 +106,8 @@ public class Pooler : MonoBehaviour
     // Get a specific type of pooled object
     public GameObject GetPooledObject(int ID)
     {
-        GameObject polledInst = null;
-        var pooler=PoolHolder[ID];
+        polledInst = null;
+        pooler=PoolHolder[ID];
         for (int i = 0; i < pooler.pool.Count; i++)
         {
             if(!pooler.pool[i].activeInHierarchy)
@@ -116,7 +119,7 @@ public class Pooler : MonoBehaviour
         }
         if (pooler.canGrow)
         {
-            instance=(GameObject)Instantiate(pooler.prefab, Vector3.zero, Quaternion.identity);
+            instance=Instantiate(pooler.prefab, Vector3.zero, Quaternion.identity) as GameObject;
             instance.transform.parent = this.gameObject.transform;
             pooler.pool.Add(instance);
             //instance.SetActive(true);
@@ -140,7 +143,7 @@ public class Pooler : MonoBehaviour
         {
             for (int i = 0; i < obj.pool.Count; i++)
             {
-                var pooledObj=obj.pool[i];
+                pooledObj=obj.pool[i];
                 pooledObj.SetActive(false);
             }
         }

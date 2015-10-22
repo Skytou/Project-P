@@ -15,22 +15,25 @@ public class FloatingOrigin : MonoBehaviour
     public float defaultAngularVelocity = 0.14f;
 
     GameObject tempObj;
+    Vector3 cameraPosition;
     ParticleEmitter pe;
     Rigidbody r;
     Transform t;
+    Object[] objects;
+    Particle[] emitterParticles;
 
     void LateUpdate()
     {
-        Vector3 cameraPosition = gameObject.transform.position;
+        cameraPosition = gameObject.transform.position;
         cameraPosition.z = 0f;
         //cameraPosition.x = 0f;
         if (cameraPosition.magnitude > threshold)
         {
-            Object[] objects = FindObjectsOfType(typeof(Transform));
+            objects = FindObjectsOfType(typeof(Transform));
             for(int i=0;i<objects.Length;i++)
             {
-                t = (Transform)objects[i];
-                if(t.tag == "Stationary")
+                t = objects[i] as Transform;
+                if(t.CompareTag("Stationary"))
                 {
                     continue;
                 }
@@ -43,8 +46,8 @@ public class FloatingOrigin : MonoBehaviour
             objects = FindObjectsOfType(typeof(ParticleEmitter));
             for (int i = 0; i < objects.Length; i++)
             {
-                pe = (ParticleEmitter)objects[i];
-                Particle[] emitterParticles = pe.particles;
+                pe = objects[i] as ParticleEmitter;
+                emitterParticles = pe.particles;
                 for (int j = 0; j < emitterParticles.Length; j++)
                 {
                     emitterParticles[j].position -= cameraPosition;
@@ -57,7 +60,7 @@ public class FloatingOrigin : MonoBehaviour
                 objects = FindObjectsOfType(typeof(Rigidbody));
                 for (int i = 0; i < objects.Length; i++)
                 {
-                    r = (Rigidbody)objects[i];
+                    r = objects[i] as Rigidbody;
                     if (r.gameObject.transform.position.magnitude > physicsThreshold)
                     {
                         r.sleepAngularVelocity = float.MaxValue;

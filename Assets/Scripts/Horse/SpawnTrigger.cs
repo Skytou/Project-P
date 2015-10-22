@@ -32,7 +32,7 @@ public class SpawnTrigger : MonoBehaviour
     public void OnTriggerEnter2D(Collider2D collision)
     {
         //Debug.Log(collision.gameObject.name);
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             //Debug.Log("Trigger");
             randNo = Random.Range(1, maxRange);
@@ -50,7 +50,7 @@ public class SpawnTrigger : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player" /*&& DogRunner.instRef.runStart*/)//check - is game running if needed 
+        if (collision.gameObject.CompareTag("Player") /*&& DogRunner.instRef.runStart*/)//check - is game running if needed 
         {
             Pooler.InstRef.Sleep((gameObject.transform.parent.transform.parent.gameObject));
         }
