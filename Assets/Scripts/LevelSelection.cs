@@ -110,6 +110,7 @@ public class LevelSelection : MonoBehaviour
     public void OnLevelSelected(int level)
     {
         AudioMgr.Inst.PlaySfx(SfxVals.ButtonClick);
+        Debug.Log(level + "vs " + GameGlobalVariablesManager.PlayableLevels);
         if (level >= GameGlobalVariablesManager.PlayableLevels)
         {
             ShowPopup("Coming Soon !!! \n With more action, enemies, powerups and thrilling story");
@@ -171,7 +172,7 @@ public class LevelSelection : MonoBehaviour
             case 7:
                 loadingScreen.SetActive(true);
                 GameGlobalVariablesManager.currentLevelnumber = 7;
-                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse1));
+                StartCoroutine(LoadLevelStr(GameGlobalVariablesManager.SceneHorse4));
                 break;
             case 8:
             case 9:

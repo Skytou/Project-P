@@ -76,7 +76,6 @@ public class HorseHUD : MonoBehaviour
         }
         else
         {
-            SavedData.Inst.SaveAllData();
             if (victory)
             {
                 GameGlobalVariablesManager.OnLevelCleared();
@@ -85,6 +84,7 @@ public class HorseHUD : MonoBehaviour
             {
                 GameGlobalVariablesManager.OnLevelOver();
             }
+            SavedData.Inst.SaveAllData();
             Time.timeScale = 1.0f;
             Application.LoadLevel(GameGlobalVariablesManager.LevelSelection);
         }

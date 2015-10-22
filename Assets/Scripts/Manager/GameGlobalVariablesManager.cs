@@ -34,6 +34,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
     public static string SceneHorse1 = "horse1";
     public static string SceneHorse2 = "horse2";
     public static string SceneHorse3 = "horse3";
+    public static string SceneHorse4 = "horse4";
 
     public static string SceneCastle1 = "castle1";
     public static string SceneCastle2 = "castle2";
@@ -66,7 +67,7 @@ public class GameGlobalVariablesManager : MonoBehaviour
 
     public static int InitLevelsCleared = 0;
     public static int LevelsCleared = 0;
-    public static int PlayableLevels = 7;
+    public static int PlayableLevels = 8;
 
     public static int Enemy1_Drop = 3;
     public static int Enemy2_Drop = 6;

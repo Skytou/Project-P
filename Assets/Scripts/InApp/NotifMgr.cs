@@ -75,7 +75,7 @@ public class NotifMgr : MonoBehaviour {
 
     public void SetNotif_1Hr()
     {
-        var noteConfig = new AndroidNotificationConfiguration(3 * EnergyRefillTime, "Epic Clash - The Puli", "Got an energy, conitnue the game", "Have fun")
+        var noteConfig = new AndroidNotificationConfiguration(3 * EnergyRefillTime, "Epic Clash - The Puli", "Got an energy, continue the game", "Have fun")
         {
             extraData = "one-hour-note",
             groupKey = "my-note-group",
